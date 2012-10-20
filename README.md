@@ -8,7 +8,7 @@ Kata Script ABC
 
 :Ruby          : rb/abc/\<index\>/indexKata.rb
 
-:JavaScript    : js/abc/\<index\>/indexKata.js\n
+:JavaScript    : js/abc/\<index\>/indexKata.js \r\n
 :xslt          : xsl/abc/\<index\>/indexKata.xsl
 
 Test Data
