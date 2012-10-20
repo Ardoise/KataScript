@@ -18,4 +18,4 @@ Objectifs : + vs -
 ==================
 - Faster      (time)
 - Power       (volume)
-- top ps      (CPU,RAM,FS)
+- top ps      (CPU,RAM)
