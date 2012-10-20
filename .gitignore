@@ -10,3 +10,15 @@
 *.lai
 *.la
 *.a
+
+# Temporaries files
+*.bak
+*.tmp
+*.*~
+
+# Binaries
+*.bin
+*.exe
+
+# Word
+*.doc
