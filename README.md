@@ -1,4 +1,4 @@
 abcKataSh
 =========
 
-abcKatSh : abc Kata Shell
+abcKataSh : abc Kata Shell *** abc/<index>/indexKata.sh
