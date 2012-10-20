@@ -1,5 +1,4 @@
-g2KMS
-=====
+KatabcSh
+========
 
-g2KMS : Kata Knowledge Management Scripting
-Kata Shell ABC
+KatabcSh : Kata ABC Shell
