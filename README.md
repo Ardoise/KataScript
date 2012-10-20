@@ -1,4 +1,4 @@
-KatabcSh
+abcKataSh
 ========
 
-KatabcSh : Kata ABC Shell
+abcKatSh : abc Kata Shell
