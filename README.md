@@ -10,13 +10,13 @@ Kata Script ABC : XSLT          : xsl/abc/\<index\>/indexKata.xsl
 
 Test Data
 =========
-                                : xml
-                                : csv
-                                : json
-                                : txt
+: xml
+: csv
+: json
+: txt
 
 Objectifs : + vs - 
 ==================
-                                : Faster      (time)
-                                : Power       (volume)
-                                : top ps      (CPU,RAM,FS)
+: Faster      (time)
+: Power       (volume)
+: top ps      (CPU,RAM,FS)
