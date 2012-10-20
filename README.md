@@ -7,8 +7,8 @@ Kata Script ABC
 - JavaScript ... : js/\<index\>/indexKata.js
 - xslt .............. : xsl/\<index\>/indexKata.xsl
 
-Test Data
-=========
+Tested with data structure
+==========================
 - xml
 - csv
 - json
@@ -16,6 +16,6 @@ Test Data
 
 Objectifs : + vs - 
 ==================
-- Faster      (time)
+- Benchmarks  (time faster)
 - Power       (volume)
 - top ps      (CPU,RAM)
