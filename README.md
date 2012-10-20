@@ -5,7 +5,7 @@ Kata Script ABC
 - Perl ............. : pl/abc/\<index\>/indexKata.pl
 - Ruby ........... : rb/abc/\<index\>/indexKata.rb
 - JavaScript ... : js/abc/\<index\>/indexKata.js
-- xslt ............. : xsl/abc/\<index\>/indexKata.xsl
+- xslt .............. : xsl/abc/\<index\>/indexKata.xsl
 
 Test Data
 =========
