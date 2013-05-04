@@ -19,9 +19,9 @@ Objectifs : + vs -
   - Power       (volume)
   - lean        (CPU,RAM)
   - StyleGuide
-    --  https://code.google.com/p/google-styleguide/
-    --  http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
-    --  http://google-styleguide.googlecode.com/svn/trunk/htmlcssguide.xml
-    --  http://google-styleguide.googlecode.com/svn/trunk/shell.xml
-    --  http://google-styleguide.googlecode.com/svn/trunk/pyguide.html
-    --  http://google-styleguide.googlecode.com/svn/trunk/xmlstyle.html
+    - https://code.google.com/p/google-styleguide/
+    - http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
+    - http://google-styleguide.googlecode.com/svn/trunk/htmlcssguide.xml
+    - http://google-styleguide.googlecode.com/svn/trunk/shell.xml
+    - http://google-styleguide.googlecode.com/svn/trunk/pyguide.html
+    - http://google-styleguide.googlecode.com/svn/trunk/xmlstyle.html
