@@ -2,11 +2,17 @@
 #
 # All error messages should go to STDERR.
 
-# All function comments should contain:
-#    Description of the function
-#    Global variables used and modified
-#    Arguments taken
-#    Returned values other than the default exit status of the last command run
+export PATH='/usr/bin:'
+
+#######################################
+# Error messages
+# Globals:
+#   PATH_DIR
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 err() {
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@" >&2
 }
@@ -15,3 +21,9 @@ err() {
 #  err "Unable to do_something"
 #  exit "${E_DID_NOTHING}"
 # fi
+
+# All function comments should contain:
+#    Description of the function
+#    Global variables used and modified
+#    Arguments taken
+#    Returned values other than the default exit status of the last command run
