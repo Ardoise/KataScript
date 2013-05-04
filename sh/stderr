@@ -22,8 +22,4 @@ err() {
 #  exit "${E_DID_NOTHING}"
 # fi
 
-# All function comments should contain:
-#    Description of the function
-#    Global variables used and modified
-#    Arguments taken
-#    Returned values other than the default exit status of the last command run
+# TODO(etopaze): change the name file, use extension .sh only for the library (bug ####)
