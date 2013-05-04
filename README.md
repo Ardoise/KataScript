@@ -13,8 +13,8 @@ Tested with data structure
   - xml
   - txt
 
-Objectifs : + vs - 
-==================
+Objectifs : + vs - : Practice 
+=============================
   - Benchmarks  (time faster)
   - Power       (volume)
   - lean        (CPU,RAM)
