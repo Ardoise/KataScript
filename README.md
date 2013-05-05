@@ -1,5 +1,5 @@
-Kata Script ABC
-===============
+Kata Script REST
+================
   - JavaScript ... : js/\<index\>/indexKata.js
   - Shell ........... : sh/\<index\>/indexKata.sh
   - Python ........ : py/\<index\>/indexKata.py
@@ -17,7 +17,8 @@ Objectifs : + vs - : Practice
 =============================
   - Benchmarks  (time faster)
   - Power       (volume)
-  - lean        (CPU,RAM)
+  - Lean        (CPU,RAM)
+  - Rest        (http+html+uri)
   - StyleGuide
     - https://code.google.com/p/google-styleguide/
     - http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
