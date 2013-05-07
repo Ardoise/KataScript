@@ -4,6 +4,8 @@
   "author": "Ardoise <ardoise.gisement@gmail.com>",
   "description": "echauffement",
   "dependencies": {
+    "express": "~3.2.1",
+    "ejs": "~0.8.3",
     "markdown": "~0.4"
-  }
+  },
 }
