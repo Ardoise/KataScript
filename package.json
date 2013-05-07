@@ -1,0 +1,7 @@
+{
+  "name": "katascript",
+  "version": "0.0.a",
+  "dependencies": {
+    "markdown": "~0.4"
+  }
+}
