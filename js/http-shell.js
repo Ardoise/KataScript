@@ -63,13 +63,14 @@ var server = http.createServer(function(req, res) {
         // console.log('param4: ' + param4);
         
         if (error !== null) {
-          console.log('{"pid":' + child.pid + '","env":' + param1 + param2+ ',"stderr":"' + error + '","cmd":"' + cmd + '"}');
+          console.log('{"pid":' + child.pid + ',"env":' + JSON.stringify([param1,param2]) + ',"stderr":' + JSON.stringify(error) + ',"cmd":' + JSON.stringify(cmd) + '}');
         } else {
-          console.log('{"pid":' + child.pid + '","env":' + param1 + param2+ ',"stdout":"' + 200 + '","cmd":"' + cmd + '"}');
+          console.log('{"pid":' + child.pid + ',"env":' + JSON.stringify([param1,param2]) + ',"stdout":' + 200 + '","cmd":' + JSON.stringify(cmd) + '}');
         }
-
+        
         // return RESPONSE form JSON
-        var result = '{"pid":' + child.pid + ',"stdout":' + stdout + ',"stderr":"' + stderr + '","cmd":"' + cmd + '"}';
+        //var result = '{"pid":' + child.pid + ',"stdout":' + stdout + ',"stderr":"' + stderr + '","cmd":"' + cmd + '"}';
+        var result = '{"pid":' + child.pid + ',"stdout":"' + stdout + '","stderr":"' + stderr + '","cmd":' + JSON.stringify(cmd) + '}';
         res.end(result + '\n');
       });
   } else {
