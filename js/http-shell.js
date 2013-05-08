@@ -5,6 +5,9 @@
 // request        : http://127.0.0.1:8080/?cmd=mycommand
 // response JSON  : {pid, stdout, stderr, cmd}
 // log JSON       : {pid, env, stderr/status, cmd}
+//
+// @Author: ardoise.gisement@gmail.com
+// @Date: 20130508
 // #############################################################
 // INSTALLATION :
 //   apt-get install npm
