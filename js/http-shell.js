@@ -1,10 +1,16 @@
-// #############################################################
-// commande shell/dos execécutable au travers d'un service http 
+// ##############################################################
+// création d'un service http serveur port 8080
+// commandes shell/dos execécutables au travers du service http
 // 
 // request        : http://127.0.0.1:8080/?cmd=mycommand
 // response JSON  : {pid, stdout, stderr, cmd}
 // log JSON       : {pid, env, stderr/status, cmd}
 // #############################################################
+// INSTALLATION :
+//   apt-get install npm
+//   npm update
+// MANAGE :
+//   node http-shell.js
 
 // var sys = require('sys'); // DEPRECATED ?
 var http = require('http');
