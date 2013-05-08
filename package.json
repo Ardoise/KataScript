@@ -1,8 +1,8 @@
 {
   "name": "katascript",
-  "version": "0.0.a",
+  "version": "0.1.0",
   "author": "Ardoise <ardoise.gisement@gmail.com>",
-  "description": "echauffement",
+  "description": "nodejs module for now",
   "dependencies": {
     "express": "~3.2.1",
     "ejs": "~0.8.3",
