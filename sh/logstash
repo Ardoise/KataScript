@@ -70,20 +70,38 @@ EOF
 echo "Type something in the console where you started logstash";
 cat logstash.cmd;
 
+
+startshipper.sh
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+  
+JAVA_HOME=${FMW_HOME}/jrockit/current
+LOGGER_HOME=$HOME/logger
+ 
+nohup $JAVA_HOME/bin/java -jar $LOGGER_HOME/logstash.jar agent -f $LOGGER_HOME/shipper.conf > logger-stdout.log 2>&1&
 # FIRST OUTPUT
-java -jar logstash-1.1.12-flatjar.jar agent -f logstash-simple.conf &
+nohup $JAVA_HOME/bin/java -jar $LOGGER_HOME/logstash-1.1.12-flatjar.jar agent -f $LOGGER_HOME/logstash-simple.conf > logstash-simple-stdout.log 2>&1&
 echo "pid=$?"
 
 # SECOND OUTPUT
-java -jar logstash-1.1.12-flatjar.jar agent -f logstash-elasticsearch.conf &
+nohup $JAVA_HOME/bin/java -jar $LOGGER_HOME/logstash-1.1.12-flatjar.jar agent -f $LOGGER_HOME/logstash-elasticsearch.conf  > logstash-elasticsearch-stdout.log 2>&1&
 echo "pid=$?"
 
 # TESTUI
-java -jar logstash-1.1.12-flatjar.jar agent -f logstash-elasticsearch.conf -- web --backend elasticsearch://127.0.0.1/ &
+nohup $JAVA_HOME/bin/java -jar $LOGGER_HOME/logstash-1.1.12-flatjar.jar agent -f $LOGGER_HOME/logstash-elasticsearch.conf -- web --backend elasticsearch://127.0.0.1/  > logstash-elasticsearch-wstdout.log 2>&1&
 echo "pid=$?"
 
 # COMPLEX OUTPUT
-java -jar logstash-1.1.12-flatjar.jar agent -f logstash-complex.conf -- web --backend elasticsearch://127.0.0.1/ &
+nohup $JAVA_HOME/bin/java -jar $LOGGER_HOME/logstash-1.1.12-flatjar.jar agent -f $LOGGER_HOME/logstash-complex.conf -- web --backend elasticsearch://127.0.0.1/  > logstash-complex-stdout.log 2>&1&
 echo "pid=$?"
 
 # TEST
