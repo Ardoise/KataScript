@@ -13,6 +13,10 @@ Tested with data structure
   - xml
   - txt
 
+depends
+==========================
+  - logstash [http://logstash.net]
+
 Objectifs : + vs - : Practice 
 =============================
   - Benchmarks  (time faster)
