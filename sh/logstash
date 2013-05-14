@@ -31,6 +31,77 @@ output {
 }
 EOF
 
+cat <<-EOF >logstash-indexer.conf
+ input {
+ redis {
+ host => "refhost"
+ data_type => "list"
+ key => "logstash-redis"
+ type => "redis-input"
+ }
+ }
+ 
+filter {
+ grok {
+ type => "producer" # for logs of type "syslog"
+ pattern => "%{SYSLOGLINE}"
+ # You can specify multiple 'pattern' lines
+ }
+ multiline{
+ type => "xyz-stdout-log"
+ pattern => "^\s"
+ what => previous
+ }
+ multiline{
+ type => "xyz-server2-log"
+ pattern => "^\s"
+ what => previous
+ }
+ multiline{
+ type => "xyz-server3-log"
+ pattern => "^\s"
+ what => previous
+ }
+ } 
+output {
+ 
+# enable stdout for debug purposes only
+ stdout { }
+ 
+#
+ elasticsearch {
+ host => "localhost"
+ }
+ }
+EOF
+ 
+cat <<-EOF >logstash-test.conf
+ input{
+ # XYZ Inputs
+ file{
+ type => "xyz-stdout-log"
+ path => [ "/tmp/xyz-stdout.log" ]
+ }
+ file{
+ type => "xyz-server2-log"
+ path => [ "/tmp/xyz-server2.log" ]
+ }
+ file{
+ type => "xyz-server3-log"
+ path => [ "/tmp/xyz-server3.log" ]
+ }
+}
+output{
+ redis{
+ host => 'loghost1'
+ data_type => 'list'
+ key => 'logstash-redis'
+ }
+# stdout{
+ # }
+ }
+EOF
+ 
 cat <<EOF >logstash-pattern.conf
 # This is a comment. You should use comments to describe
 # parts of your configuration.
@@ -70,20 +141,7 @@ EOF
 echo "Type something in the console where you started logstash";
 cat logstash.cmd;
 
-
-startshipper.sh
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-  
+# JRE ORACLE JROCKBIT TR  
 JAVA_HOME=${FMW_HOME}/jrockit/current
 LOGGER_HOME=$HOME/logger
  
