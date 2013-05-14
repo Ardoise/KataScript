@@ -1,1 +1,97 @@
-java -jar logstash-1.1.12-flatjar.jar agent -f logstash-simple.conf
+#!/bin/bash
+# REF : http://logstash.net/docs/1.1.12/tutorials/getting-started-simple
+
+cat <<EOF >logstash-simple.conf
+input { stdin { type => "stdin-type"}}
+output { stdout { debug => true debug_format => "json"}}
+EOF
+
+cat <<EOF >logstash-elasticsearch.conf
+input { stdin { type => "stdin-type"}}
+output { 
+  stdout { debug => true debug_format => "json"}
+  elasticsearch { embedded => true }
+}
+EOF
+
+cat <<EOF >logstash-complex.conf
+input {
+  stdin {
+    type => "stdin-type"
+  }
+  file {
+    type => "syslog"
+    # Wildcards work, here :)
+    path => [ "/var/log/*.log", "/var/log/messages", "/var/log/syslog" ]
+  }
+}
+output {
+  stdout { }
+  elasticsearch { embedded => true }
+}
+EOF
+
+cat <<EOF >logstash-pattern.conf
+# This is a comment. You should use comments to describe
+# parts of your configuration.
+input {
+  ...
+}
+filter {
+  ...
+}
+output {
+  ...
+}
+# debug => false
+# debug => true
+# name => "Hello world"
+# port => 33
+# path => [ "/var/log/messages", "/var/log/*.log" ]
+# path => "/data/mysql/mysql.log"
+# match => [ "field1", "pattern1", "field2", "pattern2" ]
+# The above would internally be represented as this hash: { "field1" => "pattern1", "field2" => "pattern2" }
+
+EOF
+
+cat <<EOF >logstash.cmd
+{
+ "@source":"stdin://jvstratusmbp.local/",
+ "@type":"stdin",
+ "@tags":[],
+ "@fields":{},
+ "@timestamp":"2013-05-14T07:20:16.092000Z",
+ "@source_host":"jvstratusmbp.local",
+ "@source_path":"/",
+ "@message":"test"
+}
+EOF
+
+echo "Type something in the console where you started logstash";
+cat logstash.cmd;
+
+# FIRST OUTPUT
+java -jar logstash-1.1.12-flatjar.jar agent -f logstash-simple.conf &
+echo "pid=$?"
+
+# SECOND OUTPUT
+java -jar logstash-1.1.12-flatjar.jar agent -f logstash-elasticsearch.conf &
+echo "pid=$?"
+
+# TESTUI
+java -jar logstash-1.1.12-flatjar.jar agent -f logstash-elasticsearch.conf -- web --backend elasticsearch://127.0.0.1/ &
+echo "pid=$?"
+
+# COMPLEX OUTPUT
+java -jar logstash-1.1.12-flatjar.jar agent -f logstash-complex.conf -- web --backend elasticsearch://127.0.0.1/ &
+echo "pid=$?"
+
+# TEST
+curl -s http://127.0.0.1:9200/_status?pretty=true | grep logstash
+curl -s -XGET http://127.0.0.1:9200/logstash-2013.05.14/_search?q=@type:stdin
+
+
+# CONTROL PORTS
+netstat -napt | grep -i LISTEN
+echo "The 9200 and 9300 ports are the embedded ES listening."
+echo "The 9301 and 9302 ports are the agent and web interfaces talking to ES. 9292 is the port the web ui listens on."
