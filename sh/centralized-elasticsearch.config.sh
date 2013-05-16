@@ -48,10 +48,19 @@ cat <<EOF >centralized-elasticsearch.yml
 EOF
 
 cat <<EOF >centralized-elasticsearch.uri.sh
-curl -s -XGET http://127.0.0.1:9300/
-curl -s -XGET http://127.0.0.1:9200/
+curl -s http://127.0.0.1:9300/
+curl -s http://127.0.0.1:9200/_status?pretty=true | grep logstash
+curl -s -XGET http://127.0.0.1:9200/logstash-2013.05.14/_search?q=@type:stdin
 curl -s -XGET http://127.0.0.1:9292/search
+# CONTROL PORTS
+netstat -napt | grep -i LISTEN
 EOF
 chmod a+x centralized-elasticsearch.uri.sh
+
+cat <<EOF >centralized-elasticsearch.cntrl.sh
+# CONTROL PORTS
+netstat -napt | grep -i LISTEN
+EOF
+chmod a+x centralized-elasticsearch.cntrl.sh
 
 exit 0
