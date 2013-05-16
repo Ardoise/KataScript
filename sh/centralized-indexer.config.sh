@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 cat <<EOF >centralized-indexer.conf
 input {
   redis {
@@ -27,7 +26,7 @@ filter {
   what => previous
  }
  multiline{
-  type => "xyz-server-log"
+  type => "xyz-server1-log"
   pattern => "^\s"
   what => previous
  }
