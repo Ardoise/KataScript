@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 cat <<EOF >centralized-indexer.conf
 input {
   redis {
@@ -7,14 +8,36 @@ input {
     type => "redis-input"
     # these settings should match the output of the agent
     data_type => "list"
-    key => "logstash"
+    key => "logstash-redis"
 
     # We use json_event here since the sender is a logstash agent
     format => "json_event"
   }
 }
+
+filter {
+ grok {
+  type => "producer" # for logs of type "syslog"
+  pattern => "%{SYSLOGLINE}"
+  # You can specify multiple 'pattern' lines
+ }
+ multiline{
+  type => "xyz-stdout-log"
+  pattern => "^\s"
+  what => previous
+ }
+ multiline{
+  type => "xyz-server-log"
+  pattern => "^\s"
+  what => previous
+ }
+}
+
 output {
-  stdout { debug => true debug_format => "json"}
+  stdout { 
+    debug => true 
+    debug_format => "json"
+  }
   elasticsearch {
     host => "127.0.0.1"
   }
