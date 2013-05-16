@@ -20,7 +20,7 @@ output {
 EOF
 
 cat <<EOF >centralized-shipper.sh
-nohup java -jar logstash-1.1.12-flatjar.jar agent -f centralized-shipper.conf &
+nohup java -jar logstash-1.1.12-flatjar.jar agent -f centralized-shipper.conf > logger-stdout.log 2>&1&
 EOF
 chmod a+x centralized-shipper.sh
 
