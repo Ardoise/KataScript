@@ -21,7 +21,7 @@ output{
 EOF
 
 cat <<EOF >distributed-shipper.sh
-nohup java -jar logstash-1.1.12-flatjar.jar agent -f distributted-shipper.conf &
+nohup java -jar logstash-1.1.12-flatjar.jar agent -f distributted-shipper.conf > logger-stdout.log 2>&1&
 EOF
 chmod a+x distributed-shipper.sh
 
