@@ -1,22 +1,45 @@
 #!/bin/bash
 
+# {server, service},
+# {"distributed", [shipper]},
+# {"centralised", [redis, elasticsearch, indexer, shipper]}
+
 cat <<EOF >distributed-shipper.conf
 input{
  # xyz Inputs
  file{
   type => "xyz-stdout-log"
   path => [ "/.../logs/xyz_server1/xyz_server1-stdout.log" ]
+ }
+ file {
+  type => "apache-log"
+  path => "/var/log/apache2/access.log"
+ }
+}
+filter {
+  grok {
+    type => "apache-log"
+    pattern => "%{COMBINEDAPACHELOG}"
+  }
 }
 output{
-  stdout { debug => true debug_format => "json"}
+  stdout { 
+   debug => true 
+   debug_format => "json
+  }
   redis{
-    host => 'centralizedhost'
+    host => 'centralized'
     data_type => 'list'
     key => 'logstash-redis'
   }
- 
-  # stdout{
-  # }
+  # greylog
+  gelf {
+    type => "apache-log"
+    host => "localhost"
+    facility => "apache"
+    level => "INFO"
+    sender => "%{@source_host}"
+  }
 }
 EOF
 
