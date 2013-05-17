@@ -17,14 +17,15 @@ cat <<EOF >centralized-elasticsearch.web.sh
 # /etc/rc.d/init.d/elasticsearch start
 
 # Backend
-nohup java -jar logstash-1.1.12-flatjar.jar web --backend elasticsearch://127.0.0.1/ &
+nohup java -jar logstash-1.1.12-flatjar.jar --web --backend elasticsearch://127.0.0.1/ &
+# nohup java -jar logstash-1.1.12-monolithic.jar --web --backend elasticsearch://127.0.0.1/ &
 EOF
 chmod a+x centralized-elasticsearch.web.sh;
 
 cat <<EOF >centralized-elasticsearch.conf
 output {
   elasticsearch {
-    # bind_host => 127.0.0.1 # string (optional)
+    bind_host => 127.0.0.1 # string (optional)
     # cluster => ... # string (optional)
     document_id => nil # string (optional), default: nil
     embedded => false # boolean (optional), default: false
