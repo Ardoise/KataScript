@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/sh
 
 cat <<EOF >centralized-redis.getbin.sh
 curl -O http://redis.googlecode.com/files/redis-2.6.13.tar.gz
