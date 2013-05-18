@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# SERVER CENTRALIZED
+# DEPLOY CENTRALIZED SERVER : BROKER, INDEXER, SHIPPER, STORAGESEARCH, WEBUI
 
 ./centralized-broker.config.sh
 ./centralized-indexer.config.sh
