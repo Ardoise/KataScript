@@ -13,15 +13,11 @@ fi
 EOF
 chmod a+x centralized-elasticsearch.getbin.sh;
 
-cat <<EOF >centralized-elasticsearch.web.sh
+cat <<EOF >centralized-elasticsearch.sh
 # Foreground
 sudo /etc/rc.d/init.d/elasticsearch start
-
-# Backend
-# nohup java -jar logstash-1.1.12-flatjar.jar web --backend elasticsearch://127.0.0.1/ &
-nohup java -jar logstash-1.1.12-monolithic.jar web --backend elasticsearch://127.0.0.1/ &
 EOF
-chmod a+x centralized-elasticsearch.web.sh;
+chmod a+x centralized-elasticsearch.sh;
 
 cat <<EOF >centralized-elasticsearch.conf
 output {
