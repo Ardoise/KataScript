@@ -55,10 +55,4 @@ netstat -napt | grep -i LISTEN
 EOF
 chmod a+x centralized-elasticsearch.uri.sh
 
-cat <<EOF >centralized-elasticsearch.cntrl.sh
-# CONTROL PORTS
-netstat -napt | grep -i LISTEN
-EOF
-chmod a+x centralized-elasticsearch.cntrl.sh
-
 exit 0
