@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# CLIENT SHIPPER : DISTRIBUTED
+# DEPLOY DISTRIBUTED CLIENT : SHIPPER
 
 cat <<EOF >distributed-shipper.conf
 input{
