@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# SERVER CENTRALIZED
+
 ./centralized-broker.config.sh
 ./centralized-indexer.config.sh
 ./centralized-shipper.config.sh
