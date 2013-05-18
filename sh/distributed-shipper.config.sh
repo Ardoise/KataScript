@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# {server, service},
-# {"distributed", [shipper]},
-# {"centralised", [redis, elasticsearch, indexer, shipper]}
+# CLIENT SHIPPER : DISTRIBUTED
 
 cat <<EOF >distributed-shipper.conf
 input{
