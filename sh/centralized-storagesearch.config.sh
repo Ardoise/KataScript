@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 cat <<"EOF" >centralized-elasticsearch.getbin.sh
 #!/bin/sh
 ES_PACKAGE=elasticsearch-0.20.5.zip
