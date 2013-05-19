@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# DEPLOY STANDLAONE SERVER : LOGIN
+. stdlevel
+
 # http://post-it.alinto.com/211/installation-et-configuration-de-logstash/
 
 cat <<EOF >logstash-login.conf
