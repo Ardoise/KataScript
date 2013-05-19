@@ -18,7 +18,7 @@ output {
     debug => true 
     debug_format => "json"
   }
-  # shipper local
+  # send flowing : test local
   redis { 
     host => "127.0.0.1" 
     data_type => "list" 
