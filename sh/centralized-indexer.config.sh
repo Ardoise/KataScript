@@ -48,4 +48,8 @@ nohup java -jar logstash-1.1.12-flatjar.jar agent -f centralized-indexer.conf &
 EOF
 chmod a+x centralized-indexer.sh
 
+cat <<EOF >centralized-indexer.test.sh
+echo -n $(date '+%d/%m/%Y %r')
+curl -s -XGET http://127.0.0.1:9200/logstash-$(date '+%Y.%m.%d')/_search?q=@type:stdin-type
+EOF
 exit 0;
