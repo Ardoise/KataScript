@@ -8,7 +8,7 @@ chmod a+x centralized-webui.sh;
 
 cat <<EOF >centralized-webui.test.sh
 echo -n $(date '+%d/%m/%Y %r')
-curl -s -XGET http://127.0.0.1:9292
+curl -s -XGET http://127.0.0.1:9292/search
 EOF
 chmod a+x centralized-webui.test.sh
 
