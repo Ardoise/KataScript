@@ -6,6 +6,13 @@ input {
     type => "stdin-type"
   }
 }
+filter {
+  # GreyLog2
+  grok {
+    type => "apache-log"
+    pattern => "%{COMBINEDAPACHELOG}"
+  }
+}
 output {
   stdout { 
     debug => true 
