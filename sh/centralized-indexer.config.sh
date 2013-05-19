@@ -15,21 +15,21 @@ input {
 }
 
 filter {
- grok {
-  type => "producer" # for logs of type "syslog"
-  pattern => "%{SYSLOGLINE}"
-  # You can specify multiple 'pattern' lines
- }
- multiline{
-  type => "xyz-stdout-log"
-  pattern => "^\s"
-  what => previous
- }
- multiline{
-  type => "xyz-server1-log"
-  pattern => "^\s"
-  what => previous
- }
+  grok {
+    type => "producer" # for logs of type "syslog"
+    pattern => "%{SYSLOGLINE}"
+    # You can specify multiple 'pattern' lines
+  }
+  multiline{
+    type => "xyz-stdout-log"
+    pattern => "^\s"
+    what => previous
+  }
+  multiline{
+    type => "xyz-server1-log"
+    pattern => "^\s"
+    what => previous
+  }
 }
 
 output {
