@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. stdlevel
+
 cat <<EOF >centralized-indexer.conf
 input {
   redis {
