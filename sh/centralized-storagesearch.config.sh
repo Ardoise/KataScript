@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# STORAGE and SEARCH
+# DEPLOY CENTRALIZED SERVER : STORAGESEARCH
+. stdlevel
 
 cat <<"EOF" >centralized-elasticsearch.getbin.sh
 #!/bin/sh
