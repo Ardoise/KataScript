@@ -2,6 +2,11 @@
 
 # DEPLOY DISTRIBUTED CLIENT : SHIPPER
 
+cat <<EOF >distributed-logstash.getbin.sh
+curl -O http://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
+EOF
+chmod a+x distributed-logstash.getbin.sh
+
 cat <<EOF >distributed-shipper.conf
 input{
  # xyz Inputs
