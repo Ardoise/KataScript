@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# STORAGE and SEARCH
+
 cat <<"EOF" >centralized-elasticsearch.getbin.sh
 #!/bin/sh
 ES_PACKAGE=elasticsearch-0.20.5.zip
@@ -45,14 +47,12 @@ cat <<EOF >centralized-elasticsearch.yml
 cluster.name: centrallog
 EOF
 
-cat <<EOF >centralized-elasticsearch.uri.sh
+cat <<EOF >centralized-elasticsearch.test.sh
 curl -s http://127.0.0.1:9300/
-curl -s http://127.0.0.1:9200/_status?pretty=true | grep logstash
-curl -s -XGET http://127.0.0.1:9200/logstash-2013.05.14/_search?q=@type:stdin
-curl -s -XGET http://127.0.0.1:9292/search
+curl -s http://127.0.0.1:9200/_status?pretty=true
 # CONTROL PORTS
-netstat -napt | grep -i LISTEN
+netstat -napt | grep -i LISTEN | grep -e "92??"
 EOF
-chmod a+x centralized-elasticsearch.uri.sh
+chmod a+x centralized-elasticsearch.test.sh
 
 exit 0
