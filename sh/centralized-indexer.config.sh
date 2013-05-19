@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# DEPLOY CENTRALIZED SERVER : INDEXER
+
 . stdlevel
 
 cat <<EOF >centralized-indexer.conf
