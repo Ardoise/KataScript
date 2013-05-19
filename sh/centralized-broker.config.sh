@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# DEPLOY CENTRALIZED SERVER : BROKER
 . stdlevel
 
 cat <<EOF >centralized-redis.getbin.sh
