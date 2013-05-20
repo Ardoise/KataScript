@@ -17,6 +17,10 @@ chmod a+x centralized-elasticsearch.getbin.sh;
 
 cat <<EOF >centralized-elasticsearch.sh
 # Foreground
+# elasticsearch -f -Des.network.host=10.0.0.4
+# elasticsearch -f -Des.config=/path/to/config/centralized-elasticsearch.yml
+# elasticsearch -f -Des.config=/path/to/config/centralized-elasticsearch.json
+# elasticsearch -f -Des.index.store.type=memory
 sudo /etc/rc.d/init.d/elasticsearch start
 EOF
 chmod a+x centralized-elasticsearch.sh;
@@ -43,16 +47,58 @@ output {
 }
 EOF
 
+cat <<EOF >centralized-elasticsearch-log4j.yml
+# config/logging.yml
+
+EOF
+
+# http://www.elasticsearch.org/guide/reference/setup/configuration/
+# TODO : http://www.elasticsearch.org/guide/reference/setup/dir-layout/
 cat "/opt/elasticsearch/config/elasticsearch.yml"
 cat <<EOF >centralized-elasticsearch.yml
+network :
+    host : 10.0.0.4
+path:
+  logs: /var/log/elasticsearch
+  data: /var/data/elasticsearch
 cluster.name: centrallog
+node:
+  name: centrallogN0
 EOF
+
+# http://www.elasticsearch.org/guide/reference/setup/configuration/
+cat <<EOF >centralized-elasticsearch.json
+{
+  "network" : {
+    // elasticsearch -f -Des.network.host=10.0.0.4
+    // "host" : "${ES_NET_HOST}"
+    "host" : "10.0.0.4"
+  }
+  "path" : {
+    "logs" : "/var/log/elasticsearch"
+    "data" : "/var/data/elasticsearch"
+  }
+  "cluster" : {
+    "name" : "centrallog"
+  }
+  "node" : {
+    "name" : "centrallogN0"
+  }
+}
+EOF
+
 
 cat <<EOF >centralized-elasticsearch.test.sh
 curl -s http://127.0.0.1:9300/
 curl -s http://127.0.0.1:9200/_status?pretty=true
 # CONTROL PORTS
 netstat -napt | grep -i LISTEN | grep -e "92??"
+# curl -XPUT http://127.0.0.1:9200/kimchy/ -d 
+# '
+# index :
+#     store:
+#         type: memory
+# '
 EOF
 chmod a+x centralized-elasticsearch.test.sh
 
