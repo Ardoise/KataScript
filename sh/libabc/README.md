@@ -1,4 +1,5 @@
 http://fr.wikipedia.org/wiki/GNU_inetutils
+http://linux.die.net/man/1/logger
 
     hostname: affiche ou modifie le nom d'hôte de la machine.
     ifconfig: affichage ou configuration des interfaces réseaux en ligne de commande.
