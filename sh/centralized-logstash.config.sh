@@ -14,6 +14,5 @@ chmod a+x centralized-logstash.getbin.sh
 ./centralized-shipper.config.sh
 ./centralized-storagesearch.config.sh
 ./centralized-webui.config.sh
-./centralized-system.config.sh
 
 exit 0;
