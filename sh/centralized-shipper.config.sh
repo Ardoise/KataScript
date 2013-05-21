@@ -3,7 +3,6 @@
 # DEPLOY CENTRALIZED SERVER : SHIPPER
 . ./stdlevel
 
-
 cat <<EOF >centralized-vhost.conf
 LogFormat "{ \"@timestamp\": \"%{%Y-%m-%dT%H:%M:%S%z}t\", \"@fields\": { \"client\": \"%a\", \"duration_usec\": %D, \"status\": %s, \"request\": \"%U%q\", \"method\": \"%m\", \"referrer\": \"%{Referer}i\" } }" logstash_json
 # Write our 'logstash_json' logs to logs/access_json.log
