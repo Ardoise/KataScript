@@ -3,10 +3,30 @@
 # DEPLOY CENTRALIZED SERVER : SHIPPER
 . ./stdlevel
 
+
+cat <<EOF >centralized-vhost.conf
+LogFormat "{ \"@timestamp\": \"%{%Y-%m-%dT%H:%M:%S%z}t\", \"@fields\": { \"client\": \"%a\", \"duration_usec\": %D, \"status\": %s, \"request\": \"%U%q\", \"method\": \"%m\", \"referrer\": \"%{Referer}i\" } }" logstash_json
+# Write our 'logstash_json' logs to logs/access_json.log
+CustomLog logs/access_json.log logstash_json
+EOF
+[ -d "/etc/logstash" ] || mkdir -p ./etc/logstash;
+[ -d "/etc/logstash" ] && cp centralized-vhost.conf ./etc/logstash/
+[ -d "/etc/apache2/conf.d/" ] && (
+  sudo cp centralized-vhost.conf /etc/apache2/conf.d/;
+  sudo apachectl configtest;
+)
+
+
 cat <<EOF >centralized-shipper.conf
 input {
   stdin {
     type => "stdin-type"
+  }
+  file { 
+    path => "/var/log/httpd/access_json.log" 
+    type => apache 
+    # This format tells logstash to expect 'logstash' json events from the file.
+    format => json_event 
   }
 }
 filter {
@@ -37,6 +57,9 @@ output {
   }
  }
 EOF
+[ -d "/etc/logstash" ] || mkdir -p ./etc/logstash;
+[ -d "/etc/logstash" ] && cp centralized-shipper.conf ./etc/logstash/
+
 
 cat <<EOF >centralized-shipper.sh
 #!/bin/sh
