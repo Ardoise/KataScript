@@ -5,7 +5,7 @@
 
 # depends logger
 
-export PATH='/usr/bin:'
+export PATH=$PATH:'/usr/bin:'
 
 #######################################
 # Out et Error messages
