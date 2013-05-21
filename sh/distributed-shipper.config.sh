@@ -115,7 +115,7 @@ cat <<EOF >distributed-shipper.sh
 # -jar logstash-1.1.9-monolithic.jar agent -vvv 
 # -f "etc/distributed-elasticsearch.conf"
 # -f "dlogger-stdout.log"  
-nohup java -jar logstash-1.1.12-flatjar.jar agent -vvv -f ./distributted-shipper.conf > dlogger-stdout.log 2>&1&
+nohup java -jar logstash-1.1.12-flatjar.jar agent -vvv -f ./distributed-shipper.conf > dlogger-stdout.log 2>&1&
 EOF
 chmod a+x distributed-shipper.sh
 
