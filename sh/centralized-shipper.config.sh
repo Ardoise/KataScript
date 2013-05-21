@@ -39,9 +39,16 @@ output {
 EOF
 
 cat <<EOF >centralized-shipper.sh
-#nohup sudo java -jar logstash-1.1.12-monolithic.jar agent -f centralized-shipper.conf > logger-stdout.log 2>&1&
-nohup java -jar logstash-1.1.12-flatjar.jar agent -f centralized-shipper.conf > logger-stdout.log 2>&1&
+#!/bin/sh
+#nohup sudo java -jar logstash-1.1.12-monolithic.jar agent -f ./centralized-shipper.conf > logger-stdout.log 2>&1&
+nohup java -jar logstash-1.1.12-flatjar.jar agent -f ./centralized-shipper.conf > logger-stdout.log 2>&1&
 EOF
 chmod a+x centralized-shipper.sh
+
+cat <<EOF >centralized-shipper.test.sh
+#!/bin/sh
+ps -efa | grep logstash | grep -v "grep"
+EOF
+chmod a+x centralized-shipper.test.sh
 
 exit 0;
