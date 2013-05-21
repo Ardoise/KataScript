@@ -111,12 +111,33 @@ input {
   stdin {
     type => "stdin-type"
   }
+  # logstash
   file { 
     path => ["/var/log/apache2/access_json.log", "/var/log/httpd/access_json.log"]
     type => apache
     # This format tells logstash to expect 'logstash' json events from the file.
     format => json_event 
   }
+  # message
+  file {
+    type => "linux-syslog"
+    path => [ "/var/log/messages" ]
+  }
+  # http access
+  file {
+    type => "apache-access"
+    path => ["/var/log/apache2/access.log", "/var/log/httpd/access.log"]
+  }
+  # http error
+  file {
+    type => "apache-error"
+    path => ["/var/log/apache2/error.log", "/var/log/httpd/error.log"]
+  }
+  # http GreyLog2
+  file {
+    type => "apache-log"
+    path => ["/var/log/apache2/access.log"]
+  }  
 }
 filter {
   # GreyLog2
@@ -130,11 +151,10 @@ output {
     debug => true 
     debug_format => "json"
   }
-  # send flowing : test local
-  redis { 
-    host => "127.0.0.1" 
-    data_type => "list" 
-    key => "logstash-redis"
+  elasticsearch {
+    embedded => false
+    host => "127.0.0.1"
+    cluster => "centrallog"
   }
   # GreyLog2
   gelf {
@@ -153,13 +173,14 @@ EOF
 cat <<EOF >centralized-shipper.sh
 #!/bin/sh
 #nohup sudo java -jar logstash-1.1.12-monolithic.jar agent -f ./centralized-shipper.conf > logger-stdout.log 2>&1&
-nohup java -jar logstash-1.1.12-flatjar.jar agent -f ./centralized-shipper.conf > logger-stdout.log 2>&1&
+nohup java -jar logstash-1.1.12-flatjar.jar agent -vvv -f ./centralized-shipper.conf > logger-stdout.log 2>&1&
 EOF
 chmod a+x centralized-shipper.sh
 
 cat <<EOF >centralized-shipper.test.sh
 #!/bin/sh
 ps -efa | grep logstash | grep -v "grep"
+curl -s -XGET 'http://127.0.0.1:9200/logstash-2013.05.16/_search'
 EOF
 chmod a+x centralized-shipper.test.sh
 

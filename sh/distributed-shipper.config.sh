@@ -12,21 +12,48 @@ chmod a+x distributed-logstash.getbin.sh
 
 cat <<EOF >distributed-shipper.conf
 input{
- file {
-  # Apache2 combined
-  type => "apache-combined"
-  path => "/var/log/apache2/access.log"
- }
- # xyz Inputs
- file{
-  type =&gt; "mon_type_1"
-  path=&gt; ["/var/log/fichier1", "/var/log/fichier2"]
- }
- #on définit l'entrée de type fichier.
- file {
-  type =&gt; "login" #on attribue le type login aux lignes lues dans ce fichier.
-  path =&gt; [ "/var/tmp/test"]
- }
+  # mode debug
+  stdin {
+    type => "stdin-type"
+  }
+  # xyz Inputs
+  file{
+    type =&gt; "mon_type_1"
+    path =&gt; ["/var/log/fichier1", "/var/log/fichier2"]
+  }
+  # login
+  file {
+    type =&gt; "login" #on attribue le type login aux lignes lues dans ce fichier.
+    path =&gt; [ "/var/tmp/test"]
+  }
+
+  # logstash
+  file { 
+    path => ["/var/log/apache2/access_json.log", "/var/log/httpd/access_json.log"]
+    type => apache
+    # This format tells logstash to expect 'logstash' json events from the file.
+    format => json_event 
+  }
+  # syslog
+  file {
+    type => "linux-syslog"
+    path => [ "/var/log/messages" ]
+  }
+  # http access
+  file {
+    type => "apache-access"
+    path => ["/var/log/apache2/access.log", "/var/log/httpd/access.log"]
+  }
+  # http error
+  file {
+    type => "apache-error"
+    path => ["/var/log/apache2/error.log", "/var/log/httpd/error.log"]
+  }
+  # http combined
+  file {
+    type => "apache-combined"
+    path => ["/var/log/apache2/error_log"]
+  }
 }
 filter {
   grok {
@@ -68,30 +95,27 @@ output {
    path =&gt; "/var/log/mon_fichier"
    type =&gt; "mon_type_1"
   }
-  redis{
-    host => 'centralized'
-    data_type => 'list'
-    key => 'logstash-redis'
-  }
   file {
     type =&gt; "login"
     path =&gt; "/var/tmp/sortie"
     flush_interval =&gt; 0 #on écrira dans le fichier après chaque message
     message_format =&gt; "%{@message}" #on veut simplement écrire le contenu du champ "message"
   }
-  # greylog
-  gelf {
-    type => "apache-combined"
-    host => "127.0.0.1"
-    facility => "apache"
-    level => "INFO"
-    sender => "%{@source_host}"
+  # send flowing : test local
+  redis { 
+    host => "127.0.0.1" 
+    data_type => "list" 
+    key => "logstash-redis"
   }
 }
 EOF
 
 cat <<EOF >distributed-shipper.sh
-nohup java -jar logstash-1.1.12-flatjar.jar agent -f ./distributted-shipper.conf > dlogger-stdout.log 2>&1&
+# -Des.path.data="/var/lib/elasticsearch/" 
+# -jar logstash-1.1.9-monolithic.jar agent -vvv 
+# -f "etc/distributed-elasticsearch.conf"
+# -f "dlogger-stdout.log"  
+nohup java -jar logstash-1.1.12-flatjar.jar agent -vvv -f ./distributted-shipper.conf > dlogger-stdout.log 2>&1&
 EOF
 chmod a+x distributed-shipper.sh
 

@@ -5,13 +5,35 @@
 
 cat <<"EOF" >centralized-elasticsearch.getbin.sh
 #!/bin/sh
-ES_PACKAGE=elasticsearch-0.90.0.zip
-ES_DIR=${ES_PACKAGE%%.zip}
+
 SITE=https://download.elasticsearch.org/elasticsearch/elasticsearch
-if [ ! -d "$ES_DIR" ] ; then
+  
+case $@ in
+*ubuntu*)
+  sudo apt-get update
+  sudo apt-get install openjdk-7-jre-headless wget curl -y
+  ES_PACKAGE=elasticsearch-0.20.6.deb;
+  ES_PACKAGE=elasticsearch-0.90.0.deb;
   wget --no-check-certificate $SITE/$ES_PACKAGE;
-  unzip $ES_PACKAGE;  
-fi
+  sudo dpkg -i $ES_PACKAGE;
+  sudo service elasticsearch start ;
+;;
+*redhat*)
+  sudo yum install java-1.7.0-openjdk wget curl -y
+  ES_PACKAGE=elasticsearch-0.90.0.RC2.noarch.rpm;
+  wget --no-check-certificate $SITE/$ES_PACKAGE;
+  sudo rpm -i $ES_PACKAGE;
+  sudo service elasticsearch start
+;;
+*)
+  ES_PACKAGE=elasticsearch-0.90.0.zip
+  ES_DIR=${ES_PACKAGE%%.zip}
+  if [ ! -d "$ES_DIR" ] ; then
+    wget --no-check-certificate $SITE/$ES_PACKAGE;
+    unzip $ES_PACKAGE;  
+  fi
+;;
+esac
 EOF
 chmod a+x centralized-elasticsearch.getbin.sh;
 
@@ -109,11 +131,11 @@ EOF
 # TODO : http://www.elasticsearch.org/guide/reference/setup/dir-layout/
 [ -f "/opt/elasticsearch/config/elasticsearch.yml" ] && cat "/opt/elasticsearch/config/elasticsearch.yml"
 cat <<EOF >centralized-elasticsearch.yml
-network.host : 127.0.0.1
-path.logs: /var/log/elasticsearch
-path.data: /var/data/elasticsearch
-cluster.name: logstash
-node.name: logstashN0
+cluster.name: centrallog
+node.name: "logstash"                 # graylog2
+network.host: 127.0.0.1               # 192.168.x.x | 10.x.x.x
+path.logs: "/var/log/elasticsearch"
+path.data: "/var/lib/elasticsearch"   # /var/data/elasticsearch
 EOF
 
 # http://www.elasticsearch.org/guide/reference/setup/configuration/
@@ -132,19 +154,21 @@ cat <<EOF >centralized-elasticsearch.json
     "name" : "centrallog"
   }
   "node" : {
-    "name" : "centrallogN0"
+    "name" : "logstash"
   }
 }
 EOF
 
-
 cat <<EOF >centralized-elasticsearch.test.sh
+# Console
 sudo /etc/init.d/elasticsearch status
-ps -efa | grep java | grep elasticserach
-curl -s http://127.0.0.1:9300/
-curl -s http://127.0.0.1:9200/_status?pretty=true
-# CONTROL PORTS
+ps -efa | grep java | grep elasticsearch
 netstat -napt | grep -i LISTEN
+curl -XGET 'http://localhost:9200'
+curl -XGET 'http://localhost:9200/_cluster/health?pretty=true'
+curl -XGET 'http://localhost:9200/_cluster/state'
+curl -s 'http://127.0.0.1:9200/_status?pretty=true'
+# Index
 # curl -XPUT http://127.0.0.1:9200/logstash/ -d 
 # '
 # index :

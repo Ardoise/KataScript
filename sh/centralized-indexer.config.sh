@@ -49,7 +49,9 @@ output {
     debug_format => "json"
   }
   elasticsearch {
+    embedded => false
     host => "127.0.0.1"
+    cluster => "centrallog"
   }
 }
 EOF
