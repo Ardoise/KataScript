@@ -5,7 +5,7 @@
 
 cat <<"EOF" >centralized-elasticsearch.getbin.sh
 #!/bin/sh
-ES_PACKAGE=elasticsearch-0.20.5.zip
+ES_PACKAGE=elasticsearch-0.90.0.zip
 ES_DIR=${ES_PACKAGE%%.zip}
 SITE=https://download.elasticsearch.org/elasticsearch/elasticsearch
 if [ ! -d "$ES_DIR" ] ; then
