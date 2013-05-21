@@ -13,9 +13,12 @@ Tested with data structure
   - xml
   - txt
 
-depends
+Depends
 ==========================
   - logstash [http://logstash.net]
+  - elasticsearch [http://elasticsearch.org]
+  - kibana [http://kibana.org]
+  - graylog2 [http://graylog2.org]
 
 Objectifs : + vs - : Practice 
 =============================
