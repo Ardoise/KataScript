@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # DEPLOY CENTRALIZED SERVER : BROKER, INDEXER, SHIPPER, STORAGESEARCH, WEBUI
-. stdlevel
+. ./stdlevel
 
 cat <<EOF >centralized-logstash.getbin.sh
 curl -O http://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar

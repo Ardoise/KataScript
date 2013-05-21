@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # DEPLOY DISTRIBUTED CLIENT : SHIPPER
+. ./stdlevel
 
 cat <<EOF >distributed-logstash.getbin.sh
 curl -O http://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar

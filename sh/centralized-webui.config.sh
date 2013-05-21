@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # DEPLOY CENTRALIZED SERVER : WEBUI
-. stdlevel
+. ./stdlevel
 
 cat <<EOF >centralized-webui.sh
 # nohup java -jar logstash-1.1.12-flatjar.jar web --backend elasticsearch://127.0.0.1/ &

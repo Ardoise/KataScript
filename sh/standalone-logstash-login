@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # DEPLOY STANDALONE SERVICE : LOGIN
-. stdlevel
+. ./stdlevel
 
 # http://post-it.alinto.com/211/installation-et-configuration-de-logstash/
 

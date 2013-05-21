@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # DEPLOY CENTRALIZED SERVER : SHIPPER
-. stdlevel
+. ./stdlevel
 
 cat <<EOF >centralized-shipper.conf
 input {

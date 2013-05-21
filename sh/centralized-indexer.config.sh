@@ -2,7 +2,7 @@
 
 # DEPLOY CENTRALIZED SERVER : INDEXER
 
-. stdlevel
+. ./stdlevel
 
 cat <<EOF >centralized-indexer.conf
 input {

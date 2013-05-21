@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # DEPLOY CENTRALIZED SERVER : BROKER
-. stdlevel
+. ./stdlevel
 
 cat <<EOF >centralized-redis.getbin.sh
 # http://redis.io/download
