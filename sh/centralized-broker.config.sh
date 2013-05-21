@@ -21,6 +21,7 @@ EOF
 chmod a+x centralized-redis.cli.sh
 
 cat <<EOF >centralized-redis.sh
+cd redis-2.6.13
 src/redis-server --loglevel verbose
 EOF
 chmod a+x centralized-redis.sh

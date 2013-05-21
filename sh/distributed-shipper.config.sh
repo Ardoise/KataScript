@@ -4,12 +4,18 @@
 . ./stdlevel
 
 cat <<EOF >distributed-logstash.getbin.sh
-curl -O http://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
+#!/bin/sh
+[ -s "logstash-1.1.12-flatjar.jar" ] || curl -O http://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
 EOF
 chmod a+x distributed-logstash.getbin.sh
 
 cat <<EOF >distributed-shipper.conf
 input{
+ file {
+  # Apache2 combined
+  type => "apache-combined"
+  path => "/var/log/apache2/access.log"
+ }
  # xyz Inputs
  file{
   type =&gt; "mon_type_1"
@@ -19,10 +25,6 @@ input{
  file {
   type =&gt; "login" #on attribue le type login aux lignes lues dans ce fichier.
   path =&gt; [ "/var/tmp/test"]
- }
- file {
-  type => "apache-log"
-  path => "/var/log/apache2/access.log"
  }
 }
 filter {
@@ -51,7 +53,7 @@ filter {
     replace =&gt; ["@message","%{login}"] #On remplace le contenu du champ message en ne mettant que la valeur du login.
   }
   grok {
-    type => "apache-log"
+    type => "apache-combined"
     pattern => "%{COMBINEDAPACHELOG}"
   }
 }
@@ -78,8 +80,8 @@ output {
   }
   # greylog
   gelf {
-    type => "apache-log"
-    host => "localhost"
+    type => "apache-combined"
+    host => "127.0.0.1"
     facility => "apache"
     level => "INFO"
     sender => "%{@source_host}"
@@ -88,16 +90,12 @@ output {
 EOF
 
 cat <<EOF >distributed-shipper.sh
-nohup java -jar logstash-1.1.12-flatjar.jar agent -f distributted-shipper.conf > logger-stdout.log 2>&1&
+nohup java -jar logstash-1.1.12-flatjar.jar agent -f ./distributted-shipper.conf > dlogger-stdout.log 2>&1&
 EOF
 chmod a+x distributed-shipper.sh
 
 cat <<EOF >distributed-shipper.test.sh
 echo test &gt; /var/tmp/test
-echo test &gt; /var/tmp/test
-echo test &gt; /var/tmp/test
-echo "Login : test" &gt; /var/tmp/test
-echo "Login : test" &gt; /var/tmp/test
 echo "Login : test" &gt; /var/tmp/test
 EOF
 chmod a+x distributed-shipper.sh

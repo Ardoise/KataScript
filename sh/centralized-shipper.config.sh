@@ -3,6 +3,12 @@
 # DEPLOY CENTRALIZED SERVER : SHIPPER
 . ./stdlevel
 
+cat <<EOF >centralized-logstash.getbin.sh
+#!/bin/sh
+[ -s "logstash-1.1.12-flatjar.jar" ] || curl -O http://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
+EOF
+chmod a+x centralized-logstash.getbin.sh
+
 cat <<"EOF" >centralized-vhost.conf
 Listen 81
 <VirtualHost *:81>
