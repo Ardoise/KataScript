@@ -109,14 +109,11 @@ EOF
 # TODO : http://www.elasticsearch.org/guide/reference/setup/dir-layout/
 [ -f "/opt/elasticsearch/config/elasticsearch.yml" ] && cat "/opt/elasticsearch/config/elasticsearch.yml"
 cat <<EOF >centralized-elasticsearch.yml
-network :
-    host : 10.0.0.4
-path:
-  logs: /var/log/elasticsearch
-  data: /var/data/elasticsearch
-cluster.name: centrallog
-node:
-  name: centrallogN0
+network.host : 127.0.0.1
+path.logs: /var/log/elasticsearch
+path.data: /var/data/elasticsearch
+cluster.name: logstash
+node.name: logstashN0
 EOF
 
 # http://www.elasticsearch.org/guide/reference/setup/configuration/
@@ -142,11 +139,13 @@ EOF
 
 
 cat <<EOF >centralized-elasticsearch.test.sh
+sudo /etc/init.d/elasticsearch status
+ps -efa | grep java | grep elasticserach
 curl -s http://127.0.0.1:9300/
 curl -s http://127.0.0.1:9200/_status?pretty=true
 # CONTROL PORTS
-netstat -napt | grep -i LISTEN | grep -e "92??"
-# curl -XPUT http://127.0.0.1:9200/kimchy/ -d 
+netstat -napt | grep -i LISTEN
+# curl -XPUT http://127.0.0.1:9200/logstash/ -d 
 # '
 # index :
 #     store:

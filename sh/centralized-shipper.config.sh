@@ -6,6 +6,7 @@
 cat <<EOF >centralized-logstash.getbin.sh
 #!/bin/sh
 [ -s "logstash-1.1.12-flatjar.jar" ] || curl -O http://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
+[ -s "logstash-1.1.11.dev-monolithic.jar" ] || curl -O http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
 EOF
 chmod a+x centralized-logstash.getbin.sh
 
@@ -45,7 +46,7 @@ Listen 81
   # LogFormat "%h %l %u %t \"%r\" %>s %O" common
   # LogFormat "%{Referer}i -> %U" referer
   # LogFormat "%{User-agent}i" agent
-  LogFormat "{ \"@timestamp\": \"%{%Y-%m-%dT%H:%M:%S%z}t\", \"@fields\": { \"client\": \"%a\", \"duration_usec\": %D, \"status\": %s, \"request\": \"%U%q\", \"method\": \"%m\", \"referrer\": \"%{Referer}i\" } }" logstash_json
+  LogFormat "{ \"@timestamp\": \"%{%Y-%m-%d %H:%M:%S%z}t\", \"@fields\": { \"client\": \"%a\", \"duration_usec\": %D, \"status\": %s, \"request\": \"%U%q\", \"method\": \"%m\", \"referrer\": \"%{Referer}i\" } }" logstash_json
   
   CustomLog ${APACHE_LOG_DIR}/access.log combined
   # Write our 'logstash_json' logs to logs/access_json.log

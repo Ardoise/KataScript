@@ -6,6 +6,7 @@
 cat <<EOF >distributed-logstash.getbin.sh
 #!/bin/sh
 [ -s "logstash-1.1.12-flatjar.jar" ] || curl -O http://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
+[ -s "logstash-1.1.11.dev-monolithic.jar" ] || curl -O http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
 EOF
 chmod a+x distributed-logstash.getbin.sh
 

@@ -7,6 +7,7 @@
 cat <<EOF >centralized-logstash.getbin.sh
 #!/bin/sh
 [ -s "logstash-1.1.12-flatjar.jar" ] || curl -O http://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
+[ -s "logstash-1.1.11.dev-monolithic.jar" ] || curl -O http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
 EOF
 chmod a+x centralized-logstash.getbin.sh
 
@@ -54,11 +55,13 @@ output {
 EOF
 
 cat <<EOF >centralized-indexer.sh
+#!/bin/sh
 nohup java -jar logstash-1.1.12-flatjar.jar agent -f ./centralized-indexer.conf > ilogger-stdout.log 2>&1&
 EOF
 chmod a+x centralized-indexer.sh
 
 cat <<EOF >centralized-indexer.test.sh
+#!/bin/sh
 echo -n $(date '+%d/%m/%Y %r')
 curl -s -XGET http://127.0.0.1:9200/logstash-$(date '+%Y.%m.%d')/_search?q=@type:stdin-type
 EOF
