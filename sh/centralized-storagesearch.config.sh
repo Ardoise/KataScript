@@ -54,7 +54,7 @@ EOF
 
 # http://www.elasticsearch.org/guide/reference/setup/configuration/
 # TODO : http://www.elasticsearch.org/guide/reference/setup/dir-layout/
-cat "/opt/elasticsearch/config/elasticsearch.yml"
+[ -f "/opt/elasticsearch/config/elasticsearch.yml" ] && cat "/opt/elasticsearch/config/elasticsearch.yml"
 cat <<EOF >centralized-elasticsearch.yml
 network :
     host : 10.0.0.4
