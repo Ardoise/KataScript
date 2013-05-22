@@ -5,9 +5,9 @@ VERSION in BUILDING !!!
 Centralized :
 + depends : stdlevel
 + broker => indexer => storagesearch => webui
-+   /\                         /\        /\
-+   ||                         ||        ||
-+ shipper                    shipper   shipper
++   /\:::::::::::::::::::::::::/\::::::::/\
++   ||:::::::::::::::::::::::::||::::::::||
++ shipper::::::::::::::::::::shipper:::shipper
 
 Distributed :
 + depends : stdlevel
