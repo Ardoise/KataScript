@@ -25,9 +25,10 @@ echo "sudo service mongodb restart";
 EOF
 
 cat <<EOF >centralized-mongodb.test.sh
-ls -ail /var/log/mongodb
-echo "mongo";
-echo "db.test.save( { a: 1 } )";
-echo "db.test.find()";
+cat <<ZEOF | mongo
+db.test.save( { a: 1 } )
+db.test.find()
+exit
+ZEOF
 EOF
 

@@ -13,17 +13,21 @@ make test
 EOF
 chmod a+x centralized-redis.getbin.sh
 
-cat <<EOF >centralized-redis.cli.sh
-src/redis-cli
-echo "usage : set foo bar"
-echo "usage : get foo"
-EOF
-chmod a+x centralized-redis.cli.sh
-
 cat <<EOF >centralized-redis.sh
 cd redis-2.6.13
 src/redis-server --loglevel verbose
 EOF
 chmod a+x centralized-redis.sh
+
+cat <<EOF >centralized-redis.test.sh
+cd redis-2.6.13
+cat <<ZEOF | src/redis-cli
+set foo bar
+get foo
+exit
+ZEOF
+EOF
+chmod a+x centralized-redis.test.sh
+
 
 exit 0;
