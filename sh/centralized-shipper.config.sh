@@ -5,10 +5,18 @@
 
 cat <<EOF >centralized-logstash.getbin.sh
 #!/bin/sh
-[ -s "logstash-1.1.12-flatjar.jar" ] || curl -O http://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
-[ -s "logstash-1.1.11.dev-monolithic.jar" ] || curl -O http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
+
+[ -d "/var/lib/logstash" ] || sudo mkdir -p /var/lib/logstash ;
+[ -d "/var/log/logstash" ] || sudo mkdir -p /var/log/logstash ;
+[ -d "/etc/logstash" ] || sudo mkdir -p /etc/logstash ;
+[ -d "/opt/logstash" ] || sudo mkdir -p /opt/logstash ;
+sudo cd /opt/logstash
+  [ -s "logstash-1.1.12-flatjar.jar" ] || curl -OL https://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
+  [ -s "logstash-1.1.11.dev-monolithic.jar" ] || curl -OL http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
+cd -
 EOF
 chmod a+x centralized-logstash.getbin.sh
+
 
 cat <<"EOF" >centralized-vhost.conf
 Listen 81

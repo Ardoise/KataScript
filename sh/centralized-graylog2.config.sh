@@ -5,18 +5,20 @@
 
 cat <<EOF >centralized-graylog2.getbin.sh
 #!/bin/sh
-[ -s "graylog2-server-0.11.0.tar.gz" ] ||   curl -O http://download.graylog2.org/graylog2-server/graylog2-server-0.11.0.tar.gz
+[ -s "graylog2-server-0.11.0.tar.gz" ] || curl -O http://download.graylog2.org/graylog2-server/graylog2-server-0.11.0.tar.gz
   tar xvfz graylog2-server-0.11.0.tar.gz
   cd graylog2-server-0.11.0
-  sudo cp graylog2.conf.example /etc/graylog2/graylog2.conf.ori
-  sudo cp elasticsearch.yml.example /etc/graylog2/graylog2-elasticsearch.yml.ori
-  [ -e "/etc/graylog2.conf" ] || sudo cp graylog2.conf.example /etc/graylog2.conf
-  [ -e "/etc/graylog2-elasticsearch.yml" ] || sudo cp elasticsearch.yml.example /etc/graylog2-elasticsearch.yml
+    sudo cp graylog2.conf.example /etc/graylog2/graylog2.conf.ori
+    sudo cp elasticsearch.yml.example /etc/graylog2/graylog2-elasticsearch.yml.ori
+    [ -e "/etc/graylog2.conf" ] || sudo cp graylog2.conf.example /etc/graylog2.conf
+    [ -e "/etc/graylog2-elasticsearch.yml" ] || sudo cp elasticsearch.yml.example /etc/graylog2-elasticsearch.yml
+  cd -
 EOF
 chmod a+x centralized-graylog2.getbin.sh
 
 cat <<EOF >centralized-graylog2.sh
 #!/bin/sh
+
 . ./stdlevel
 
 if [ -e "/etc/graylog2.conf" ]; then
@@ -30,8 +32,9 @@ if [ -e "/etc/graylog2.conf" ]; then
 # -p PIDFILE, --pidfile PIDFILE: Set the file containing the PID of graylog2 to PIDFILE; default: /tmp/graylog2.pid
 # -np, --no-pid-file: Do not write PID file (overrides -p/--pidfile)
 # --version: Show version of graylog2 and exi
-cd graylog2-server-0.11.0
-nohup java -jar graylog2-server.jar --configfile /etc/graylog2.conf --debug > glogger-stdout.log 2>&1&
+  cd graylog2-server-0.11.0
+    nohup java -jar graylog2-server.jar --configfile /etc/graylog2.conf --debug > glogger-stdout.log 2>&1&
+  cd -
 else
   err "/etc/graylog2.conf introuvable";
 fi
