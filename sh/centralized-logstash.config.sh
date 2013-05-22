@@ -4,14 +4,16 @@
 . ./stdlevel
 
 cat <<EOF >centralized-logstash.getbin.sh
+#!/bin/bash
+
 [ -d "/var/lib/logstash" ] || sudo mkdir -p /var/lib/logstash ;
 [ -d "/var/log/logstash" ] || sudo mkdir -p /var/log/logstash ;
 [ -d "/etc/logstash" ] || sudo mkdir -p /etc/logstash ;
 [ -d "/opt/logstash" ] || sudo mkdir -p /opt/logstash ;
-sudo cd /opt/logstash
-  [ -s "logstash-1.1.12-flatjar.jar" ] || curl -OL https://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
-  [ -s "logstash-1.1.11.dev-monolithic.jar" ] || curl -OL http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
-cd -
+
+cd /opt/logstash
+[ -s "logstash-1.1.12-flatjar.jar" ] || sudo curl -OL https://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
+[ -s "logstash-1.1.11.dev-monolithic.jar" ] || sudo curl -OL http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
 EOF
 chmod a+x centralized-logstash.getbin.sh
 
@@ -19,7 +21,8 @@ cat <<EOF >centralized-logstash-elasticsearch.conf
 input {
    file {
       type => "linux-syslog"
-      path => [ "/var/log/messages" ]
+      #path => [ "/var/log/messages" ]
+      path => [ "/var/log/syslog" ]
    }
    file {
       type => "apache-access"
@@ -44,9 +47,8 @@ output {
 EOF
 [ -d "/opt/centrallog" ] || sudo mkdir -p /opt/centrallog ;
 [ -d "/opt/centrallog" ] && (
-  cp centralized-logstash-elasticsearch.conf /opt/centrallog/;
+  sudo cp centralized-logstash-elasticsearch.conf /opt/centrallog/;
 )
-
 
 
 exit 0;

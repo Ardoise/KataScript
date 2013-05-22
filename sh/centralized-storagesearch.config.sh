@@ -50,7 +50,7 @@ chmod a+x centralized-elasticsearch.sh;
 cat <<EOF >centralized-elasticsearch.conf
 output {
   elasticsearch {
-    # bind_host => 127.0.0.1 # string (optional)
+    # bind_host => 192.168.17.89 # string (optional)
     # cluster => centrallog # string (optional)
     document_id => nil # string (optional), default: nil
     embedded => false # boolean (optional), default: false
@@ -133,7 +133,7 @@ EOF
 cat <<EOF >centralized-elasticsearch.yml
 cluster.name: centrallog
 node.name: "logstash"                 # graylog2
-network.host: 127.0.0.1               # 192.168.x.x | 10.x.x.x
+network.host: 192.168.17.89               # 192.168.x.x | 10.x.x.x
 path.logs: "/var/log/elasticsearch"
 path.data: "/var/lib/elasticsearch"   # /var/data/elasticsearch
 EOF
@@ -164,12 +164,13 @@ cat <<EOF >centralized-elasticsearch.test.sh
 sudo /etc/init.d/elasticsearch status
 ps -efa | grep java | grep elasticsearch
 netstat -napt | grep -i LISTEN
-curl -XGET 'http://localhost:9200'
-curl -XGET 'http://localhost:9200/_cluster/health?pretty=true'
-curl -XGET 'http://localhost:9200/_cluster/state'
-curl -s 'http://127.0.0.1:9200/_status?pretty=true'
+curl -XGET 'http://192.168.17.89:9200'
+curl -XGET 'http://192.168.17.89:9200/_cluster/health?pretty=true'
+curl -XGET 'http://192.168.17.89:9200/_cluster/state'
+curl -XGET 'http://192.168.17.89:9200/_status?pretty=true'
+curl -XGET 'http://192.168.17.89:9200/_search?pretty=1&q=*'
 # Index
-# curl -XPUT http://127.0.0.1:9200/logstash/ -d 
+# curl -XPUT http://192.168.17.89:9200/logstash/ -d 
 # '
 # index :
 #     store:
