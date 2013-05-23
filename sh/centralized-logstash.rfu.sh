@@ -153,11 +153,12 @@ cat <<EOF >centralized-logstash.sh
 #!/bin/bash
 # -Des.path.data="/var/lib/elasticsearch/"
 # logstash-1.1.9-monolithic.jar
-nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -vvv -f /etc/logstash/redis.conf -l /var/log/logstash/redis.log 2>&1&
-nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -vvv -f /etc/logstash/elasticsearch.conf -l /var/log/logstash/elasticsearch.log 2>&1&
-# NEXT
-# /etc/init.d/logstash force-reload
-# /etc/init.d/logstash restart
+# OLD CALLs
+# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -vvv -f /etc/logstash/shipper2elasticsearch.conf -l /var/log/logstash/shipper.log 2>&1&
+# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -vvv -f /etc/logstash/shipper2redis.conf -l /var/log/logstash/redis.log 2>&1&
+# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -vvv -f /etc/logstash/redis2elasticsearch.conf -l /var/log/logstash/elasticsearch.log 2>&1&
+
+/etc/init.d/logstash restart
 EOF
 chmod a+x centralized-logstash.sh
 
