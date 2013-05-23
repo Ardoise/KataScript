@@ -93,6 +93,24 @@ output {
   }
   #AMQP
   redis {
+    # batch => ... # boolean (optional), default: false
+    # batch_events => ... # number (optional), default: 50
+    # batch_timeout => ... # number (optional), default: 5
+    # congestion_interval => ... # number (optional), default: 1
+    # congestion_threshold => ... # number (optional), default: 0
+    # data_type => ... # string, one of ["list", "channel"] (optional)
+    # db => ... # number (optional), default: 0
+    # exclude_tags => ... # array (optional), default: []
+    # fields => ... # array (optional), default: []
+    # host => ... # array (optional), default: ["127.0.0.1"]
+    # key => ... # string (optional)
+    # password => ... # password (optional)
+    # port => ... # number (optional), default: 6379
+    # reconnect_interval => ... # number (optional), default: 1
+    # shuffle_hosts => ... # boolean (optional), default: true
+    # tags => ... # array (optional), default: []
+    # timeout => ... # number (optional), default: 5
+    # type => ... # string (optional), default: ""
     host => "192.168.17.89" 
     data_type => "list" 
     key => "logstash-redis"
