@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-# DEPLOY CENTRALIZED SERVER : BROKER, INDEXER, SHIPPER, STORAGESEARCH, WEBUI
+# DEPLOY DISTRIBUTED CLIENT : SHIPPER
 . ./stdlevel
 
-cat <<EOF >centralized-logstash.getbin.sh
+cat <<EOF >distributed-logstash.getbin.sh
 #
 [ -d "/opt/logstash/patterns" ] || sudo mkdir -p /opt/logstash/patterns ;
 [ -d "/var/lib/logstash" ] || sudo mkdir -p /var/lib/logstash ;
@@ -16,46 +16,12 @@ sudo cd /opt/logstash
 [ -s "logstash-1.1.12-flatjar.jar" ] || curl -OL https://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
 [ -s "logstash-1.1.11.dev-monolithic.jar" ] || curl -OL http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
 EOF
-chmod a+x centralized-logstash.getbin.sh
+chmod a+x distributed-logstash.getbin.sh
 
 # SERVICE CENTRALLOG
-# CAS1 : logstash => elasticsearch  (test local into centralized)
-# CAS2 : logstash => redis          (test local into broker)
-cat <<"EOF" >centralized-logstash.putconf.sh
-cat <<ZEOF >centralized-logstash-shipper2elasticsearch.conf
-input {
-  file {
-    type => "linux-syslog"
-    #path => [ "/var/log/syslog" , "/var/log/messages" ]
-    #path => [ "/var/log/syslog" ]  #Ubuntu
-    path => [ "/var/log/messages" ] #CentOS,RHEL
-  }
-  file {
-    type => "apache-access"
-    #path => [ "/var/log/httpd/access_log", "/var/log/apache2/access.log" ]
-    #path => [ "/var/log/apache2/access.log" ] #Ubuntu
-    path => [ "/var/log/httpd/access_log" ] #CentOS,RHEL
-  }
-  file {
-    type => "apache-error"
-    #path => [ "/var/log/httpd/error_log", "/var/log/apache2/error.log" ]
-    #path => [ "/var/log/apache2/error.log" ] #Ubuntu
-    path => [ "/var/log/httpd/error_log" ] #CentOS,RHEL
-  }
-}
-output {
-  stdout {
-    #only for mode DEBUG
-  }
-  elasticsearch {
-    embedded => false         #another process elasticsearch
-    host => "192.168.17.89"   #see elasticsearch.yml
-    cluster => "centrallog"   #see elasticsearch.yml
-  }
-}
-ZEOF
-
-cat <<ZEOF >centralized-logstash-shipper2redis.conf
+# CAS1 : logstash => redis  (test local into distributed)
+cat <<"EOF" >distributed-logstash.putconf.sh
+cat <<ZEOF >distributed-logstash-shipper2redis.conf
 input {
   file {
     type => "linux-syslog"
@@ -112,61 +78,23 @@ output {
     # timeout => ... # number (optional), default: 5
     # type => ... # string (optional), default: ""
     host => "192.168.17.89" 
-    data_type => "list" 
+    data_type => "list"
     key => "logstash-redis"
-  }
-}
-ZEOF
-
-cat <<ZEOF >centralized-logstash-redis2elasticsearch.conf
-input {
-  redis {
-    host => "192.168.17.89" 
-    type => "redis-input"
-    data_type => "list" 
-    key => "logstash-redis"
-    # We use json_event here since the sender is a logstash agent
-    format => "json_event"
-  }
-}
-output {
-  stdout {
-    #only for mode DEBUG
-  }
-  elasticsearch {
-    embedded => false         #another process elasticsearch
-    host => "192.168.17.89"   #see elasticsearch.yml
-    cluster => "centrallog"   #see elasticsearch.yml
   }
 }
 ZEOF
 
 # SERVICE ReadyForUse
-#[ -d "/etc/logstash" ] && sudo cp centralized-logstash-shipper2elasticsearch.conf /etc/logstash/shipper2elasticsearch.tmp;
-[ -d "/etc/logstash" ] && sudo cp centralized-logstash-shipper2redis.conf /etc/logstash/shipper2redis.conf;
-[ -d "/etc/logstash" ] && sudo cp centralized-logstash-redis2elasticsearch.conf /etc/logstash/redis2elasticsearch.conf;
+[ -d "/etc/logstash" ] && sudo cp distributed-logstash-shipper2redis.conf /etc/logstash/shipper2redis.conf;
 
 EOF
-chmod a+x centralized-logstash.putconf.sh
+chmod a+x distributed-logstash.putconf.sh
 
-cat <<EOF >centralized-logstash.sh
+cat <<EOF >distributed-logstash.sh
 #!/bin/bash
-# -Des.path.data="/var/lib/elasticsearch/"
-# logstash-1.1.9-monolithic.jar
-# OLD CALLs
-# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -vvv -f /etc/logstash/shipper2elasticsearch.conf -l /var/log/logstash/shipper.log 2>&1&
-# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -vvv -f /etc/logstash/shipper2redis.conf -l /var/log/logstash/redis.log 2>&1&
-# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -vvv -f /etc/logstash/redis2elasticsearch.conf -l /var/log/logstash/elasticsearch.log 2>&1&
-
 /etc/init.d/logstash restart
 EOF
-chmod a+x centralized-logstash.sh
-
-cat <<EOF >centralized-logstash.test.sh
-curl -XGET http://192.168.17.89:9200/_status?pretty=true
-curl -XGET http://192.168.17.89:9200/logstash-2013.05.23/_status?pretty=true
-EOF
-chmod a+x centralized-logstash.test.sh
+chmod a+x distributed-logstash.sh
 
 cat <<"EOF" >etc-init.d-logstash
 #! /bin/sh
@@ -286,4 +214,5 @@ echo
 exit 0
 EOF
 chmod 755 etc-init.d-logstash
+
 exit 0;
