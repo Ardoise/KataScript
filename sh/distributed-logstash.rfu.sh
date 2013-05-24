@@ -41,6 +41,10 @@ input {
     #path => [ "/var/log/apache2/error.log" ] #Ubuntu
     path => [ "/var/log/httpd/error_log" ] #CentOS,RHEL
   }
+  #file {
+  #  type => "apache-json"
+  #  path => [ "/var/log/httpd/access_json.log" ]
+  #}
 }
 filter {
   # grok {
