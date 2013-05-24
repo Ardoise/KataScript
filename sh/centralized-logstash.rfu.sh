@@ -47,10 +47,10 @@ input {
   #}
 }
 filter {
-  # grok {
-    # type => "linux-syslog"       #type "syslog"
-    # pattern => "%{SYSLOGLINE}"
-  # }
+  grok {
+    type => "linux-syslog"       #type "syslog"
+    pattern => "%{SYSLOGLINE}"
+  }
   # multiline{
     # type => "xyz-stdout-log"
     # pattern => "^\s"
