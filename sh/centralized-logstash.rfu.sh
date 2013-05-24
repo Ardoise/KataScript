@@ -54,6 +54,8 @@ filter {
 output {
   stdout {
     #only for mode DEBUG
+    debug => true
+    debug_format => "json"
   }
   elasticsearch {
     embedded => false         #another process elasticsearch
