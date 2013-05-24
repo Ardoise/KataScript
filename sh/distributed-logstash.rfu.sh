@@ -60,6 +60,8 @@ filter {
 output {
   stdout {
     #only for mode DEBUG
+    debug => true
+    debug_format => "json"
   }
   #AMQP
   redis {
