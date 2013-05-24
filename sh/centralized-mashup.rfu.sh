@@ -4,10 +4,10 @@
 # DEPLOY CENTRALIZED SERVER : BROKER, INDEXER, STORAGESEARCH, WEBUI
 # DEPLOY CENTRALIZED SERVER : SHIPPER(local), STORAGESEARCH, WEBUI
 
-./centralized-logstash.config.sh
-./centralized-broker.config.sh
-./centralized-indexer.config.sh
-./centralized-shipper.config.sh
+./centralized-logstash.rfu.sh
+./centralized-redis.rfu.sh
+#./centralized-indexer.config.sh DEPRECATED
+#./centralized-shipper.config.sh DEPRECATED
 ./centralized-storagesearch.config.sh
 ./centralized-webui.config.sh
 
