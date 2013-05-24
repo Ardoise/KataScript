@@ -21,7 +21,7 @@ chmod a+x distributed-logstash.getbin.sh
 # SERVICE CENTRALLOG
 # CAS1 : logstash => redis  (test local into distributed)
 cat <<"EOF" >distributed-logstash.putconf.sh
-cat <<ZEOF >distributed-logstash-logstash2redis.conf
+cat <<ZEOF >distributed-logstash-shipper2redis.conf
 input {
   file {
     type => "linux-syslog"
@@ -74,6 +74,8 @@ output {
     # fields => ... # array (optional), default: []
     # host => ... # array (optional), default: ["127.0.0.1"]
     # key => ... # string (optional)
+    #             The name of a redis list or channel. 
+    #             Dynamic names are valid here, for example "logstash-%{@type}".
     # password => ... # password (optional)
     # port => ... # number (optional), default: 6379
     # reconnect_interval => ... # number (optional), default: 1
@@ -82,6 +84,7 @@ output {
     # timeout => ... # number (optional), default: 5
     # type => ... # string (optional), default: ""
     host => "192.168.17.89" 
+    port => "6379"
     data_type => "list"
     key => "logstash-redis"
   }
