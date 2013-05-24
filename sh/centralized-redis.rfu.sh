@@ -16,7 +16,8 @@ tar -xvfz redis-2.6.13.tar.gz
   make test
   make install
   sudo cp utils/redis_init_script /etc/init.d/redis
-  cp redis.conf /etc/redis/tmp/6379.conf
+  sudo cp redis.conf /etc/redis/tmp/6379.conf
+  [ -f "/etc/redis/6379.conf" ] || sudo cp redis.conf /etc/redis/6379.conf
 )
 EOF
 chmod a+x centralized-redis.getbin.sh
