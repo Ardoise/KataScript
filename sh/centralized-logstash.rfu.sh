@@ -1,10 +1,17 @@
 #!/bin/sh
 
 # DEPLOY CENTRALIZED SERVER : BROKER, INDEXER, SHIPPER, STORAGESEARCH, WEBUI
+
+set -e
+
+NAME=logstash
+DESC="logstash Server"
+DEFAULT=/etc/default/$NAME
+
 . ./stdlevel
 
 cat <<EOF >centralized-logstash.getbin.sh
-#
+#!/bin/sh
 [ -d "/opt/logstash/patterns" ] || sudo mkdir -p /opt/logstash/patterns ;
 [ -d "/opt/logstash/tmp" ] || sudo mkdir -p /opt/logstash/tmp ;
 [ -d "/var/lib/logstash" ] || sudo mkdir -p /var/lib/logstash ;
@@ -23,6 +30,9 @@ chmod a+x centralized-logstash.getbin.sh
 # CAS1 : logstash => elasticsearch  (test local into centralized)
 # CAS2 : logstash => redis          (test local into broker)
 cat <<"EOF" >centralized-logstash.putconf.sh
+#!/bin/sh
+
+yourIP=$(hostname -I | cut -d' ' -f1);
 cat <<ZEOF >centralized-logstash-shipper2elasticsearch.conf
 input {
   file {
@@ -58,9 +68,9 @@ output {
     debug_format => "json"
   }
   elasticsearch {
-    embedded => false         #another process elasticsearch
-    host => "192.168.17.89"   #see elasticsearch.yml
-    cluster => "centrallog"   #see elasticsearch.yml
+    embedded => false                #another process elasticsearch
+    host => "${yourIP:=127.0.0.1}"   #see elasticsearch.yml
+    cluster => "centrallog"          #see elasticsearch.yml
   }
 }
 ZEOF
@@ -125,7 +135,7 @@ output {
     # tags => ... # array (optional), default: []
     # timeout => ... # number (optional), default: 5
     # type => ... # string (optional), default: ""
-    host => "192.168.17.89" 
+    host => "${yourIP:=127.0.0.1}" 
     data_type => "list"
     key => "logstash-redis"
   }
@@ -157,7 +167,7 @@ input {
     # timeout => ... # number (optional), default: 5
     # type => ... # string (required)
     
-    host => "192.168.17.89" 
+    host => "${yourIP:=127.0.0.1}" 
     type => "redis-input"
     data_type => "list"
     key => "logstash-redis"
@@ -189,10 +199,10 @@ output {
     # tags => ... # array (optional), default: []
     # type => ... # string (optional), default: ""
     
-    embedded => false         #another process elasticsearch
-    host => "192.168.17.89"   #see elasticsearch.yml
-    port => "9300-9400"       #see elasticsearch.yml
-    cluster => "centrallog"   #see elasticsearch.yml
+    embedded => false                 #another process elasticsearch
+    host => "${yourIP:=127.0.0.1}"    #see elasticsearch.yml
+    port => 9300                      #see elasticsearch.yml
+    cluster => "centrallog"           #see elasticsearch.yml
   }
 }
 ZEOF
@@ -211,22 +221,25 @@ cat <<EOF >centralized-logstash.sh
 # -Des.path.data="/var/lib/elasticsearch/"
 # logstash-1.1.9-monolithic.jar
 # OLD CALLs
-# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -vvv -f /etc/logstash/shipper2elasticsearch.conf -l /var/log/logstash/shipper.log 2>&1&
-# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -vvv -f /etc/logstash/shipper2redis.conf -l /var/log/logstash/redis.log 2>&1&
-# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -vvv -f /etc/logstash/redis2elasticsearch.conf -l /var/log/logstash/elasticsearch.log 2>&1&
+# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -v -f /etc/logstash/shipper2elasticsearch.conf -l /var/log/logstash/shipper.log 2>&1&
+# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -v -f /etc/logstash/shipper2redis.conf -l /var/log/logstash/redis.log 2>&1&
+# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -v -f /etc/logstash/redis2elasticsearch.conf -l /var/log/logstash/elasticsearch.log 2>&1&
 
 /etc/init.d/logstash restart
 EOF
 chmod a+x centralized-logstash.sh
 
 cat <<EOF >centralized-logstash.test.sh
-curl -XGET http://220.140.17.89:9200/_status?pretty=true
-curl -XGET http://220.140.17.89:9200/logstash-2013.05.23/_status?pretty=true
+#!/bin/sh
+
+yourIP=$(hostname -I | cut -d' ' -f1);
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: curl -XGET http://${yourIP:=127.0.0.1}:9200/_status?pretty=true"
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: curl -XGET http://${yourIP:=127.0.0.1}:9200/logstash-$(date +'%Y.%m.%d')/_status?pretty=true"
 EOF
 chmod a+x centralized-logstash.test.sh
 
 cat <<"EOF" >etc-init.d-logstash
-#! /bin/sh
+#!/bin/sh
 #
 # /etc/rc.d/init.d/logstash
 #
@@ -274,7 +287,7 @@ base=logstash
 # Exit if the package is not installed
 if [ ! -x "$DAEMON" ]; then
 {
-  echo "Couldn't find $DAEMON"
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Couldn't find $DAEMON"
   exit 99
 }
 fi
@@ -316,17 +329,17 @@ do_stop()
 
 case "$1" in
   start)
-    echo -n "Starting $DESC: "
+    echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Starting $DESC: "
     do_start
     touch /var/lock/subsys/$JARNAME
   ;;
   stop)
-    echo -n "Stopping $DESC: "
+    echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Stopping $DESC: "
     do_stop
-    rm /var/lock/subsys/$JARNAME
+    [ -e "/var/lock/subsys/$JARNAME" ] && rm /var/lock/subsys/$JARNAME
   ;;
   restart|reload)
-    echo -n "Restarting $DESC: "
+    echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Restarting $DESC: "
     do_stop
     do_start
   ;;
@@ -334,13 +347,33 @@ case "$1" in
     status -p $PID
   ;;
   *)
-    echo "Usage: $SCRIPTNAME {status|start|stop|status|restart}" >&2
+    echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Usage: $SCRIPTNAME {status|start|stop|status|restart}" >&2
     exit 3
   ;;
 esac
 
-echo
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: "
 exit 0
 EOF
 chmod 755 etc-init.d-logstash
+
+
+# REST : CHILD
+# if [ `id -u` -ne 0 ]; then
+#  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
+#  exit 1
+# fi
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : get binaries ..."
+sh centralized-logstash.getbin.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : get binaries [ OK ]"
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : put config ..."
+sh centralized-logstash.putconf.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : put config [ OK ]"
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : start service ..."
+sh centralized-logstash.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : start service [ OK ]"
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : test service ..."
+sh centralized-logstash.test.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : test service [ OK ]"
+
 exit 0;

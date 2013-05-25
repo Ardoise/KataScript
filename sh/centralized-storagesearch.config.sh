@@ -1,15 +1,26 @@
 #!/bin/bash
 
 # DEPLOY CENTRALIZED SERVER : STORAGESEARCH
+#
+# created by : https://github.com/Ardoise
+
 . ./stdlevel
 
 cat <<"EOF" >centralized-elasticsearch.getbin.sh
 #!/bin/sh
 
+[ -d "/opt/elasticsearch" ] || sudo mkdir -p /opt/elasticsearch;
+[ -d "/etc/elasticsearch/tmp" ] || sudo mkdir -p /etc/elasticsearch/tmp;
+
 SITE=https://download.elasticsearch.org/elasticsearch/elasticsearch
+
+SYSTEM=`/bin/uname -s`;
+if [ $SYSTEM = Linux ]; then
+  DISTRIB=`cat /etc/issue`
+fi
   
-case $@ in
-*ubuntu*)
+case $DISTRIB in
+Ubuntu*)
   sudo apt-get update
   sudo apt-get install openjdk-7-jre-headless wget curl -y
   ES_PACKAGE=elasticsearch-0.20.6.deb;
@@ -18,7 +29,7 @@ case $@ in
   sudo dpkg -i $ES_PACKAGE;
   sudo service elasticsearch start ;
 ;;
-*redhat*)
+Redhat*)
   sudo yum install java-1.7.0-openjdk wget curl -y
   ES_PACKAGE=elasticsearch-0.90.0.RC2.noarch.rpm;
   wget --no-check-certificate $SITE/$ES_PACKAGE;
@@ -62,7 +73,7 @@ output {
     index_type => "%{@type}" # string (optional), default: "%{@type}"
     max_inflight_requests => 50 # number (optional), default: 50
     # node_name => ... # string (optional)
-    port => "9300-9400" # number (optional), default: "9300-9400"
+    port => 9300 # number (optional), default: "9300-9400"
     tags => [] # array (optional), default: []
     type => "" # string (optional), default: ""
   }
@@ -133,7 +144,7 @@ EOF
 cat <<EOF >centralized-elasticsearch.yml
 cluster.name: centrallog
 node.name: "logstash"                 # graylog2
-network.host: 192.168.17.89               # 192.168.x.x | 10.x.x.x
+network.host: 192.168.17.89           # 192.168.x.x | 10.x.x.x
 path.logs: "/var/log/elasticsearch"
 path.data: "/var/lib/elasticsearch"   # /var/data/elasticsearch
 EOF
@@ -144,7 +155,7 @@ cat <<EOF >centralized-elasticsearch.json
   "network" : {
     // elasticsearch -f -Des.network.host=10.0.0.4
     // "host" : "${ES_NET_HOST}"
-    "host" : "10.0.0.4"
+    "host" : "192.168.17.89"
   }
   "path" : {
     "logs" : "/var/log/elasticsearch"

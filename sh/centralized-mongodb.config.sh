@@ -2,6 +2,8 @@
 
 # MongoDB
 # http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
+#
+# created by : https://github.com/Ardoise
 
 cat <<EOF >centralized-mongodb.getbin.sh
 # apt-get install openjdk-6-jre
