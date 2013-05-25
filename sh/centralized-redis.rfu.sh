@@ -25,6 +25,10 @@ cat <<EOF >centralized-redis.getbin.sh
   # sudo cp utils/redis_init_script /etc/init.d/redis   # BUG redis_server start
   sudo cp redis.conf /etc/redis/tmp/6379.conf
   [ -f "/etc/redis/6379.conf" ] || sudo cp redis.conf /etc/redis/6379.conf
+  
+  # TO TEST
+  # cd utils
+  # ./install_server
 )
 EOF
 chmod a+x centralized-redis.getbin.sh

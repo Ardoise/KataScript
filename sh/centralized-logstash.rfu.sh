@@ -1,12 +1,19 @@
 #!/bin/sh
 
 # DEPLOY CENTRALIZED SERVER : BROKER, INDEXER, SHIPPER, STORAGESEARCH, WEBUI
+#
+# created by : https://github.com/Ardoise
 
 set -e
 
 NAME=logstash
 DESC="logstash Server"
 DEFAULT=/etc/default/$NAME
+
+# if [ `id -u` -ne 0 ]; then
+#  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
+#  exit 1
+# fi
 
 . ./stdlevel
 
@@ -359,10 +366,6 @@ chmod 755 etc-init.d-logstash
 
 
 # REST : CHILD
-# if [ `id -u` -ne 0 ]; then
-#  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
-#  exit 1
-# fi
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : get binaries ..."
 sh centralized-logstash.getbin.sh;
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : get binaries [ OK ]"
