@@ -12,8 +12,8 @@ cat <<EOF >centralized-logstash.getbin.sh
   sudo mkdir -p /var/log/logstash ;
   chmod 755 /var/log/logstash ;
 )
-[ -d "/etc/logstash" ] || sudo mkdir -p /etc/logstash ;
-sudo cd /opt/logstash
+[ -d "/etc/logstash/tmp" ] || sudo mkdir -p /etc/logstash/tmp ;
+cd /opt/logstash
 [ -s "logstash-1.1.12-flatjar.jar" ] || curl -OL https://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
 [ -s "logstash-1.1.11.dev-monolithic.jar" ] || curl -OL http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
 EOF
@@ -198,6 +198,7 @@ output {
 ZEOF
 
 # SERVICE ReadyForUse
+[ -d "/etc/logstash/tmp" ] || sudo mkdir -p /etc/logstash/tmp;
 [ -d "/etc/logstash" ] && sudo cp centralized-logstash-shipper2elasticsearch.conf /etc/logstash/tmp/shipper2elasticsearch.conf;
 [ -d "/etc/logstash" ] && sudo cp centralized-logstash-shipper2redis.conf /etc/logstash/shipper2redis.conf;
 [ -d "/etc/logstash" ] && sudo cp centralized-logstash-redis2elasticsearch.conf /etc/logstash/redis2elasticsearch.conf;
