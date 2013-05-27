@@ -4,18 +4,15 @@ Kata Script REST
   - Shell ........... : sh/\<index\>/indexKata.sh
   - Python ........ : py/\<index\>/indexKata.py
   - Ruby ........... : rb/\<index\>/indexKata.rb
-  - xslt .............. : xsl/\<index\>/indexKata.xsl
-  - Perl ............. : pl/\<index\>/indexKata.pl
 
 Tested with data structure
 ==========================
   - json
-  - xml
-  - txt
 
 Depends
 ==========================
   - logstash [http://logstash.net]
+  - redis [http://redis.io]
   - elasticsearch [http://elasticsearch.org]
   - kibana [http://kibana.org]
   - graylog2 [http://graylog2.org]
