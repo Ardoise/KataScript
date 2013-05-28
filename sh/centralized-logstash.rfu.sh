@@ -246,50 +246,20 @@ EOF
 chmod a+x centralized-logstash.test.sh
 
 cat <<"EOF" >etc-init.d-logstash
-#!/bin/sh
-#
-# /etc/rc.d/init.d/logstash
-#
-# Starts Logstash as a daemon
-#
-# chkconfig: 2345 20 80
-# description: Starts Logstash as a daemon
-# pidfile: /var/run/logstash-agent.pid
-
+#! /bin/sh
+ 
 ### BEGIN INIT INFO
 # Provides: logstash
-# Required-Start: $local_fs $remote_fs
-# Required-Stop: $local_fs $remote_fs
+# Required-Start: $remote_fs $syslog
+# Required-Stop: $remote_fs $syslog
 # Default-Start: 2 3 4 5
-# Default-Stop: S 0 1 6
-# Short-Description: Logstash
-# Description: Starts Logstash as a daemon.
-# Author: christian.paredes@sbri.org, modified by https://github.com/paul-at
-# Update: ardoise.gisement@gmail.com, modified by https://github.com/Ardoise/KataScript/sh
-
+# Default-Stop: 0 1 6
+# Short-Description: Start Logstash as a daemon
+# Desc : user the LSB scripting
+# Update: ardoise.gisement@gmail.com, modified by https://github.com/Ardoise/KataScript
 ### END INIT INFO
 
-# Amount of memory for Java
-JAVAMEM=256M
-
-# Location of logstash files
-LOCATION=/opt/logstash
-
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-DESC="Logstash Daemon"
-NAME=java
 DAEMON=`which java`
-# MONO-FILE SHIPPER
-# CONFIG_DIR="/etc/logstash/logstash.conf"
-# MULTI-FILE SHIPPER
-CONFIG_DIR="/etc/logstash/"
-LOGFILE="/var/log/logstash/logstash.log"
-PATTERNSPATH="/opt/logstash/patterns"
-#JARNAME=logstash-monolithic.jar
-JARNAME=logstash-1.1.12-flatjar.jar
-ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar ${JARNAME} agent --config ${CONFIG_DIR} --log ${LOGFILE} --grok-patterns-path ${PATTERNSPATH}"
-SCRIPTNAME=/etc/init.d/logstash
-base=logstash
 
 # Exit if the package is not installed
 if [ ! -x "$DAEMON" ]; then
@@ -299,70 +269,75 @@ if [ ! -x "$DAEMON" ]; then
 }
 fi
 
-. /etc/init.d/functions
+[ -f "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
+[ -f "/etc/init.d/functions" ] && . /etc/init.d/functions
+[ -f "/etc/rc.d/init.d/functions" ] && . /etc/rc.d/init.d/functions
 
-#
-# Function that starts the daemon/service
-#
-do_start()
-{
-  cd $LOCATION && \
-  ($DAEMON $ARGS &) \
-  && success || failure
-}
+name="logstash"
+JAVAMEM=256M
+JARNAME=logstash-1.1.12-flatjar.jar
+PATTERNSPATH="/opt/$name/patterns"
+JAR_BIN="$DAEMON -- -jar /opt/$name/$JARNAME"
+ETC_DIR="/etc/$name/"
+LOGFILE="/var/log/$name/$name.log"
+pid="/var/run/$name.pid"
+NICE_LEVEL="-n 19"
+ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM"
 
-#
-# Function that stops the daemon/service
-#
-do_stop()
-{
-  #pid=`ps auxww | grep 'logstash.*monolithic' | grep java | awk '{print $2}'`
-  pid=`ps auxww | grep 'logstash.*flatjar' | grep java | awk '{print $2}'`
-  if checkpid $pid 2>&1; then
-    # TERM first, then KILL if not dead
-    kill -TERM $pid >/dev/null 2>&1
-    usleep 100000
-    if checkpid $pid && sleep 1 &&
-      checkpid $pid && sleep $delay &&
-      checkpid $pid ; then
-      kill -KILL $pid >/dev/null 2>&1
-      usleep 100000
-    fi
+start () {
+  command="/usr/bin/nice ${NICE_LEVEL} ${JAR_BIN} agent -f ${ETC_DIR} --log ${LOGFILE} --grok-patterns-path ${PATTERNSPATH}"
+   
+  log_daemon_msg "Starting" "$name"
+  if start-stop-daemon --start --quiet --oknodo --pidfile "$pid" -b -m --exec $command; then
+  log_end_msg 0
+  else
+  log_end_msg 1
   fi
-  checkpid $pid
-  RC=$?
-  [ "$RC" -eq 0 ] && failure $"$base shutdown" || success $"$base shutdown"
 }
-
-case "$1" in
+ 
+stop () {
+  start-stop-daemon --stop --quiet --oknodo --pidfile "$pid"
+}
+ 
+status () {
+  status_of_proc -p $pid "" "$name"
+}
+ 
+case $1 in
   start)
-    echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Starting $DESC: "
-    do_start
-    touch /var/lock/subsys/$JARNAME
+    # echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Starting $DESC: "
+    if status; then exit 0; fi
+    start
   ;;
   stop)
-    echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Stopping $DESC: "
-    do_stop
-    [ -e "/var/lock/subsys/$JARNAME" ] && rm /var/lock/subsys/$JARNAME
+    # echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Stopping $DESC: "
+    stop
+    sudo rm -f $pid
   ;;
-  restart|reload)
-    echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Restarting $DESC: "
-    do_stop
-    do_start
+  reload)
+    # echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Reloading $DESC: "
+    # pkill -HUP -u $LOGSTASH_USER
+    stop
+    start
+  ;;
+  restart)
+    # echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Restarting $DESC: "
+    stop
+    start
   ;;
   status)
-    status -p $PID
+    status && exit 0 || exit $?
   ;;
   *)
-    echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Usage: $SCRIPTNAME {status|start|stop|status|restart}" >&2
-    exit 3
+    echo "Usage: $0 {start|stop|restart|reload|status}"
+    exit 1
   ;;
 esac
 
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: "
 exit 0
 EOF
 chmod 755 etc-init.d-logstash
+sudo cp etc-init.d-logstash /etc/init.d/logstash
 
 
 # REST : CHILD

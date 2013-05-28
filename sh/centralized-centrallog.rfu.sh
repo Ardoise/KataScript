@@ -9,7 +9,7 @@
 set -e
 
 # TODO : USE IT !
-. /lib/lsb/init-functions
+[ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
 [ -r /etc/default/rcS ] && . /etc/default/rcS
 # log_progress_msg "(log_progress_msg)"
 # log_end_msg 0
@@ -31,7 +31,7 @@ set -e
 [ -d "/opt/centrallog" ] || sudo mkdir -p /opt/centrallog;
 [ -d "/opt/centrallog" ] && (
   cp stdlevel /opt/centrallog >/dev/null 2>&1
-  cp centralized-*.rfu.sh /opt/centrallog >/dev/null 2>&1; 
+  cp -f centralized-*.rfu.sh /opt/centrallog/ >/dev/null 2>&1; 
   chmod a+x /opt/centrallog/*.sh >/dev/null 2>&1;
   cd /opt/centrallog;
   

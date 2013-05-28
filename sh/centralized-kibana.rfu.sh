@@ -2,10 +2,10 @@
 
 set -e
 
-[ -d "/opt/kibana" ] || mkdir -p /opt/kibana;
-[ -d "/etc/kibana/tmp" ] || mkdir -p /etc/kibana/tmp;
-[ -d "/var/log/kibana" ] || mkdir -p /var/log/kibana;
-[ -d "/var/lib/kibana" ] || mkdir -p /var/lib/kibana;
+[ -d "/opt/kibana" ] || sudo mkdir -p /opt/kibana;
+[ -d "/etc/kibana/tmp" ] || sudo mkdir -p /etc/kibana/tmp;
+[ -d "/var/log/kibana" ] || sudo mkdir -p /var/log/kibana;
+[ -d "/var/lib/kibana" ] || sudo mkdir -p /var/lib/kibana;
 
 
 cat <<EOF >centralized-kibana.getbin.sh
@@ -15,14 +15,14 @@ cat <<EOF >centralized-kibana.getbin.sh
   git clone --branch=kibana-ruby https://github.com/rashidkpc/Kibana.git
   mv Kibana kibana
   cd kibana
-  bundle install
-  ruby kibana.rb
+  sudo bundle install
+  sudo ruby kibana.rb
   
   # require : RubyGems
   # http://production.cf.rubygems.org/rubygems/rubygems-2.0.3.zip
-  gem update --system
-  gem install rubygems-update
-  update_rubygems
+  sudo gem update --system
+  sudo gem install rubygems-update
+  sudo update_rubygems
 )
 EOF
 chmod a+x centralized-kibana.getbin.sh
