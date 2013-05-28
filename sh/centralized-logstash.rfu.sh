@@ -236,7 +236,7 @@ cat <<EOF >centralized-logstash.sh
 EOF
 chmod a+x centralized-logstash.sh
 
-cat <<EOF >centralized-logstash.test.sh
+cat <<"EOF" >centralized-logstash.test.sh
 #!/bin/sh
 
 yourIP=$(hostname -I | cut -d' ' -f1);
