@@ -10,8 +10,6 @@ NAME=elasticsearch
 DESC="elasticsearch Server"
 DEFAULT=/etc/default/$NAME
 
-. ./stdlevel
-
 cat <<"EOF" >centralized-elasticsearch.getbin.sh
 #!/bin/sh
 
@@ -28,6 +26,8 @@ fi
 case $DISTRIB in
 Ubuntu*|Debian*)
   # sudo apt-get update
+  sudo apt-get install git rubygems -y
+  sudo gem install fpm
   sudo apt-get install openjdk-7-jre-headless wget curl -y
   ES_PACKAGE=elasticsearch-0.20.6.deb;
   ES_PACKAGE=elasticsearch-0.90.0.deb;

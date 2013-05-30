@@ -28,7 +28,7 @@ cat <<EOF >centralized-logstash.getbin.sh
 )
 [ -d "/etc/logstash/tmp" ] || sudo mkdir -p /etc/logstash/tmp ;
 cd /opt/logstash
-[ -s "logstash-1.1.12-flatjar.jar" ] || curl -OL https://logstash.objects.dreamhost.com/release/logstash-1.1.12-flatjar.jar
+[ -s "logstash-1.1.13-flatjar.jar" ] || curl -OL https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar
 [ -s "logstash-1.1.11.dev-monolithic.jar" ] || curl -OL http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
 EOF
 chmod a+x centralized-logstash.getbin.sh
@@ -179,8 +179,8 @@ input {
     data_type => "list"
     key => "logstash-redis"
     # format => "plain"
-    # format => "json_event"
-    format => "%{@timestamp}"
+    # format => "json"
+    format => "json_event" 
   }
 }
 output {
@@ -228,9 +228,9 @@ cat <<EOF >centralized-logstash.sh
 # -Des.path.data="/var/lib/elasticsearch/"
 # logstash-1.1.9-monolithic.jar
 # OLD CALLs
-# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -v -f /etc/logstash/shipper2elasticsearch.conf -l /var/log/logstash/shipper.log 2>&1&
-# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -v -f /etc/logstash/shipper2redis.conf -l /var/log/logstash/redis.log 2>&1&
-# nohup java -jar /opt/logstash/logstash-1.1.12-flatjar.jar agent -v -f /etc/logstash/redis2elasticsearch.conf -l /var/log/logstash/elasticsearch.log 2>&1&
+# nohup java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -v -f /etc/logstash/shipper2elasticsearch.conf -l /var/log/logstash/shipper.log 2>&1&
+# nohup java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -v -f /etc/logstash/shipper2redis.conf -l /var/log/logstash/redis.log 2>&1&
+# nohup java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -v -f /etc/logstash/redis2elasticsearch.conf -l /var/log/logstash/elasticsearch.log 2>&1&
 
 /etc/init.d/logstash restart
 EOF
@@ -245,7 +245,140 @@ echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: curl -XGET http://${yourIP:=127.0.0.1}:9
 EOF
 chmod a+x centralized-logstash.test.sh
 
-cat <<"EOF" >etc-init.d-logstash
+
+cat <<"EOF" >etc-init.d-ulogstash
+#! /bin/sh
+#
+# /etc/rc.d/init.d/logstash
+#
+# Starts Logstash as a daemon
+#
+# chkconfig: 2345 20 80
+# description: Starts Logstash as a daemon
+# pidfile: /var/run/logstash-agent.pid
+ 
+### BEGIN INIT INFO
+# Provides: logstash
+# Required-Start: $local_fs $remote_fs
+# Required-Stop: $local_fs $remote_fs
+# Default-Start: 2 3 4 5
+# Default-Stop: S 0 1 6
+# Short-Description: Logstash
+# Description: Starts Logstash as a daemon.
+# Author: christian.paredes@sbri.org, modified by https://github.com/paul-at
+# Update: ardoise.gisement@gmail.com, modified by https://github.com/ardoise
+ 
+### END INIT INFO
+ 
+# Amount of memory for Java
+JAVAMEM=256M
+ 
+# Location of logstash files
+LOCATION=/opt/logstash
+ 
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+DESC="Logstash Daemon"
+NAME=java
+DAEMON=`which java`
+CONFIG_DIR="/etc/logstash/"
+LOGFILE="/var/log/logstash/logstash.log"
+PATTERNSPATH="/opt/logstash/patterns"
+JARNAME=logstash-monolithic.jar
+JARNAME=logstash-1.1.12-flatjar.jar
+JARNAME=logstash-1.1.13-flatjar.jar
+ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} --log ${LOGFILE} --grok-patterns-path ${PATTERNSPATH}"
+# ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar ${JARNAME} agent --config ${CONFIG_DIR} --log ${LOGFILE} --PATTERNS_DIR ${PATTERNSPATH}"
+SCRIPTNAME=/etc/init.d/logstash
+base=logstash
+
+pid=`ps auxww | grep 'logstash.*flatjar' | grep java | awk '{print $2}'`
+# pid="/var/run/$name.pid"
+   
+# Exit if the package is not installed
+if [ ! -x "$DAEMON" ]; then
+{
+  echo "Couldn't find $DAEMON"
+  exit 99
+}
+fi
+
+# Check if $pid (could be plural) are running
+checkpid() {
+  local i;
+  for i in $* ; do
+    [ -d "/proc/$i" ] && return 0
+  done
+  return 1
+}
+
+[ -e "/etc/rc.d/init.d/functions" ] && . /etc/rc.d/init.d/functions 
+[ -e "/etc/init.d/functions" ] && . /etc/init.d/functions
+[ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
+
+#
+# Function that starts the daemon/service
+#
+do_start()
+{
+  cd $LOCATION && \
+  ($DAEMON $ARGS &) \
+  && success || failure
+}
+ 
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+  # pid=`ps auxww | grep 'logstash.*monolithic' | grep java | awk '{print $2}'`
+  if checkpid $pid 2>&1; then
+    # TERM first, then KILL if not dead
+    kill -TERM $pid >/dev/null 2>&1
+    usleep 100000
+    if checkpid $pid && sleep 1 &&
+        checkpid $pid && sleep $delay &&
+        checkpid $pid ; then
+        kill -KILL $pid >/dev/null 2>&1
+        usleep 100000
+    fi
+  fi
+  checkpid $pid
+  RC=$?
+  [ "$RC" -eq 0 ] && failure $"$base shutdown" || success $"$base shutdown"
+}
+ 
+case "$1" in
+start)
+  echo -n "Starting $DESC: "
+  do_start
+  # touch /var/lock/subsys/$JARNAME
+;;
+stop)
+  echo -n "Stopping $DESC: "
+  do_stop
+  # rm /var/lock/subsys/$JARNAME
+;;
+restart|reload)
+  echo -n "Restarting $DESC: "
+  do_stop
+  do_start
+;;
+status)
+  status -p $pid
+;;
+*)
+  echo "Usage: $SCRIPTNAME {start|stop|status|restart}" >&2
+  exit 3
+;;
+esac
+ 
+echo
+exit 0
+EOF
+chmod 755 etc-init.d-ulogstash ;
+sudo cp etc-init.d-ulogstash /etc/init.d/logstash ; # ubuntu
+
+cat <<"EOF" >etc-init.d-clogstash
 #! /bin/sh
  
 ### BEGIN INIT INFO
@@ -275,7 +408,7 @@ fi
 
 name="logstash"
 JAVAMEM=256M
-JARNAME=logstash-1.1.12-flatjar.jar
+JARNAME=logstash-1.1.13-flatjar.jar
 PATTERNSPATH="/opt/$name/patterns"
 JAR_BIN="$DAEMON -- -jar /opt/$name/$JARNAME"
 ETC_DIR="/etc/$name/"
@@ -285,7 +418,7 @@ NICE_LEVEL="-n 19"
 ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM"
 
 start () {
-  command="/usr/bin/nice ${NICE_LEVEL} ${JAR_BIN} agent -f ${ETC_DIR} --log ${LOGFILE} --grok-patterns-path ${PATTERNSPATH}"
+  command="/usr/bin/nice ${NICE_LEVEL} ${JAR_BIN} agent -f ${ETC_DIR} -vv --log ${LOGFILE} --patterns_dir ${PATTERNSPATH}"
    
   log_daemon_msg "Starting" "$name"
   if start-stop-daemon --start --quiet --oknodo --pidfile "$pid" -b -m --exec $command; then
@@ -336,9 +469,8 @@ esac
 
 exit 0
 EOF
-chmod 755 etc-init.d-logstash
-sudo cp etc-init.d-logstash /etc/init.d/logstash
-
+chmod 755 etc-init.d-clogstash ;
+# sudo cp etc-init.d-clogstash /etc/init.d/logstash ; # centOS
 
 # REST : CHILD
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : get binaries ..."
