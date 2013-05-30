@@ -20,26 +20,75 @@ DEFAULT=/etc/default/$NAME
 cat <<EOF >centralized-logstash.getbin.sh
 #!/bin/sh
 [ -d "/opt/logstash/patterns" ] || sudo mkdir -p /opt/logstash/patterns ;
-[ -d "/opt/logstash/tmp" ] || sudo mkdir -p /opt/logstash/tmp ;
+[ -d "/opt/logstash/test" ] || sudo mkdir -p /opt/logstash/test ;
 [ -d "/var/lib/logstash" ] || sudo mkdir -p /var/lib/logstash ;
 [ -d "/var/log/logstash" ] || (
   sudo mkdir -p /var/log/logstash ;
   chmod 755 /var/log/logstash ;
 )
-[ -d "/etc/logstash/tmp" ] || sudo mkdir -p /etc/logstash/tmp ;
+[ -d "/etc/logstash/test" ] || sudo mkdir -p /etc/logstash/test ;
 cd /opt/logstash
 [ -s "logstash-1.1.13-flatjar.jar" ] || curl -OL https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar
-[ -s "logstash-1.1.11.dev-monolithic.jar" ] || curl -OL http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
+# [ -s "logstash-1.1.11.dev-monolithic.jar" ] || curl -OL http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
 EOF
 chmod a+x centralized-logstash.getbin.sh
 
 # SERVICE CENTRALLOG
-# CAS1 : logstash => elasticsearch  (test local into centralized)
-# CAS2 : logstash => redis          (test local into broker)
+# CAS0 : logstash => logstash       (test stdin         => stdout)
+# CAS1 : logstash => elasticsearch  (test local shipper => elasticsearch)
+# CAS2 : logstash => redis          (test local shipper => redis)
+# CAS3 : redis    => elasticsearch  (test local redis   => elasticsearch)
 cat <<"EOF" >centralized-logstash.putconf.sh
 #!/bin/sh
 
 yourIP=$(hostname -I | cut -d' ' -f1);
+
+[ -d "/etc/logstash/test" ] || sudo mkdir -p /etc/logstash/test;
+cat <<ZEOF >centralized-logstash-stdin2stdout.conf
+input {
+  stdin {
+    #add_field => {}        # hash (optional), default: {}
+    charset => "UTF-8"      # "ISO8859-1"... "locale", "external", "filesystem", "internal"
+    debug => true
+    # format =>             # string, one of ["plain", "json", "json_event", "msgpack_event"] (optional)
+    # message_format =>     # string (optional)
+    #tags => []             # array (optional)
+    type => "stdin"         # string (required)
+  }
+}
+output {
+  stdout {
+    debug => true           # METHOD : READ THE FIRST ELEMENT
+    debug => false          # 2013-05-30T18:46:55.029Z stdin://localhost/: yourmessage
+                            # message => "%{@timestamp} %{@source}: %{@message}"
+
+    debug_format => "json"  # {"@source":"stdin://localhost/","@tags":[],"@fields":{},"@timestamp":"2013-05-30T18:53:00.744Z","@source_host":"localhost","@source_path":"/","@message":"test","@type":"stdin"}
+
+    debug_format => "ruby"  # {
+                            #          "@source" => "stdin://localhost/",
+                            #            "@tags" => [],
+                            #          "@fields" => {},
+                            #       "@timestamp" => "2013-05-30T18:50:19.367Z",
+                            #      "@source_host" => "localhost",
+                            #     "@source_path" => "/",
+                            #         "@message" => "",
+                            #            "@type" => "stdin"
+                            # }
+
+    debug_format => "dots"  # .
+
+    # exclude_tags => []      # array (optional)
+    # fields => []            # array (optional)
+    # message => "%{@timestamp} %{@source}: %{@message}"
+    # tags => []              # array (optional)
+    type => "stdout"   # string (optional), default: ""
+  }
+}
+ZEOF
+[ -d "/etc/logstash/test" ] && sudo cp centralized-logstash-stdin2stdout.conf /etc/logstash/test/stdin2stdout.conf;
+
+
+[ -d "/etc/logstash/test" ] || sudo mkdir -p /etc/logstash/test;
 cat <<ZEOF >centralized-logstash-shipper2elasticsearch.conf
 input {
   file {
@@ -81,7 +130,10 @@ output {
   }
 }
 ZEOF
+[ -d "/etc/logstash/test" ] && sudo cp centralized-logstash-shipper2elasticsearch.conf /etc/logstash/test/shipper2elasticsearch.conf;
 
+
+[ -d "/etc/logstash/test" ] || sudo mkdir -p /etc/logstash/test;
 cat <<ZEOF >centralized-logstash-shipper2redis.conf
 input {
   file {
@@ -148,7 +200,10 @@ output {
   }
 }
 ZEOF
+[ -d "/etc/logstash/test" ] && sudo cp centralized-logstash-shipper2redis.conf /etc/logstash/test/shipper2redis.conf;
 
+
+[ -d "/etc/logstash/test" ] || sudo mkdir -p /etc/logstash/test;
 cat <<ZEOF >centralized-logstash-redis2elasticsearch.conf
 input {
   redis {
@@ -213,12 +268,7 @@ output {
   }
 }
 ZEOF
-
-# SERVICE ReadyForUse
-[ -d "/etc/logstash/tmp" ] || sudo mkdir -p /etc/logstash/tmp;
-[ -d "/etc/logstash" ] && sudo cp centralized-logstash-shipper2elasticsearch.conf /etc/logstash/tmp/shipper2elasticsearch.conf;
-[ -d "/etc/logstash" ] && sudo cp centralized-logstash-shipper2redis.conf /etc/logstash/shipper2redis.conf;
-[ -d "/etc/logstash" ] && sudo cp centralized-logstash-redis2elasticsearch.conf /etc/logstash/redis2elasticsearch.conf;
+[ -d "/etc/logstash/test" ] && sudo cp centralized-logstash-redis2elasticsearch.conf /etc/logstash/test/redis2elasticsearch.conf;
 
 EOF
 chmod a+x centralized-logstash.putconf.sh
@@ -240,8 +290,9 @@ cat <<"EOF" >centralized-logstash.test.sh
 #!/bin/sh
 
 yourIP=$(hostname -I | cut -d' ' -f1);
-echo "TEST STDIN LOCAL : Just wait 60s before to tape a new message !!! CTRL-C to <exit>";
-java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -e "input{}" -l /var/log/logstash/logstash.log;
+echo "TEST STDIN LOGSTASH local : Just wait 60s before to tape a new message !!! CTRL-C to <exit>";
+# java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -e "input{}" -l /var/log/logstash/logstash.log;
+java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -e "input{}" -l /var/log/logstash/logstash.log ;
 
 # echo "TEST daemon logstash ELASTICSEARCH : ";
 # echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: curl -XGET http://${yourIP:=127.0.0.1}:9200/_status?pretty=true"
@@ -287,17 +338,18 @@ DAEMON=`which java`
 CONFIG_DIR="/etc/logstash/"
 LOGFILE="/var/log/logstash/logstash.log"
 PATTERNSPATH="/opt/logstash/patterns"
-JARNAME=logstash-monolithic.jar
-JARNAME=logstash-1.1.12-flatjar.jar
-JARNAME=logstash-1.1.13-flatjar.jar
-ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} -vv --log ${LOGFILE} --grok-patterns-path ${PATTERNSPATH}" ; # level=debug
-ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} -v --log ${LOGFILE} --grok-patterns-path ${PATTERNSPATH}" ; # level=info
-ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} --log ${LOGFILE} --grok-patterns-path ${PATTERNSPATH}";
-# ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar ${JARNAME} agent --config ${CONFIG_DIR} -vv --log ${LOGFILE} --PATTERNS_DIR ${PATTERNSPATH}"
+JARNAME=logstash-1.1.12-flatjar.jar;
+JARNAME=logstash-1.1.13-flatjar.jar;
+# --grok-patterns-path flag is deprecated
+# patterns_dir: ${PATTERNSPATH}
+ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} -vv --log ${LOGFILE}" ; # level=debug
+ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} -v --log ${LOGFILE}" ; # level=info
+ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} --log ${LOGFILE}" ; # level=warn
+
 SCRIPTNAME=/etc/init.d/logstash
 base=logstash
 
-pid=`ps auxww | grep 'logstash.*flatjar' | grep java | awk '{print $2}'`
+pid=`ps auxww | grep 'logstash-.*flatjar' | grep java | awk '{print $2}'`
 # pid="/var/run/$name.pid"
    
 # Exit if the package is not installed
@@ -326,9 +378,11 @@ checkpid() {
 #
 do_start()
 {
-  cd $LOCATION && \
-  ($DAEMON $ARGS &) \
-  && success || failure
+  if checkpid $pid; then
+    success
+  else
+    cd $LOCATION && ($DAEMON $ARGS &) && success || failure
+  fi
 }
  
 #
@@ -336,36 +390,38 @@ do_start()
 #
 do_stop()
 {
-  # pid=`ps auxww | grep 'logstash.*monolithic' | grep java | awk '{print $2}'`
-  if checkpid $pid 2>&1; then
-    # TERM first, then KILL if not dead
-    kill -TERM $pid >/dev/null 2>&1
-    usleep 100000
-    if checkpid $pid && sleep 1 &&
-        checkpid $pid && sleep $delay &&
-        checkpid $pid ; then
-        kill -KILL $pid >/dev/null 2>&1
-        usleep 100000
-    fi
+#  # pid=`ps auxww | grep 'logstash.*monolithic' | grep java | awk '{print $2}'`
+#  if checkpid $pid 2>&1; then
+#    # TERM first, then KILL if not dead
+#    kill -TERM $pid >/dev/null 2>&1
+#    usleep 100000
+#    if checkpid $pid && sleep 1 &&
+#        checkpid $pid && sleep $delay &&
+#        checkpid $pid ; then
+#        kill -KILL $pid >/dev/null 2>&1
+#        usleep 100000
+#    fi
+#  fi
+#  checkpid $pid
+#  RC=$?
+#  [ "$RC" -eq 0 ] && failure $"$base shutdown" || success $"$base shutdown" 
+
+  if checkpid $pid; then
+    sudo kill -9 $pid
   fi
-  checkpid $pid
-  RC=$?
-  [ "$RC" -eq 0 ] && failure $"$base shutdown" || success $"$base shutdown"
 }
  
 case "$1" in
 start)
-  echo -n "Starting $DESC: "
+  echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Starting $DESC: "
   do_start
-  # touch /var/lock/subsys/$JARNAME
 ;;
 stop)
-  echo -n "Stopping $DESC: "
+  echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Stopping $DESC: "
   do_stop
-  # rm /var/lock/subsys/$JARNAME
 ;;
 restart|reload)
-  echo -n "Restarting $DESC: "
+  echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Restarting $DESC: "
   do_stop
   do_start
 ;;
@@ -373,7 +429,7 @@ status)
   status -p $pid
 ;;
 *)
-  echo "Usage: $SCRIPTNAME {start|stop|status|restart}" >&2
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Usage: $SCRIPTNAME {start|stop|status|restart}" >&2
   exit 3
 ;;
 esac
@@ -489,7 +545,7 @@ echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : start service ...
 sh centralized-logstash.sh;
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : start service [ OK ]"
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : test service ..."
-sh centralized-logstash.test.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: don't forget to test your service : /opt/centrallog/centralized-logstash.test.sh";
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-logstash : test service [ OK ]"
 
 exit 0;

@@ -27,7 +27,7 @@ case $DISTRIB in
 Ubuntu*|Debian*)
   # sudo apt-get update
   sudo apt-get install git rubygems -y
-  sudo gem install fpm
+  # sudo gem install fp
   sudo apt-get install openjdk-7-jre-headless wget curl -y
   ES_PACKAGE=elasticsearch-0.20.6.deb;
   ES_PACKAGE=elasticsearch-0.90.0.deb;
