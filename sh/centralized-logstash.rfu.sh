@@ -163,21 +163,21 @@ cat <<ZEOF >centralized-logstash-shipper2redis.conf
 input {
   file {
     type => "linux-syslog"
-    #path => [ "/var/log/syslog" , "/var/log/messages" ]
+    path => [ "/var/log/syslog" , "/var/log/messages" ]
     #path => [ "/var/log/syslog" ]  #Ubuntu
-    path => [ "/var/log/messages" ] #CentOS,RHEL
+    #path => [ "/var/log/messages" ] #CentOS,RHEL
   }
   file {
     type => "apache-access"
-    #path => [ "/var/log/httpd/access_log", "/var/log/apache2/access.log" ]
+    path => [ "/var/log/httpd/access_log", "/var/log/apache2/access.log" ]
     #path => [ "/var/log/apache2/access.log" ] #Ubuntu
-    path => [ "/var/log/httpd/access_log" ] #CentOS,RHEL
+    #path => [ "/var/log/httpd/access_log" ] #CentOS,RHEL
   }
   file {
     type => "apache-error"
-    #path => [ "/var/log/httpd/error_log", "/var/log/apache2/error.log" ]
+    path => [ "/var/log/httpd/error_log", "/var/log/apache2/error.log" ]
     #path => [ "/var/log/apache2/error.log" ] #Ubuntu
-    path => [ "/var/log/httpd/error_log" ] #CentOS,RHEL
+    #path => [ "/var/log/httpd/error_log" ] #CentOS,RHEL
   }
   #file {
   #  type => "apache-json"
@@ -185,10 +185,10 @@ input {
   #}
 }
 filter {
-  # grok {
-    # type => "linux-syslog"       #type "syslog"
-    # pattern => "%{SYSLOGLINE}"
-  # }
+  grok {
+    type => "linux-syslog"       #type "syslog"
+    pattern => "%{SYSLOGLINE}"
+  }
   # multiline{
     # type => "xyz-stdout-log"
     # pattern => "^\s"
@@ -198,6 +198,8 @@ filter {
 output {
   stdout {
     #only for mode DEBUG
+    debug => true
+    debug_format => "json"
   }
   #AMQP
   redis {
