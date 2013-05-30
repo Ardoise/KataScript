@@ -268,8 +268,8 @@ input {
 output {
   stdout { 
     #only for mode DEBUG
-    #debug => true 
-    #debug_format => "json"
+    debug => true
+    debug_format => "json"
   }
   elasticsearch {
     # bind_host => ... # string (optional)
@@ -290,7 +290,6 @@ output {
     
     embedded => false                 #another process elasticsearch
     host => "${yourIP:=127.0.0.1}"    #see elasticsearch.yml
-    port => 9300                      #see elasticsearch.yml
     cluster => "centrallog"           #see elasticsearch.yml
   }
 }

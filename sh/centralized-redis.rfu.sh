@@ -13,17 +13,18 @@ cat <<EOF >centralized-redis.getbin.sh
 #!/bin/sh
 
 [ -d "/opt/redis" ] || sudo mkdir -p /opt/redis;
-[ -d "/etc/redis/tmp" ] || sudo mkdir -p /etc/redis/tmp;
+[ -d "/etc/redis/test" ] || sudo mkdir -p /etc/redis/test;
+[ -d "/val/log/redis" ] || sudo mkdir -p /var/log/redis;
 
 [ -s "redis-2.6.13.tar.gz" ] || curl -OL http://redis.googlecode.com/files/redis-2.6.13.tar.gz
 [ -d "redis-2.6.13" ] || (
   tar xvfz redis-2.6.13.tar.gz
   cd redis-2.6.13
-  make
+  sudo make
   sudo make install
-  make test
+  sudo make test
   # sudo cp utils/redis_init_script /etc/init.d/redis   # BUG redis_server start
-  sudo cp redis.conf /etc/redis/tmp/6379.conf
+  sudo cp redis.conf /etc/redis/test/6379.conf
   [ -f "/etc/redis/6379.conf" ] || sudo cp redis.conf /etc/redis/6379.conf
   
   # TO TEST
@@ -33,7 +34,16 @@ cat <<EOF >centralized-redis.getbin.sh
 EOF
 chmod a+x centralized-redis.getbin.sh
 
+[ -d "/etc/redis/test" ] || sudo mkdir -p /etc/redis/test;
 cat <<"EOF" >centralized-redis.putconf.sh
+
+cat <<"ZEOF" >>6379.conf
+# debug verbose notice warning
+loglevel debug
+# stdout myfile
+logfile /var/log/redis/redis.log
+ZEOF
+cat 6379.conf > /etc/redis/test/6379.add.conf
 
 cat <<"ZEOF" >redis_init_script
 #!/bin/sh
@@ -80,8 +90,10 @@ case "$1" in
 esac
 ZEOF
 sudo cp redis_init_script /etc/init.d/redis
+chmod a+x /etc/init.d/redis
 
 EOF
+
 
 cat <<"EOF" >centralized-redis.test.sh
 #!/bin/sh
