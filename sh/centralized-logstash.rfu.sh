@@ -240,8 +240,12 @@ cat <<"EOF" >centralized-logstash.test.sh
 #!/bin/sh
 
 yourIP=$(hostname -I | cut -d' ' -f1);
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: curl -XGET http://${yourIP:=127.0.0.1}:9200/_status?pretty=true"
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: curl -XGET http://${yourIP:=127.0.0.1}:9200/logstash-$(date +'%Y.%m.%d')/_status?pretty=true"
+echo "TEST STDIN LOCAL : Just wait 60s before to tape a new message !!! CTRL-C to <exit>";
+java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -e "input{}" -l /var/log/logstash/logstash.log;
+
+# echo "TEST daemon logstash ELASTICSEARCH : ";
+# echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: curl -XGET http://${yourIP:=127.0.0.1}:9200/_status?pretty=true"
+# echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: curl -XGET http://${yourIP:=127.0.0.1}:9200/logstash-$(date +'%Y.%m.%d')/_status?pretty=true"
 EOF
 chmod a+x centralized-logstash.test.sh
 
@@ -286,8 +290,10 @@ PATTERNSPATH="/opt/logstash/patterns"
 JARNAME=logstash-monolithic.jar
 JARNAME=logstash-1.1.12-flatjar.jar
 JARNAME=logstash-1.1.13-flatjar.jar
-ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} --log ${LOGFILE} --grok-patterns-path ${PATTERNSPATH}"
-# ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar ${JARNAME} agent --config ${CONFIG_DIR} --log ${LOGFILE} --PATTERNS_DIR ${PATTERNSPATH}"
+ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} -vv --log ${LOGFILE} --grok-patterns-path ${PATTERNSPATH}" ; # level=debug
+ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} -v --log ${LOGFILE} --grok-patterns-path ${PATTERNSPATH}" ; # level=info
+ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} --log ${LOGFILE} --grok-patterns-path ${PATTERNSPATH}";
+# ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar ${JARNAME} agent --config ${CONFIG_DIR} -vv --log ${LOGFILE} --PATTERNS_DIR ${PATTERNSPATH}"
 SCRIPTNAME=/etc/init.d/logstash
 base=logstash
 
