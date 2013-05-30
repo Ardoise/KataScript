@@ -89,6 +89,31 @@ ZEOF
 
 
 [ -d "/etc/logstash/test" ] || sudo mkdir -p /etc/logstash/test;
+cat <<ZEOF >centralized-logstash-stdin2elasticsearch.conf
+input {
+  stdin {
+    charset => "UTF-8"      # "ISO8859-1"... "locale", "external", "filesystem", "internal"
+    debug => true
+    type => "stdin"         # string (required)
+  }
+}
+output {
+  stdout {
+    debug => true
+    debug_format => "json"
+    type => "stdout"
+  }
+  elasticsearch {
+    embedded => false                #another process elasticsearch
+    host => "${yourIP:=127.0.0.1}"   #see elasticsearch.yml
+    cluster => "centrallog"          #see elasticsearch.yml
+  }  
+}
+ZEOF
+[ -d "/etc/logstash/test" ] && sudo cp centralized-logstash-stdin2elasticsearch.conf /etc/logstash/test/stdin2elasticsearch.conf;
+
+
+[ -d "/etc/logstash/test" ] || sudo mkdir -p /etc/logstash/test;
 cat <<ZEOF >centralized-logstash-shipper2elasticsearch.conf
 input {
   file {
@@ -290,9 +315,11 @@ cat <<"EOF" >centralized-logstash.test.sh
 #!/bin/sh
 
 yourIP=$(hostname -I | cut -d' ' -f1);
-echo "TEST STDIN LOGSTASH local : Just wait 60s before to tape a new message !!! CTRL-C to <exit>";
-# java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -e "input{}" -l /var/log/logstash/logstash.log;
-java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -e "input{}" -l /var/log/logstash/logstash.log ;
+echo "TESTS : STDIN LOGSTASH local : Just wait 60s before to tape a new message !!! CTRL-C to <exit>";
+echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -e "input{}";'
+echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -e "input{}" -l /var/log/logstash/logstash.log ;'
+echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -f /etc/logstash/test/stdin2stdout.conf -l /var/log/logstash/logstash.log ;'
+echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -f /etc/logstash/test/stdin2elasticsearch.conf -l /var/log/logstash/logstash.log ;'
 
 # echo "TEST daemon logstash ELASTICSEARCH : ";
 # echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: curl -XGET http://${yourIP:=127.0.0.1}:9200/_status?pretty=true"

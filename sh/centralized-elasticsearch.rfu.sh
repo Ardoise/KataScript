@@ -14,7 +14,7 @@ cat <<"EOF" >centralized-elasticsearch.getbin.sh
 #!/bin/sh
 
 [ -d "/opt/elasticsearch" ] || sudo mkdir -p /opt/elasticsearch;
-[ -d "/etc/elasticsearch/tmp" ] || sudo mkdir -p /etc/elasticsearch/tmp;
+[ -d "/etc/elasticsearch" ] || sudo mkdir -p /etc/elasticsearch;
 
 SITE=https://download.elasticsearch.org/elasticsearch/elasticsearch
 
@@ -69,16 +69,17 @@ chmod a+x centralized-elasticsearch.sh;
 # http://www.elasticsearch.org/guide/reference/setup/configuration/
 # TODO : http://www.elasticsearch.org/guide/reference/setup/dir-layout/
 yourIP=$(hostname -I | cut -d' ' -f1);
+
+[ -d "/etc/elasticsearch/test" ] || sudo mkdir -p "/etc/elasticsearch/test"
 cat <<EOF >centralized-elasticsearch.yml
 cluster.name: centrallog
-node.name: "logstash"                 # graylog2
+node.name: "logstash"
 network.host: ${yourIP:="127.0.0.1"}
 path.logs: "/var/log/elasticsearch"
 path.data: "/var/lib/elasticsearch"
 # path.config: "/etc/elasticsearch/elasticsearch"
 EOF
-[ -d "/etc/elasticsearch/tmp" ] || sudo mkdir -p "/etc/elasticsearch/tmp"
-sudo cp centralized-elasticsearch.yml /etc/elasticsearch/tmp/
+[ -d "/etc/elasticsearch/test/" ] && sudo cp centralized-elasticsearch.yml /etc/elasticsearch/test/
 
 
 cat <<EOF >centralized-elasticsearch.test.sh
@@ -122,7 +123,7 @@ echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-elasticsearch : test service
 # Plugins
 
 # https://github.com/mobz/elasticsearch-head
-[ -f "/usr/share/elastcisearch/bin/plugin" ] && (
+[ -f "/usr/share/elasticsearch/bin/plugin" ] && (
   cd /usr/share
   
   echo "elasticsearch-head : web front end for an ElasticSearch cluster"
