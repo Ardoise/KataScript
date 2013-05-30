@@ -118,21 +118,21 @@ cat <<ZEOF >centralized-logstash-shipper2elasticsearch.conf
 input {
   file {
     type => "linux-syslog"
-    #path => [ "/var/log/syslog" , "/var/log/messages" ]
+    path => [ "/var/log/syslog" , "/var/log/messages" ]
     #path => [ "/var/log/syslog" ]  #Ubuntu
-    path => [ "/var/log/messages" ] #CentOS,RHEL
+    #path => [ "/var/log/messages" ] #CentOS,RHEL
   }
   file {
     type => "apache-access"
-    #path => [ "/var/log/httpd/access_log", "/var/log/apache2/access.log" ]
+    path => [ "/var/log/httpd/access_log", "/var/log/apache2/access.log" ]
     #path => [ "/var/log/apache2/access.log" ] #Ubuntu
-    path => [ "/var/log/httpd/access_log" ] #CentOS,RHEL
+    #path => [ "/var/log/httpd/access_log" ] #CentOS,RHEL
   }
   file {
     type => "apache-error"
-    #path => [ "/var/log/httpd/error_log", "/var/log/apache2/error.log" ]
+    path => [ "/var/log/httpd/error_log", "/var/log/apache2/error.log" ]
     #path => [ "/var/log/apache2/error.log" ] #Ubuntu
-    path => [ "/var/log/httpd/error_log" ] #CentOS,RHEL
+    #path => [ "/var/log/httpd/error_log" ] #CentOS,RHEL
   }
 }
 filter {
@@ -320,6 +320,8 @@ echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -e "input{}";'
 echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -e "input{}" -l /var/log/logstash/logstash.log ;'
 echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -f /etc/logstash/test/stdin2stdout.conf -l /var/log/logstash/logstash.log ;'
 echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -f /etc/logstash/test/stdin2elasticsearch.conf -l /var/log/logstash/logstash.log ;'
+echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -f /etc/logstash/test/shipper2elasticsearch.conf -l /var/log/logstash/logstash.log ;'
+
 
 # echo "TEST daemon logstash ELASTICSEARCH : ";
 # echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: curl -XGET http://${yourIP:=127.0.0.1}:9200/_status?pretty=true"
