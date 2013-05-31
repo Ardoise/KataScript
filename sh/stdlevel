@@ -267,8 +267,16 @@ out() {
   ${ECHO} "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@" >&1
 }
 
+###
+# HOW TO USE it !
+###
+#      if [ -f "myfile" ]; then
+#         msg="\n/myfile foun" 
+#         msg="${msg} bla bla."
+#         log_success_msg "$msg"
+#      fi
+#
 
-# HOW TO USE
 #      log_info_msg "Bla bla... "
 #      `exec my command` >/dev/null
 #
