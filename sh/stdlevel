@@ -325,6 +325,22 @@ out() {
 #         wait_for_user
 #         <your last command>
 #      fi
+#      if [ "${error_value}" -gt 3 -a "${error_value}" -lt 16 ]; then
+#         msg="\nFAILURE:\n\nFile system errors "
+#         msg="${msg}were encountered that could not be "
+#         msg="${msg}fixed automatically.  This system "
+#         msg="${msg}cannot continue to boot and will "
+#         msg="${msg}therefore be halted until those "
+#         msg="${msg}errors are fixed manually by a "
+#         msg="${msg}System Administrator.\n\n"
+#         msg="${msg}After you press Enter, this system will be "
+#         msg="${msg}halted and powered off.\n\n"
+#         log_failure_msg "$msg"
+#
+#         log_info_msg "Press Enter to continue..." 
+#        wait_for_user
+#         /etc/rc.d/init.d/halt stop
+#      fi
 
 
 # depends logger unix
