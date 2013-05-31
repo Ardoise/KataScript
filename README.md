@@ -1,3 +1,12 @@
+KATASCRIPT SERVICE ReadyForUse
+==============================
+  - sh/centralized-centrallog.rfu.sh 
+    - in: (syslog, Apache2, stdin)
+    - out: (NoSQL, WebUI, Search, Index, Storage, centralized)
+  - sh/distributed-logstash (working)
+    - in: (syslog, Apache2, stdin)
+    - out: (centralized)
+
 Kata Script REST
 ================
   - JavaScript ... : js/\<index\>/indexKata.js
@@ -7,7 +16,7 @@ Kata Script REST
 
 Tested with data structure
 ==========================
-  - json
+  - json, json_event, txt
 
 Depends
 ==========================
