@@ -29,6 +29,17 @@ fi
 COL=$((${COLUMNS} - 8))
 WCOL=$((${COL} - 2))
 
+## Provide an echo that supports -e and -n
+# If formatting is needed, $ECHO should be used
+case "`echo -e -n test`" in
+   -[en]*)
+      ECHO=/bin/echo
+      ;;
+   *)
+      ECHO=echo
+      ;;
+esac
+
 ## Set Cursor Position Commands, used via echo
 SET_COL="\\033[${COL}G" # at the $COL char
 SET_WCOL="\\033[${WCOL}G" # at the $WCOL char
@@ -84,20 +95,20 @@ timespec()
 ################################################################################
 log_success_msg()
 {
-    echo -n -e "${@}"
-    echo -e "${SET_COL}${BRACKET}[${SUCCESS} OK ${BRACKET}]${NORMAL}"
+    ${ECHO} -n -e "${@}"
+    ${ECHO} -e "${SET_COL}${BRACKET}[${SUCCESS} OK ${BRACKET}]${NORMAL}"
 
     timespec
-    echo -e "${STAMP} ${@} OK" >> ${BOOTLOG}
+    ${ECHO} -e "${STAMP} ${@} OK" >> ${BOOTLOG}
     return 0
 }
 
 log_success_msg2()
 {
-    echo -n -e "${@}"
-    echo -e "${SET_COL}${BRACKET}[${SUCCESS} OK ${BRACKET}]${NORMAL}"
+    ${ECHO} -n -e "${@}"
+    ${ECHO} -e "${SET_COL}${BRACKET}[${SUCCESS} OK ${BRACKET}]${NORMAL}"
 
-    echo " OK" >> ${BOOTLOG}
+    ${ECHO} " OK" >> ${BOOTLOG}
     return 0
 }
 
@@ -114,20 +125,20 @@ log_success_msg2()
 ################################################################################
 log_failure_msg()
 {
-    echo -n -e "${@}"
-    echo -e "${SET_COL}${BRACKET}[${FAILURE} FAIL ${BRACKET}]${NORMAL}"
+    ${ECHO} -n -e "${@}"
+    ${ECHO} -e "${SET_COL}${BRACKET}[${FAILURE} FAIL ${BRACKET}]${NORMAL}"
 
     timespec
-    echo -e "${STAMP} ${@} FAIL" >> ${BOOTLOG}
+    ${ECHO} -e "${STAMP} ${@} FAIL" >> ${BOOTLOG}
     return 0
 }
 
 log_failure_msg2()
 {
-    echo -n -e "${@}"
-    echo -e "${SET_COL}${BRACKET}[${FAILURE} FAIL ${BRACKET}]${NORMAL}"
+    ${ECHO} -n -e "${@}"
+    ${ECHO} -e "${SET_COL}${BRACKET}[${FAILURE} FAIL ${BRACKET}]${NORMAL}"
 
-    echo "FAIL" >> ${BOOTLOG}
+    ${ECHO} "FAIL" >> ${BOOTLOG}
     return 0
 }
 
@@ -142,11 +153,11 @@ log_failure_msg2()
 ################################################################################
 log_warning_msg()
 {
-    echo -n -e "${@}"
-    echo -e "${SET_COL}${BRACKET}[${WARNING} WARN ${BRACKET}]${NORMAL}"
+    ${ECHO} -n -e "${@}"
+    ${ECHO} -e "${SET_COL}${BRACKET}[${WARNING} WARN ${BRACKET}]${NORMAL}"
 
     timespec
-    echo -e "${STAMP} ${@} WARN" >> ${BOOTLOG}
+    ${ECHO} -e "${STAMP} ${@} WARN" >> ${BOOTLOG}
     return 0
 }
 
@@ -161,18 +172,18 @@ log_warning_msg()
 ################################################################################
 log_info_msg()
 {
-    echo -n -e "${@}"
+    ${ECHO} -n -e "${@}"
 
     timespec
-    echo -n -e "${STAMP} ${@}" >> ${BOOTLOG}
+    ec${ECHO}ho -n -e "${STAMP} ${@}" >> ${BOOTLOG}
     return 0
 }
 
 log_info_msg2()
 {
-    echo -n -e "${@}"
+    ${ECHO} -n -e "${@}"
 
-    echo -n -e "${@}" >> ${BOOTLOG}
+    ${ECHO} -n -e "${@}" >> ${BOOTLOG}
     return 0
 }
 
@@ -209,11 +220,11 @@ wait_for_user()
 }
 
 err() {
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@" >&2
+  ${ECHO} "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@" >&2
 }
 
 out() {
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@" >&1
+  ${ECHO} "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@" >&1
 }
 
 # depends logger unix
