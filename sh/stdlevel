@@ -61,6 +61,16 @@ FAILURE="\\033[1;31m" # Failures are red
 INFO="\\033[1;36m" # Information is light cyan
 BRACKET="\\033[1;34m" # Brackets are blue
 
+# Use a colored prefix
+BMPREFIX="     "
+SUCCESS_PREFIX="${SUCCESS}  *  ${NORMAL}"
+FAILURE_PREFIX="${FAILURE}*****${NORMAL}"
+WARNING_PREFIX="${WARNING} *** ${NORMAL}"
+
+SUCCESS_SUFFIX="${BRACKET}[${SUCCESS}  OK  ${BRACKET}]${NORMAL}"
+FAILURE_SUFFIX="${BRACKET}[${FAILURE} FAIL ${BRACKET}]${NORMAL}"
+WARNING_SUFFIX="${BRACKET}[${WARNING} WARN ${BRACKET}]${NORMAL}"
+
 BOOTLOG=/run/var/bootlog
 KILLDELAY=3
 
