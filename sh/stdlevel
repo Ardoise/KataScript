@@ -267,6 +267,28 @@ out() {
   ${ECHO} "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@" >&1
 }
 
+
+# HOW TO USE
+#      log_info_msg "Bla bla... "
+#      `exec my command` >/dev/null
+#
+#      if [ ${?} != 0 ]; then
+#         log_failure_msg2
+#         msg="\n\nCannot exec your programm "
+#         msg="${msg}because ... "
+#         msg="${msg}in ... .\n\n"
+#         msg="${msg}After you press Enter, this system will be "
+#         msg="${msg}... .\n\n"
+#         log_failure_msg "${msg}"
+#
+#         log_info_msg "Press Enter to continue..." 
+#         wait_for_user
+#         `exec my command2`
+#      else
+#         log_success_msg2
+#      fi
+
+
 # depends logger unix
 
 # TODO : convention syslog : Security level
