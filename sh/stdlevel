@@ -5,7 +5,9 @@
 
 # depends logger
 
-export PATH=$PATH:'/usr/bin:'
+# Setup default values for environment
+umask 022
+export PATH=$PATH:'/bin:/usr/bin:/sbin:/usr/sbin:'
 
 #######################################
 # Out et Error messages
@@ -16,6 +18,202 @@ export PATH=$PATH:'/usr/bin:'
 # Returns:
 #   None
 #######################################
+
+## Screen Dimensions
+# Find current screen size
+if [ -z "${COLUMNS}" ]; then
+   COLUMNS=$(stty size)
+   COLUMNS=${COLUMNS##* }
+fi
+
+# When using remote connections, such as a serial port, stty size returns 0
+if [ "${COLUMNS}" = "0" ]; then
+   COLUMNS=80
+fi
+
+## Measurements for positioning result messages
+COL=$((${COLUMNS} - 8))
+WCOL=$((${COL} - 2))
+
+## Set Cursor Position Commands, used via echo
+SET_COL="\\033[${COL}G" # at the $COL char
+SET_WCOL="\\033[${WCOL}G" # at the $WCOL char
+CURS_UP="\\033[1A\\033[0G" # Up one line, at the 0'th char
+
+## Set color commands, used via echo
+# Please consult `man console_codes for more information
+# under the "ECMA-48 Set Graphics Rendition" section
+#
+# Warning: when switching from a 8bit to a 9bit font,
+# the linux console will reinterpret the bold (1;) to
+# the top 256 glyphs of the 9bit font. This does
+# not affect framebuffer consoles
+
+NORMAL="\\033[0;39m" # Standard console grey
+SUCCESS="\\033[1;32m" # Success is green
+WARNING="\\033[1;33m" # Warnings are yellow
+FAILURE="\\033[1;31m" # Failures are red
+INFO="\\033[1;36m" # Information is light cyan
+BRACKET="\\033[1;34m" # Brackets are blue
+
+BOOTLOG=/run/var/bootlog
+KILLDELAY=3
+
+# Set any user specified environment variables e.g. HEADLESS
+[ -r /etc/sysconfig/rc.site ] && . /etc/sysconfig/rc.site
+
+###
+################################################################################
+# timespec() #
+# #
+# Purpose: An internal utility function to format a timestamp #
+# a boot log file. Sets the STAMP variable. #
+# #
+# Return value: Not used #
+################################################################################
+timespec()
+{
+   STAMP="$(echo `date +"%b %d %T %:z"` `hostname`) "
+   return 0
+}
+
+################################################################################
+# log_success_msg() #
+# Usage: log_success_msg ["message"] #
+# #
+# Purpose: Print a successful status message to the screen and #
+# a boot log file. #
+# #
+# Inputs: $@ - Message #
+# #
+# Return values: Not used #
+################################################################################
+log_success_msg()
+{
+    echo -n -e "${@}"
+    echo -e "${SET_COL}${BRACKET}[${SUCCESS} OK ${BRACKET}]${NORMAL}"
+
+    timespec
+    echo -e "${STAMP} ${@} OK" >> ${BOOTLOG}
+    return 0
+}
+
+log_success_msg2()
+{
+    echo -n -e "${@}"
+    echo -e "${SET_COL}${BRACKET}[${SUCCESS} OK ${BRACKET}]${NORMAL}"
+
+    echo " OK" >> ${BOOTLOG}
+    return 0
+}
+
+################################################################################
+# log_failure_msg() #
+# Usage: log_failure_msg ["message"] #
+# #
+# Purpose: Print a failure status message to the screen and #
+# a boot log file. #
+# #
+# Inputs: $@ - Message #
+# #
+# Return values: Not used #
+################################################################################
+log_failure_msg()
+{
+    echo -n -e "${@}"
+    echo -e "${SET_COL}${BRACKET}[${FAILURE} FAIL ${BRACKET}]${NORMAL}"
+
+    timespec
+    echo -e "${STAMP} ${@} FAIL" >> ${BOOTLOG}
+    return 0
+}
+
+log_failure_msg2()
+{
+    echo -n -e "${@}"
+    echo -e "${SET_COL}${BRACKET}[${FAILURE} FAIL ${BRACKET}]${NORMAL}"
+
+    echo "FAIL" >> ${BOOTLOG}
+    return 0
+}
+
+################################################################################
+# log_warning_msg() #
+# Usage: log_warning_msg ["message"] #
+# #
+# Purpose: Print a warning status message to the screen and #
+# a boot log file. #
+# #
+# Return values: Not used #
+################################################################################
+log_warning_msg()
+{
+    echo -n -e "${@}"
+    echo -e "${SET_COL}${BRACKET}[${WARNING} WARN ${BRACKET}]${NORMAL}"
+
+    timespec
+    echo -e "${STAMP} ${@} WARN" >> ${BOOTLOG}
+    return 0
+}
+
+################################################################################
+# log_info_msg() #
+# Usage: log_info_msg message #
+# #
+# Purpose: Print an information message to the screen and #
+# a boot log file. Does not print a trailing newline character. #
+# #
+# Return values: Not used #
+################################################################################
+log_info_msg()
+{
+    echo -n -e "${@}"
+
+    timespec
+    echo -n -e "${STAMP} ${@}" >> ${BOOTLOG}
+    return 0
+}
+
+log_info_msg2()
+{
+    echo -n -e "${@}"
+
+    echo -n -e "${@}" >> ${BOOTLOG}
+    return 0
+}
+
+################################################################################
+# evaluate_retval() #
+# Usage: Evaluate a return value and print success or failyure as appropriate #
+# #
+# Purpose: Convenience function to terminate an info message #
+# #
+# Return values: Not used #
+################################################################################
+evaluate_retval()
+{
+   local error_value="${?}"
+
+   if [ ${error_value} = 0 ]; then
+      log_success_msg2
+   else
+      log_failure_msg2
+   fi
+}
+
+################################################################################
+# wait_for_user() #
+# #
+# Purpose: Wait for the user to respond if not a headless system #
+# #
+################################################################################
+wait_for_user()
+{
+   # Wait for the user by default
+   [ "${HEADLESS=0}" = "0" ] && read ENTER
+   return 0
+}
+
 err() {
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@" >&2
 }
