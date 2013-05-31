@@ -77,14 +77,13 @@ KILLDELAY=3
 # Set any user specified environment variables e.g. HEADLESS
 [ -r /etc/sysconfig/rc.site ] && . /etc/sysconfig/rc.site
 
-###
 ################################################################################
-# timespec() #
-# #
-# Purpose: An internal utility function to format a timestamp #
-# a boot log file. Sets the STAMP variable. #
-# #
-# Return value: Not used #
+# timespec()                                                                   #
+#                                                                              #
+# Purpose: An internal utility function to format a timestamp                  #
+#          a boot log file.  Sets the STAMP variable.                          #
+#                                                                              #
+# Return value: Not used                                                       #
 ################################################################################
 timespec()
 {
@@ -93,117 +92,136 @@ timespec()
 }
 
 ################################################################################
-# log_success_msg() #
-# Usage: log_success_msg ["message"] #
-# #
-# Purpose: Print a successful status message to the screen and #
-# a boot log file. #
-# #
-# Inputs: $@ - Message #
-# #
-# Return values: Not used #
+# log_success_msg()                                                            #
+# Usage: log_success_msg ["message"]                                           #
+#                                                                              #
+# Purpose: Print a successful status message to the screen and                 #
+#          a boot log file.                                                    #
+#                                                                              #
+# Inputs: $@ - Message                                                         #
+#                                                                              #
+# Return values: Not used                                                      #
 ################################################################################
 log_success_msg()
 {
-    ${ECHO} -n -e "${@}"
-    ${ECHO} -e "${SET_COL}${BRACKET}[${SUCCESS} OK ${BRACKET}]${NORMAL}"
+    /bin/echo -n -e "${BMPREFIX}${@}"
+    /bin/echo -e "${CURS_ZERO}${SUCCESS_PREFIX}${SET_COL}${SUCCESS_SUFFIX}"
+
+    # Strip non-printable characters from log file
+    logmessage=`echo "${@}" | sed 's/\\\033[^a-zA-Z]*.//g'`
 
     timespec
-    ${ECHO} -e "${STAMP} ${@} OK" >> ${BOOTLOG}
+    /bin/echo -e "${STAMP} ${logmessage} OK" >> ${BOOTLOG}
+    
     return 0
 }
 
 log_success_msg2()
 {
-    ${ECHO} -n -e "${@}"
-    ${ECHO} -e "${SET_COL}${BRACKET}[${SUCCESS} OK ${BRACKET}]${NORMAL}"
+    /bin/echo -n -e "${BMPREFIX}${@}"
+    /bin/echo -e "${CURS_ZERO}${SUCCESS_PREFIX}${SET_COL}${SUCCESS_SUFFIX}"
 
-    ${ECHO} " OK" >> ${BOOTLOG}
+    echo " OK" >> ${BOOTLOG}
+    
     return 0
 }
 
 ################################################################################
-# log_failure_msg() #
-# Usage: log_failure_msg ["message"] #
-# #
-# Purpose: Print a failure status message to the screen and #
-# a boot log file. #
-# #
-# Inputs: $@ - Message #
-# #
-# Return values: Not used #
+# log_failure_msg()                                                            #
+# Usage: log_failure_msg ["message"]                                           #
+#                                                                              #
+# Purpose: Print a failure status message to the screen and                    #
+#          a boot log file.                                                    #
+#                                                                              #
+# Inputs: $@ - Message                                                         #
+#                                                                              #
+# Return values: Not used                                                      #
 ################################################################################
 log_failure_msg()
 {
-    ${ECHO} -n -e "${@}"
-    ${ECHO} -e "${SET_COL}${BRACKET}[${FAILURE} FAIL ${BRACKET}]${NORMAL}"
+    /bin/echo -n -e "${BMPREFIX}${@}"
+    /bin/echo -e "${CURS_ZERO}${FAILURE_PREFIX}${SET_COL}${FAILURE_SUFFIX}"
+
+    # Strip non-printable characters from log file
 
     timespec
-    ${ECHO} -e "${STAMP} ${@} FAIL" >> ${BOOTLOG}
+    logmessage=`echo "${@}" | sed 's/\\\033[^a-zA-Z]*.//g'`
+    /bin/echo -e "${STAMP} ${logmessage} FAIL" >> ${BOOTLOG}
+    
     return 0
 }
 
 log_failure_msg2()
 {
-    ${ECHO} -n -e "${@}"
-    ${ECHO} -e "${SET_COL}${BRACKET}[${FAILURE} FAIL ${BRACKET}]${NORMAL}"
+    /bin/echo -n -e "${BMPREFIX}${@}"
+    /bin/echo -e "${CURS_ZERO}${FAILURE_PREFIX}${SET_COL}${FAILURE_SUFFIX}"
 
-    ${ECHO} "FAIL" >> ${BOOTLOG}
+    echo "FAIL" >> ${BOOTLOG}
+    
     return 0
 }
 
 ################################################################################
-# log_warning_msg() #
-# Usage: log_warning_msg ["message"] #
-# #
-# Purpose: Print a warning status message to the screen and #
-# a boot log file. #
-# #
-# Return values: Not used #
+# log_warning_msg()                                                            #
+# Usage: log_warning_msg ["message"]                                           #
+#                                                                              #
+# Purpose: Print a warning status message to the screen and                    #
+#          a boot log file.                                                    #
+#                                                                              #
+# Return values: Not used                                                      #
 ################################################################################
 log_warning_msg()
 {
-    ${ECHO} -n -e "${@}"
-    ${ECHO} -e "${SET_COL}${BRACKET}[${WARNING} WARN ${BRACKET}]${NORMAL}"
+    /bin/echo -n -e "${BMPREFIX}${@}"
+    /bin/echo -e "${CURS_ZERO}${WARNING_PREFIX}${SET_COL}${WARNING_SUFFIX}"
 
+    # Strip non-printable characters from log file
+    logmessage=`echo "${@}" | sed 's/\\\033[^a-zA-Z]*.//g'`
     timespec
-    ${ECHO} -e "${STAMP} ${@} WARN" >> ${BOOTLOG}
+    /bin/echo -e "${STAMP} ${logmessage} WARN" >> ${BOOTLOG}
+    
     return 0
 }
 
 ################################################################################
-# log_info_msg() #
-# Usage: log_info_msg message #
-# #
-# Purpose: Print an information message to the screen and #
-# a boot log file. Does not print a trailing newline character. #
-# #
-# Return values: Not used #
+# log_info_msg()                                                               #
+# Usage: log_info_msg message                                                  #
+#                                                                              #
+# Purpose: Print an information message to the screen and                      #
+#          a boot log file.  Does not print a trailing newline character.      #
+#                                                                              #
+# Return values: Not used                                                      #
 ################################################################################
 log_info_msg()
 {
-    ${ECHO} -n -e "${@}"
+    /bin/echo -n -e "${BMPREFIX}${@}"
 
+    # Strip non-printable characters from log file
+    logmessage=`echo "${@}" | sed 's/\\\033[^a-zA-Z]*.//g'`
     timespec
-    ec${ECHO}ho -n -e "${STAMP} ${@}" >> ${BOOTLOG}
+    /bin/echo -n -e "${STAMP} ${logmessage}" >> ${BOOTLOG}
+    
     return 0
 }
 
 log_info_msg2()
 {
-    ${ECHO} -n -e "${@}"
+    /bin/echo -n -e "${@}"
 
-    ${ECHO} -n -e "${@}" >> ${BOOTLOG}
+    # Strip non-printable characters from log file
+    logmessage=`echo "${@}" | sed 's/\\\033[^a-zA-Z]*.//g'`
+    /bin/echo -n -e "${logmessage}" >> ${BOOTLOG}
+    
     return 0
 }
 
 ################################################################################
-# evaluate_retval() #
-# Usage: Evaluate a return value and print success or failyure as appropriate #
-# #
-# Purpose: Convenience function to terminate an info message #
-# #
-# Return values: Not used #
+# evaluate_retval()                                                            #
+# Usage: Evaluate a return value and print success or failyure as appropriate  #
+#                                                                              #
+# Purpose: Convenience function to terminate an info message                   #
+#                                                                              #
+# Return values: Not used                                                      #
 ################################################################################
 evaluate_retval()
 {
@@ -217,16 +235,28 @@ evaluate_retval()
 }
 
 ################################################################################
-# wait_for_user() #
-# #
-# Purpose: Wait for the user to respond if not a headless system #
-# #
+# wait_for_user()                                                              #
+#                                                                              #
+# Purpose: Wait for the user to respond if not a headless system               #
+#                                                                              #
 ################################################################################
 wait_for_user()
 {
    # Wait for the user by default
    [ "${HEADLESS=0}" = "0" ] && read ENTER
    return 0
+}
+
+################################################################################
+# is_true()                                                                    #
+#                                                                              #
+# Purpose: Utility to test if a variable is true | yes | 1                     #
+#                                                                              #
+################################################################################
+is_true()
+{
+   [ "$1" = "1" ] || [ "$1" = "yes" ] || [ "$1" = "true" ] ||  [ "$1" = "y" ] ||
+   [ "$1" = "t" ]
 }
 
 err() {
