@@ -1,11 +1,11 @@
 KATASCRIPT SERVICE ReadyForUse
 ==============================
   - sh/centralized-centrallog.rfu.sh 
-    - in: (syslog, Apache2, stdin)
+    - in: (syslog, Apache2, stdin, redis: distributed)
     - out: (NoSQL, WebUI, Search, Index, Storage, centralized)
-  - sh/distributed-logstash (working)
+  - sh/distributed-logstash
     - in: (syslog, Apache2, stdin)
-    - out: (centralized)
+    - out: (redis: centralized)
 
 Kata Script REST
 ================
