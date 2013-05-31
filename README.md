@@ -1,12 +1,9 @@
 KATASCRIPT SERVICE ReadyForUse
 ==============================
-  - sh/centralized-centrallog.rfu.sh 
-    - in: (syslog, Apache2, stdin, redis: distributed)
-    - out: (NoSQL, WebUI, Search, Index, Storage, centralized)
-  - sh/distributed-logstash
-    - in: (syslog, Apache2, stdin)
-    - out: (redis: centralized)
-
+  Service 'centrallog' v0.1.alpha : https://cacoo.com/diagrams/mTm79GTjCk8HGxsz
+  - sh/centralized-centrallog.rfu.sh => VM CENTRAL
+  - sh/distributed-logstash.rfu.sh => VM's DISTRIBUTED
+    
 Kata Script REST
 ================
   - JavaScript ... : js/\<index\>/indexKata.js
