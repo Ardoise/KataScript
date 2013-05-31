@@ -49,6 +49,10 @@ case "${1}" in
     sleep 1
     ${0} start
     ;;
+  status)
+    echo "Hostname is: $(hostname)"
+    ip link show lo
+    ;;
   *)
     echo "Usage: ${0} {start|stop|restart|status}"
     exit 1
