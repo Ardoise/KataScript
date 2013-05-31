@@ -270,13 +270,14 @@ out() {
 ###
 # HOW TO USE it !
 ###
+# ex:
 #      if [ -f "myfile" ]; then
 #         msg="\n/myfile foun" 
 #         msg="${msg} bla bla."
 #         log_success_msg "$msg"
 #      fi
 #
-
+# ex:
 #      log_info_msg "Bla bla... "
 #      `exec my command` >/dev/null
 #
@@ -294,6 +295,35 @@ out() {
 #         `exec my command2`
 #      else
 #         log_success_msg2
+#      fi
+# ex:
+#      log_info_msg "Checking somethink..."
+#      ...
+#      error_value=${?}
+#
+#      if [ "${error_value}" = 0 ]; then
+#         log_success_msg2
+#      fi
+#
+#      if [ "${error_value}" = 1 ]; then
+#         msg="\nWARNING:\n\n errors "
+#         msg="${msg}were ... .\n"
+#         msg="${msg}bla bla."
+#         log_warning_msg "$msg"
+#      fi
+#
+#      if [ "${error_value}" = 2 -o "${error_value}" = 3 ]; then
+#         msg="\nWARNING:\n\nstem errors "
+#         msg="${msg}were found and have been been "
+#         msg="${msg}..., but the nature of the "
+#         msg="${msg}errors require ... .\n\n"
+#         msg="${msg}After you press enter, "
+#         msg="${msg}this system will be ...\n\n"
+#         log_failure_msg "$msg"
+#
+#         log_info_msg "Press Enter to continue..." 
+#         wait_for_user
+#         <your last command>
 #      fi
 
 
