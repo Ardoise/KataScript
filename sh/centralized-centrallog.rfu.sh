@@ -1,32 +1,31 @@
 #!/bin/sh
+### BEGIN INIT INFO
+# Provides: centrallog
+# Short-Description: DEPLOY SERVER: [BROKER, INDEXER, STORAGESEARCH, WEBUI]
+# Author: created by: https://github.com/Ardoise
+# Update: last-update: 20130531
+### END INIT INFO
 
-# RFU : READY FOR USE !
-# DEPLOY CENTRALIZED SERVER : BROKER, INDEXER, STORAGESEARCH, WEBUI
-# DEPLOY CENTRALIZED SERVER : SHIPPER(local), STORAGESEARCH, WEBUI
+# Description:
+# - deploy logstash v1.1.13
+# - deploy redis v2.6.11
+# - deploy elasticsearch v0.90.0
+# - deploy kibana3
 #
-# created by : https://github.com/Ardoise
+# Requires : /opt/centrallog is necessary to deploy the packages
+# Requires : you need root privileges tu run the children's scripts
 
 set -e
 
 # TODO : USE IT !
 [ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
 [ -r /etc/default/rcS ] && . /etc/default/rcS
-# log_progress_msg "(log_progress_msg)"
-# log_end_msg 0
-# log_success_msg "log_success_msg"
-# log_end_msg 0
-# log_daemon_msg "log_daemon_msg"
-# log_end_msg 0
-# log_daemon_msg "log_daemon_msg"
-# log_end_msg 1
-# log_failure_msg "log_failure_msg"
-
 
 # is Necessary ?
-# if [ `id -u` -ne 0 ]; then
-#  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
-#  exit 1
-# fi
+if [ `id -u` -ne 0 ]; then
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
+  exit 1
+fi
 
 [ -d "/opt/centrallog" ] || sudo mkdir -p /opt/centrallog;
 [ -d "/opt/centrallog" ] && (

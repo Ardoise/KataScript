@@ -1,14 +1,41 @@
-#!/bin/bash
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: centrallog: elasticsearch
+# Short-Description: DEPLOY SERVER: [STORAGESEARCH]
+# Author: created by: https://github.com/Ardoise
+# Update: last-update: 20130531
+### END INIT INFO
 
-# DEPLOY CENTRALIZED SERVER : STORAGESEARCH
+# Description: SERVICE CENTRALLOG: ELASTICSEARCH (NoSQL, INDEX, SEARCH)
+# - deploy elasticsearch v0.90.0
+# - deploy mobz/elasticsearch-head                plugin
+# - deploy karmi/elasticsearch-paramedic          plugin
+# - deploy lukas-vlcek/bigdesk                    plugin
+# - deploy polyfractal/elasticsearch-inquisitor   plugin
+# - deploy polyfractal/elasticsearch-segmentspy   plugin
 #
-# created by : https://github.com/Ardoise
+# Requires : you need root privileges tu run this script
+# Requires : JRE7 to run elasticsearch
+# Requires : curl
+#
+# CONFIG:   [ "/etc/elasticsearch", "/etc/elasticsearch/test" ]
+# BINARIES: [ "/opt/elasticsearch/", "/usr/share/elasticsearch/" ]
+# LOG:      [ "/var/log/elasticsearch/" ]
+# RUN:      [ "/var/elasticsearch/elasticsearch.pid" ]
+# INIT:     [ "/etc/init.d/elasticsearch" ]
+# PLUGINS:  [ "/usr/share/elasticsearch/bin/plugin" ]
 
 set -e
 
 NAME=elasticsearch
 DESC="elasticsearch Server"
 DEFAULT=/etc/default/$NAME
+
+if [ `id -u` -ne 0 ]; then
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
+  exit 1
+fi
+
 
 cat <<"EOF" >centralized-elasticsearch.getbin.sh
 #!/bin/sh
@@ -83,7 +110,7 @@ EOF
 
 
 cat <<EOF >centralized-elasticsearch.test.sh
-#!/bin/bash
+#!/bin/sh
 
 # Console
 yourIP=$(hostname -I | cut -d' ' -f1);
@@ -101,13 +128,6 @@ echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: curl -XGET 'http://${yourIP:="127.0.0.1"
 exit 0;
 EOF
 chmod a+x centralized-elasticsearch.test.sh
-
-# REST : CHILD
-# if [ `id -u` -ne 0 ]; then
-#  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
-#  exit 1
-# fi
-
 
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-elasticsearch : get binaries ..."
 sh centralized-elasticsearch.getbin.sh;
@@ -149,7 +169,6 @@ echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-elasticsearch : test service
   echo "Segment graphs update in real-time, allowing you to watch as ElasticSearch (Lucene) merges your segments."
   sudo elasticsearch/bin/plugin -install polyfractal/elasticsearch-segmentspy
   echo "http://${yourIP}:9200/_plugin/segmentspy/index.html"
-  
 )
 
 exit 0

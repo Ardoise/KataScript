@@ -1,13 +1,33 @@
 #!/bin/sh
+### BEGIN INIT INFO
+# Provides: centrallog: redis
+# Short-Description: DEPLOY SERVER: [BROKER]
+# Author: created by: https://github.com/Ardoise
+# Update: last-update: 20130531
+### END INIT INFO
 
+# Description: SERVICE CENTRALLOG: REDIS (NoSQL, Broker)
+# - deploy redis v2.6.13
 #
-# created by : https://github.com/Ardoise
+# Requires : you need root privileges tu run this script
+# Requires : curl, gcc
+#
+# CONFIG:   [ "/etc/redis", "/etc/redis/test" ]
+# BINARIES: [ "/opt/redis/", "/usr/local/bin/redis-server", "/usr/local/bin/redis-cli" ]
+# LOG:      [ "/var/log/redis/" ]
+# RUN:      [ "/var/run/redis.pid" ]
+# INIT:     [ "/etc/init.d/redis" ]
 
 set -e
 
 NAME=redis
 DESC="redis Server"
 DEFAULT=/etc/default/$NAME
+
+if [ `id -u` -ne 0 ]; then
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
+  exit 1
+fi
 
 cat <<EOF >centralized-redis.getbin.sh
 #!/bin/sh
@@ -119,11 +139,6 @@ EOF
 chmod a+x centralized-redis.sh
 
 
-# REST : CHILD
-# if [ `id -u` -ne 0 ]; then
-#  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
-#  exit 1
-# fi
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-redis : get binaries ..."
 sh centralized-redis.getbin.sh;
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-redis : get binaries [ OK ]"

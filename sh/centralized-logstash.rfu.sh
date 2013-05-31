@@ -1,8 +1,27 @@
 #!/bin/sh
+### BEGIN INIT INFO
+# Provides: centrallog: logstash
+# Short-Description: DEPLOY SERVER: [BROKER, INDEXER, STORAGESEARCH, WEBUI]
+# Author: created by: https://github.com/Ardoise
+# Update: last-update: 20130531
+### END INIT INFO
 
-# DEPLOY CENTRALIZED SERVER : BROKER, INDEXER, SHIPPER, STORAGESEARCH, WEBUI
+# Description: SERVICE CENTRALLOG: LOGSTASH (shipper)
+# - deploy logstash v1.1.13
 #
-# created by : https://github.com/Ardoise
+# Requires : you need root privileges tu run this script
+# Requires : JRE7 to run logstash
+# Requires : curl
+#
+# CONFIG: [ "/etc/logstash", "/etc/logstash/test" ]
+#   CAS0: logstash => logstash       (test stdin         => stdout)
+#   CAS1: logstash => elasticsearch  (test local shipper => elasticsearch)
+#   CAS2: logstash => redis          (test local shipper => redis)
+#   CAS3: redis    => elasticsearch  (test local redis   => elasticsearch)
+# BINARIES: [ "/opt/logstash/" ]
+# LOG:      [ "/var/log/logstash/" ]
+# RUN:      [ "/var/run/logstash.pid" ]
+# INIT:     [ "/etc/init.d/logstash" ]
 
 set -e
 
@@ -10,12 +29,15 @@ NAME=logstash
 DESC="logstash Server"
 DEFAULT=/etc/default/$NAME
 
-# if [ `id -u` -ne 0 ]; then
-#  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
-#  exit 1
-# fi
+if [ `id -u` -ne 0 ]; then
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
+  exit 1
+fi
 
-. ./stdlevel
+# TODO : USE IT !
+[ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
+[ -r /etc/default/rcS ] && . /etc/default/rcS
+. ./stdlevel; # DEPRECATED
 
 cat <<EOF >centralized-logstash.getbin.sh
 #!/bin/sh
@@ -29,7 +51,6 @@ cat <<EOF >centralized-logstash.getbin.sh
 [ -d "/etc/logstash/test" ] || sudo mkdir -p /etc/logstash/test ;
 cd /opt/logstash
 [ -s "logstash-1.1.13-flatjar.jar" ] || curl -OL https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar
-# [ -s "logstash-1.1.11.dev-monolithic.jar" ] || curl -OL http://logstash.objects.dreamhost.com/builds/logstash-1.1.11.dev-monolithic.jar
 EOF
 chmod a+x centralized-logstash.getbin.sh
 
@@ -300,7 +321,7 @@ EOF
 chmod a+x centralized-logstash.putconf.sh
 
 cat <<EOF >centralized-logstash.sh
-#!/bin/bash
+#!/bin/sh
 # -Des.path.data="/var/lib/elasticsearch/"
 # logstash-1.1.9-monolithic.jar
 # OLD CALLs
@@ -321,8 +342,8 @@ echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -e "input{}";'
 echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -e "input{}" -l /var/log/logstash/logstash.log ;'
 echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -f /etc/logstash/test/stdin2stdout.conf -l /var/log/logstash/logstash.log ;'
 echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -f /etc/logstash/test/stdin2elasticsearch.conf -l /var/log/logstash/logstash.log ;'
+echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -f /etc/logstash/test/stdin2redis.conf -l /var/log/logstash/logstash.log ;'
 echo 'java -jar /opt/logstash/logstash-1.1.13-flatjar.jar agent -f /etc/logstash/test/shipper2elasticsearch.conf -l /var/log/logstash/logstash.log ;'
-
 
 # echo "TEST daemon logstash ELASTICSEARCH : ";
 # echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: curl -XGET http://${yourIP:=127.0.0.1}:9200/_status?pretty=true"
