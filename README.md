@@ -9,7 +9,7 @@ Depends
   - logstash [http://logstash.net] [v1.1.13]
   - redis [http://redis.io] [v2.6.13]
   - elasticsearch [http://elasticsearch.org] [v0.90.RC2]
-  - kibana [http://kibana.org] [working]
+  - kibana [http://kibana.org] [v3m2]
   - mongoDB [http://www.mongodb.org/] [working]
   - graylog2 [http://graylog2.org] [working]
 
