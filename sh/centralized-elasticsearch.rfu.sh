@@ -62,7 +62,7 @@ Ubuntu*|Debian*)
   sudo dpkg -i $ES_PACKAGE;
   sudo service elasticsearch start ;
 ;;
-Redhat*)
+Redhat*|Red*hat*)
   sudo yum install java-1.7.0-openjdk wget curl -y
   ES_PACKAGE=elasticsearch-0.90.0.RC2.noarch.rpm;
   [ -f "$ES_PACKAGE" ] || wget --no-check-certificate $SITE/$ES_PACKAGE;
