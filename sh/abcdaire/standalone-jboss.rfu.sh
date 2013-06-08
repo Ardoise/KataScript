@@ -80,6 +80,9 @@ chmod a+x standalone-jboss.getbin.sh;
 cat <<"EOF" >standalone-jboss.putconf.sh
 #!/bin/sh
 
+echo "sudo useradd -r devops";
+echo "sudo chown devops: /usr/share/local/jboss/ -R";
+
 [ -d "/usr/local/share/jboss/bin" ] && (
   cd /usr/local/share/jboss/bin;
   cat <<ZEOF | ./add-user.sh
@@ -103,11 +106,60 @@ cat <<"EOF" >standalone-jboss.sh
 yourIP=$(hostname -i | cut -d' ' -f1);
 [ -d "/usr/local/share/jboss/bin" ] && (
   cd /usr/local/share/jboss/bin;
+  echo "config JBoss AS 7.1.1: /usr/local/share/jboss/standalone/configuration/standalone.xml"
   ./jboss-cli.sh --connect --controller=${yourIP}:9999 command=:shutdown
   ./standalone.sh -Djboss.bind.address=${yourIP} -Djboss.bind.address.management=${yourIP}&
 )
+
+cat <<"ZEOF" >etc-init.d-cjboss.sh
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: jboss
+# Required-Start: $local_fs $remote_fs $network $syslog
+# Required-Stop: $local_fs $remote_fs $network $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Start/Stop JBoss AS v7.1.1
+### END INIT INFO
+#
+#source some script files in order to set and export environmental variables
+#as well as add the appropriate executables to $PATH
+
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+export PATH=$JAVA_HOME/bin:$PATH
+
+export JBOSS_HOME=/usr/local/share/jboss
+export PATH=$JBOSS_HOME/bin:$PATH
+
+case "$1" in
+start)
+echo "Starting JBoss AS 7.1.1"
+#original:
+#sudo -u jboss sh ${JBOSS_HOME}/bin/standalone.sh
+
+#updated:
+start-stop-daemon --start --quiet --background --chuid devops --exec ${JBOSS_HOME}/bin/standalone.sh
+;;
+stop)
+echo "Stopping JBoss AS 7.1.1"
+#original:
+#sudo -u jboss sh ${JBOSS_HOME}/bin/jboss-admin.sh --connect command=:shutdown
+
+#updated:
+start-stop-daemon --start --quiet --background --chuid devops --exec ${JBOSS_HOME}/bin/jboss-admin.sh -- --connect command=:shutdown
+;;
+*)
+echo "Usage: /etc/init.d/jboss {start|stop}"
+exit 1
+;;
+esac
+
+exit 0
+ZEOF
+sudo chmod a+x etc-init.d-cjboss.sh
+
 EOF
-chmod a+x standalone-jboss.sh
+chmod a+x standalone-cjboss.sh
 
 cat <<"EOF" >standalone-jboss.test.sh
 #!/bin/sh
