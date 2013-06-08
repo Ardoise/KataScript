@@ -103,6 +103,7 @@ cat <<"EOF" >standalone-jboss.sh
 yourIP=$(hostname -i | cut -d' ' -f1);
 [ -d "/usr/local/share/jboss/bin" ] && (
   cd /usr/local/share/jboss/bin;
+  ./jboss-cli.sh --connect --controller=${yourIP}:9999 command=:shutdown
   ./standalone.sh -Djboss.bind.address=${yourIP} -Djboss.bind.address.management=${yourIP}&
 )
 EOF
@@ -112,7 +113,8 @@ cat <<"EOF" >standalone-jboss.test.sh
 #!/bin/sh
 
 yourIP=$(hostname -i | cut -d' ' -f1);
-echo "http://${yourIP}:9990/console"
+echo "toDeploy => http://${yourIP}:8080/"
+echo "toAdmin => http://${yourIP}:9990/console"
 
 EOF
 chmod a+x standalone-jboss.test.sh
