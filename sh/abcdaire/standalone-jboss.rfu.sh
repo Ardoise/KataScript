@@ -159,7 +159,7 @@ ZEOF
 sudo chmod a+x etc-init.d-cjboss.sh
 
 EOF
-chmod a+x standalone-cjboss.sh
+chmod a+x standalone-jboss.sh
 
 cat <<"EOF" >standalone-jboss.test.sh
 #!/bin/sh
