@@ -103,7 +103,9 @@ chmod a+x standalone-jboss.putconf.sh
 cat <<"EOF" >standalone-jboss.sh
 #!/bin/sh
 
-yourIP=$(hostname -i | cut -d' ' -f1);
+yourIP=$(hostname -I | cut -d' ' -f1);
+yourIP=${yourIP:-"127.0.0.1"};
+
 [ -d "/usr/local/share/jboss/bin" ] && (
   cd /usr/local/share/jboss/bin;
   echo "config JBoss AS 7.1.1: /usr/local/share/jboss/standalone/configuration/standalone.xml"
@@ -164,7 +166,8 @@ chmod a+x standalone-jboss.sh
 cat <<"EOF" >standalone-jboss.test.sh
 #!/bin/sh
 
-yourIP=$(hostname -i | cut -d' ' -f1);
+yourIP=$(hostname -I | cut -d' ' -f1);
+yourIP=${yourIP:-"127.0.0.1"};
 echo "toDeploy => http://${yourIP}:8080/"
 echo "toAdmin => http://${yourIP}:9990/console"
 
