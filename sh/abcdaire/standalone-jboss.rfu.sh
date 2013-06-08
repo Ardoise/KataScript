@@ -1,6 +1,6 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides: centrallog: jboss
+# Provides: carroussellog: jboss
 # Short-Description: DEPLOY SERVER: [STORAGESEARCH]
 # Author: created by: https://github.com/Ardoise
 # Update: last-update: 20130608
