@@ -4,7 +4,8 @@ KATASCRIPT REST ReadyForUse
   - https://cacoo.com/diagrams/mTm79GTjCk8HGxsz
   - sh/centrallog/centralized-centrallog.rfu.sh => VM CENTRAL
   - sh/centrallog/distributed-logstash.rfu.sh => VM's DISTRIBUTED
-
+  service [CarrouselLog][RFU:v0.1.alpha] :
+  - sh/abcdaire/standalone-jboss.rfu.sh => VM CENTRAL
 Depends
 ==========================
   - logstash [http://logstash.net] [v1.1.13]
@@ -13,6 +14,7 @@ Depends
   - kibana3 [http://kibana.org] [v3m2]
   - mongoDB [http://www.mongodb.org/] [working]
   - graylog2 [http://graylog2.org] [working]
+  - JBossAS [http://download.jboss.org] [v7.1.1]
 
 Objectifs : + vs - : Practice 
 =============================
