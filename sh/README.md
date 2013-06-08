@@ -12,5 +12,12 @@ SERVICE:1,{
    + desc: {shipper: [logstash], broker: [Redis]}
 }
 
-
-
+SERVICE:2,{
+- name: "JBoss", 
+- version: "v0.1.alpha",
+- desc: "",
++ rfu: "sh/abcdaire/standalone-jboss.rfu.sh",
+   + type: vm,
+   + node: 192.168.17.89,"vmhost00",
+   + desc: "serveur Java JBoss"
+}
