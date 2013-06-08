@@ -2,7 +2,7 @@ SERVICE
 
 Centrallog : v0.1.alpha
 + Centralized :
-   + broker => indexer => storagesearch => webui
+   + broker[Redis] => indexer[logstash] => storagesearch[elasticsearch] => webui[Kibana3]
 + Distributed :
-   + shipper => broker (Redis centralized)
+   + shipper[logstash] => broker[Redis]
 
