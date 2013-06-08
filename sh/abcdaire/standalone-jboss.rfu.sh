@@ -107,14 +107,60 @@ cat <<"EOF" >standalone-jboss.sh
 yourIP=$(hostname -I | cut -d' ' -f1);
 yourIP=${yourIP:-"127.0.0.1"};
 
-[ -d "/usr/local/share/jboss/bin" ] && (
-  cd /usr/local/share/jboss/bin;
-  echo "config JBoss AS 7.1.1: /usr/local/share/jboss/standalone/configuration/standalone.xml"
-  ./jboss-cli.sh --connect --controller=${yourIP}:9999 command=:shutdown
-  ./standalone.sh -Djboss.bind.address=${yourIP} -Djboss.bind.address.management=${yourIP}&
-)
+SYSTEM=`/bin/uname -s`;
+if [ $SYSTEM = Linux ]; then
+  DISTRIB=`cat /etc/issue`
+fi
 
-cat <<"ZEOF" >etc-init.d-cjboss.sh
+case $DISTRIB in
+  Ubuntu*|Debian*)
+  
+  cat <<"ZEOF" >etc-init.d-ujboss.sh
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: jboss
+# Required-Start: $local_fs $remote_fs $network $syslog
+# Required-Stop: $local_fs $remote_fs $network $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Start/Stop JBoss AS v7.1.1
+### END INIT INFO
+#
+#source some script files in order to set and export environmental variables
+#as well as add the appropriate executables to $PATH
+
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+
+export JBOSS_HOME=/usr/local/share/jboss
+export PATH=$JBOSS_HOME/bin:$PATH
+
+case "$1" in
+  start)
+    echo "Starting JBoss AS 7.1.1"
+    #sudo -u devops sh ${JBOSS_HOME}/bin/standalone.sh
+    ${JBOSS_HOME}/bin/standalone.sh -Djboss.bind.address=${yourIP} -Djboss.bind.address.management=${yourIP}&
+  ;;
+  stop)
+    echo "Stopping JBoss AS 7.1.1"
+    #sudo -u devops sh ${JBOSS_HOME}/bin/jboss-admin.sh --connect command=:shutdown
+    ${JBOSS_HOME}/bin/jboss-cli.sh --connect --controller=${yourIP}:9999 command=:shutdown
+  ;;
+  *)
+    echo "Usage: /etc/init.d/jboss {start|stop}"
+    exit 1
+  ;;
+esac
+exit 0
+ZEOF
+
+    sudo chmod a+x etc-init.d-ujboss.sh
+    [ -s "/etc/init.d/jboss" ] || cp etc-init.d-ujboss.sh /etc/init.d/jboss
+    
+  ;;
+  Redhat*|Red*hat*)
+
+    cat <<"ZEOF" >etc-init.d-cjboss.sh    
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides: jboss
@@ -130,42 +176,36 @@ cat <<"ZEOF" >etc-init.d-cjboss.sh
 
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle
 export PATH=$JAVA_HOME/bin:$PATH
-
 export JBOSS_HOME=/usr/local/share/jboss
 export PATH=$JBOSS_HOME/bin:$PATH
 
 case "$1" in
-start)
-echo "Starting JBoss AS 7.1.1"
-#original:
-#sudo -u jboss sh ${JBOSS_HOME}/bin/standalone.sh
+  start)
+    echo "Starting JBoss AS 7.1.1"
+    #sudo -u jboss sh ${JBOSS_HOME}/bin/standalone.sh
+    start-stop-daemon --start --quiet --background --chuid devops --exec ${JBOSS_HOME}/bin/standalone.sh
+  ;;
+  stop)
+    echo "Stopping JBoss AS 7.1.1"
+    #sudo -u jboss sh ${JBOSS_HOME}/bin/jboss-admin.sh --connect command=:shutdown
+    start-stop-daemon --start --quiet --background --chuid devops --exec ${JBOSS_HOME}/bin/jboss-admin.sh -- --connect command=:shutdown
+    ;;
+  *)
+    echo "Usage: /etc/init.d/jboss {start|stop}"
+    exit 1
+  ;;
+esac
+exit 0
+ZEOF
 
-#updated:
-start-stop-daemon --start --quiet --background --chuid devops --exec ${JBOSS_HOME}/bin/standalone.sh
-;;
-stop)
-echo "Stopping JBoss AS 7.1.1"
-#original:
-#sudo -u jboss sh ${JBOSS_HOME}/bin/jboss-admin.sh --connect command=:shutdown
-
-#updated:
-start-stop-daemon --start --quiet --background --chuid devops --exec ${JBOSS_HOME}/bin/jboss-admin.sh -- --connect command=:shutdown
-;;
-*)
-echo "Usage: /etc/init.d/jboss {start|stop}"
-exit 1
+    sudo chmod a+x etc-init.d-cjboss.sh
+    [ -s "/etc/init.d/jboss" ] || cp etc-init.d-cjboss.sh /etc/init.d/jboss
 ;;
 esac
 
-exit 0
 
-ZEOF
-sudo chmod a+x etc-init.d-cjboss.sh
-
-# TODO:
-# cp etc-init.d-cjboss.sh /etc/init.d/jboss
-# sudo service jboss stop
-# sudo service jboss start
+sudo service jboss stop
+sudo service jboss start
 
 EOF
 chmod a+x standalone-jboss.sh
