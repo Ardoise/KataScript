@@ -52,9 +52,9 @@ fi
   
 case $DISTRIB in
 Ubuntu*|Debian*)
-  # sudo apt-get update
-  sudo apt-get install git rubygems -y
-  # sudo gem install fp
+  echo "sudo apt-get update"
+  # echo "sudo apt-get install git rubygems -y"
+  # echo "sudo gem install fpm"
   sudo apt-get install openjdk-7-jre-headless wget curl -y
   ES_PACKAGE=elasticsearch-0.20.6.deb;
   ES_PACKAGE=elasticsearch-0.90.0.deb;
