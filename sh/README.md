@@ -1,12 +1,12 @@
-Service 'centrallog' : https://cacoo.com/diagrams/mTm79GTjCk8HGxsz
+SERVICE
 
-VERSION 0.1.alpha
+Centrallog : v0.1.alpha
++https://www.digitalocean.com/community/articles/how-to-install-jboss-on-ubuntu-12-10-64bit
++Centralized :
+   + broker => indexer => storagesearch => webui
+   + __/\\_______________________/\\__________/\\__
+   + shipper
 
-Centralized :
-+ broker => indexer => storagesearch => webui
-+ __/\\_______________________/\\__________/\\__
-+ shipper
-
-Distributed :
-+ shipper => broker (Redis centralized)
++Distributed :
+   + shipper => broker (Redis centralized)
 
