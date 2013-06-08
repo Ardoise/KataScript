@@ -6,6 +6,7 @@ KATASCRIPT REST ReadyForUse
   - sh/centrallog/distributed-logstash.rfu.sh => VM's DISTRIBUTED
 + service [CarrouselLog][RFU:v0.1.alpha] :
   - sh/abcdaire/standalone-jboss.rfu.sh => VM CENTRAL
+
 Depends
 ==========================
   - logstash [http://logstash.net] [v1.1.13]
