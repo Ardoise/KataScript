@@ -169,6 +169,19 @@ echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-elasticsearch : test service
   echo "Segment graphs update in real-time, allowing you to watch as ElasticSearch (Lucene) merges your segments."
   sudo elasticsearch/bin/plugin -install polyfractal/elasticsearch-segmentspy
   echo "http://${yourIP}:9200/_plugin/segmentspy/index.html"
+  
+  echo "Mapper-attachement"
+  echo "The mapper attachments plugin adds the attachment type to ElasticSearch using Tika."
+  echo "https://github.com/elasticsearch/elasticsearch-mapper-attachments"
+  sudo elasticsearch/bin/plugin -install elasticsearch/elasticsearch-mapper-attachments/1.7.0
+  echo "http://${yourIP}:9200/_plugin/mapper/index.html"
+
+  echo "fsriver"
+  echo "This river plugin helps to index documents from your local file system."
+  echo "https://github.com/dadoonet/fsriver"
+  sudo elasticsearch/bin/plugin -install fr.pilato.elasticsearch.river/fsriver/0.2.0
+  # sudo elasticsearch/bin/plugin -install fr.pilato.elasticsearch.river/fsriver/0.3.0
+  echo "http://${yourIP}:9200/_river/index.html"
 )
 
 exit 0

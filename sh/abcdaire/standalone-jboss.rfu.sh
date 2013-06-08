@@ -61,6 +61,7 @@ Ubuntu*|Debian*)
   if [ ! -d "$ES_DIR" ] ; then
     wget --no-check-certificate $SITE/$ES_PACKAGE;
     tar xvfz $ES_PACKAGE;
+    # sudo tar -zxvf $ES_PACKAGE -C /opt/jboss/
     sudo mv $ES_DIR/* /usr/local/share/jboss/;
     echo "adduser devops"
     echo "chown -R devops /usr/local/share/jboss"
@@ -157,8 +158,14 @@ exit 1
 esac
 
 exit 0
+
 ZEOF
 sudo chmod a+x etc-init.d-cjboss.sh
+
+# TODO:
+# cp etc-init.d-cjboss.sh /etc/init.d/jboss
+# sudo service jboss stop
+# sudo service jboss start
 
 EOF
 chmod a+x standalone-jboss.sh
