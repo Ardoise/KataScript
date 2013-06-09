@@ -30,10 +30,31 @@ case $1 in
   myfunction () { (a=321); }
   myfunction
   echo "a = $a" # a = 123
+;;
+2)
+  TMPFILE=/tmp/tmpfile                  # Create a temp file to store the variable.
 
+  (   # Inside the subshell ...
+  inner_variable=Inner
+  echo $inner_variable
+  echo $inner_variable >>$TMPFILE  # Append to temp file.
+  )
+
+      # Outside the subshell ...
+
+  echo; echo "-----"; echo
+  echo $inner_variable             # Null, as expected.
+  echo "-----"; echo
+
+  # Now ...
+  read inner_variable <$TMPFILE    # Read back shell variable.
+  rm -f "$TMPFILE"                 # Get rid of temp file.
+  echo "$inner_variable"           # It's an ugly kludge, but it works.
+;;
 *)
  :
 ;;
+esac
 
 exit 0
 
