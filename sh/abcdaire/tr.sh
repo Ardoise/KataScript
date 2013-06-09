@@ -16,6 +16,14 @@ case "$1" in
 
 ;;
 *)
+  # liste de tous les mots d'un texte vers stdout
+  {
+  strings "$1" | tr A-Z a-z | tr '[:space:]' Z | \
+  tr -cs '[:alpha:]' Z | tr -s '\173-\377' Z | tr Z ' '
+  } | cat -
+  echo
+;;
+*)
  : 
 ;;
 esac

@@ -12,7 +12,7 @@ case "$1" in
   done
   echo
 ;;
-{2..9})
+97|98|99)
   (( var0 = $1<98?9:21 ))
   echo var0=$var0
   # ^ ^
@@ -23,6 +23,20 @@ case "$1" in
   # else
   # var0=21
   # fi
+;;
+3)
+  capitalize_ichar ()          #  Capitalizes initial character
+  {                            #+ of argument string(s) passed.
+    string0="$@"               # Accepts multiple arguments.
+    firstchar=${string0:0:1}   # First character.
+    string1=${string0:1}       # Rest of string(s).
+    FirstChar=`echo "$firstchar" | tr a-z A-Z`
+                               # Capitalize first character.
+    echo "$FirstChar$string1"  # Output to stdout.
+  }  
+
+  newstring=`capitalize_ichar "every sentence should start with a capital letter."`
+  echo "$newstring"          # Every sentence should start with a capital letter.
 ;;
 *)
  : 
