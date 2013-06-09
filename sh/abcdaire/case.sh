@@ -5,7 +5,7 @@
 # Description : myprogramm
 #
 # Authors     : Ardoise - ardoise.gisement@gmail.com
-#               Ardoise - ardoise.gisement@github.com
+#               
 # Update      : Ardoise - ardoise.gisement@github.com
 #
 # Version     : xyz 0.1.0
@@ -38,7 +38,6 @@ case "${1}" in
     hostname ${HOSTNAME}
     evaluate_retval
     ;;
-
   stop)
     log_info_msg "bla bla..."
     ...

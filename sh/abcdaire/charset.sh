@@ -1,16 +1,17 @@
- #!/bin/sh
+#!/bin/bash
 
  : ${1?"Usage: $0 <NUMBER>"} # From "usage-message.sh example script.
  
 case "$1" in
 1)
-  if condition
-  then : # Do nothing and branch ahead
-  else # Or else ...
-    take-some-action
-  fi
+  base64_charset=( {A..Z} {a..z} {0..9} + / = )
+  # Initializing an array, using extended brace expansion.
+  
+  for a in ${base64_charset[*]}; do
+    echo -n $a;
+  done
 ;;
-[0-9][2-9])
+{2..9})
   (( var0 = $1<98?9:21 ))
   echo var0=$var0
   # ^ ^
@@ -26,4 +27,7 @@ case "$1" in
  : 
 ;;
 esac
-  
+
+echo
+
+exit 0

@@ -1,17 +1,25 @@
 #!/bin/sh
 
-while :
-do
-  operation-1
-  operation-2
-  ...
-  operation-n
-done
+ : ${1?"Usage: $0 <NUMBER>"} # From "usage-message.sh example script.
 
-# Same as:
-# while true
-# do
-# ...
-# done 
+case $1 in
+1)
+  while :
+  do
+    operation-1
+    operation-2
+    ...
+    operation-n
+  done
 
-echo 0
+  # Same as:
+  # while true
+  # do
+  # ...
+  # done
+*)
+ :
+;;
+
+exit 0
+
