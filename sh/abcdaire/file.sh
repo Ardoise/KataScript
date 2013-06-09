@@ -4,8 +4,9 @@
 
 case $1 in
 1)
-  ls -ail .;
-  ls -1 .
+  # type file from stdin - stdout
+  echo "tape a type file ex: abc or #!/bin/bash"
+  file -
  ;;
 *)
  :

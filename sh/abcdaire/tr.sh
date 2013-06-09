@@ -11,9 +11,8 @@ case "$1" in
   
 ;;
 2)
-  # it's not the same think
   ls -l | tr '[:lower:]' '[:upper:]'
-  ls -l | tr 'az' 'AZ'
+  ls -l | tr a-z A-Z
 
 ;;
 *)
