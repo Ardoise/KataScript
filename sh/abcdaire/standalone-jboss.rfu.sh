@@ -86,7 +86,7 @@ echo "sudo chown devops: /usr/share/local/jboss/ -R";
 
 [ -d "/usr/local/share/jboss/bin" ] && (
   cd /usr/local/share/jboss/bin;
-  cat <<ZEOF | ./add-user.sh
+cat <<"ZEOF" | ./add-user.sh
 a
 ManagementRealm
 devops
@@ -94,9 +94,23 @@ devops
 devops
 yes
 ZEOF
-
 echo "Added user 'devops' to file '/usr/local/share/jboss/standalone/configuration/mgmt-users.properties'"
 echo "Added user 'devops' to file '/usr/local/share/jboss/domain/configuration/mgmt-users.properties'"
+
+cat <<ZEOF jboss-elasticsearch.yml
+cluster.name: centrallog
+node.name: "scrutmydocs"
+network.host: ${yourIP}
+path.logs: "/var/log/elasticsearch"
+path.data: "/var/lib/elasticsearch"
+# path.config: "/etc/elasticsearch/elasticsearch"
+# If you want to check plugins before starting
+plugin.mandatory: mapper-attachments, river-fs
+# If you want to disable multicast
+discovery.zen.ping.multicast.enabled: false
+ZEOF
+[ -d "/etc/elasticsearch/test" ] && cp jboss-elasticsearch.yml /etc/elasticsearch/test/
+
 )
 EOF
 chmod a+x standalone-jboss.putconf.sh
@@ -139,12 +153,12 @@ case "$1" in
   start)
     echo "Starting JBoss AS 7.1.1"
     #sudo -u devops sh ${JBOSS_HOME}/bin/standalone.sh
-    ${JBOSS_HOME}/bin/standalone.sh -Djboss.bind.address=${yourIP} -Djboss.bind.address.management=${yourIP}&
+    ${JBOSS_HOME}/bin/standalone.sh -Djboss.bind.address=@yourIP@ -Djboss.bind.address.management=@yourIP@&
   ;;
   stop)
     echo "Stopping JBoss AS 7.1.1"
     #sudo -u devops sh ${JBOSS_HOME}/bin/jboss-admin.sh --connect command=:shutdown
-    ${JBOSS_HOME}/bin/jboss-cli.sh --connect --controller=${yourIP}:9999 command=:shutdown
+    ${JBOSS_HOME}/bin/jboss-cli.sh --connect --controller=@yourIP@:9999 command=:shutdown
   ;;
   *)
     echo "Usage: /etc/init.d/jboss {start|stop}"
@@ -154,6 +168,7 @@ esac
 exit 0
 ZEOF
 
+    sed -i "s/@yourIP@/${yourIP}/g" etc-init.d-ujboss.sh;
     sudo chmod a+x etc-init.d-ujboss.sh
     [ -s "/etc/init.d/jboss" ] || cp etc-init.d-ujboss.sh /etc/init.d/jboss
     
@@ -215,8 +230,8 @@ cat <<"EOF" >standalone-jboss.test.sh
 
 yourIP=$(hostname -I | cut -d' ' -f1);
 yourIP=${yourIP:-"127.0.0.1"};
-echo "toDeploy => http://${yourIP}:8080/"
 echo "toAdmin => http://${yourIP}:9990/console"
+echo "scrutmydocs => http://${yourIP}:8080/scrutmydocs-0.2.0/"
 
 EOF
 chmod a+x standalone-jboss.test.sh
