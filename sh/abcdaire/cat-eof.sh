@@ -29,6 +29,6 @@ EOF
 
 chmod -v 755 /tmp/myfile
 }
-getfile
+getfile; cat /tmp/myfile
 
 exit 0
