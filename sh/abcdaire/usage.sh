@@ -1,3 +1,9 @@
+#!/bin/sh
+ 
+ : ${1?"Usage: $0 ARGUMENT"} # From "usage-message.sh example script.
+
+exit 0
+
 RELEASE="7.2"
 
 USAGE="Usage: $0 [ -hV ] [--help] [--version] arg1"
@@ -27,3 +33,5 @@ bla bla ...
 HERE_EOF
    exit 0
 fi
+
+exit 0
