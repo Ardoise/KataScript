@@ -10,6 +10,7 @@ case "$1" in
   for a in ${base64_charset[*]}; do
     echo -n $a;
   done
+  echo
 ;;
 {2..9})
   (( var0 = $1<98?9:21 ))
@@ -27,7 +28,5 @@ case "$1" in
  : 
 ;;
 esac
-
-echo
 
 exit 0

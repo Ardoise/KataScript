@@ -20,6 +20,10 @@ case "$1" in
   done
   echo
 ;;
+2)
+ Array[1]=slot_1
+ echo ${Array[1]}
+;;
 *)
  : 
 ;;
