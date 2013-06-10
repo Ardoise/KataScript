@@ -77,11 +77,11 @@ Redhat*|Red*Hat*)
   if [ ! -d "$ES_DIR" ] ; then
     wget --no-check-certificate $SITE/$ES_PACKAGE;
     tar xvfz $ES_PACKAGE;
-    sudo tar -zxvf $ES_PACKAGE -C /opt/jboss/
-    # sudo mv $ES_DIR/* /usr/local/share/jboss/;
+    # sudo tar -zxvf $ES_PACKAGE -C /opt/jboss/
+    sudo mv $ES_DIR/* /usr/local/jbossas/;
     echo "adduser devops"
-    echo "chown -R devops /usr/local/share/jboss"
-    echo "su - devops"    
+    echo "chown -R devops /usr/local/jbossas"
+    echo "su - devops"
   fi
 ;;
 *)
@@ -94,12 +94,19 @@ chmod a+x standalone-jboss.getbin.sh;
 cat <<"EOF" >standalone-jboss.putconf.sh
 #!/bin/sh
 
-echo "sudo useradd -r devops";
-echo "sudo chown devops: /usr/share/local/jboss/ -R";
+SYSTEM=`/bin/uname -s`;
+if [ $SYSTEM = Linux ]; then
+  DISTRIB=`cat /etc/issue`
+fi
 
-[ -d "/usr/local/share/jboss/bin" ] && (
-  cd /usr/local/share/jboss/bin;
-cat <<"ZEOF" | ./add-user.sh
+case $DISTRIB in
+Ubuntu*|Debian*)
+  echo "sudo useradd -r devops";
+  echo "sudo chown devops: /usr/share/local/jboss/ -R";
+
+  [ -d "/usr/local/share/jboss/bin" ] && (
+    cd /usr/local/share/jboss/bin;
+    cat <<"ZEOF" | ./add-user.sh
 a
 ManagementRealm
 devops
@@ -107,8 +114,29 @@ devops
 devops
 yes
 ZEOF
-echo "Added user 'devops' to file '/usr/local/share/jboss/standalone/configuration/mgmt-users.properties'"
-echo "Added user 'devops' to file '/usr/local/share/jboss/domain/configuration/mgmt-users.properties'"
+  echo "Added user 'devops' to file '/usr/local/share/jboss/standalone/configuration/mgmt-users.properties'"
+  echo "Added user 'devops' to file '/usr/local/share/jboss/domain/configuration/mgmt-users.properties'"
+;;
+Redhat*|Red*Hat*)
+  echo "sudo useradd -r devops";
+  echo "sudo chown devops: /usr/local/jbossas/ -R";
+  [ -d "/usr/local/jbossas/bin" ] && (
+    cd /usr/local/jbossas/bin;
+    cat <<"ZEOF" | ./add-user.sh
+a
+ManagementRealm
+devops
+devops
+devops
+yes
+ZEOF
+  echo "Added user 'devops' to file '/usr/local/jbossas/standalone/configuration/mgmt-users.properties'"
+  echo "Added user 'devops' to file '/usr/local/jbossas/domain/configuration/mgmt-users.properties'"  
+;;
+*)
+ : 
+;;
+esac
 
 cat <<ZEOF jboss-elasticsearch.yml
 cluster.name: centrallog
