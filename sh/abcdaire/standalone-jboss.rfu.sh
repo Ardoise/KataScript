@@ -68,8 +68,21 @@ Ubuntu*|Debian*)
     echo "su - devops"    
   fi
 ;;
-Redhat*|Red*hat*)
-  echo "Sorry ! for your OS $SYSTEM $DISTRIB, your contribution is WelcOme ! ardoise.gisement@gmail.com";
+Redhat*|Red*Hat*)
+  [ -d "/opt/jboss" ] && cd /opt/jboss;
+  echo "sudo yum update"
+  echo "sudo yum install openjdk-7-jdk"
+  ES_PACKAGE=jboss-as-7.1.1.Final.tar.gz;
+  ES_DIR=${ES_PACKAGE%%.tar.gz}
+  if [ ! -d "$ES_DIR" ] ; then
+    wget --no-check-certificate $SITE/$ES_PACKAGE;
+    tar xvfz $ES_PACKAGE;
+    sudo tar -zxvf $ES_PACKAGE -C /opt/jboss/
+    # sudo mv $ES_DIR/* /usr/local/share/jboss/;
+    echo "adduser devops"
+    echo "chown -R devops /usr/local/share/jboss"
+    echo "su - devops"    
+  fi
 ;;
 *)
   echo "Sorry ! for your OS $SYSTEM $DISTRIB, your contribution is WelcOme ! ardoise.gisement@gmail.com";
