@@ -180,8 +180,13 @@ cat <<ZEOF jboss-virtualhost-80.conf
       Allow from all  
     </Proxy>  
     
-    ProxyPass / http://${yourIP}:8080/  
-    ProxyPassReverse / http://${yourIP}:8080/  
+    # HTTP connector : DEFAULT
+    ProxyPass / http://${yourIP}:8080/
+    ProxyPassReverse / http://${yourIP}:8080/
+    
+    # AJP connector : OPTION
+    # ProxyPass / ajp://${yourIP}:8009/
+    # ProxyPassReverse / ajp://${yourIP}:8009/
     
     ErrorLog logs/${yourDOMAIN}-error_log  
     CustomLog logs/${yourDOMAIN}-access_log common  
