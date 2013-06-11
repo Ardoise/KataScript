@@ -152,6 +152,43 @@ discovery.zen.ping.multicast.enabled: false
 ZEOF
 [ -d "/etc/elasticsearch/test" ] && cp jboss-elasticsearch.yml /etc/elasticsearch/test/
 
+cat <<ZEOF jboss-iptables.sh
+# Optional : Running JBoss on Port 80
+iptables -t nat -A PREROUTING -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 8080
+iptables -t nat -A PREROUTING -p udp -m udp --dport 80 -j REDIRECT --to-ports 8080
+ZEOF
+
+yourIP=$(hostname -i | cut -d' ' -f1);
+yourIP=${yourIP:-"127.0.0.1"};
+
+yourDOMAIN=$(hostname -d | cut -d' ' -f1);
+yourDOMAIN=${yourDOMAIN:-"domain.com"};
+
+yourALIAS=$(hostname -s | cut -d' ' -f1);
+yourALIAS=${yourALIAS:-"localhost"};
+
+cat <<ZEOF jboss-virtualhost-80.conf
+  <VirtualHost *:80>  
+    ServerAdmin admin@${yourDOMAIN}
+    ServerName ${yourDOMAIN} 
+    ServerAlias ${yourALIAS}.${yourDOMAIN}
+    
+    ProxyRequests Off  
+    ProxyPreserveHost On  
+    <Proxy *>  
+      Order allow,deny  
+      Allow from all  
+    </Proxy>  
+    
+    ProxyPass / http://${yourIP}:8080/  
+    ProxyPassReverse / http://${yourIP}:8080/  
+    
+    ErrorLog logs/${yourDOMAIN}-error_log  
+    CustomLog logs/${yourDOMAIN}-access_log common  
+    
+  </VirtualHost>  
+ZEOF
+
 )
 EOF
 chmod a+x standalone-jboss.putconf.sh
@@ -159,7 +196,7 @@ chmod a+x standalone-jboss.putconf.sh
 cat <<"EOF" >standalone-jboss.sh
 #!/bin/sh
 
-yourIP=$(hostname -I | cut -d' ' -f1);
+yourIP=$(hostname -i | cut -d' ' -f1);
 yourIP=${yourIP:-"127.0.0.1"};
 
 SYSTEM=`/bin/uname -s`;
