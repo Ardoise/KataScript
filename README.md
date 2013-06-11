@@ -1,10 +1,10 @@
-KATASCRIPT REST ReadyForUse
-===================================
-+ service [CentralLog][RFU:v0.1.alpha] :
-+ Screenshots : ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz)
+## KATASCRIPT REST ReadyForUse
+### service [CentralLog][RFU:v0.1.alpha] :
+  ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
   - sh/centrallog/centralized-centrallog.rfu.sh => VM CENTRAL
   - sh/centrallog/distributed-logstash.rfu.sh => VM's DISTRIBUTED
-+ service [CarrouselLog][RFU:v0.1.alpha] :
+  
+### service [CarrouselLog][RFU:v0.1.alpha] :
   - sh/abcdaire/standalone-jboss.rfu.sh => VM CENTRAL
 
 Depends
