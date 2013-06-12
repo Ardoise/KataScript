@@ -7,7 +7,7 @@
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: ELASTICSEARCH (NoSQL, INDEX, SEARCH)
-# - deploy elasticsearch v0.90.0
+# - deploy elasticsearch v0.90.1
 # - deploy mobz/elasticsearch-head                plugin
 # - deploy karmi/elasticsearch-paramedic          plugin
 # - deploy lukas-vlcek/bigdesk                    plugin
@@ -58,19 +58,20 @@ Ubuntu*|Debian*)
   sudo apt-get install openjdk-7-jre-headless wget curl -y
   ES_PACKAGE=elasticsearch-0.20.6.deb;
   ES_PACKAGE=elasticsearch-0.90.0.deb;
+  ES_PACKAGE=elasticsearch-0.90.1.deb;
   [ -f "$ES_PACKAGE" ] || wget --no-check-certificate $SITE/$ES_PACKAGE;
   sudo dpkg -i $ES_PACKAGE;
   sudo service elasticsearch start ;
 ;;
 Redhat*|Red*hat*)
   sudo yum install java-1.7.0-openjdk wget curl -y
-  ES_PACKAGE=elasticsearch-0.90.0.RC2.noarch.rpm;
+  ES_PACKAGE=elasticsearch-0.90.1.noarch.rpm;
   [ -f "$ES_PACKAGE" ] || wget --no-check-certificate $SITE/$ES_PACKAGE;
   sudo rpm -i $ES_PACKAGE;
   sudo service elasticsearch start
 ;;
 *)
-  ES_PACKAGE=elasticsearch-0.90.0.zip
+  ES_PACKAGE=elasticsearch-0.90.1.zip
   ES_DIR=${ES_PACKAGE%%.zip}
   if [ ! -d "$ES_DIR" ] ; then
     wget --no-check-certificate $SITE/$ES_PACKAGE;
@@ -182,6 +183,11 @@ echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-elasticsearch : test service
   sudo elasticsearch/bin/plugin -install fr.pilato.elasticsearch.river/fsriver/0.2.0
   # sudo elasticsearch/bin/plugin -install fr.pilato.elasticsearch.river/fsriver/0.3.0
   echo "http://${yourIP}:9200/_river/index.html"
+  
+  echo "ElasticSearch Data Browser"
+  echo "The Web front-end over ElasticSearch data written in ExtJS."
+  sudo elasticsearch/bin/plugin -install OlegKunitsyn/elasticsearch-browser
+  echo "http://${yourIP}:9200/_plugin/browser/?database=logstash-$(date +'%Y.%m.%d')&table=stdin"
 )
 
 exit 0
