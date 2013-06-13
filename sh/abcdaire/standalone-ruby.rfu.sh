@@ -27,6 +27,8 @@ RVM|rvm)
   rvm list known
   rvm list
   
+  echo progress-bar >> ~/.curlrc
+  
 ZEOF
 chmod +x standalone-ruby.getbin.sh
 
