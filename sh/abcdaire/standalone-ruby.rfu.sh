@@ -35,7 +35,24 @@ chmod +x standalone-ruby.getbin.sh
 ;;
 SRC|src)
   # SOURCE
-  curl -0l ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p195.tar.gz  
+  curl -0l ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p195.tar.gz
+  # curl -0l http://rubyonrails.org/download
+  gunzip ruby-2.0.0-p195.tar.gz
+  tar xvf ruby-2.0.0-p195.tar
+  cd ruby-2.0.0-p195
+  ./configure --prefix=/usr/local --enable-shared
+  make
+  make install
+  echo "Check if your ruby on rails package was successfully installed"
+  echo "in /usr/local/bin/ and /usr/local/lib/ruby/"
+
+  # Rubygems
+  curl -0l http://production.cf.rubygems.org/rubygems/rubygems-2.0.3.tgz
+  tar xvfz rubygems-2.0.3.tgz
+  cd rubygems-2.0.3
+  ruby setup.rb --help
+  ruby setup.rb
+
 ;;
 *)
  : 
