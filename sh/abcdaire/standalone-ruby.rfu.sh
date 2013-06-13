@@ -1,67 +1,37 @@
 #!/bin/sh
 
-m=SRC;
+m=RVM;
 case $m in
-SRC|src)
-  # Installation of RVM in /usr/local/rvm/ is almost complete:
+RVM|rvm)
+  cat <<-'ZEOF' >standalone-ruby.getbin.sh
+  #!/usr/bin/env bash
+
+  # Install git
+  curl -Ol https://get-git.rvm.io | sudo bash
+
+  # Install RVM
+  # https://rvm.io/rvm/install
   # rvm 1.20.13 (stable)
-  # ruby-2.0.0-p195
+  # curl -0l https://get.rvm.io | sudo bash -s stable
+  # rvm + ruby-2.0.0-p195
   curl -L https://get.rvm.io | bash -s stable --ruby
+  # rvm + JRuby, Rails, Puma
+  curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
   
+  # Install some Rubies
+  source "/usr/local/rvm/scripts/rvm"
+  # command rvm install 1.9.2,rbx,jruby
+  # rvm install 1.9.2 ; rvm use 1.9.2 --default ; ruby -v ; which ruby
   
+  rvm list
+  
+ZEOF
+chmod +x standalone-ruby.getbin.sh
+
 ;;
-BUG)
-  yum check-update
-  yum update
-  yum -y install yum-utils
-  yum list ruby
-
-  cat <<EOF >/etc/yum.repos.d/ruby.repo
-[ruby]
-name=ruby
-baseurl=http://repo.premiumhelp.eu/ruby/
-gpgcheck=0
-enabled=0
-EOF
-yum --enablerepo=ruby install ruby
-
-yum install ruby-rdoc
-yum install rubygem-state_machine-doc.noarch
-git clone https://github.com/rdoc/rdoc
-
-yum install ruby ruby-libs ruby-mode ruby-rdoc ruby-irb ruby-ri ruby-docs
-yum install rdoc ri zlib zlib-devel
-
-#rubygems.org
-gem update --system
-gem install rubygems-update
-gem install rubygems-update --no-rdoc --no-ri
-# gem install rdoc
-
-# 
-curl -Ol http://production.cf.rubygems.org/rubygems/rubygems-2.0.3.tgz
-tar xvfz rubygems-2.0.3.tgz
-cd rubygems-2.0.3
-ruby setup.rb --help
-ruby setup.rb --no-rdoc --no-ri
-gem system update
-gem build foo.gemspec
-    #Build your gem
-gem push foo-1.0.0.gem
-    #Deploy your gem instantly
-    
-cd rubygems
-ruby setup.rb
-
-
-/usr/bin/gem update --system
-#Updating RubyGems
-#Updating rubygems-update
-#Successfully installed rubygems-update-2.0.3
-#Updating RubyGems to 2.0.3
-#Installing RubyGems 2.0.3
-#RubyGems 2.0.3 installed
-
+SRC|src)
+  # SOURCE
+  curl -0l ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p195.tar.gz  
 ;;
 *)
  : 
