@@ -23,6 +23,8 @@ RVM|rvm)
   # command rvm install 1.9.2,rbx,jruby
   # rvm install 1.9.2 ; rvm use 1.9.2 --default ; ruby -v ; which ruby
   
+  rvm notes
+  rvm list known
   rvm list
   
 ZEOF
