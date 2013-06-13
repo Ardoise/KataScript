@@ -1,5 +1,43 @@
 #!/bin/sh
 
+### BEGIN INIT INFO
+# Provides: RubyVM: Rubies
+# Short-Description: DEPLOY SERVER:
+# Author: created by: https://github.com/Ardoise
+# Update: last-update: 20130612
+### END INIT INFO
+
+# Description: SERVICE : Rubies
+# - deploy ruby v2.0.0
+# - deploy jruby v1.8.7
+# - deploy rails vx.x.x
+# - deploy puma vx.x.x
+#
+# Requires : you need root privileges tu run this script
+# Requires : curl
+#
+# CONFIG:   [ "/etc/ruby", "/etc/ruby/test" ]
+# BINARIES: [ "/opt/ruby/", "/usr/share/ruby/" ]
+# LOG:      [ "/var/log/ruby/" ]
+# RUN:      [ "/var/ruby/ruby.pid" ]
+# INIT:     [ "/etc/init.d/ruby" ]
+# PLUGINS:  [ "/usr/share/ruby/bin/plugin" ]
+
+set -e
+
+NAME=rvm
+DESC="Ruby VM"
+DEFAULT=/etc/default/$NAME
+
+if [ `id -u` -ne 0 ]; then
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
+  exit 1
+fi
+
+[ -d "/etc/ruby/test" ] || mkdir -p "/etc/ruby/test";
+[ -d "/opt/ruby/" ] || mkdir -p "/opt/ruby";
+[ -d "/var/log/ruby/" ] || mkdir -p "/var/log/ruby";
+
 m=RVM;
 case $m in
 RVM|rvm)
