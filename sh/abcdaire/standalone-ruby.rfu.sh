@@ -19,7 +19,7 @@ RVM|rvm)
   curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
   
   # Install some Rubies
-  source "/usr/local/rvm/scripts/rvm"
+  source "~/.rvm/scripts/rvm"
   # command rvm install 1.9.2,rbx,jruby
   # rvm install 1.9.2 ; rvm use 1.9.2 --default ; ruby -v ; which ruby
   
