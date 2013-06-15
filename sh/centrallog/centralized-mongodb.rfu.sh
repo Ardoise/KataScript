@@ -80,6 +80,7 @@ esac
 EOF
 chmod a+x centralized-mongodb.getbin.sh
 
+
 cat <<EOF >centralized-mongodb.sh
 echo "view /etc/mongodb.conf"
 echo "sudo service mongodb stop";
@@ -90,11 +91,65 @@ echo "sudo service mongodb restart";
 /etc/init.d/mongodb restart
 EOF
 
-cat <<EOF >centralized-mongodb.test.sh
-cat <<ZEOF | mongo
+
+cat <<'EOF' >centralized-mongodb.test.sh
+#!/bin/sh
+
+cat <<'MEOF' | mongo
 db.test.save( { a: 1 } )
 db.test.find()
-exit
-ZEOF
-EOF
+MEOF
 
+cat <<'MEOF' | mongo
+use mydb
+var p = {firstname: "Dev", lastname: "Ops"}
+db.mydb.save(p)
+db.mydb.find()
+MEOF
+
+yourIP=$(hostname -I | cut -d' ' -f1);
+yourIP=${yourIP:-localhost};
+
+# XPUT
+curl -XPUT 'http://'${yourIP}':9200/person-'$(date +"%Y.%m.%d")'/mongodb/_meta' -d '{
+    "type": "mongodb", 
+    "mongodb": { 
+        "db": "mydb",
+        "collection": "person"
+    }, 
+    "index": { 
+        "name": "iperson",
+        "type": "cperson"
+    }
+}' && echo
+
+
+# GET
+curl -XGET 'http://'${yourIP}':9200/mydb/_search?q=firstname:Dev' && echo
+curl -XGET 'http://'${yourIP}':9200/cperson/_search?q=firstname:Dev' && echo
+curl -XGET 'http://'${yourIP}':9200/iperson/_search?q=firstname:Dev' && echo
+curl -XGET 'http://'${yourIP}':9200/mydb/51bc5eb79da229a2f7980b5b?pretty=true' && echo
+
+# XPUT
+curl -XPUT 'http://'${yourIP}':9200/person-'$(date +"%Y.%m.%d")'/mongodb/_meta' -d '{
+     "type": "mongodb",
+    "mongodb": { 
+        "db": "mydb", 
+        "collection": "fs", 
+        "gridfs": true 
+    }, 
+    "index": {
+        "name": "iperson", 
+        "type": "files"
+    }
+}' && echo
+
+# PUT RIVER FILES
+# echo '${MONGO_HOME}/bin/mongofiles --host '${yourIP}':27017 --db mydb --collection fs put test-document-2.pdf'
+# GET INDEX
+# echo 'curl -XGET http://'${yourIP}':9200/files/4f230588a7da6e94984d88a1?pretty=true'
+
+EOF
+chmod +x centralized-mongodb.test.sh
+
+exit 0
