@@ -10,7 +10,7 @@
 # - deploy mongodb v2.4.4
 #
 # Requires : you need root privileges tu run this script
-# Requires : JRE7 to run elasticsearch
+# Requires : JRE7 to run mongodb
 # Requires : curl
 #
 # CONFIG:   [ "/etc/mongodb", "/etc/mongodb/test" ]
@@ -82,7 +82,7 @@ chmod a+x centralized-mongodb.getbin.sh
 
 
 cat <<EOF >centralized-mongodb.sh
-echo "view /etc/mongodb.conf"
+echo "view /etc/mongodb/mongodb.conf"
 echo "sudo service mongodb stop";
 echo "sudo service mongodb start";
 echo "sudo service mongodb restart";
