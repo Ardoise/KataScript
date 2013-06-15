@@ -96,16 +96,106 @@ cat <<'EOF' >centralized-mongodb.test.sh
 #!/bin/sh
 
 cat <<'MEOF' | mongo
+db
+show dbs
 db.test.save( { a: 1 } )
 db.test.find()
+it
+exit
 MEOF
 
 cat <<'MEOF' | mongo
+db
 use mydb
+db
+show dbs
 var p = {firstname: "Dev", lastname: "Ops"}
 db.mydb.save(p)
 db.mydb.find()
+exit
 MEOF
+
+cat <<'MEOF' | mongo
+//SHOW DATABASES
+show dbs
+
+//CREATE DATABASE [IF NOT EXISTS] mydb
+//USE mydb
+use mydb
+
+//CREATE TABLE things (name VARCHAR(30), x VARCHAR(30));
+//DESCRIBE things
+
+//SHOW TABLES;
+show collections
+
+//INSERT INTO things VALUES ('mongo',NULL);
+//INSERT INTO things VALUES (NULL,'3');
+j = { name : "mongo" }
+k = { x : 3 }
+db.things.insert( j )
+db.things.insert( k )
+
+//SELECT * FROM things WHERE 1
+db.things.find()
+
+//ALTER TABLE things (name VARCHAR(30), x INTEGER, j INTEGER);
+//INSERT INTO things VALUES (null,'4','1');
+//INSERT INTO things VALUES (null,'4','2');
+//INSERT INTO things VALUES (null,'4','3');
+//...
+//INSERT INTO things VALUES (null,'4','10');
+for (var i = 1; i <= 10; i++) db.things.insert( { x : 4 , j : i } )
+
+//SELECT * FROM things WHERE 1
+db.things.find()
+var c = db.things.find()
+while ( c.hasNext() ) printjson( c.next() )
+//ALTERNATIVE
+db.things.find().forEach(printjson);
+
+//SELECT * FROM things WHERE 1 ORDER BY LIMIT 1 OFFSET 3
+var c = db.things.find()
+printjson( c [ 4 ] )
+
+//SELECT * FROM things WHERE name='mongo'
+db.things.find( { name : "mongo" } )
+
+//SELECT * FROM things WHERE X='4'
+db.things.find( { x : 4 } )
+
+//SELECT * FROM things WHERE x='4' and j='1'
+db.things.find( { x : 4 } , { j : 1 } )
+
+//SELECT * FROM things WHERE LIMIT 0,3
+db.things.find().limit(3)
+
+//SELECT * FROM things WHERE x>'4'
+db.things.find({ x: { '$gt': 4 } })
+//  { '$gt': 4 } Plus grand que
+//  { '$gte': 4 } Plus grand ou égal à
+//  { '$lt': 4 } Plus petit que
+//  { '$lte': 4 } Plus petit ou égal à
+//  { '$ne': 4 } Différent de
+//  { '$all': [3, 4, 5] } Comporte toutes les valeurs
+//  { '$in': [3, 4] } Comporte au moins une des valeurs
+//  { '$exists': true } Le champ doit exister (ou ne pas exister si false)
+
+//SELECT * FROM things WHERE name LIKE %mo%.
+db.things.find({ name: /^mo/ });
+
+//SELECT * FROM things WHERE 1 ORDER BY x
+db.things.find({ x: { '$gt': 3 } }).sort({ x: -1 });
+
+//UPDATE things ...
+db.things.update({ name: "mongo" }, { $set: { name: "mongoDB" } }, false, true);
+
+//DELETE * FROM things WHERE x>5
+db.things.remove({ x: { '$gt': 5 } });
+
+exit
+MEOF
+
 
 yourIP=$(hostname -I | cut -d' ' -f1);
 yourIP=${yourIP:-localhost};
@@ -139,8 +229,8 @@ curl -XPUT 'http://'${yourIP}':9200/person-'$(date +"%Y.%m.%d")'/mongodb/_meta' 
         "gridfs": true 
     }, 
     "index": {
-        "name": "iperson", 
-        "type": "files"
+        "name": "ifile", 
+        "type": "file"
     }
 }' && echo
 
