@@ -48,6 +48,13 @@ fi
       *)  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Bye !"; ;;
     esac
   )
+  [ -s "./centralized-mongodb.rfu.sh" ] && (
+    read -p "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Do you wish install centralized-mongodb (y/n)? :" key
+    case $key in
+      "Y" | "y")  ./centralized-mongodb.rfu.sh; ;;
+      *)  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Bye !"; ;;
+    esac
+  )
   [ -s "./centralized-elasticsearch.rfu.sh" ] && (
     read -p "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Do you wish install centralized-elasticsearch (y/n)? :" key
     case $key in

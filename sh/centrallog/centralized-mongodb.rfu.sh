@@ -42,7 +42,7 @@ SYSTEM=`/bin/uname -s`;
 if [ $SYSTEM = Linux ]; then
   DISTRIB=`cat /etc/issue`
 fi
-  
+
 case $DISTRIB in
 Ubuntu*|Debian*)
   echo "apt-get update";
