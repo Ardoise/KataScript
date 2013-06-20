@@ -1,12 +1,14 @@
 ## KATASCRIPT REST ReadyForUse
 ### service CentralLog [RFU:v0.1.0] :
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
-  - sh/centrallog/centralized-centrallog.rfu.sh => VM CENTRAL
-  - sh/centrallog/distributed-logstash.rfu.sh => VM's DISTRIBUTED
+    
+    sh/centrallog/centralized-centrallog.rfu.sh   # VM CENTRAL
+    sh/centrallog/distributed-logstash.rfu.sh     # VM's DISTRIBUTED
   
 ### service standalone [RFU:v0.1.0] :
-  - sh/standalone/standalone-jboss.rfu.sh => VM CENTRAL
-  - sh/standalone/standalone-ruby.rfu.sh => VM CENTRAL
+    
+    sh/standalone/standalone-jboss.rfu.sh     # VM CENTRAL
+    sh/standalone/standalone-ruby.rfu.sh      # VM CENTRAL
 
 Depends
 ==========================
