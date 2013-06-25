@@ -35,7 +35,7 @@ cat <<EOF >centralized-redis.getbin.sh
 [ -d "/etc/redis/test" ] || sudo mkdir -p /etc/redis/test;
 [ -d "/val/log/redis" ] || sudo mkdir -p /var/log/redis;
 
-[ -s "redis-2.6.14.tar.gz" ] || curl -OL http://redis.googlecode.com/files/redis-2.6.13.tar.gz
+[ -s "redis-2.6.14.tar.gz" ] || curl -OL http://redis.googlecode.com/files/redis-2.6.14.tar.gz
 [ -d "redis-2.6.14" ] || (
   tar xvfz redis-2.6.14.tar.gz
   cd redis-2.6.14
