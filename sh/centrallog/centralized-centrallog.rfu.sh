@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 ### BEGIN INIT INFO
 # Provides: centrallog
 # Short-Description: DEPLOY SERVER: [BROKER, INDEXER, STORAGESEARCH, WEBUI]
@@ -15,7 +15,13 @@
 # Requires : /opt/centrallog is necessary to deploy the packages
 # Requires : you need root privileges tu run the children's scripts
 
-set -e
+SCRIPT_OK=0
+SCRIPT_ERROR=1
+
+DESCRIPTION="Main Script Deploy Centrallog";
+SCRIPT_NAME=`basename $0`
+NAME=centrallog
+DEFAULT=/etc/default/$NAME
 
 # TODO : USE IT !
 [ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions

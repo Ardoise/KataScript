@@ -1,4 +1,21 @@
-#!/bin/sh
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          graylog2
+# Required-Start:    $local_fs $remote_fs
+# Required-Stop:     $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Graylog2 script
+# Description:       graylog2 script for deploy.
+### END INIT INFO
+
+SCRIPT_OK=0
+SCRIPT_ERROR=1
+
+DESCRIPTION="Graylog2 Server";
+SCRIPT_NAME=`basename $0`
+NAME=graylog2
+DEFAULT=/etc/default/$NAME
 
 # GrayLog2
 [ -d "/etc/graylog2" ] || sudo mkdir -p "/etc/graylog2";

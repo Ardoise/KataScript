@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 ### BEGIN INIT INFO
 # Provides: centrallog: kibana3
 # Short-Description: DEPLOY SERVER: [ANALYSE, WEBUI]
@@ -19,8 +19,8 @@
 # RUN:      [ "/var/run/kibana.pid" ]
 # INIT:     [ "/etc/init.d/kibana" ]
 
-set -e
 
+SCRIPT_NAME=`basename $0`
 NAME=kibana
 DESC="Kibana Server"
 DEFAULT=/etc/default/$NAME

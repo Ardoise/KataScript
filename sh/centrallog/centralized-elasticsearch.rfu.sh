@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 ### BEGIN INIT INFO
 # Provides: centrallog: elasticsearch
 # Short-Description: DEPLOY SERVER: [STORAGESEARCH]
@@ -25,10 +25,12 @@
 # INIT:     [ "/etc/init.d/elasticsearch" ]
 # PLUGINS:  [ "/usr/share/elasticsearch/bin/plugin" ]
 
-set -e
+SCRIPT_OK=0
+SCRIPT_ERROR=1
 
+DESCRIPTION="Elasticsearch Server";
+SCRIPT_NAME=`basename $0`
 NAME=elasticsearch
-DESC="elasticsearch Server"
 DEFAULT=/etc/default/$NAME
 
 if [ `id -u` -ne 0 ]; then

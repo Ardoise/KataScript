@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 ### BEGIN INIT INFO
 # Provides: logstash shipper
 # Short-Description: DEPLOY SERVER: [SHIPPER]
@@ -20,8 +20,7 @@
 # RUN:      [ "/var/run/logstash.pid" ]
 # INIT:     [ "/etc/init.d/logstash" ]
 
-set -e
-
+SCRIPT_NAME=`basename $0`
 NAME=logstash
 DESC="logstash Server"
 DEFAULT=/etc/default/$NAME

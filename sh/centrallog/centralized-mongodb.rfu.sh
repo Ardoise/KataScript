@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh -e
 ### BEGIN INIT INFO
 # Provides: centrallog: mongodb
 # Short-Description: DEPLOY SERVER: [STORAGESEARCH]
@@ -19,10 +19,12 @@
 # RUN:      [ "/var/mongodb/mongodb.pid" ]
 # INIT:     [ "/etc/init.d/mongodb" ]
 
-set -e
+SCRIPT_OK=0
+SCRIPT_ERROR=1
 
+DESCRIPTION="MongoDB Server";
+SCRIPT_NAME=`basename $0`
 NAME=mongodb
-DESC="mongodb Server"
 DEFAULT=/etc/default/$NAME
 
 if [ `id -u` -ne 0 ]; then

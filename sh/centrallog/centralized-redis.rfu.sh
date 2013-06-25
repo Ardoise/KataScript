@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 ### BEGIN INIT INFO
 # Provides: centrallog: redis
 # Short-Description: DEPLOY SERVER: [BROKER]
@@ -7,7 +7,7 @@
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: REDIS (NoSQL, Broker)
-# - deploy redis v2.6.13
+# - deploy redis v2.6.14
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl, gcc
@@ -18,8 +18,7 @@
 # RUN:      [ "/var/run/redis.pid" ]
 # INIT:     [ "/etc/init.d/redis" ]
 
-set -e
-
+SCRIPT_NAME=`basename $0`
 NAME=redis
 DESC="redis Server"
 DEFAULT=/etc/default/$NAME
@@ -36,10 +35,10 @@ cat <<EOF >centralized-redis.getbin.sh
 [ -d "/etc/redis/test" ] || sudo mkdir -p /etc/redis/test;
 [ -d "/val/log/redis" ] || sudo mkdir -p /var/log/redis;
 
-[ -s "redis-2.6.13.tar.gz" ] || curl -OL http://redis.googlecode.com/files/redis-2.6.13.tar.gz
-[ -d "redis-2.6.13" ] || (
-  tar xvfz redis-2.6.13.tar.gz
-  cd redis-2.6.13
+[ -s "redis-2.6.14.tar.gz" ] || curl -OL http://redis.googlecode.com/files/redis-2.6.13.tar.gz
+[ -d "redis-2.6.14" ] || (
+  tar xvfz redis-2.6.14.tar.gz
+  cd redis-2.6.14
   sudo make
   sudo make install
   sudo make test
