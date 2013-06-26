@@ -13,7 +13,7 @@
 Depends
 ==========================
   - logstash [http://logstash.net] [v1.1.13]
-  - redis [http://redis.io] [v2.6.13]
+  - redis [http://redis.io] [v2.6.14]
   - elasticsearch [http://elasticsearch.org] [v0.90.1]
   - kibana3 [http://kibana.org] [v3m2]
   - mongoDB [http://www.mongodb.org/] [v2.4.4]
