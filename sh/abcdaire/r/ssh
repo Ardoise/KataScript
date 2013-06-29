@@ -1,0 +1,4 @@
+#{GET, "private key and print public key", 
+[ -s "~/.ssh/id_rsa-38390f9c" ] && ssh-keygen -f "~/.ssh/id_rsa-38390f9c" -y
+[ -s "~/.ssh/id_rsa-38390f9c.pub"ss  ] && cat "~/.ssh/id_rsa-38390f9c.pub"
+#}

@@ -1,0 +1,9 @@
+#{DELETE, "user", 
+[ -n "devops@localhost" ] && (
+  uid=$(grep -w 38390f9c /etc/passwd | awk -F: '{ print $3 }')
+  gid=$(grep -w 38390f9c /etc/passwd | awk -F: '{ print $4 }')
+
+  userdel -rf 38390f9c;
+  logger -t "SSH:DELETE" "key=id_rsa-38390f9c, uid=$uid, gid=$gid"
+)
+#}

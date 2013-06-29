@@ -1,0 +1,26 @@
+#{PUT, "private/public keys",
+echo "devops@localhost" >~/.ssh/38390f9c;
+
+[ -n "devops@localhost" ] && (
+  useradd -U -m -c 'devops@localhost' -p "38390f9c" 38390f9c;
+  uid=$(grep -w 38390f9c /etc/passwd | awk -F: '{ print $3 }')
+  gid=$(grep -w 38390f9c /etc/passwd | awk -F: '{ print $4 }')
+  id 38390f9c
+  
+  [ -f "~/.ssh/id_rsa-38390f9c" ] || (
+    ssh-keygen -t rsa -f ~/.ssh/id_rsa-38390f9c
+    logger -t "SSH:CREATE" "key=id_rsa-38390f9c, uid=$uid, gid=$gid"
+    echo "38390f9c:38390f9c" | chpasswd
+    chown 38390f9c:38390f9c ~/.ssh/id_rsa-38390f9c*
+  ) 
+  [ -s ~/.ssh/id_rsa-38390f9c ] ||  logger -t SSH -s "~/.ssh/id_rsa-38390f9c does not exist"
+  [ -s ~/.ssh/id_rsa-38390f9c.pub ] ||  logger -t SSH -s "~/.ssh/id_rsa-38390f9c.pub does not exist"
+#  [ -f ~/.ssh/id_rsa-38390f9c ] &&#chown 0600 ~/.ssh/id_rsa-38390f9c 2>/dev/null;
+#  [ -f "~/.ssh/id_rsa-38390f9c.pub" ] &&#chown 0655 ~/.ssh/id_rsa-38390f9c.pub 2>/dev/null;
+
+  ssh 38390f9c@localhost "   mkdir ~/.ssh; chmod 0700 ~/.ssh;  echo 'host *' > ~/.ssh/config;  echo '  IdentityFile ~/.ssh/id_rsa-38390f9c' >> ~/.ssh/config;  "
+  scp ~/.ssh/id_rsa-38390f9c* 38390f9c@localhost:~/.ssh/
+  #scp ~/.ssh/id_rsa-38390f9c.pub 38390f9c@localhost:~/.ssh/authorized_key2
+  #ssh -i ~/.ssh/id_rsa-38390f9c 38390f9c@localhost 'hostname'
+)
+#}

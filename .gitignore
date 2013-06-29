@@ -15,6 +15,7 @@
 *.bak
 *.tmp
 *.*~
+*.0
 
 # Binaries
 *.bin
