@@ -20,7 +20,7 @@
 
 SCRIPT_NAME=`basename $0`
 NAME=redis
-DESC="redis Server"
+DESCRIPTION="redis Server"
 DEFAULT=/etc/default/$NAME
 
 if [ `id -u` -ne 0 ]; then
