@@ -3,7 +3,7 @@
 # Provides: centrallog
 # Short-Description: DEPLOY SERVER: [BROKER, INDEXER, STORAGESEARCH, WEBUI]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130531
+# Update: last-update: 20130707
 ### END INIT INFO
 
 # Description:
@@ -12,6 +12,7 @@
 # - deploy elasticsearch v0.90.2
 # - deploy kibana3
 # - deploy mongodb v2.4.5
+# - deploy flume v1.4.0
 #
 # Requires : /opt/centrallog is necessary to deploy the packages
 # Requires : you need root privileges tu run the children's scripts
@@ -28,7 +29,6 @@ DEFAULT=/etc/default/$NAME
 [ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
 [ -r /etc/default/rcS ] && . /etc/default/rcS
 
-# is Necessary ?
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
   exit 1
@@ -73,6 +73,13 @@ fi
     read -p "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Do you wish install centralized-kibana (y/n)? :" key
     case $key in
       "Y" | "y")  ./centralized-kibana.rfu.sh; ;;
+      *)  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Bye !"; ;;
+    esac
+  )
+  [ -s "./centralized-flume.rfu.sh" ] && (
+    read -p "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Do you wish install centralized-flume (y/n)? :" key
+    case $key in
+      "Y" | "y")  ./centralized-flume.rfu.sh; ;;
       *)  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Bye !"; ;;
     esac
   )
