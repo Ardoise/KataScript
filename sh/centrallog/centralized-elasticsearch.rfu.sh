@@ -60,6 +60,7 @@ Ubuntu*|Debian*)
   sudo apt-get install openjdk-7-jre-headless wget curl -y
   ES_PACKAGE=elasticsearch-0.20.6.deb;
   ES_PACKAGE=elasticsearch-0.90.0.deb;
+  ES_PACKAGE=elasticsearch-0.90.1.deb;
   ES_PACKAGE=elasticsearch-0.90.2.deb;
   [ -f "$ES_PACKAGE" ] || wget --no-check-certificate $SITE/$ES_PACKAGE;
   sudo dpkg -i $ES_PACKAGE;
