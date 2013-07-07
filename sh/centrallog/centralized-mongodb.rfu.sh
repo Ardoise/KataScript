@@ -37,6 +37,7 @@ cat <<-'EOF' >centralized-mongodb.getbin.sh
 
 [ -d "/opt/mongodb" ] || sudo mkdir -p /opt/mongodb;
 [ -d "/etc/mongodb/test" ] || sudo mkdir -p /etc/mongodb/test;
+[ -d "/var/lib/mongodb" ] || sudo mkdir -p /var/lib/mongodb;
 [ -d "/var/log/mongodb" ] || sudo mkdir -p /var/log/mongodb;
 
 SITE=http://downloads-distro.mongodb.org/
@@ -84,14 +85,112 @@ EOF
 chmod a+x centralized-mongodb.getbin.sh
 
 
+cat <<EOF >centralized-mongodb.putconf.sh
+#!/bin/sh -e
+
+cat <<CEOF >mongodb.conf
+# mongodb.conf
+
+# Where to store the data.
+
+# Note: if you run mongodb as a non-root user (recommended) you may
+# need to create and set permissions for this directory manually,
+# e.g., if the parent directory isn't mutable by the mongodb user.
+dbpath=/var/lib/mongodb
+logpath=/var/log/mongodb/mongodb.log
+logappend=true
+port = 27017
+
+# Disables write-ahead journaling
+# nojournal = true
+
+# Enables periodic logging of CPU utilization and I/O wait
+#cpu = true
+
+# Turn on/off security.  Off is currently the default
+#noauth = true
+#auth = true
+
+# Verbose logging output.
+#verbose = true
+
+# Inspect all client data for validity on receipt (useful for
+# developing drivers)
+#objcheck = true
+
+# Enable db quota management
+#quota = true
+
+# Set oplogging level where n is
+#   0=off (default)
+#   1=W
+#   2=R
+#   3=both
+#   7=W+some reads
+#diaglog = 0
+
+# Ignore query hints
+#nohints = true
+
+# Disable the HTTP interface (Defaults to localhost:28017).
+#nohttpinterface = true
+
+# Turns off server-side scripting.  This will result in greatly limited
+# functionality
+#noscripting = true
+
+# Turns off table scans.  Any query that would do a table scan fails.
+#notablescan = true
+
+# Disable data file preallocation.
+#noprealloc = true
+
+# Specify .ns file size for new databases.
+# nssize = <size>
+
+# Accout token for Mongo monitoring server.
+#mms-token = <token>
+
+# Server name for Mongo monitoring server.
+#mms-name = <server-name>
+
+# Ping interval for Mongo monitoring server.
+#mms-interval = <seconds>
+
+# Replication Options
+
+# in master/slave replicated mongo databases, specify here whether
+# this is a slave or master
+#slave = true
+#source = master.example.com
+# Slave only: specify a single database to replicate
+#only = master.example.com
+# or
+#master = true
+#source = slave.example.com
+
+# in replica set configuration, specify the name of the replica set
+# replSet = setname 
+
+CEOF
+chmod 644 mongodb.conf
+[ -d "/etc/mongodb/test" ] || sudo mkdir -p /etc/mongodb/test;
+[ -d "/etc/mongodb/test" ] && mv mongodb.conf /etc/mongodb/test/;
+
+EOF
+
+
+
 cat <<EOF >centralized-mongodb.sh
-echo "view /etc/mongodb/mongodb.conf"
-echo "sudo service mongodb stop";
-echo "sudo service mongodb start";
-echo "sudo service mongodb restart";
-/etc/init.d/mongodb status
-/etc/init.d/mongodb force-reload
-/etc/init.d/mongodb restart
+echo "view /etc/mongodb/test/mongodb.conf"
+#/etc/init.d/mongodb status
+#/etc/init.d/mongodb force-reload
+#/etc/init.d/mongodb restart
+sudo service mongodb status;
+sudo service mongodb reload;
+sudo service mongodb stop;
+sudo service mongodb start;
+sudo service mongodb restart;
 EOF
 
 
@@ -249,6 +348,12 @@ chmod +x centralized-mongodb.test.sh
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-mongodb : get binaries ..."
 sh centralized-mongodb.getbin.sh;
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-mongodb : get binaries [ OK ]"
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-mongodb : put config ..."
+sh centralized-mongodb.putconf.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-mongodb : put config [ OK ]"
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-mongodb : start ..."
+sh centralized-mongodb.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-mongodb : start [ OK ]"
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-mongodb : test ..."
 sh centralized-mongodb.test.sh;
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-mongodb : test [ OK ]"
