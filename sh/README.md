@@ -5,11 +5,11 @@ SERVICE:1,{
 + rfu: "sh/centrallog/centralized-centrallog.rfu.sh",
    + type: [vm: "CENTRALIZED"],
    + node: 192.168.17.89,"vmhost00",
-   + desc: {broker: [Redis], indexer: [logstash], storagesearch: [elasticsearch], webui: [Kibana3]},
+   + desc: {broker: [Redis], indexer: [logstash,flume], storagesearch: [elasticsearch], webui: [Kibana3] },
 + rfu: "sh/centrallog/distributed-logstash.rfu.sh",
    + type: [vm: "DISTRIBUTED"],
    + node: 192.168.17/28,"vmhost99",
-   + desc: {shipper: [logstash], broker: [Redis]}
+   + desc: {shipper: [logstash], shipper: [flume]}
 }
 
 SERVICE:2,{

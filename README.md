@@ -4,6 +4,7 @@
     
     sh/centrallog/centralized-centrallog.rfu.sh   # VM CENTRAL
     sh/centrallog/distributed-logstash.rfu.sh     # VM's DISTRIBUTED
+    sh/centrallog/distributed-flume.rfu.sh        # VM's DISTRIBUTED
   
 ### service standalone [RFU:v0.1.0] :
     
@@ -14,10 +15,11 @@ Depends
 ==========================
   - logstash [http://logstash.net] [v1.1.13]
   - redis [http://redis.io] [v2.6.14]
-  - elasticsearch [http://elasticsearch.org] [v0.90.1]
+  - elasticsearch [http://elasticsearch.org] [v0.90.2]
   - kibana3 [http://kibana.org] [v3m2]
-  - mongoDB [http://www.mongodb.org/] [v2.4.4]
-  - graylog2 [http://graylog2.org] [working]
+  - mongoDB [http://www.mongodb.org/] [v2.4.5]
+  - graylog2 [http://graylog2.org] [v0.0.0][working]
+  - flume [http://flume.apache.org] [v1.4.0][working]
   - JBossAS [http://download.jboss.org] [v7.1.1]
 
 Objectifs : + vs - : Practice 
