@@ -8,9 +8,10 @@
 
 # Description:
 # - deploy logstash v1.1.13
-# - deploy redis v2.6.11
-# - deploy elasticsearch v0.90.0
+# - deploy redis v2.6.14
+# - deploy elasticsearch v0.90.2
 # - deploy kibana3
+# - deploy mongodb v2.4.5
 #
 # Requires : /opt/centrallog is necessary to deploy the packages
 # Requires : you need root privileges tu run the children's scripts

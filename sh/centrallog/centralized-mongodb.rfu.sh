@@ -3,11 +3,11 @@
 # Provides: centrallog: mongodb
 # Short-Description: DEPLOY SERVER: [STORAGESEARCH]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130615
+# Update: last-update: 20130707
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: mongodb (NoSQL, INDEX, SEARCH)
-# - deploy mongodb v2.4.4
+# - deploy mongodb v2.4.5
 #
 # Requires : you need root privileges tu run this script
 # Requires : JRE7 to run mongodb
@@ -36,7 +36,8 @@ cat <<-'EOF' >centralized-mongodb.getbin.sh
 #!/bin/sh
 
 [ -d "/opt/mongodb" ] || sudo mkdir -p /opt/mongodb;
-[ -d "/etc/mongodb" ] || sudo mkdir -p /etc/mongodb;
+[ -d "/etc/mongodb/test" ] || sudo mkdir -p /etc/mongodb/test;
+[ -d "/var/log/mongodb" ] || sudo mkdir -p /var/log/mongodb;
 
 SITE=http://downloads-distro.mongodb.org/
 
@@ -54,7 +55,7 @@ Ubuntu*|Debian*)
   echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/10gen.list
   sudo apt-get update
   echo 'echo "mongodb-10gen hold" | dpkg --set-selections'
-  echo "sudo apt-get install mongodb-10gen=2.2.4"
+  echo "sudo apt-get install mongodb-10gen=2.2.5"
   sudo apt-get install mongodb-10gen
 ;;
 Red*Hat*)
@@ -243,5 +244,13 @@ curl -XPUT 'http://'${yourIP}':9200/person-'$(date +"%Y.%m.%d")'/mongodb/_meta' 
 
 EOF
 chmod +x centralized-mongodb.test.sh
+
+
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-mongodb : get binaries ..."
+sh centralized-mongodb.getbin.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-mongodb : get binaries [ OK ]"
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-mongodb : test ..."
+sh centralized-mongodb.test.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-mongodb : test [ OK ]"
 
 exit 0
