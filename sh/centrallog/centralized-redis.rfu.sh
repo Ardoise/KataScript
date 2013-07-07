@@ -3,7 +3,7 @@
 # Provides: centrallog: redis
 # Short-Description: DEPLOY SERVER: [BROKER]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130531
+# Update: last-update: 20130707
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: REDIS (NoSQL, Broker)
