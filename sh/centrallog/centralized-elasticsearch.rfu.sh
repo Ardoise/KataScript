@@ -42,7 +42,7 @@ cat <<"EOF" >centralized-elasticsearch.getbin.sh
 #!/bin/sh
 
 [ -d "/opt/elasticsearch" ] || sudo mkdir -p /opt/elasticsearch;
-[ -d "/etc/elasticsearch" ] || sudo mkdir -p /etc/elasticsearch;
+[ -d "/etc/elasticsearch/test" ] || sudo mkdir -p /etc/elasticsearch/test;
 [ -d "/var/log/elasticsearch" ] || sudo mkdir -p /var/log/elasticsearch;
 [ -d "/var/lib/elasticsearch" ] || sudo mkdir -p /var/lib/elasticsearch;
 
