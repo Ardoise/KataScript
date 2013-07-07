@@ -41,6 +41,11 @@ cat <<-'EOF' >centralized-@generic@.getbin.sh
 [ -d "/var/log/@generic@" ] || sudo mkdir -p /var/log/@generic@;
 
 SITE=http://downloads-distro.@generic@.org/
+@GENERIC@_PACKAGE=generic-0.0.1-bin.tar.gz;
+
+[ -f "${@GENERIC@_PACKAGE}" ] || wget --no-check-certificate $SITE/${@GENERIC@_PACKAGE};
+[ -f "${@GENERIC@_PACKAGE}.asc" ] || wget --no-check-certificate $SITE/${@GENERIC@_PACKAGE}.asc;
+[ -f "${@GENERIC@_PACKAGE}.md5" ] || wget --no-check-certificate $SITE/${@GENERIC@_PACKAGE}.md5;
 
 SYSTEM=`/bin/uname -s`;
 if [ $SYSTEM = Linux ]; then
