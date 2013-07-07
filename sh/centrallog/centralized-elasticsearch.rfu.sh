@@ -44,6 +44,7 @@ cat <<"EOF" >centralized-elasticsearch.getbin.sh
 [ -d "/opt/elasticsearch" ] || sudo mkdir -p /opt/elasticsearch;
 [ -d "/etc/elasticsearch" ] || sudo mkdir -p /etc/elasticsearch;
 [ -d "/var/log/elasticsearch" ] || sudo mkdir -p /var/log/elasticsearch;
+[ -d "/var/lib/elasticsearch" ] || sudo mkdir -p /var/lib/elasticsearch;
 
 SITE=https://download.elasticsearch.org/elasticsearch/elasticsearch
 
