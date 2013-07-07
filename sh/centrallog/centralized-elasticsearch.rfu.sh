@@ -38,12 +38,12 @@ if [ `id -u` -ne 0 ]; then
   exit 1
 fi
 
-
 cat <<"EOF" >centralized-elasticsearch.getbin.sh
 #!/bin/sh
 
 [ -d "/opt/elasticsearch" ] || sudo mkdir -p /opt/elasticsearch;
 [ -d "/etc/elasticsearch" ] || sudo mkdir -p /etc/elasticsearch;
+[ -d "/var/log/elasticsearch" ] || sudo mkdir -p /var/log/elasticsearch;
 
 SITE=https://download.elasticsearch.org/elasticsearch/elasticsearch
 
