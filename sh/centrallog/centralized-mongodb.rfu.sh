@@ -71,7 +71,7 @@ baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64
 gpgcheck=0
 enabled=1
 ZEOF
-  echo "yum install mongo-10gen-2.2.4 mongo-10gen-server-2.2.4"
+  echo "yum install mongo-10gen-2.2.5 mongo-10gen-server-2.2.5"
   echo 'echo "#to pin a package" >> /etc/yum.conf'
   echo 'echo "#exclude=mongo-10gen,mongo-10gen-server" >> /etc/yum.conf'
   yum install mongo-10gen mongo-10gen-server
