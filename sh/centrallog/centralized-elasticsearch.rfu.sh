@@ -7,7 +7,7 @@
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: ELASTICSEARCH (NoSQL, INDEX, SEARCH)
-# - deploy elasticsearch v0.90.1
+# - deploy elasticsearch v0.90.2
 # - deploy mobz/elasticsearch-head                plugin
 # - deploy karmi/elasticsearch-paramedic          plugin
 # - deploy lukas-vlcek/bigdesk                    plugin
@@ -60,20 +60,20 @@ Ubuntu*|Debian*)
   sudo apt-get install openjdk-7-jre-headless wget curl -y
   ES_PACKAGE=elasticsearch-0.20.6.deb;
   ES_PACKAGE=elasticsearch-0.90.0.deb;
-  ES_PACKAGE=elasticsearch-0.90.1.deb;
+  ES_PACKAGE=elasticsearch-0.90.2.deb;
   [ -f "$ES_PACKAGE" ] || wget --no-check-certificate $SITE/$ES_PACKAGE;
   sudo dpkg -i $ES_PACKAGE;
   sudo service elasticsearch start ;
 ;;
 Redhat*|Red*hat*)
   sudo yum install java-1.7.0-openjdk wget curl -y
-  ES_PACKAGE=elasticsearch-0.90.1.noarch.rpm;
+  ES_PACKAGE=elasticsearch-0.90.2.noarch.rpm;
   [ -f "$ES_PACKAGE" ] || wget --no-check-certificate $SITE/$ES_PACKAGE;
   sudo rpm -i $ES_PACKAGE;
   sudo service elasticsearch start
 ;;
 *)
-  ES_PACKAGE=elasticsearch-0.90.1.zip
+  ES_PACKAGE=elasticsearch-0.90.2.zip
   ES_DIR=${ES_PACKAGE%%.zip}
   if [ ! -d "$ES_DIR" ] ; then
     wget --no-check-certificate $SITE/$ES_PACKAGE;
@@ -151,7 +151,7 @@ echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-elasticsearch : test service
   
   echo "elasticsearch-head : web front end for an ElasticSearch cluster"
   echo "http://mobz.github.com/elasticsearch-head "
-  sudo elasticsearch/bin/plugin -install mobz/elasticsearch-head
+  sudo elasticsearch/bin/plugin --install mobz/elasticsearch-head
   echo "http://${yourIP}:9200/_plugin/head/"
 
   echo "A simple tool to inspect the state and statistics about ElasticSearch clusters"
@@ -161,7 +161,7 @@ echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-elasticsearch : test service
   
   echo "Bigdesk : Live charts and statistics for elasticsearch cluster"
   echo "To install Bigdesk master branch as an Elasticsearch plugin on a particular Elasticsearch node"
-  sudo elasticsearch/bin/plugin -install lukas-vlcek/bigdesk
+  sudo elasticsearch/bin/plugin --install lukas-vlcek/bigdesk
   echo "http://${yourIP}:9200/_plugin/bigdesk/index.html"
 
   echo "Inquisitor is a tool help understand and debug your queries in ElasticSearch."
