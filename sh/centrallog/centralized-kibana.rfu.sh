@@ -54,8 +54,8 @@ cat <<EOF >centralized-kibana.getbin.sh
   
   # KIBANA3
   cd /opt/kibana
-  [ -s "kibana-master.tar.gz" ] || curl -OL https://github.com/elasticsearch/kibana/archive/kibana-master.tar.gz
-  [ -d "kibana-master" ] || tar xvfz kibana-master.tar.gz;  
+  [ -s "master.tar.gz" ] || curl -OL https://github.com/elasticsearch/kibana/archive/master.tar.gz
+  [ -d "kibana-master" ] || tar xvfz master.tar.gz;  
 )
 EOF
 chmod a+x centralized-kibana.getbin.sh
