@@ -16,6 +16,8 @@
 #
 # Requires : /opt/centrallog is necessary to deploy the packages
 # Requires : you need root privileges tu run the children's scripts
+# Requires : JRE7 is necessary to deploy the packages
+# Requires : curl is necessary to deploy the packages
 
 SCRIPT_OK=0
 SCRIPT_ERROR=1
@@ -25,18 +27,16 @@ SCRIPT_NAME=`basename $0`
 NAME=centrallog
 DEFAULT=/etc/default/$NAME
 
-# TODO : USE IT !
-[ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
-[ -r /etc/default/rcS ] && . /etc/default/rcS
-
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
   exit 1
 fi
 
-[ -d "/opt/centrallog" ] || sudo mkdir -p /opt/centrallog;
+[ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
+[ -r /etc/default/rcS ] && . /etc/default/rcS
+
+[ -d "/opt/centrallog" ] || mkdir -p /opt/centrallog;
 [ -d "/opt/centrallog" ] && (
-  cp stdlevel /opt/centrallog >/dev/null 2>&1
   cp -f centralized-*.rfu.sh /opt/centrallog/ >/dev/null 2>&1; 
   chmod a+x /opt/centrallog/*.sh >/dev/null 2>&1;
   cd /opt/centrallog;
