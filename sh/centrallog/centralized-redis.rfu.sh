@@ -22,6 +22,12 @@ SCRIPT_NAME=`basename $0`
 NAME=redis
 DESCRIPTION="redis Server"
 DEFAULT=/etc/default/$NAME
+cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null
+SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR"
+platform="$(lsb_release -i -s)"
+platform_version="$(lsb_release -s -r)"
+
+[ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
 
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
