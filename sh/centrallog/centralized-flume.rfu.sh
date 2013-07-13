@@ -42,6 +42,10 @@ if [ `id -u` -ne 0 ]; then
   exit 1
 fi
 
+# OWNER
+uid=$NAME;gid=$NAME;group=devops
+usergroup POST;
+
 cat <<-'EOF' >centralized-flume.getbin.sh
 #!/bin/sh -e
 

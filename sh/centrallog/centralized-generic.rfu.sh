@@ -50,6 +50,10 @@ if [ `id -u` -ne 0 ]; then
   exit $SCRIPT_ERROR
 fi
 
+# OWNER
+uid=$NAME;gid=$NAME;group=devops
+usergroup POST;
+
 # SUDO CHROOT
 sudo groupadd -r $groups || true;
 sudo sed -i -e "/Defaults\s\+env_reset/a Defaults\texempt_group=$groups" /etc/sudoers;

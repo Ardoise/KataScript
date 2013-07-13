@@ -39,10 +39,13 @@ if [ `id -u` -ne 0 ]; then
   exit 1
 fi
 
+# OWNER
+uid=$NAME;gid=$NAME;group=devops
+usergroup POST;
+
 # TODO : USE IT !
 [ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
 [ -r /etc/default/rcS ] && . /etc/default/rcS
-. ./stdlevel; # DEPRECATED
 
 cat <<EOF >centralized-logstash.getbin.sh
 #!/bin/sh

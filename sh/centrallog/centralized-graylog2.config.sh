@@ -23,6 +23,15 @@ platform_version="$(lsb_release -s -r)"
 
 [ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
 
+if [ `id -u` -ne 0 ]; then
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
+  exit $SCRIPT_ERROR
+fi
+
+# OWNER
+uid=$NAME;gid=$NAME;group=devops
+usergroup POST;
+
 # GrayLog2
 [ -d "/etc/graylog2" ] || sudo mkdir -p "/etc/graylog2";
 
