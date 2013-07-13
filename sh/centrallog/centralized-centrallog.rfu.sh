@@ -25,7 +25,8 @@ SCRIPT_ERROR=1
 
 DESCRIPTION="Main Script Deploy Centrallog";
 SCRIPT_NAME=`basename $0`;
-DIR_NAME=`dirname $0`; cd $DIR_NAME;
+cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null
+SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR"
 NAME=centrallog
 DEFAULT=/etc/default/$NAME
 
@@ -38,10 +39,10 @@ if [ `id -u` -ne 0 ]; then
   exit 1
 fi
 
-[ -e "../lib/usergroup.sh" ] && . ../lib/usergroup.sh || exit 1;
+[ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
+
 [ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
 [ -r /etc/default/rcS ] && . /etc/default/rcS
-
 
 [ -d "/opt/centrallog" ] || mkdir -p /opt/centrallog;
 [ -d "/opt/centrallog" ] && (
