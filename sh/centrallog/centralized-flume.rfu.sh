@@ -26,6 +26,12 @@ DESCRIPTION="FLUME Server";
 SCRIPT_NAME=`basename $0`
 NAME=flume
 DEFAULT=/etc/default/$NAME
+cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null
+SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR"
+platform="$(lsb_release -i -s)"
+platform_version="$(lsb_release -s -r)"
+
+[ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
 
 #FLUME_CLASSPATH
 #flume-env.sh
