@@ -16,6 +16,12 @@ DESCRIPTION="Graylog2 Server";
 SCRIPT_NAME=`basename $0`
 NAME=graylog2
 DEFAULT=/etc/default/$NAME
+cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null
+SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR"
+platform="$(lsb_release -i -s)"
+platform_version="$(lsb_release -s -r)"
+
+[ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
 
 # GrayLog2
 [ -d "/etc/graylog2" ] || sudo mkdir -p "/etc/graylog2";
