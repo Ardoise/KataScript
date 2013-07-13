@@ -53,7 +53,7 @@ put|post|PUT|POST)
   [ -z "$(id -a $uid 2>/dev/null)" ] || id -a $uid;
 ;;
 head|HEAD)
-  echo "uid=65535(guest) gid=65535(guest) groups=65535(guest)";
+  echo "uid=65535(guest) gid=65535(guest) group[e]s=65535(guest)";
 ;;
 delete|DELETE)
   case $uid in
