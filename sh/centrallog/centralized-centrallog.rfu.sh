@@ -3,7 +3,7 @@
 # Provides: centrallog
 # Short-Description: DEPLOY SERVER: [BROKER, INDEXER, STORAGESEARCH, WEBUI]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130707
+# Update: last-update: 20130713
 ### END INIT INFO
 
 # Description:
@@ -24,7 +24,8 @@ SCRIPT_OK=0
 SCRIPT_ERROR=1
 
 DESCRIPTION="Main Script Deploy Centrallog";
-SCRIPT_NAME=`basename $0`
+SCRIPT_NAME=`basename $0`;
+DIR_NAME=`dirname $0`; cd $DIR_NAME;
 NAME=centrallog
 DEFAULT=/etc/default/$NAME
 
@@ -37,7 +38,7 @@ if [ `id -u` -ne 0 ]; then
   exit 1
 fi
 
-
+[ -e "../lib/usergroup.sh" ] && . ../lib/usergroup.sh || exit 1;
 [ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
 [ -r /etc/default/rcS ] && . /etc/default/rcS
 
