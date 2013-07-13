@@ -4,8 +4,9 @@ group=${gid:lab-devops};
 gid=${gid:lab-guest};
 uid=${uid:lab-guest};
 pass=${pass:lab-guest};
-$action=${get:get};
 
+  : ${1?"Usage: $0 <HEAD|GET|PUT|DELETE|POST>"} # REST
+  
 case $uid in
   lab-*) : ;;
   *) uid=lab-${uid} ;;
@@ -19,16 +20,19 @@ case $group in
   *) group=lab-${group} ;;
 esac
 
-case $action in
-get)
+case $1 in
+get|GET)
   id -a $uid
 ;;
-put|post)
+put|post|PUT|POST)
   sudo groupadd -r $gid || true;
   sudo useradd --gid $gid --groups $groups --password $pass $uid || true;
   sudo usermod -a -G $groups $uid || true;
 ;;
-delete)
+head|HEAD)
+  echo "uid=65535(guest) gid=65535(guest) groups=65535(guest)";
+;;
+delete|DELETE)
   case $uid,$gid in
     lab-*,lab-devops)
       sudo userdel $uid || true;
