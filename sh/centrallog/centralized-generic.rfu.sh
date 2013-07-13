@@ -3,15 +3,14 @@
 # Provides: centrallog: @generic@
 # Short-Description: DEPLOY SERVER: [@GENERIC@]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130707
+# Update: last-update: 20130713
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: @generic@ (...)
 # - deploy @generic@ v0.0.1
 #
 # Requires : you need root privileges tu run this script
-# Requires : JRE7 to run @generic@
-# Requires : curl
+# Requires : JRE7 curl wget to run @generic@
 #
 # CONFIG:   [ "/etc/@generic@", "/etc/@generic@/test" ]
 # BINARIES: [ "/opt/@generic@/", "/usr/share/@generic@/" ]
@@ -29,16 +28,19 @@ DEFAULT=/etc/default/$NAME
 
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
-  exit 1
+  exit $SCRIPT_ERROR
 fi
 
 cat <<-'EOF' >centralized-@generic@.getbin.sh
 #!/bin/sh -e
 
-[ -d "/opt/@generic@" ] || sudo mkdir -p /opt/@generic@;
-[ -d "/etc/@generic@/test" ] || sudo mkdir -p /etc/@generic@/test;
-[ -d "/var/lib/@generic@" ] || sudo mkdir -p /var/lib/@generic@;
-[ -d "/var/log/@generic@" ] || sudo mkdir -p /var/log/@generic@;
+platform="$(lsb_release -i -s)"
+platform_version="$(lsb_release -s -r)"
+
+[ -d "/opt/@generic@" ] || mkdir -p /opt/@generic@;
+[ -d "/etc/@generic@/test" ] || mkdir -p /etc/@generic@/test;
+[ -d "/var/lib/@generic@" ] || mkdir -p /var/lib/@generic@;
+[ -d "/var/log/@generic@" ] || mkdir -p /var/log/@generic@;
 
 SITE=http://downloads-distro.@generic@.org/
 @GENERIC@_PACKAGE=generic-0.0.1-bin.tar.gz;
@@ -47,16 +49,10 @@ SITE=http://downloads-distro.@generic@.org/
 [ -f "${@GENERIC@_PACKAGE}.asc" ] || wget --no-check-certificate $SITE/${@GENERIC@_PACKAGE}.asc;
 [ -f "${@GENERIC@_PACKAGE}.md5" ] || wget --no-check-certificate $SITE/${@GENERIC@_PACKAGE}.md5;
 
-SYSTEM=`/bin/uname -s`;
-if [ $SYSTEM = Linux ]; then
-  DISTRIB=`cat /etc/issue`
-fi
-
-case $DISTRIB in
-Ubuntu*|Debian*)
+case $platform in
+Ubuntu|Debian)
   echo "apt-get update";
-  echo "apt-get install openjdk-7-jre";
-
+  echo "apt-get install openjdk-7-jre curl wget";
 ;;
 Red*Hat*)
   echo "yum install @generic@"
@@ -77,7 +73,7 @@ cat <<CEOF >@generic@.conf
 # @generic@.conf
 CEOF
 chmod 644 @generic@.conf
-[ -d "/etc/@generic@/test" ] || sudo mkdir -p /etc/@generic@/test;
+[ -d "/etc/@generic@/test" ] || mkdir -p /etc/@generic@/test;
 [ -d "/etc/@generic@/test" ] && mv @generic@.conf /etc/@generic@/test/;
 
 EOF
@@ -122,4 +118,4 @@ echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-@generic@ : test ..."
 sh centralized-@generic@.test.sh;
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-@generic@ : test [ OK ]"
 
-exit 0
+exit $SCRIPT_OK

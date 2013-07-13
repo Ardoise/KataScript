@@ -18,6 +18,7 @@
 # Requires : you need root privileges tu run the children's scripts
 # Requires : JRE7 is necessary to deploy the packages
 # Requires : curl is necessary to deploy the packages
+# Requires : wget is necessary to deploy the packages
 
 SCRIPT_OK=0
 SCRIPT_ERROR=1
@@ -27,13 +28,19 @@ SCRIPT_NAME=`basename $0`
 NAME=centrallog
 DEFAULT=/etc/default/$NAME
 
+# Determine the platform (i.e. Debian or Ubuntu) and platform version
+platform="$(lsb_release -i -s)"
+platform_version="$(lsb_release -s -r)"
+
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
   exit 1
 fi
 
+
 [ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
 [ -r /etc/default/rcS ] && . /etc/default/rcS
+
 
 [ -d "/opt/centrallog" ] || mkdir -p /opt/centrallog;
 [ -d "/opt/centrallog" ] && (
