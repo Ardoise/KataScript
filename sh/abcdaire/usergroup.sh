@@ -1,9 +1,9 @@
 #!/bin/sh -e
 
-group=${gid:lab-devops};
-gid=${gid:lab-guest};
-uid=${uid:lab-guest};
-pass=${pass:lab-guest};
+group=${group:-lab-devops};
+gid=${gid:-lab-guest};
+uid=${uid:-lab-guest};
+pass=${pass:-lab-guest};
 
   : ${1?"Usage: $0 <HEAD|GET|PUT|DELETE|POST>"} # REST
   
@@ -22,25 +22,23 @@ esac
 
 case $1 in
 get|GET)
-  id -a $uid
+  [ -z "$(id -a $uid 2>/dev/null)" ] || id -a $uid;
 ;;
 put|post|PUT|POST)
-  sudo groupadd -r $gid || true;
-  sudo useradd --gid $gid --groups $groups --password $pass $uid || true;
-  sudo usermod -a -G $groups $uid || true;
+  sudo groupadd -f -r $group;
+  [ -z "$(id -g $uid 2>/dev/null)" ] && sudo groupadd -r $gid;
+  [ -z "$(id -u $uid 2>/dev/null)" ] && sudo useradd --gid $gid --groups $group --password $pass $uid;
+  sudo usermod -a -G $group $uid || true;
+  [ -z "$(id -a $uid 2>/dev/null)" ] || id -a $uid;
 ;;
 head|HEAD)
   echo "uid=65535(guest) gid=65535(guest) groups=65535(guest)";
 ;;
 delete|DELETE)
-  case $uid,$gid in
-    lab-*,lab-devops)
-      sudo userdel $uid || true;
+  case $uid in
+    lab-*)
+      [ -z "$(id -u $uid 2>/dev/null)" ] || sudo userdel $uid;
     ;;  
-    lab-*,lab-*)
-      sudo userdel $uid || true;
-      sudo userdel $gid || true;      
-    ;;
   esac
 ;;
 *)
