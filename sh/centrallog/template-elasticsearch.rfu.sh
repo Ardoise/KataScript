@@ -11,6 +11,7 @@
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget make build-essential zlib1g-dev libssl-dev git-core
+# Depends  : lib/usergroup.sh
 #
 # CONFIG:   [ "/etc/elasticsearch", "/etc/elasticsearch/test" ]
 # BINARIES: [ "/opt/elasticsearch/", "/usr/share/elasticsearch/" ]
@@ -35,7 +36,7 @@ if [ `id -u` -ne 0 ]; then
   exit $SCRIPT_ERROR
 fi
 
-# OWNER
+# DEPENDS : OWNER
 [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
 ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
 
