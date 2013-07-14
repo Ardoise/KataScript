@@ -37,7 +37,7 @@ fi
 
 # OWNER
 [ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
-uid=$NAME;gid=$NAME;group=devops;pass=$NAME;
+export uid=$NAME; export gid=$NAME; export group=devops; export pass=$NAME;
 usergroup POST;
 
 sudo mkdir -p /opt/$NAME || true; sudo chown -R $uid:$gid /opt/$NAME || true
@@ -72,5 +72,7 @@ echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : start [ OK ]"
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : test ..."
 sh centralized-$NAME.test.sh;
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : test [ OK ]"
+
+unset uid gid group pass;
 
 exit $SCRIPT_OK
