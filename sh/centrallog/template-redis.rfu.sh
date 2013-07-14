@@ -116,7 +116,7 @@ dist-upgrade)
   echo "curl -OL http://stedolan.github.io/jq/download/linux64/jq"
   echo "curl -OL http://stedolan.github.io/jq/download/linux32/jq"
   curl -OL http://stedolan.github.io/jq/download/linux32/jq
-  chmod a+x jq
+  chmod a+x jq ; mv jq /usr/bin/
   
 ;;
 *)
