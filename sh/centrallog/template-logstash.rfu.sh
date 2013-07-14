@@ -40,19 +40,19 @@ fi
 
 case "$1" in
 install)
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : install ..."
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : install ...";
   
   # DEPENDS : OWNER
   [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
   ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
-  echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/centrallog_$NAME.sh
+  echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/centrallog_$NAME.sh;
 
-  mkdir -p /opt/$NAME || true; chown -R $uid:$gid /opt/$NAME || true
-  mkdir -p /etc/$NAME/test || true; chown -R $uid:$gid /etc/$NAME || true
-  mkdir -p /var/lib/$NAME || true; chown -R $uid:$gid /var/lib/$NAME || true
-  mkdir -p /var/log/$NAME || true; chown -R $uid:$gid /var/log/$NAME || true
-  mkdir -p /var/run/$NAME || true; chown -R $uid:$gid /var/run/$NAME || true
+  mkdir -p /opt/$NAME || true; chown -R $uid:$gid /opt/$NAME || true;
+  mkdir -p /etc/$NAME/test || true; chown -R $uid:$gid /etc/$NAME || true;
+  mkdir -p /var/lib/$NAME || true; chown -R $uid:$gid /var/lib/$NAME || true;
+  mkdir -p /var/log/$NAME || true; chown -R $uid:$gid /var/log/$NAME || true;
+  mkdir -p /var/run/$NAME || true; chown -R $uid:$gid /var/run/$NAME || true;
 
   # Install necessary packages
   case "$platform" in
@@ -99,7 +99,7 @@ check)
     status  - status centrallog::component
     stop    - stop centrallog::component
     upgrade - upgrade centrallog::component
-  _EOF_
+_EOF_
 ;;
 esac
 
