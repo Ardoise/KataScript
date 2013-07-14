@@ -67,7 +67,7 @@ delete|DELETE)
 ;;
 option|OPTION)
   [ ! -z "$(id -a $uid 2>/dev/null)" ] && {
-    vssh="~$uid/.ssh";
+    vssh="/home/$uid/.ssh";
     mkdir -p $vssh;
     chmod 700 $vssh;
     (cd $vssh &&
