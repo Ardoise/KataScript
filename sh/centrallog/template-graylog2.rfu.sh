@@ -26,7 +26,7 @@ SCRIPT_ERROR=1;
 SCRIPT_NAME=`basename $0`; # ${0##*/}
 DEFAULT=/etc/default/$NAME;
 cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null;
-SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR";
+SH_DIR=$(dirname $SCRIPT_DIR);
 platform="$(lsb_release -i -s)";
 platform_version="$(lsb_release -s -r)";
 
@@ -61,8 +61,9 @@ case "$platform" in
 esac
 
 git clone http://github.com/Ardoise/KataScript;
-cd KataScript/sh/centrallog;
 git pull;
+cd KataScript/sh/centrallog;
+
 
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : get binaries ..."
 sh centralized-$NAME.getbin.sh;
