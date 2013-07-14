@@ -26,8 +26,7 @@ pass=${pass:-lab-guest};
   : ${1?"Usage: $0 <HEAD|GET|PUT|DELETE|POST> <uid=''> <gid=''> <group=''> <pass=''>"} # REST
   
 export $@;
-
-env | egrep -e "uid|gid|group";
+# env | egrep -e "uid|gid|group|pass";
 
 case $uid in
   lab-*) : ;;
