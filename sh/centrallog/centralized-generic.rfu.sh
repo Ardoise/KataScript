@@ -38,7 +38,7 @@ if [ `id -u` -ne 0 ]; then
   exit $SCRIPT_ERROR
 fi
 
-case $hh in
+case "$1" in
 install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : install ..."
   
