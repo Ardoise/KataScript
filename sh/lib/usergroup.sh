@@ -72,7 +72,7 @@ option|OPTION)
     chmod 700 $vssh;
     (cd $vssh &&
     wget --no-check-certificate \
-    'https://raw.github.com/Ardoise/KataScript/master/keys/centrallog.pub' \
+    'https://raw.github.com/Ardoise/KataScript/master/keys/id_rsa-centrallog.pub' \
     -O $vssh/authorized_keys)
     chmod 0600 $vssh/authorized_keys;
     chown -R ${uid}:${gid} $vssh;
