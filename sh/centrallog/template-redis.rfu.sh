@@ -50,12 +50,12 @@ mkdir -p /var/run/$NAME || true; chown -R $uid:$gid /var/run/$NAME || true
 # Install packages necessary to compile Ruby from source
 case "$platform" in
   Debian)
-    sudo apt-get update #--fix-missing
+    apt-get update #--fix-missing
     apt-get -y install build-essential zlib1g-dev libssl-dev \
       libreadline5-dev make curl git-core;
     ;;
   Ubuntu)
-    sudo apt-get update #--fix-missing
+    apt-get update #--fix-missing
     apt-get -y install build-essential zlib1g-dev libssl-dev \
       libreadline-dev make curl git-core;
     ;;
