@@ -3,7 +3,7 @@
 # Provides: centrallog: graylog2
 # Short-Description: DEPLOY SERVER: [GRAYLOG2]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130713
+# Update: last-update: 20130714
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: graylog2 (...)

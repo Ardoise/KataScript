@@ -3,7 +3,7 @@
 # Provides: centrallog: elasticsearch
 # Short-Description: DEPLOY SERVER: [ELASTICSEARCH]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130713
+# Update: last-update: 20130714
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: elasticsearch (...)

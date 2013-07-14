@@ -3,7 +3,7 @@
 # Provides: centrallog: vagrant
 # Short-Description: DEPLOY SERVER: [VAGRANT]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130713
+# Update: last-update: 20130714
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: vagrant (...)
