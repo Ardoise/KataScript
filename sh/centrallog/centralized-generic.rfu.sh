@@ -23,7 +23,7 @@ NAME="xgenericx";
 
 SCRIPT_OK=0;
 SCRIPT_ERROR=1;
-SCRIPT_NAME=`basename $0`;
+SCRIPT_NAME=`basename $0`; # ${0##*/}
 DEFAULT=/etc/default/$NAME;
 cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null;
 SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR";
@@ -45,6 +45,24 @@ sudo mkdir -p /etc/$NAME/test || true; sudo chown -R $uid:$gid /etc/$NAME || tru
 sudo mkdir -p /var/lib/$NAME || true; sudo chown -R $uid:$gid /var/lib/$NAME || true
 sudo mkdir -p /var/log/$NAME || true; sudo chown -R $uid:$gid /var/log/$NAME || true
 sudo mkdir -p /var/run/$NAME || true; sudo chown -R $uid:$gid /var/run/$NAME || true
+
+# Install packages necessary to compile Ruby from source
+case "$platform" in
+  Debian)
+    sudo apt-get update #--fix-missing
+    apt-get -y install build-essential zlib1g-dev libssl-dev \
+      libreadline5-dev make curl git-core;
+    ;;
+  Ubuntu)
+    sudo apt-get update #--fix-missing
+    apt-get -y install build-essential zlib1g-dev libssl-dev \
+      libreadline-dev make curl git-core;
+    ;;
+esac
+
+git clone http://github.com/Ardoise/KataScript;
+git pull;
+cd KataScript/sh/centrallog;
 
 
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : get binaries ..."

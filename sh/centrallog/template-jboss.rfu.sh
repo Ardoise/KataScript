@@ -1,25 +1,25 @@
 #!/bin/sh -e
 ### BEGIN INIT INFO
-# Provides: centrallog: mongodb
-# Short-Description: DEPLOY SERVER: [MONGODB]
+# Provides: centrallog: jboss
+# Short-Description: DEPLOY SERVER: [JBOSS]
 # Author: created by: https://github.com/Ardoise
 # Update: last-update: 20130714
 ### END INIT INFO
 
-# Description: SERVICE CENTRALLOG: mongodb (...)
-# - deploy mongodb v2.4.5
+# Description: SERVICE CENTRALLOG: jboss (...)
+# - deploy jboss v7.1.1
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget make build-essential zlib1g-dev libssl-dev git-core
 #
-# CONFIG:   [ "/etc/mongodb", "/etc/mongodb/test" ]
-# BINARIES: [ "/opt/mongodb/", "/usr/share/mongodb/" ]
-# LOG:      [ "/var/log/mongodb/" ]
-# RUN:      [ "/var/run/mongodb/" ]
-# INIT:     [ "/etc/init.d/mongodb" ]
+# CONFIG:   [ "/etc/jboss", "/etc/jboss/test" ]
+# BINARIES: [ "/opt/jboss/", "/usr/share/jboss/" ]
+# LOG:      [ "/var/log/jboss/" ]
+# RUN:      [ "/var/run/jboss/" ]
+# INIT:     [ "/etc/init.d/jboss" ]
 
-DESCRIPTION="MONGODB Server";
-NAME="mongodb";
+DESCRIPTION="JBOSS Server";
+NAME="jboss";
 
 SCRIPT_OK=0;
 SCRIPT_ERROR=1;
