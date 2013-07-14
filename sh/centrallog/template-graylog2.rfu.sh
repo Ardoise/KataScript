@@ -60,17 +60,25 @@ case "$platform" in
 esac
 
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : get binaries ..."
-[ -s "template-$NAME.getbin.sh" ] && sh template-$NAME.getbin.sh;
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : get binaries [ OK ]"
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : put config ..."
-[ -s "template-$NAME.putconf.sh" ] && sh template-$NAME.putconf.sh;
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : put config [ OK ]"
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : start ..."
-[ -s "template-$NAME.sh" ] && sh template-$NAME.sh;
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : start [ OK ]"
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : test ..."
-[ -s "template-$NAME.test.sh" ] && sh template-$NAME.test.sh;
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : test [ OK ]"
+[ -s "template-$NAME.getbin.sh" ] && (
+  sh template-$NAME.getbin.sh;
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : get binaries [ OK ]";
+)
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : put config ...";
+[ -s "template-$NAME.putconf.sh" ] && (
+  sh template-$NAME.putconf.sh;
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : put config [ OK ]";
+)
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : start ...";
+[ -s "template-$NAME.sh" ] && (
+  sh template-$NAME.sh;
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : start [ OK ]";
+)
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : test ...";
+[ -s "template-$NAME.test.sh" ] && (
+  sh template-$NAME.test.sh;
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : test [ OK ]";
+)
 
 unset uid gid group pass;
 
