@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 ### BEGIN INIT INFO
 # Provides: RDM: vagrant
 # Short-Description: DEPLOY SERVER
@@ -19,16 +19,27 @@
 # INIT:     [ "/etc/init.d/vagrant" ]
 # PLUGINS:  [ "/usr/share/vagrant/bin/plugin" ]
 
-set -e
+DESCRIPTION="Vagrant Server";
+NAME="vagrant";
 
-NAME=vagrant
-DESC="Vagrant Server"
-DEFAULT=/etc/default/$NAME
+SCRIPT_OK=0;
+SCRIPT_ERROR=1;
+SCRIPT_NAME=`basename $0`;
+DEFAULT=/etc/default/$NAME;
+cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null;
+SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR";
+platform="$(lsb_release -i -s)";
+platform_version="$(lsb_release -s -r)";
 
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
-  exit 1
+  exit $SCRIPT_ERROR
 fi
+
+# OWNER
+[ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
+uid=$NAME;gid=$NAME;group=devops;pass=$NAME;
+usergroup POST;
 
 [ -d "/etc/vagrant/test" ] || sudo mkdir -p /etc/vagrant/test;
 [ -d "/opt/vagrant" ] || sudo mkdir -p /opt/vagrant;
@@ -37,6 +48,9 @@ fi
 
 cat <<"EOF" >standalone-vagrant.getbin.sh
 #!/bin/sh -e
+
+platform="$(lsb_release -i -s)";
+platform_version="$(lsb_release -s -r)";
 
 [ -d "/opt/vagrant" ] || mkdir -p /opt/vagrant;
 [ -d "/etc/vagrant/test" ] || mkdir -p /etc/vagrant/test;

@@ -42,11 +42,11 @@ fi
 uid=$NAME;gid=$NAME;group=devops;pass=$NAME;
 usergroup POST;
 
-[ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
-[ -r /etc/default/rcS ] && . /etc/default/rcS
+#[ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
+#[ -r /etc/default/rcS ] && . /etc/default/rcS
 
-[ -d "/opt/centrallog" ] || mkdir -p /opt/centrallog;
-[ -d "/opt/centrallog" ] && (
+[ -d "/opt/$NAME" ] || mkdir -p /opt/$NAME;
+[ -d "/opt/$NAME" ] && (
   cp -f centralized-*.rfu.sh /opt/centrallog/ >/dev/null 2>&1; 
   chmod a+x /opt/centrallog/*.sh >/dev/null 2>&1;
   cd /opt/centrallog;

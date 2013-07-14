@@ -1,25 +1,25 @@
 #!/bin/sh -e
 ### BEGIN INIT INFO
-# Provides: centrallog: xgenericx
-# Short-Description: DEPLOY SERVER: [XGENERICX]
+# Provides: centrallog: kibana
+# Short-Description: DEPLOY SERVER: [KIBANA]
 # Author: created by: https://github.com/Ardoise
 # Update: last-update: 20130713
 ### END INIT INFO
 
-# Description: SERVICE CENTRALLOG: xgenericx (...)
-# - deploy xgenericx v0.0.0
+# Description: SERVICE CENTRALLOG: kibana (...)
+# - deploy kibana v0.0.0
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget make build-essential zlib1g-dev libssl-dev git-core
 #
-# CONFIG:   [ "/etc/xgenericx", "/etc/xgenericx/test" ]
-# BINARIES: [ "/opt/xgenericx/", "/usr/share/xgenericx/" ]
-# LOG:      [ "/var/log/xgenericx/" ]
-# RUN:      [ "/var/run/xgenericx/" ]
-# INIT:     [ "/etc/init.d/xgenericx" ]
+# CONFIG:   [ "/etc/kibana", "/etc/kibana/test" ]
+# BINARIES: [ "/opt/kibana/", "/usr/share/kibana/" ]
+# LOG:      [ "/var/log/kibana/" ]
+# RUN:      [ "/var/run/kibana/" ]
+# INIT:     [ "/etc/init.d/kibana" ]
 
-DESCRIPTION="XGENERICX Server";
-NAME="xgenericx";
+DESCRIPTION="KIBANA Server";
+NAME="kibana";
 
 SCRIPT_OK=0;
 SCRIPT_ERROR=1;
