@@ -36,8 +36,8 @@ if [ `id -u` -ne 0 ]; then
 fi
 
 # OWNER
-[ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
-usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
+[ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
+${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
 
 sudo mkdir -p /opt/$NAME || true; sudo chown -R $uid:$gid /opt/$NAME || true
 sudo mkdir -p /etc/$NAME/test || true; sudo chown -R $uid:$gid /etc/$NAME || true
