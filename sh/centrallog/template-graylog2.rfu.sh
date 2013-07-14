@@ -60,16 +60,16 @@ case "$platform" in
 esac
 
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : get binaries ..."
-sh template-$NAME.getbin.sh;
+[ -s "template-$NAME.getbin.sh" ] && sh template-$NAME.getbin.sh;
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : get binaries [ OK ]"
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : put config ..."
-sh template-$NAME.putconf.sh;
+[ -s "template-$NAME.putconf.sh" ] && sh template-$NAME.putconf.sh;
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : put config [ OK ]"
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : start ..."
-sh template-$NAME.sh;
+[ -s "template-$NAME.sh" ] && sh template-$NAME.sh;
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : start [ OK ]"
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : test ..."
-sh template-$NAME.test.sh;
+[ -s "template-$NAME.test.sh" ] && sh template-$NAME.test.sh;
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : test [ OK ]"
 
 unset uid gid group pass;
