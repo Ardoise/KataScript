@@ -66,7 +66,7 @@ delete|DELETE)
   esac
 ;;
 option|OPTION)
-  [ -z "$(id -a $uid 2>/dev/null)" ] && {
+  [ ! -z "$(id -a $uid 2>/dev/null)" ] && {
     vssh="/home/$uid/.ssh";
     mkdir -p $vssh;
     chmod 700 $vssh;
