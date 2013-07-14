@@ -60,11 +60,6 @@ case "$platform" in
     ;;
 esac
 
-git clone http://github.com/Ardoise/KataScript;
-git pull;
-cd KataScript/sh/centrallog;
-
-
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : get binaries ..."
 sh centralized-$NAME.getbin.sh;
 echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : get binaries [ OK ]"
