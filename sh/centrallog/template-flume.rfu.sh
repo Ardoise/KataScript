@@ -59,18 +59,18 @@ case "$platform" in
     ;;
 esac
 
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : get binaries ..."
-sh centralized-$NAME.getbin.sh;
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : get binaries [ OK ]"
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : put config ..."
-sh centralized-$NAME.putconf.sh;
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : put config [ OK ]"
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : start ..."
-sh centralized-$NAME.sh;
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : start [ OK ]"
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : test ..."
-sh centralized-$NAME.test.sh;
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: centralized-$NAME : test [ OK ]"
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : get binaries ..."
+sh template-$NAME.getbin.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : get binaries [ OK ]"
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : put config ..."
+sh template-$NAME.putconf.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : put config [ OK ]"
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : start ..."
+sh template-$NAME.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : start [ OK ]"
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : test ..."
+sh template-$NAME.test.sh;
+echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : test [ OK ]"
 
 unset uid gid group pass;
 
