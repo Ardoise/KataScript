@@ -39,7 +39,7 @@ if [ `id -u` -ne 0 ]; then
 fi
 
 case "$1" in
-install|upgrade)
+install|update)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   
   # DEPENDS : OWNER
@@ -68,6 +68,8 @@ install|upgrade)
     ;;
   esac
   
+  ###install###
+  
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 remove)
@@ -86,6 +88,12 @@ check)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
+dist-upgrade)
+  curl -L https://get.rvm.io | bash -s stable --ruby=jruby \
+  --gems=Platform,open4,POpen4,i18n,multi_json,activesupport,addressable,\
+  builder,launchy,liquid,syntax,maruku,rack,sass,rack-protection,tilt,\
+  sinatra,watch,yui-compressor,bonsai,hpricot,mustache,rdiscount,ronn
+;;
 *)
   cat <<- _EOF_
   Commandes :
@@ -97,6 +105,7 @@ check)
     status  - status centrallog::component
     stop    - stop centrallog::component
     upgrade - upgrade centrallog::component
+    dist-upgrade - upgrade distrib platform jruby::gems
 _EOF_
 ;;
 esac
