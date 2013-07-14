@@ -39,6 +39,7 @@ fi
 # DEPENDS : OWNER
 [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
 ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
+sudo echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/centrallog_$NAME.sh
 
 sudo mkdir -p /opt/$NAME || true; sudo chown -R $uid:$gid /opt/$NAME || true
 sudo mkdir -p /etc/$NAME/test || true; sudo chown -R $uid:$gid /etc/$NAME || true
