@@ -19,19 +19,17 @@
 # RUN:      [ "/var/flume/flume.pid" ]
 # INIT:     [ "/etc/init.d/flume" ]
 
-SCRIPT_OK=0
-SCRIPT_ERROR=1
-
 DESCRIPTION="FLUME Server";
-SCRIPT_NAME=`basename $0`
-NAME=flume
-DEFAULT=/etc/default/$NAME
-cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null
-SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR"
-platform="$(lsb_release -i -s)"
-platform_version="$(lsb_release -s -r)"
+NAME="flume";
 
-[ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
+SCRIPT_OK=0;
+SCRIPT_ERROR=1;
+SCRIPT_NAME=`basename $0`;
+DEFAULT=/etc/default/$NAME;
+cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null;
+SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR";
+platform="$(lsb_release -i -s)";
+platform_version="$(lsb_release -s -r)";
 
 #FLUME_CLASSPATH
 #flume-env.sh
@@ -39,11 +37,12 @@ platform_version="$(lsb_release -s -r)"
 
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
-  exit 1
+  exit $SCRIPT_ERROR
 fi
 
 # OWNER
-uid=$NAME;gid=$NAME;group=devops
+[ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
+uid=$NAME;gid=$NAME;group=devops;pass=$NAME;
 usergroup POST;
 
 cat <<-'EOF' >centralized-flume.getbin.sh

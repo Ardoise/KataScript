@@ -20,26 +20,27 @@
 # Requires : curl is necessary to deploy the packages
 # Requires : wget is necessary to deploy the packages
 
-SCRIPT_OK=0
-SCRIPT_ERROR=1
-
 DESCRIPTION="Main Script Deploy Centrallog";
-SCRIPT_NAME=`basename $0`;
-cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null
-SH_DIR=$(dirname $SCRIPT_DIR);
-NAME=centrallog
-DEFAULT=/etc/default/$NAME
+NAME="centrallog";
 
-# Determine the platform (i.e. Debian or Ubuntu) and platform version
-platform="$(lsb_release -i -s)"
-platform_version="$(lsb_release -s -r)"
+SCRIPT_OK=0;
+SCRIPT_ERROR=1;
+SCRIPT_NAME=`basename $0`;
+DEFAULT=/etc/default/$NAME;
+cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null;
+SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR";
+platform="$(lsb_release -i -s)";
+platform_version="$(lsb_release -s -r)";
 
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
-  exit 1
+  exit $SCRIPT_ERROR
 fi
 
+# OWNER
 [ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
+uid=$NAME;gid=$NAME;group=devops;pass=$NAME;
+usergroup POST;
 
 [ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
 [ -r /etc/default/rcS ] && . /etc/default/rcS

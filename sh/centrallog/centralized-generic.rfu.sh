@@ -26,24 +26,17 @@
 # sed -e '/generic/s/xgenericx/kibana/g' -e '/generic/s/XGENERICX/KIBANA/g' > centralized-kibana.rfu.sh
 # sed -e '/generic/s/xgenericx/flume/g' -e '/generic/s/XGENERICX/FLUME/g' > centralized-flume.rfu.sh
 
-SCRIPT_OK=0
-SCRIPT_ERROR=1
-
 DESCRIPTION="XGENERICX Server";
-SCRIPT_NAME=`basename $0`
-NAME=xgenericx
-DEFAULT=/etc/default/$NAME
-cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null
-SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR"
-platform="$(lsb_release -i -s)"
-platform_version="$(lsb_release -s -r)"
+NAME="xgenericx";
 
-[ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
-
-groups=admin;
-gid=${gid:-devops};
-uid=${uid:-devops};
-pass=${pass:-devops};
+SCRIPT_OK=0;
+SCRIPT_ERROR=1;
+SCRIPT_NAME=`basename $0`;
+DEFAULT=/etc/default/$NAME;
+cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null;
+SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR";
+platform="$(lsb_release -i -s)";
+platform_version="$(lsb_release -s -r)";
 
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
@@ -51,7 +44,8 @@ if [ `id -u` -ne 0 ]; then
 fi
 
 # OWNER
-uid=$NAME;gid=$NAME;group=devops
+[ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
+uid=$NAME;gid=$NAME;group=devops;pass=$NAME;
 usergroup POST;
 
 # SUDO CHROOT
