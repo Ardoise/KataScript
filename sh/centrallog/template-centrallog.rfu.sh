@@ -40,7 +40,7 @@ fi
 
 case "$1" in
 install)
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : install ...";
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   
   # DEPENDS : OWNER
   [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
@@ -68,25 +68,26 @@ install)
     ;;
   esac
   
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : install [ OK ]";
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 remove)
-  :
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 upgrade)
   :
 ;;
 reload)
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : reload config ...";
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : reload config [ OK ]";
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 start|stop|status)
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : start ...";
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : start [ OK ]";
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 check)
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : check ...";
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : check [ OK ]";
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 *)
   cat <<- _EOF_
