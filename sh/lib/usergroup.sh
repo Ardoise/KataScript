@@ -23,7 +23,7 @@ gid=${gid:-lab-guest};
 uid=${uid:-lab-guest};
 pass=${pass:-lab-guest};
 
-  : ${1?"Usage: $0 <HEAD|GET|PUT|DELETE|POST> <uid=''> <gid=''> <group=''> <pass=''>"} # REST
+  : ${1?"Usage: $0 <HEAD|GET|PUT|DELETE|POST|OPTION> <uid=''> <gid=''> <group=''> <pass=''>"} # REST
   
 export $@;
 # env | egrep -e "uid|gid|group|pass";
@@ -64,6 +64,19 @@ delete|DELETE)
       [ -z "$(id -u $uid 2>/dev/null)" ] || sudo userdel $uid;
     ;;  
   esac
+;;
+option|OPTION)
+  [ -z "$(id -a $uid 2>/dev/null)" ] && (
+    vssh="/home/$uid/.ssh";
+    mkdir -p $vssh;
+    chmod 700 $vssh;
+    (cd $vssh &&
+    wget --no-check-certificate \
+    'https://raw.github.com/Ardoise/KataScript/master/keys/centrallog.pub' \
+    -O $vssh/authorized_keys)
+    chmod 0600 $vssh/authorized_keys;
+    chown -R ${uid}:${gid} $vssh;
+    unset vssh;
 ;;
 *)
   :
