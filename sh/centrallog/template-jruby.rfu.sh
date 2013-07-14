@@ -68,7 +68,8 @@ install|update)
     ;;
   esac
   
-
+	curl -l https://get-git.rvm.io | sudo bash -s stable	
+	curl -Ol https://get-git.rvm.io | sudo bash	
   
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
@@ -89,10 +90,34 @@ check)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 dist-upgrade)
-  curl -L https://get.rvm.io | bash -s stable --ruby=jruby \
-  --gems=Platform,open4,POpen4,i18n,multi_json,activesupport,addressable,\
-  builder,launchy,liquid,syntax,maruku,rack,sass,rack-protection,tilt,\
-  sinatra,watch,yui-compressor,bonsai,hpricot,mustache,rdiscount,ronn
+  echo "USE HTTP-PROXY"
+  echo "export http_proxy='http://proxy.hostname.com:port'"
+  echo "export https_proxy='https://proxy.hostname.com:port'"
+  
+  echo "INSTALL RVM 1.21.9 with ruby 2.0.0-p247"
+  curl -L https://get.rvm.io | bash -s stable --ruby
+  echo "rvm reinstall ruby"
+  
+  echo "INSTALL RVM 1.21.9 with jruby 1.7.4 and Rubies gems"
+  echo "curl -L https://get.rvm.io | bash -s stable --ruby=jruby \
+  --gems=rails,puma--gems=Platform,open4,POpen4,i18n,multi_json,activesupport,\
+  addressable,builder,launchy,liquid,syntax,maruku,rack,sass,rack-protection,\
+  tilt,sinatra,watch,yui-compressor,bonsai,hpricot,mustache,rdiscount,ronn,\
+  rails,puma";
+  echo "rvm install 1.9.2 ; rvm use 1.9.2 --default ; ruby -v ; which ruby"
+  echo "rvm reinstall jruby,rbx"
+  curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
+  . ~/.rvm/scripts/rvm
+  rvm notes
+  rvm list known
+  rvm list
+  # echo progress-bar >> ~/.curlrc
+  
+  echo "WGET JQ::JSON QUERY"
+  echo "curl -OL http://stedolan.github.io/jq/download/linux64/jq"
+  echo "curl -OL http://stedolan.github.io/jq/download/linux32/jq"
+  curl -OL http://stedolan.github.io/jq/download/linux32/jq
+  
 ;;
 *)
   cat <<- _EOF_
