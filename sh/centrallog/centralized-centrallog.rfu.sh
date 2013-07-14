@@ -26,7 +26,7 @@ SCRIPT_ERROR=1
 DESCRIPTION="Main Script Deploy Centrallog";
 SCRIPT_NAME=`basename $0`;
 cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null
-SH_DIR=$(dirname $SCRIPT_DIR);echo "echo SH_DIR=$SH_DIR"
+SH_DIR=$(dirname $SCRIPT_DIR);
 NAME=centrallog
 DEFAULT=/etc/default/$NAME
 
