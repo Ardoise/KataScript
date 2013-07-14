@@ -19,6 +19,8 @@
 # RUN:      [ "/var/run/jboss/" ]
 # INIT:     [ "/etc/init.d/jboss" ]
 
+# @License
+
 DESCRIPTION="JBOSS Server";
 NAME="jboss";
 

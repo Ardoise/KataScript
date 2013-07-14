@@ -19,6 +19,8 @@
 # RUN:      [ "/var/run/xgenericx/" ]
 # INIT:     [ "/etc/init.d/xgenericx" ]
 
+# xlicensex
+
 DESCRIPTION="XGENERICX Server";
 NAME="xgenericx";
 

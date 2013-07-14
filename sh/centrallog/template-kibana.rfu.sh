@@ -19,6 +19,8 @@
 # RUN:      [ "/var/run/kibana/" ]
 # INIT:     [ "/etc/init.d/kibana" ]
 
+# @License
+
 DESCRIPTION="KIBANA Server";
 NAME="kibana";
 

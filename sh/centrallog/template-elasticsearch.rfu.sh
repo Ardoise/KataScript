@@ -19,6 +19,8 @@
 # RUN:      [ "/var/run/elasticsearch/" ]
 # INIT:     [ "/etc/init.d/elasticsearch" ]
 
+# @License
+
 DESCRIPTION="ELASTICSEARCH Server";
 NAME="elasticsearch";
 

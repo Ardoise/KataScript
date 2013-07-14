@@ -19,6 +19,8 @@
 # RUN:      [ "/var/run/logstash/" ]
 # INIT:     [ "/etc/init.d/logstash" ]
 
+# @License
+
 DESCRIPTION="LOGSTASH Server";
 NAME="logstash";
 

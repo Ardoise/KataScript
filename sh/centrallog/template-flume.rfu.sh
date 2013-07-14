@@ -19,6 +19,8 @@
 # RUN:      [ "/var/run/flume/" ]
 # INIT:     [ "/etc/init.d/flume" ]
 
+# @License
+
 DESCRIPTION="FLUME Server";
 NAME="flume";
 

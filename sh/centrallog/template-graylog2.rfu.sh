@@ -19,6 +19,8 @@
 # RUN:      [ "/var/run/graylog2/" ]
 # INIT:     [ "/etc/init.d/graylog2" ]
 
+# @License
+
 DESCRIPTION="GRAYLOG2 Server";
 NAME="graylog2";
 

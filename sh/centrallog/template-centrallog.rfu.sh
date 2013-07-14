@@ -19,6 +19,8 @@
 # RUN:      [ "/var/run/centrallog/" ]
 # INIT:     [ "/etc/init.d/centrallog" ]
 
+# @License
+
 DESCRIPTION="CENTRALLOG Server";
 NAME="centrallog";
 

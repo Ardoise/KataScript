@@ -19,6 +19,8 @@
 # RUN:      [ "/var/run/mongodb/" ]
 # INIT:     [ "/etc/init.d/mongodb" ]
 
+# @License
+
 DESCRIPTION="MONGODB Server";
 NAME="mongodb";
 

@@ -1,28 +1,28 @@
 #!/bin/sh -e
 ### BEGIN INIT INFO
-# Provides: centrallog: redis
-# Short-Description: DEPLOY SERVER: [REDIS]
+# Provides: centrallog: xvagrant
+# Short-Description: DEPLOY SERVER: [XVAGRANT]
 # Author: created by: https://github.com/Ardoise
 # Update: last-update: 20130714
 ### END INIT INFO
 
-# Description: SERVICE CENTRALLOG: redis (...)
-# - deploy redis v2.6.14
+# Description: SERVICE CENTRALLOG: xvagrant (...)
+# - deploy xvagrant v1.1.13
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget make build-essential zlib1g-dev libssl-dev git-core
 # Depends  : lib/usergroup.sh
 #
-# CONFIG:   [ "/etc/redis", "/etc/redis/test" ]
-# BINARIES: [ "/opt/redis/", "/usr/share/redis/" ]
-# LOG:      [ "/var/log/redis/" ]
-# RUN:      [ "/var/run/redis/" ]
-# INIT:     [ "/etc/init.d/redis" ]
+# CONFIG:   [ "/etc/xvagrant", "/etc/xvagrant/test" ]
+# BINARIES: [ "/opt/xvagrant/", "/usr/share/xvagrant/" ]
+# LOG:      [ "/var/log/xvagrant/" ]
+# RUN:      [ "/var/run/xvagrant/" ]
+# INIT:     [ "/etc/init.d/xvagrant" ]
 
 # @License
 
-DESCRIPTION="REDIS Server";
-NAME="redis";
+DESCRIPTION="XVAGRANT Server";
+NAME="xvagrant";
 
 SCRIPT_OK=0;
 SCRIPT_ERROR=1;
