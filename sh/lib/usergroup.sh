@@ -23,8 +23,13 @@ gid=${gid:-lab-guest};
 uid=${uid:-lab-guest};
 pass=${pass:-lab-guest};
 
-  : ${1?"Usage: $0 <HEAD|GET|PUT|DELETE|POST>"} # REST
+  : ${1?"Usage: $0 <HEAD|GET|PUT|DELETE|POST> {uid='';gid='';group=''}"} # REST
   
+[ -n "$2" ] && (
+  export $2;
+);
+env | egrep -e "uid|gid|group";
+
 case $uid in
   lab-*) : ;;
   *) uid=lab-${uid} ;;
