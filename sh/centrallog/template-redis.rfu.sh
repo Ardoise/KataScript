@@ -39,7 +39,7 @@ if [ `id -u` -ne 0 ]; then
 fi
 
 case "$1" in
-install)
+install|upgrade)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   
   # DEPENDS : OWNER
@@ -71,10 +71,6 @@ install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 remove)
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
-;;
-upgrade)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
