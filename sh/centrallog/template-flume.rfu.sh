@@ -37,8 +37,7 @@ fi
 
 # OWNER
 [ -e "${SH_DIR}/lib/usergroup.sh" ] && . ${SH_DIR}/lib/usergroup.sh || exit 1;
-export uid=$NAME; export gid=$NAME; export group=devops; export pass=$NAME;
-usergroup POST;
+usergroup.sh POST "uid=$NAME; export gid=$NAME; export group=devops; export pass=$NAME;";
 
 sudo mkdir -p /opt/$NAME || true; sudo chown -R $uid:$gid /opt/$NAME || true
 sudo mkdir -p /etc/$NAME/test || true; sudo chown -R $uid:$gid /etc/$NAME || true
