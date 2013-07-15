@@ -70,6 +70,7 @@ install|update)
   
 	curl -L https://get.rvm.io | bash -s stable --ruby	
 	curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma	
+	curl -OL http://stedolan.github.io/jq/download/linux32/jq	
   
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;

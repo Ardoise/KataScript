@@ -1,31 +1,93 @@
 {
-  "standalone": {
-    "components": [
-    "xvagrant:1.1.13",
-    "jboss:7.1.1"
+  "hosts": {
+    "centralized": [
+      "flume",
+      "graylog2",
+      "kibana",
+      "mongodb",
+      "redis",
+      "logstash",
+      "elasticsearch"
+    ],
+    "distributed": [
+      "flume",
+      "logstash"
+    ],
+    "standalone": [
+      "xvagrant",
+      "jboss"
     ]
   },
-  "distributed": {
-    "components": [
-      "flume:1.4.0",
-      "logstash:1.1.13"
+  "components": {
+    "logstash": {
+      "version": "1.1.13",
+      "name": "logstash",
+      "desc": "Logstash Server",
+      "install": [
+        "fezrzrz",
+        "zrferezz"
       ]
-  },
-  "centralized": {
-    "components": [
-      "flume:1.4.0",
-      "graylog2:1.1.13",
-      "kibana:3m2",
-      "mongodb:2.4.5",
-      "redis:2.6.14",
-      "logstash:1.1.13",
-      "elasticsearch:0.90.2"
+    },
+    "redis": {
+      "version": "2.6.14",
+      "name": "redis",
+      "desc": "Redis Server",
+      "install": [
+        "fezrzrz",
+        "zrferezz"
       ]
+    },
+    "elasticsearch": {
+      "version": "0.90.2",
+      "name": "elasticsearch",
+      "desc": "Elasticsearch Server",
+      "install": [
+        "fezrzrz",
+        "zrferezz"
+      ]
+    },
+    "mongodb": {
+      "version": "2.4.5",
+      "name": "mongodb",
+      "desc": "Mongodb Server",
+      "install": [
+        "fezrzrz",
+        "zrferezz"
+      ]
+    },
+    "kibana": {
+      "version": "3.m.2",
+      "name": "kibana",
+      "desc": "Kibana Server",
+      "install": [
+        "fezrzrz",
+        "zrferezz"
+      ]
+    },
+    "flume": {
+      "version": "1.2.5",
+      "name": "flume",
+      "desc": "Flume Server",
+      "install": [
+        "fezrzrz",
+        "zrferezz"
+      ]
+    },
+    "graylog2": {
+      "version": "0.0.0",
+      "name": "graylog",
+      "desc": "Graylog Server",
+      "install": [
+        "fezrzrz",
+        "zrferezz"
+      ]
+    }
   },
   "dist_upgrade": {
     "install": [
       "curl -L https://get.rvm.io | bash -s stable --ruby",
-      "curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma"
+      "curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma",
+      "curl -OL http://stedolan.github.io/jq/download/linux32/jq"
     ]
   }
 }

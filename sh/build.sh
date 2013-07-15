@@ -22,11 +22,15 @@ _EOF_
 
 JSON=json/centrallog.json
 
-for l in $(cat $JSON |jq '.centralized.components[]' |tr -d '"'); do
+for l in $(cat $JSON |jq '.hosts.centralized[]' |tr -d '"'); do
   c=$(echo $l | cut -d':' -f1); C=$( echo $c | tr 'a-z' 'A-Z' );
-  v=$(echo $l | cut -d':' -f2);
+  d=$(cat $JSON | jq ".components.$c.desc" |tr -d '"');
+  n=$(cat $JSON | jq ".components.$c.name" |tr -d '"');
+  v=$(cat $JSON | jq ".components.$c.version" |tr -d '"');
   
-  sed -e "s/xgenericx/$c/g" \
+  echo "hostc|$v|$n|$d";
+  
+  sed -e "s/xgenericx/$n/g" \
       -e "s/XGENERICX/$C/g" \
       -e "s/0.0.0/$v/g" \
       -e "s/xlicensex/@License/g" \
@@ -36,11 +40,15 @@ for l in $(cat $JSON |jq '.centralized.components[]' |tr -d '"'); do
   sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq '.dist_upgrade.install[]' |tr '\"' '\t'~e" centrallog/centralized-$c.tmpl.sh;
 done
 
-for l in $(cat $JSON |jq '.distributed.components[]' |tr -d '"'); do
+for l in $(cat $JSON |jq '.hosts.distributed[]' |tr -d '"'); do
   c=$(echo $l | cut -d':' -f1); C=$( echo $c | tr 'a-z' 'A-Z' );
-  v=$(echo $l | cut -d':' -f2);
+  d=$(cat $JSON | jq ".components.$c.desc" |tr -d '"');
+  n=$(cat $JSON | jq ".components.$c.name" |tr -d '"');
+  v=$(cat $JSON | jq ".components.$c.version" |tr -d '"');
   
-  sed -e "s/xgenericx/$c/g" \
+  echo "hostd|$v|$n|$d";
+  
+  sed -e "s/xgenericx/$n/g" \
       -e "s/XGENERICX/$C/g" \
       -e "s/0.0.0/$v/g" \
       -e "s/xlicensex/@License/g" \
