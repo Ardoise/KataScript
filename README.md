@@ -29,7 +29,7 @@
 
 Components :
 ==========================
-  [centrallog.json](https://github.com/Ardoise/KataScript/sh/json/centrallog.json)
+  [centrallog.json](https://github.com/Ardoise/KataScript/blob/master/sh/json/centrallog.json)
   - logstash [http://logstash.net] [v1.1.13]
   - redis [http://redis.io] [v2.6.14]
   - elasticsearch [http://elasticsearch.org] [v0.90.2]
