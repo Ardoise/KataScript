@@ -5,6 +5,19 @@
     sh/centrallog/centralized-centrallog.rfu.sh   # VM CENTRAL
     sh/centrallog/distributed-logstash.rfu.sh     # VM's DISTRIBUTED
     sh/centrallog/distributed-flume.rfu.sh        # VM's DISTRIBUTED
+    
+    sh/json/centrallog.json                       # STATEMENT CONTEXT [WORK]
+    sh/centrallog/<context>-<component>.tmpl.sh   # COMPONENT CONTEXT [WORK]
+     Commandes :
+      check         - check centrallog::<component>
+      install       - install centrallog::<component>
+      reload        - reload config centrallog::<component>
+      remove        - remove centrallog::<component>
+      start         - start centrallog::<component>
+      status        - status centrallog::<component>
+      stop          - stop centrallog::<component>
+      upgrade       - upgrade centrallog::<component>
+      dist-upgrade  - upgrade distrib platform jruby::gems
   
 ### service standalone [RFU:v0.1.0] :
     
