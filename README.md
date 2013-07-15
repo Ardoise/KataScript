@@ -21,13 +21,13 @@
       upgrade       - upgrade centrallog::<component>
       dist-upgrade  - upgrade distrib platform jruby::gems
   
-### service standalone :
+### service stand@l0ne :
     
     [RFU:v0.1.0]
     sh/standalone/standalone-jboss.rfu.sh     # VM CENTRAL
     sh/standalone/standalone-ruby.rfu.sh      # VM CENTRAL
 
-Components :
+C0mp0nents :
 ==========================
   [centrallog.json](https://github.com/Ardoise/KataScript/blob/master/sh/json/centrallog.json)
   - logstash [http://logstash.net] [v1.1.13]
