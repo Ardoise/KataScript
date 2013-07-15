@@ -1,0 +1,31 @@
+{
+  "standalone": {
+    "components": [
+    "xvagrant:1.1.13",
+    "jboss:7.1.1"
+    ]
+  },
+  "distributed": {
+    "components": [
+      "flume:1.4.0",
+      "logstash:1.1.13"
+      ]
+  },
+  "centralized": {
+    "components": [
+      "flume:1.4.0",
+      "graylog2:1.1.13",
+      "kibana:3m2",
+      "mongodb:2.4.5",
+      "redis:2.6.14",
+      "logstash:1.1.13",
+      "elasticsearch:0.90.2"
+      ]
+  },
+  "dist_upgrade": {
+    "install": [
+      "curl -L https://get.rvm.io | bash -s stable --ruby",
+      "curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma"
+    ]
+  }
+}
