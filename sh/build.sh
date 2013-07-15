@@ -24,9 +24,9 @@ JSON=json/centrallog.json
 
 for l in $(cat $JSON |jq -r '.hosts[0].centralized[]'); do
   c=$(echo $l | cut -d':' -f1); C=$( echo $c | tr 'a-z' 'A-Z' );
-  d=$(cat $JSON | jq ".components.$c.desc" |tr -d '"');
-  n=$(cat $JSON | jq ".components.$c.name" |tr -d '"');
-  v=$(cat $JSON | jq ".components.$c.version" |tr -d '"');
+  d=$(cat $JSON | jq -r ".components.$c.desc");
+  n=$(cat $JSON | jq -r ".components.$c.name");
+  v=$(cat $JSON | jq -r ".components.$c.version");
   
   echo "hostc|$v|$n|$d";
   
@@ -42,9 +42,9 @@ done
 
 for l in $(cat $JSON |jq -r '.hosts[1].distributed[]'); do
   c=$(echo $l | cut -d':' -f1); C=$( echo $c | tr 'a-z' 'A-Z' );
-  d=$(cat $JSON | jq ".components.$c.desc" |tr -d '"');
-  n=$(cat $JSON | jq ".components.$c.name" |tr -d '"');
-  v=$(cat $JSON | jq ".components.$c.version" |tr -d '"');
+  d=$(cat $JSON | jq -r ".components.$c.desc");
+  n=$(cat $JSON | jq -r ".components.$c.name");
+  v=$(cat $JSON | jq -r ".components.$c.version");
   
   echo "hostd|$v|$n|$d";
   
