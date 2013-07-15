@@ -1,13 +1,13 @@
 ## KATASCRIPT REST ReadyForUse
-### service CentralLog [RFU:v0.1.0] :
+### service CentralLog :
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
     
-    sh/centrallog/centralized-centrallog.rfu.sh   # VM CENTRAL
-    sh/centrallog/distributed-logstash.rfu.sh     # VM's DISTRIBUTED
-    sh/centrallog/distributed-flume.rfu.sh        # VM's DISTRIBUTED
+    sh/centrallog/centralized-centrallog.rfu.sh   # VM CENTRAL        [RFU:v0.1.0]
+    sh/centrallog/distributed-logstash.rfu.sh     # VM's DISTRIBUTED  [RFU:v0.1.0]
+    sh/centrallog/distributed-flume.rfu.sh        # VM's DISTRIBUTED  [RFU:v0.1.0]
     
-    sh/json/centrallog.json                       # STATEMENT CONTEXT [WORK]
-    sh/centrallog/<context>-<component>.tmpl.sh   # COMPONENT CONTEXT [WORK]
+    sh/json/centrallog.json                       # STATEMENT CONTEXT [RFU:v0.1.1-alpha]
+    sh/centrallog/<context>-<component>.tmpl.sh   # COMPONENT CONTEXT [RFU:v0.1.1-alpha]
      Commandes :
       check         - check centrallog::<component>
       install       - install centrallog::<component>
@@ -19,10 +19,10 @@
       upgrade       - upgrade centrallog::<component>
       dist-upgrade  - upgrade distrib platform jruby::gems
   
-### service standalone [RFU:v0.1.0] :
+### service standalone :
     
-    sh/standalone/standalone-jboss.rfu.sh     # VM CENTRAL
-    sh/standalone/standalone-ruby.rfu.sh      # VM CENTRAL
+    sh/standalone/standalone-jboss.rfu.sh     # VM CENTRAL  [RFU:v0.1.0]
+    sh/standalone/standalone-ruby.rfu.sh      # VM CENTRAL  [RFU:v0.1.0]
 
 Depends
 ==========================
