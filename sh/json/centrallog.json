@@ -1,5 +1,7 @@
 {
-  "hosts": {
+  "hosts": [
+    {
+    "ip": "192.168.17.89",
     "centralized": [
       "flume",
       "graylog2",
@@ -8,16 +10,23 @@
       "redis",
       "logstash",
       "elasticsearch"
-    ],
-    "distributed": [
-      "flume",
-      "logstash"
-    ],
-    "standalone": [
-      "xvagrant",
-      "jboss"
-    ]
-  },
+      ]
+    },
+    {
+      "ip": "192.168.17.90",
+      "distributed": [
+        "flume",
+        "logstash"
+      ]
+    },
+    {
+      "ip": "192.168.17.91",
+      "standalone": [
+        "xvagrant",
+        "jboss"
+      ]
+    }
+  ],
   "components": {
     "logstash": {
       "version": "1.1.13",

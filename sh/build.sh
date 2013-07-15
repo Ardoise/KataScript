@@ -22,7 +22,7 @@ _EOF_
 
 JSON=json/centrallog.json
 
-for l in $(cat $JSON |jq '.hosts.centralized[]' |tr -d '"'); do
+for l in $(cat $JSON |jq -r '.hosts[0].centralized[]'); do
   c=$(echo $l | cut -d':' -f1); C=$( echo $c | tr 'a-z' 'A-Z' );
   d=$(cat $JSON | jq ".components.$c.desc" |tr -d '"');
   n=$(cat $JSON | jq ".components.$c.name" |tr -d '"');
@@ -40,7 +40,7 @@ for l in $(cat $JSON |jq '.hosts.centralized[]' |tr -d '"'); do
   sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq '.dist_upgrade.install[]' |tr '\"' '\t'~e" centrallog/centralized-$c.tmpl.sh;
 done
 
-for l in $(cat $JSON |jq '.hosts.distributed[]' |tr -d '"'); do
+for l in $(cat $JSON |jq -r '.hosts[1].distributed[]'); do
   c=$(echo $l | cut -d':' -f1); C=$( echo $c | tr 'a-z' 'A-Z' );
   d=$(cat $JSON | jq ".components.$c.desc" |tr -d '"');
   n=$(cat $JSON | jq ".components.$c.name" |tr -d '"');
