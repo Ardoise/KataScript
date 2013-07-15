@@ -1,5 +1,5 @@
 ## KATASCRIPT REST ReadyForUse
-### service CentralLog :
+### service Centr@lL0g :
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
     
     [RFU:v0.1.0]
