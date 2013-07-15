@@ -36,7 +36,7 @@ for l in $(cat $JSON |jq -r '.hosts[0].centralized[]'); do
       -e "s/xlicensex/@License/g" \
       centrallog/centralized-generic.rfu.sh > centrallog/centralized-$c.tmpl.sh;
       
-  sed -i -e "/#i#install#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/centralized-$c.tmpl.sh;
+  sed -i -e "/#i#install#i#/ s~.*~cat $JSON | jq -r .components.$c.install[]~e" centrallog/centralized-$c.tmpl.sh;
   sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/centralized-$c.tmpl.sh;
 done
 
@@ -54,7 +54,7 @@ for l in $(cat $JSON |jq -r '.hosts[1].distributed[]'); do
       -e "s/xlicensex/@License/g" \
       centrallog/centralized-generic.rfu.sh > centrallog/distributed-$c.tmpl.sh;
       
-  sed -i -e "/#i#install#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/distributed-$c.tmpl.sh;
+  sed -i -e "/#i#install#i#/ s~.*~cat $JSON | jq -r .components.$c.install[]~e" centrallog/distributed-$c.tmpl.sh;
   sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/distributed-$c.tmpl.sh;
 done
 
