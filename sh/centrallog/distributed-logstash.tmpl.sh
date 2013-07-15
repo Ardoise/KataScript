@@ -1,28 +1,28 @@
 #!/bin/sh -e
 ### BEGIN INIT INFO
-# Provides: centrallog: xvagrant
-# Short-Description: DEPLOY SERVER: [XVAGRANT]
+# Provides: centrallog: logstash
+# Short-Description: DEPLOY SERVER: [LOGSTASH]
 # Author: created by: https://github.com/Ardoise
 # Update: last-update: 20130714
 ### END INIT INFO
 
-# Description: SERVICE CENTRALLOG: xvagrant (...)
-# - deploy xvagrant v1.1.13
+# Description: SERVICE CENTRALLOG: logstash (...)
+# - deploy logstash v1.1.13
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget make build-essential zlib1g-dev libssl-dev git-core
 # Depends  : lib/usergroup.sh
 #
-# CONFIG:   [ "/etc/xvagrant", "/etc/xvagrant/test" ]
-# BINARIES: [ "/opt/xvagrant/", "/usr/share/xvagrant/" ]
-# LOG:      [ "/var/log/xvagrant/" ]
-# RUN:      [ "/var/run/xvagrant/" ]
-# INIT:     [ "/etc/init.d/xvagrant" ]
+# CONFIG:   [ "/etc/logstash", "/etc/logstash/test" ]
+# BINARIES: [ "/opt/logstash/", "/usr/share/logstash/" ]
+# LOG:      [ "/var/log/logstash/" ]
+# RUN:      [ "/var/run/logstash/" ]
+# INIT:     [ "/etc/init.d/logstash" ]
 
 # @License
 
-DESCRIPTION="XVAGRANT Server";
-NAME="xvagrant";
+DESCRIPTION="LOGSTASH Server";
+NAME="logstash";
 
 SCRIPT_OK=0;
 SCRIPT_ERROR=1;
