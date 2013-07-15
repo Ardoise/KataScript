@@ -2,12 +2,14 @@
 ### service CentralLog :
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
     
-    sh/centrallog/centralized-centrallog.rfu.sh   # VM CENTRAL        [RFU:v0.1.0]
-    sh/centrallog/distributed-logstash.rfu.sh     # VM's DISTRIBUTED  [RFU:v0.1.0]
-    sh/centrallog/distributed-flume.rfu.sh        # VM's DISTRIBUTED  [RFU:v0.1.0]
+    [RFU:v0.1.0]
+    sh/centrallog/centralized-centrallog.rfu.sh   # VM CENTRAL
+    sh/centrallog/distributed-logstash.rfu.sh     # VM's DISTRIBUTED
+    sh/centrallog/distributed-flume.rfu.sh        # VM's DISTRIBUTED
     
-    sh/json/centrallog.json                       # STATEMENT CONTEXT [RFU:v0.1.1-alpha]
-    sh/centrallog/<context>-<component>.tmpl.sh   # COMPONENT CONTEXT [RFU:v0.1.1-alpha]
+    [RFU:v0.1.1-alpha]
+    sh/json/centrallog.json                       # VM[]::COMPONENT[]       STATEMENT
+    sh/centrallog/<context>-<component>.tmpl.sh   # COMPONENT[]::COMMAND[]  LIFECYCLE
      Commandes :
       check         - check centrallog::<component>
       install       - install centrallog::<component>
@@ -21,11 +23,13 @@
   
 ### service standalone :
     
-    sh/standalone/standalone-jboss.rfu.sh     # VM CENTRAL  [RFU:v0.1.0]
-    sh/standalone/standalone-ruby.rfu.sh      # VM CENTRAL  [RFU:v0.1.0]
+    [RFU:v0.1.0]
+    sh/standalone/standalone-jboss.rfu.sh     # VM CENTRAL
+    sh/standalone/standalone-ruby.rfu.sh      # VM CENTRAL
 
-Depends
+Components :
 ==========================
+  [centrallog.json](https://github.com/Ardoise/KataScript/sh/json/centrallog.json)
   - logstash [http://logstash.net] [v1.1.13]
   - redis [http://redis.io] [v2.6.14]
   - elasticsearch [http://elasticsearch.org] [v0.90.2]
