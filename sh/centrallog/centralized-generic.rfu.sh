@@ -82,7 +82,7 @@ install)
 
   #i#install#i#
   # uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`; echo $uidgid
-  uidgid=`cat /etc/passwd |grep "$NAME" |awk -F':' '{print $3":"$4}'`; echo $$uidgid
+  uidgid=`cat /etc/passwd |grep "$NAME" |awk -F':' '{print $3":"$4}'`; echo $uidgid
   
   chown $uidgid -R /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
