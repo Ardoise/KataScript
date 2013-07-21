@@ -66,7 +66,12 @@ put|post|PUT|POST)
   )
 ;;
 head|HEAD)
-  echo "uid=65535(guest) gid=65535(guest) group[e]s=65535(guest)";
+  [ -z "$(id -a $uid 2>/dev/null)" ] || (
+    case $form in
+      ug) echo "guest:guest" ;;
+      *) echo "uid=65535(guest) gid=65535(guest) group[e]s=65535(guest)"; ;;
+    esac
+  )
 ;;
 delete|DELETE)
   case $uid in
