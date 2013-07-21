@@ -46,8 +46,8 @@ case $1 in
 get|GET)
   [ -z "$(id -a $uid 2>/dev/null)" ] || (
     case $form in
-      ug) $(id -un;":";id -gn) ;;
-      *) id -a ;;
+      ug) $(id -un $uid;echo ":";id -gn $uid) ;;
+      *) id -a $uid;;
     esac
   )
 ;;
