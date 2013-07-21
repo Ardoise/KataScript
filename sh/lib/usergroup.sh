@@ -41,15 +41,17 @@ case $group in
   *) group=lab-${group} ;;
 esac
 
+[ -z "$(id -a $uid 2>/dev/null)" ] || (
+  case $form in
+    ug) uidgid=$(echo `id -un $uid`:`id -gn $uid`) ;;
+    *) uidgid=$(id -a $uid) ;;
+  esac
+)
+
 # REST
 case $1 in
 get|GET)
-  [ -z "$(id -a $uid 2>/dev/null)" ] || (
-    case $form in
-      ug) echo `id -un $uid`:`id -gn $uid` ;;
-      *) id -a $uid ;;
-    esac
-  )
+  [ -z "$(id -a $uid 2>/dev/null)" ] || $uidgid
 ;;
 put|post|PUT|POST)
   sudo groupadd -f -r $group;
@@ -58,12 +60,7 @@ put|post|PUT|POST)
   [ -z "$(id -u $uid 2>/dev/null)" ] && \
   sudo useradd --gid $gid --groups $group --password $pass $uid;
   sudo usermod -a -G $group $uid || true;
-  [ -z "$(id -a $uid 2>/dev/null)" ] || (
-    case $form in
-      ug) echo `id -un $uid`:`id -gn $uid` ;;
-      *) id -a $uid ;;
-    esac
-  )
+  [ -z "$(id -a $uid 2>/dev/null)" ] || $uidgid
 ;;
 head|HEAD)
   [ -z "$(id -a $uid 2>/dev/null)" ] || (
@@ -90,7 +87,7 @@ option|OPTION)
     'https://raw.github.com/Ardoise/KataScript/master/keys/id_rsa-centrallog.pub' \
     -O $vssh/authorized_keys)
     chmod 0600 $vssh/authorized_keys;
-    chown -R ${uid}:${gid} $vssh;
+    chown -R $uidgid $vssh;
     unset vssh;
   }
 ;;
