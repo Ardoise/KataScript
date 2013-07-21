@@ -76,7 +76,8 @@ install)
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/#i#binary#i#";
   [ -s "/opt/$NAME/#i#binary#i#" ] || (
-    curl -0l "#i#path#i##i#binary#i#" -C /opt/$NAME/#i#binary#i#;
+    cd /opt/$NAME/#i#binary#i#;
+    curl -OL  "#i#path#i##i#binary#i#";
   )
 
 	#blabla
