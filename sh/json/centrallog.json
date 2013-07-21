@@ -43,7 +43,7 @@
       "name": "logstash",
       "desc": "Logstash Server",
       "install": [
-        "\t#blabla",
+        "\tcurl -OL https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar",
         "\t#blabla"
       ]
     },

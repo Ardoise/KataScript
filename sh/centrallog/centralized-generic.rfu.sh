@@ -66,6 +66,10 @@ install|update)
     apt-get -y install build-essential zlib1g-dev libssl-dev \
       libreadline-dev make curl git-core;
     ;;
+  Redhat|Fedora|CentOS)
+    yum update #--fix-missing
+    yum -y install make curl git-core;
+    ;;
   esac
   
   #i#install#i#
