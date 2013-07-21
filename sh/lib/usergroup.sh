@@ -42,6 +42,7 @@ case $group in
   *) group=lab-${group} ;;
 esac
 
+# 
 [ -z "$(id -a $uid 2>/dev/null)" ] || {
   gid=$(id -gn $uid);
   case "$form" in 
@@ -71,7 +72,7 @@ put|post|PUT|POST)
 head|HEAD)
   [ -z "$(id -a $uid 2>/dev/null)" ] || (
     case $form in
-      ug) echo "guest:guest" ;;
+      ug) echo $udug ;;
       *) echo "uid=65535(guest) gid=65535(guest) group[e]s=65535(guest)"; ;;
     esac
   )
