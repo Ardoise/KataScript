@@ -64,10 +64,10 @@ install)
   # DEPENDS : OWNER
   [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
   ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
-  uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`; echo $uidgid
-  
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
   echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/centrallog_$NAME.sh;
+  
+  uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
   
   # CENTRALLOG : POINTER
   mkdir -p /opt/$NAME || true; chown -R $uidgid /opt/$NAME || true;
@@ -85,7 +85,7 @@ install)
 	#blabla
 	#blabla
   
-  chown $uidgid -R /opt/$NAME;
+  chown -R $uidgid /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 remove)

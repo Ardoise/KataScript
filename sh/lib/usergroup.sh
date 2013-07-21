@@ -58,7 +58,12 @@ put|post|PUT|POST)
   [ -z "$(id -u $uid 2>/dev/null)" ] && \
   sudo useradd --gid $gid --groups $group --password $pass $uid;
   sudo usermod -a -G $group $uid || true;
-  [ -z "$(id -a $uid 2>/dev/null)" ] || id -a $uid;
+  [ -z "$(id -a $uid 2>/dev/null)" ] || (
+    case $form in
+      ug) echo `id -un $uid`:`id -gn $uid` ;;
+      *) id -a $uid ;;
+    esac
+  )
 ;;
 head|HEAD)
   echo "uid=65535(guest) gid=65535(guest) group[e]s=65535(guest)";
