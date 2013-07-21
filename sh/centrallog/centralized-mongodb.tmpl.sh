@@ -82,6 +82,8 @@ install)
 
 	#blabla
 	#blabla
+  
+  chown $NAME:$NAME -R /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 remove)
