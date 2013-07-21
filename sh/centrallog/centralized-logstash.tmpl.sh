@@ -73,8 +73,13 @@ install)
   mkdir -p /var/lib/$NAME || true; chown -R $uid:$gid /var/lib/$NAME || true;
   mkdir -p /var/log/$NAME || true; chown -R $uid:$gid /var/log/$NAME || true;
   mkdir -p /var/run/$NAME || true; chown -R $uid:$gid /var/run/$NAME || true;
-  
-	curl -OL https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar
+
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/logstash-1.1.13-flatjar.jar";
+  [ -s "/opt/$NAME/logstash-1.1.13-flatjar.jar" ] || (
+    curl -0L "https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar" -C /opt/$NAME/logstash-1.1.13-flatjar.jar;
+  )
+
+	#blabla
 	#blabla
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;

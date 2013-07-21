@@ -73,7 +73,12 @@ install)
   mkdir -p /var/lib/$NAME || true; chown -R $uid:$gid /var/lib/$NAME || true;
   mkdir -p /var/log/$NAME || true; chown -R $uid:$gid /var/log/$NAME || true;
   mkdir -p /var/run/$NAME || true; chown -R $uid:$gid /var/run/$NAME || true;
-  
+
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/#i#binary#i#";
+  [ -s "/opt/$NAME/#i#binary#i#" ] || (
+    curl -0L "#i#path#i##i#binary#i#" -C /opt/$NAME/#i#binary#i#;
+  )
+
 	#blabla
 	#blabla
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";

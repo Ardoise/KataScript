@@ -27,15 +27,20 @@ for l in $(cat $JSON |jq -r '.hosts[0].centralized[]'); do
   d=$(cat $JSON | jq -r ".components.$c.desc");
   n=$(cat $JSON | jq -r ".components.$c.name");
   v=$(cat $JSON | jq -r ".components.$c.version");
+  b=$(cat $JSON | jq -r ".components.$c.binary");
+  p=$(cat $JSON | jq -r ".components.$c.path");
   
-  echo "hostc|$v|$n|$d";
+  echo "hostc|$v|$n|$d|$b";
   
-  sed -e "s/xgenericx/$n/g" \
-      -e "s/XGENERICX/$C/g" \
-      -e "s/0.0.0/$v/g" \
-      -e "s/xlicensex/@License/g" \
+  # 1 pass = many changes
+  sed -e "s~xgenericx~$n~g" \
+      -e "s~XGENERICX~$C~g" \
+      -e "s~0.0.0~$v~g" \
+      -e "s~#i#binary#i#~$b~g" \
+      -e "s~#i#path#i#~$p~g" \
+      -e "s~xlicensex~@License~g" \
       centrallog/centralized-generic.rfu.sh > centrallog/centralized-$c.tmpl.sh;
-      
+  
   sed -i -e "/#i#install#i#/ s~.*~cat $JSON | jq -r .components.$c.install[]~e" centrallog/centralized-$c.tmpl.sh;
   sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/centralized-$c.tmpl.sh;
 done
