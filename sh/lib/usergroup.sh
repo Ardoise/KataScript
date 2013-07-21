@@ -22,7 +22,7 @@ group=${group:-lab-devops};
 gid=${gid:-lab-guest};
 uid=${uid:-lab-guest};
 pass=${pass:-lab-guest};
-uidgid="guset:guest";
+uidgid="guest:guest";
 
   : ${1?"Usage: $0 <HEAD|GET|PUT|DELETE|POST|OPTION> <uid=''> <gid=''> <group=''> <pass=''>"} # REST
   
