@@ -22,7 +22,6 @@ group=${group:-lab-devops};
 gid=${gid:-lab-guest};
 uid=${uid:-lab-guest};
 pass=${pass:-lab-guest};
-uid="lab-guest:labguest";
 
   : ${1?"Usage: $0 <HEAD|GET|PUT|DELETE|POST|OPTION> <uid=''> <gid=''> <group=''> <pass=''>"} # REST
   
@@ -42,12 +41,7 @@ case $group in
   *) group=lab-${group} ;;
 esac
 
-[ -z "$(id -a $uid 2>/dev/null)" ] || (
-  gid=$(id -gn $uid);
-  case $form in
-    ug) uidgid=$(echo `id -un $uid`:$gid) ;;
-    *) uidgid=$(id -a $uid) ;;
-  esac
+[ -z "$form" ] || (gid=$(id -gn $uid); uidgid=$(`id -un $uid`:$gid))
 
 )
 
