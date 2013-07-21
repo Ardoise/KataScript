@@ -66,13 +66,15 @@ install)
   ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
   echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/centrallog_$NAME.sh;
+  # uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`; echo $uidgid
+  uidgid=`cat /etc/passwd |grep "$NAME" |awk -F':' '{print $3":"$4}'`; echo $uidgid
 
   # CENTRALLOG : POINTER
-  mkdir -p /opt/$NAME || true; chown -R $uid:$gid /opt/$NAME || true;
-  mkdir -p /etc/$NAME/test || true; chown -R $uid:$gid /etc/$NAME || true;
-  mkdir -p /var/lib/$NAME || true; chown -R $uid:$gid /var/lib/$NAME || true;
-  mkdir -p /var/log/$NAME || true; chown -R $uid:$gid /var/log/$NAME || true;
-  mkdir -p /var/run/$NAME || true; chown -R $uid:$gid /var/run/$NAME || true;
+  mkdir -p /opt/$NAME || true; chown -R $uidgid /opt/$NAME || true;
+  mkdir -p /etc/$NAME/test || true; chown -R $uidgid /etc/$NAME || true;
+  mkdir -p /var/lib/$NAME || true; chown -R $uidgid /var/lib/$NAME || true;
+  mkdir -p /var/log/$NAME || true; chown -R $uidgid /var/log/$NAME || true;
+  mkdir -p /var/run/$NAME || true; chown -R $uidgid /var/run/$NAME || true;
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/#i#binary#i#";
   [ -s "/opt/$NAME/#i#binary#i#" ] || (
@@ -82,8 +84,6 @@ install)
 
 	#blabla
 	#blabla
-  # uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`; echo $uidgid
-  uidgid=`cat /etc/passwd |grep "$NAME" |awk -F':' '{print $3":"$4}'`; echo $uidgid
   
   chown $uidgid -R /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
