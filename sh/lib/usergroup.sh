@@ -41,7 +41,7 @@ case $group in
   *) group=lab-${group} ;;
 esac
 case $form in
-  ug) uidgid="$uid:$gid" ;;
+  ug) uidgid=$(echo "$uid:$gid")   ;;
   *) uidgid="id -a $uid" ;;
 esac
 
