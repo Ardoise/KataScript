@@ -81,7 +81,7 @@ install)
   )
 
   #i#install#i#
-  uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=logstash | awk -F' ' '{print $1":"$2}' | sed -e 's/uid=//g' -e 's/gid=//g' -e 's/(.[^(]*)//g'`;
+  uidgid=`cat /etc/passwd |grep "$NAME" |awk -F':' '{print $3":"$4}'`;
   chown $uidgid -R /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
