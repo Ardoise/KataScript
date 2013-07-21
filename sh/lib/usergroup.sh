@@ -22,6 +22,7 @@ group=${group:-lab-devops};
 gid=${gid:-lab-guest};
 uid=${uid:-lab-guest};
 pass=${pass:-lab-guest};
+form="";
 
   : ${1?"Usage: $0 <HEAD|GET|PUT|DELETE|POST|OPTION> <uid=''> <gid=''> <group=''> <pass=''>"} # REST
   
@@ -40,11 +41,15 @@ case $group in
   lab-*) : ;;
   *) group=lab-${group} ;;
 esac
+case $form in
+  ug) uidgid="$uid:$gid" ;;
+  *) uidgid="id -a $uid" ;;
+esac
 
 # REST
 case $1 in
 get|GET)
-  [ -z "$(id -a $uid 2>/dev/null)" ] || id -a $uid;
+  [ -z "$(id -a $uid 2>/dev/null)" ] || $uidgid;
 ;;
 put|post|PUT|POST)
   sudo groupadd -f -r $group;
@@ -53,7 +58,7 @@ put|post|PUT|POST)
   [ -z "$(id -u $uid 2>/dev/null)" ] && \
   sudo useradd --gid $gid --groups $group --password $pass $uid;
   sudo usermod -a -G $group $uid || true;
-  [ -z "$(id -a $uid 2>/dev/null)" ] || id -a $uid;
+  [ -z "$(id -a $uid 2>/dev/null)" ] || $uidgid;
 ;;
 head|HEAD)
   echo "uid=65535(guest) gid=65535(guest) group[e]s=65535(guest)";
