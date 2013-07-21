@@ -63,8 +63,10 @@ rm -f *.sh~
 exit 0
 
 # Ard0ise
+sudo apt-get update
+sudo apt-get install curl git-core
 clone_dir=/tmp/KataScript-build-$$;
 git clone https://github.com/Ardoise/KataScript.git $clone_dir;
-$clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh;
+sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh install;
 echo "rm -rf $clone_dir";
 echo "unset clone_dir";

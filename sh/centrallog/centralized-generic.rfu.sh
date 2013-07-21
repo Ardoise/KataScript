@@ -122,15 +122,15 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check   - check centrallog::component
-    install - install centrallog::component
-    reload  - reload config centrallog::component
-    remove  - remove centrallog::component
-    start   - start centrallog::component
-    status  - status centrallog::component
-    stop    - stop centrallog::component
-    upgrade - upgrade centrallog::component
-    dist-upgrade - upgrade distrib platform jruby::gems
+    check   - check centrallog::xgenericx
+    install - install centrallog::xgenericx
+    reload  - reload config centrallog::xgenericx
+    remove  - remove centrallog::xgenericx
+    start   - start centrallog::xgenericx
+    status  - status centrallog::xgenericx
+    stop    - stop centrallog::xgenericx
+    upgrade - upgrade centrallog::xgenericx
+    dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;
 esac
