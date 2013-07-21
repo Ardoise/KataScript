@@ -41,8 +41,9 @@ case $group in
   *) group=lab-${group} ;;
 esac
 
-[ -z "$form" ] || (gid=$(id -gn $uid); uidgid=$(`id -un $uid`:$gid))
-
+[ -z "$form" ] || (
+  gid=$(id -gn $uid); 
+  uidgid=$(`id -un $uid`:$gid)
 )
 
 # REST
