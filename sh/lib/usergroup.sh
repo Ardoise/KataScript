@@ -40,17 +40,11 @@ case $group in
   lab-*) : ;;
   *) group=lab-${group} ;;
 esac
-case $@ in
-  form)
-    # form=`cat /etc/passwd |grep "$uid" |awk -F':' '{print $3":"$4}'`;
-    vug="$uid:$gid"
-  ;;
-esac
 
 # REST
 case $1 in
 get|GET)
-  [ -z "$(id -a $uid 2>/dev/null)" ] || $vug || id -a $uid;
+  [ -z "$(id -a $uid 2>/dev/null)" ] || id -a $uid;
 ;;
 put|post|PUT|POST)
   sudo groupadd -f -r $group;
@@ -59,7 +53,7 @@ put|post|PUT|POST)
   [ -z "$(id -u $uid 2>/dev/null)" ] && \
   sudo useradd --gid $gid --groups $group --password $pass $uid;
   sudo usermod -a -G $group $uid || true;
-  [ -z "$(id -a $uid 2>/dev/null)" ] || $vug || id -a $uid;
+  [ -z "$(id -a $uid 2>/dev/null)" ] || id -a $uid;
 ;;
 head|HEAD)
   echo "uid=65535(guest) gid=65535(guest) group[e]s=65535(guest)";
