@@ -63,9 +63,8 @@ rm -f *.sh~
 exit 0
 
 # Ard0ise
-clone_dir=/tmp/KataScript-build-$$
-git clone https://github.com/Ardoise/KataScript.git $clone_dir
-echo "$clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh"
-echo "$clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh"
-echo "rm -rf $clone_dir"
-echo "unset clone_dir"
+clone_dir=/tmp/KataScript-build-$$;
+git clone https://github.com/Ardoise/KataScript.git $clone_dir;
+$clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh;
+echo "rm -rf $clone_dir";
+echo "unset clone_dir";
