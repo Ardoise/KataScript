@@ -40,8 +40,8 @@ case $group in
   lab-*) : ;;
   *) group=lab-${group} ;;
 esac
-case "$form" in
-  ug)
+case $@ in
+  form)
     # form=`cat /etc/passwd |grep "$uid" |awk -F':' '{print $3":"$4}'`;
     vug="$uid:$gid"
   ;;
