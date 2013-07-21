@@ -43,7 +43,7 @@ esac
 
 [ -z "$form" ] || (
   gid=$(id -gn $uid); 
-  uidgid=$(`id -un $uid`:$gid)
+  uidgid="$uid:$gid";
 )
 
 # REST
