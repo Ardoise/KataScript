@@ -76,7 +76,7 @@ install)
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/null";
   [ -s "/opt/$NAME/null" ] || (
-    cd /opt/$NAME/null;
+    cd /opt/$NAME;
     curl -OL  "nullnull";
   )
 
