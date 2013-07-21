@@ -3,7 +3,7 @@
 # Provides: centrallog: redis
 # Short-Description: DEPLOY SERVER: [REDIS]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130714
+# Update: last-update: 20130721
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: redis (...)
@@ -39,22 +39,10 @@ if [ `id -u` -ne 0 ]; then
 fi
 
 case "$1" in
-install|update)
+install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   
-  # DEPENDS : OWNER
-  [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
-  ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
-  ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
-  echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/centrallog_$NAME.sh;
-
-  mkdir -p /opt/$NAME || true; chown -R $uid:$gid /opt/$NAME || true;
-  mkdir -p /etc/$NAME/test || true; chown -R $uid:$gid /etc/$NAME || true;
-  mkdir -p /var/lib/$NAME || true; chown -R $uid:$gid /var/lib/$NAME || true;
-  mkdir -p /var/log/$NAME || true; chown -R $uid:$gid /var/log/$NAME || true;
-  mkdir -p /var/run/$NAME || true; chown -R $uid:$gid /var/run/$NAME || true;
-
-  # Install necessary packages
+  # DEPENDS : PLATFORM
   case "$platform" in
   Debian)
     apt-get update #--fix-missing
@@ -66,30 +54,62 @@ install|update)
     apt-get -y install build-essential zlib1g-dev libssl-dev \
       libreadline-dev make curl git-core;
     ;;
+  Redhat|Fedora|CentOS)
+    yum update #--fix-missing
+    yum -y install make curl git-core;
+    ;;
   esac
+
+  # DEPENDS : OWNER
+  [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
+  ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
+  ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
+  echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/centrallog_$NAME.sh;
+
+  # CENTRALLOG : POINTER
+  mkdir -p /opt/$NAME || true; chown -R $uid:$gid /opt/$NAME || true;
+  mkdir -p /etc/$NAME/test || true; chown -R $uid:$gid /etc/$NAME || true;
+  mkdir -p /var/lib/$NAME || true; chown -R $uid:$gid /var/lib/$NAME || true;
+  mkdir -p /var/log/$NAME || true; chown -R $uid:$gid /var/log/$NAME || true;
+  mkdir -p /var/run/$NAME || true; chown -R $uid:$gid /var/run/$NAME || true;
   
 	#blabla
 	#blabla
-  
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 remove)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  #i#remove#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
-reload)
+start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  #i#start#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
-start|stop|status)
+stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  #i#stop#i#
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
+;;
+status)
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  #i#status#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 check)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  #i#check#i#
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
+;;
+upgrade)
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  #i#upgrade#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 dist-upgrade)
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  
   echo "USE HTTP-PROXY"
   echo "export http_proxy='http://proxy.hostname.com:port'"
   echo "export https_proxy='https://proxy.hostname.com:port'"
@@ -119,19 +139,20 @@ dist-upgrade)
   curl -OL http://stedolan.github.io/jq/download/linux32/jq
   chmod a+x jq ; mv jq /usr/bin/
   
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 *)
   cat <<- _EOF_
   Commandes :
-    check   - check centrallog::component
-    install - install centrallog::component
-    reload  - reload config centrallog::component
-    remove  - remove centrallog::component
-    start   - start centrallog::component
-    status  - status centrallog::component
-    stop    - stop centrallog::component
-    upgrade - upgrade centrallog::component
-    dist-upgrade - upgrade distrib platform jruby::gems
+    check   - check centrallog::redis
+    install - install centrallog::redis
+    reload  - reload config centrallog::redis
+    remove  - remove centrallog::redis
+    start   - start centrallog::redis
+    status  - status centrallog::redis
+    stop    - stop centrallog::redis
+    upgrade - upgrade centrallog::redis
+    dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;
 esac
