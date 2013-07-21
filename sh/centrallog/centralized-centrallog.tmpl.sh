@@ -66,7 +66,7 @@ install)
   ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
   echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/centrallog_$NAME.sh;
-  uidgid=${SH_DIR}/lib/usergroup.sh GET uid=$NAME gid=$NAME form=ug; echo $uidgid
+  uidgid=${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug; echo $uidgid
 
   # CENTRALLOG : POINTER
   mkdir -p /opt/$NAME || true; chown -R $uidgid /opt/$NAME || true;

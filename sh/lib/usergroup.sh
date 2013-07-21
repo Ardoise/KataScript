@@ -44,7 +44,16 @@ esac
 # REST
 case $1 in
 get|GET)
-  [ -z "$(id -a $uid 2>/dev/null)" ] || id -a $uid;
+  [ -z "$(id -a $uid 2>/dev/null)" ] || (
+    case $form in
+      ug)
+        id -un $uid;echo ";";id -ug $uid
+      ;;
+      *)
+        id -a $uid
+      ;;
+    esac
+  )
 ;;
 put|post|PUT|POST)
   sudo groupadd -f -r $group;
