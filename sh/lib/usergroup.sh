@@ -47,7 +47,7 @@ get|GET)
   [ -z "$(id -a $uid 2>/dev/null)" ] || (
     case $form in
       ug) echo `id -un $uid`:`id -gn $uid` ;;
-      *) `id -a $uid` ;;
+      *) id -a $uid ;;
     esac
   )
 ;;
