@@ -42,7 +42,7 @@ case $group in
   *) group=lab-${group} ;;
 esac
 
-[ -z "$form" ] || (
+[ -n "$form" ] && (
   gid=$(id -gn $uid); 
   uidgid="$uid:$gid";
 )
