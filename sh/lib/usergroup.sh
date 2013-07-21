@@ -49,7 +49,7 @@ esac
       uidgid="$uid:$gid";
     ;;
     *)
-      uidgid=$(id -a);
+      uidgid=$(id -a $uid);
     ;;
   esac
 )
@@ -57,7 +57,7 @@ esac
 # REST
 case $1 in
 get|GET)
-  [ -z "$(id -a $uid 2>/dev/null)" ] || echo "${uidgid}";
+  [ -z "$(id -a $uid 2>/dev/null)" ] || echo ${uidgid};
 ;;
 put|post|PUT|POST)
   sudo groupadd -f -r $group;
