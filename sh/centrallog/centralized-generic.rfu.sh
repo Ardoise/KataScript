@@ -99,7 +99,7 @@ dist-upgrade)
   
   echo "INSTALL RVM 1.21.9 with jruby 1.7.4 and Rubies gems"
   echo "curl -L https://get.rvm.io | bash -s stable --ruby=jruby \
-  --gems=rails,puma--gems=Platform,open4,POpen4,i18n,multi_json,activesupport,\
+  --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,\
   addressable,builder,launchy,liquid,syntax,maruku,rack,sass,rack-protection,\
   tilt,sinatra,watch,yui-compressor,bonsai,hpricot,mustache,rdiscount,ronn,\
   rails,puma";
