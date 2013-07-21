@@ -29,6 +29,15 @@
     }
   ],
   "components": {
+    "centrallog": {
+      "version": "0.1.1",
+      "name": "Centrallog",
+      "desc": "Server Centrallog",
+      "install": [
+        "\t#blabla",
+        "\t#blabla"
+      ]
+    },
     "logstash": {
       "version": "1.1.13",
       "name": "logstash",

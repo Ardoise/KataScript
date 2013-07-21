@@ -1,28 +1,28 @@
 #!/bin/sh -e
 ### BEGIN INIT INFO
-# Provides: centrallog: redis
-# Short-Description: DEPLOY SERVER: [REDIS]
+# Provides: centrallog: Centrallog
+# Short-Description: DEPLOY SERVER: [CENTRALLOG]
 # Author: created by: https://github.com/Ardoise
 # Update: last-update: 20130714
 ### END INIT INFO
 
-# Description: SERVICE CENTRALLOG: redis (...)
-# - deploy redis v2.6.14
+# Description: SERVICE CENTRALLOG: Centrallog (...)
+# - deploy Centrallog v0.1.1
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget make build-essential zlib1g-dev libssl-dev git-core
 # Depends  : lib/usergroup.sh
 #
-# CONFIG:   [ "/etc/redis", "/etc/redis/test" ]
-# BINARIES: [ "/opt/redis/", "/usr/share/redis/" ]
-# LOG:      [ "/var/log/redis/" ]
-# RUN:      [ "/var/run/redis/" ]
-# INIT:     [ "/etc/init.d/redis" ]
+# CONFIG:   [ "/etc/Centrallog", "/etc/Centrallog/test" ]
+# BINARIES: [ "/opt/Centrallog/", "/usr/share/Centrallog/" ]
+# LOG:      [ "/var/log/Centrallog/" ]
+# RUN:      [ "/var/run/Centrallog/" ]
+# INIT:     [ "/etc/init.d/Centrallog" ]
 
 # @License
 
-DESCRIPTION="REDIS Server";
-NAME="redis";
+DESCRIPTION="CENTRALLOG Server";
+NAME="Centrallog";
 
 SCRIPT_OK=0;
 SCRIPT_ERROR=1;
