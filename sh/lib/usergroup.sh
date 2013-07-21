@@ -42,10 +42,12 @@ case $group in
 esac
 
 [ -z "$(id -a $uid 2>/dev/null)" ] || (
+  gid=$(id -gn $uid);
   case $form in
-    ug) uidgid=$(echo `id -un $uid`:`id -gn $uid`) ;;
+    ug) uidgid=$(echo `id -un $uid`:$gid) ;;
     *) uidgid=$(id -a $uid) ;;
   esac
+
 )
 
 # REST
@@ -79,6 +81,8 @@ delete|DELETE)
 ;;
 option|OPTION)
   [ ! -z "$(id -a $uid 2>/dev/null)" ] && {
+    uidgid
+    
     vssh="/home/$uid/.ssh";
     mkdir -p $vssh;
     chmod 700 $vssh;
@@ -87,7 +91,7 @@ option|OPTION)
     'https://raw.github.com/Ardoise/KataScript/master/keys/id_rsa-centrallog.pub' \
     -O $vssh/authorized_keys)
     chmod 0600 $vssh/authorized_keys;
-    chown -R $uidgid $vssh;
+    chown -R $uid:$gid $vssh;
     unset vssh;
   }
 ;;
