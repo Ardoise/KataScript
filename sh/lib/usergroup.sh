@@ -22,7 +22,7 @@ group=${group:-lab-devops};
 gid=${gid:-lab-guest};
 uid=${uid:-lab-guest};
 pass=${pass:-lab-guest};
-uidgid="guest:guest";
+udgd="guest:guest";
 
   : ${1?"Usage: $0 <HEAD|GET|PUT|DELETE|POST|OPTION> <uid=''> <gid=''> <group=''> <pass=''>"} # REST
   
@@ -46,10 +46,10 @@ esac
   gid=$(id -gn $uid);
   case "$form" in 
     ug)
-      uidgid="$uid:$gid";
+      udgd="$uid:$gid";
     ;;
     *)
-      uidgid=$(id -a $uid);
+      udgd=$(id -a $uid);
     ;;
   esac
 )
@@ -57,7 +57,7 @@ esac
 # REST
 case $1 in
 get|GET)
-  [ -z "$(id -a $uid 2>/dev/null)" ] || (echo "${uidgid}");
+  [ -z "$(id -a $uid 2>/dev/null)" ] || echo $udgd;
 ;;
 put|post|PUT|POST)
   sudo groupadd -f -r $group;
@@ -66,7 +66,7 @@ put|post|PUT|POST)
   [ -z "$(id -u $uid 2>/dev/null)" ] && \
   sudo useradd --gid $gid --groups $group --password $pass $uid;
   sudo usermod -a -G $group $uid || true;
-  [ -z "$(id -a $uid 2>/dev/null)" ] || (echo "${uidgid}");
+  [ -z "$(id -a $uid 2>/dev/null)" ] || echo $udgd;
 ;;
 head|HEAD)
   [ -z "$(id -a $uid 2>/dev/null)" ] || (
