@@ -81,7 +81,8 @@ install)
   )
 
   #i#install#i#
-  chown lab-$NAME:lab-$NAME -R /opt/$NAME;
+  uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=logstash | awk -F' ' '{print $1":"$2}' | sed -e 's/uid=//g' -e 's/gid=//g' -e 's/(.[^(]*)//g'`;
+  chown $uidgid -R /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 remove)
