@@ -40,15 +40,15 @@ case $group in
   lab-*) : ;;
   *) group=lab-${group} ;;
 esac
-case $form in
-  ug) uidgid=$(echo "$uid:$gid")   ;;
-  *) uidgid="id -a $uid" ;;
-esac
 
 # REST
 case $1 in
 get|GET)
-  [ -z "$(id -a $uid 2>/dev/null)" ] || $uidgid;
+  [ -z "$(id -a $uid 2>/dev/null)" ] || (
+    case $form in
+    ug) echo "${uid}:g{gid}" ;;
+    *) id -a ;;
+  )
 ;;
 put|post|PUT|POST)
   sudo groupadd -f -r $group;
