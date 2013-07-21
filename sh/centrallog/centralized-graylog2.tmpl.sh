@@ -57,6 +57,7 @@ install)
   Redhat|Fedora|CentOS)
     yum update #--fix-missing
     yum -y install make curl git-core;
+    echo "NOT YET TESTED : your contribution is welc0me"
     ;;
   esac
 
