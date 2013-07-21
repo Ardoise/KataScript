@@ -42,7 +42,7 @@ case $group in
   *) group=lab-${group} ;;
 esac
 
-[ -z "$(id -a $uid 2>/dev/null)" ] || (
+[ -z "$(id -a $uid 2>/dev/null)" ] || {
   gid=$(id -gn $uid);
   case "$form" in 
     ug)
@@ -52,7 +52,7 @@ esac
       udgd=$(id -a $uid);
     ;;
   esac
-)
+}
 
 # REST
 case $1 in
