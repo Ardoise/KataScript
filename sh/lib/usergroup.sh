@@ -42,9 +42,16 @@ case $group in
   *) group=lab-${group} ;;
 esac
 
-[ -n "$form" ] && (
-  gid=$(id -gn $uid); 
-  uidgid="$uid:$gid";
+[ -z "$(id -a $uid 2>/dev/null)" ] || (
+  gid=$(id -gn $uid);
+  case "$form" in 
+    ug)
+      uidgid="$uid:$gid";
+    ;;
+    *)
+      uidgid=$(id -a);
+    ;;
+  esac
 )
 
 # REST
