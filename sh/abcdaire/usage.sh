@@ -34,4 +34,8 @@ HERE_EOF
    exit 0
 fi
 
+if [ $# -eq 0 ]; then
+	echo "showhelp";
+fi
+
 exit 0
