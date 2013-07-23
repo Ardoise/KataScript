@@ -61,3 +61,23 @@ esac
 exit 0
 
 # End myprogramm
+
+-t|--server-type)
+  if [ -n "$2" ]; then
+    case "$2" in 
+    [Oo][Pp][Ee][Nn][Ss][Ss][Hh])
+      SERVER_SSH1=YES
+      SERVER_SSH2=YES	#FIXME; Older versions may not...
+      SERVERTYPE="OPENSSH"
+      shift 2
+      ;;
+    *)
+      echo "bla bla" >&2
+      ;;
+    esac
+    
+  else
+    echo "bla bla" >&2
+    exit 1
+  fi
+  ;;
