@@ -17,9 +17,21 @@ case $1 in
   # do
   # ...
   # done
+  ;;
+2)
+  while [ -n "$1" ]; do
+		if type -path "$1" >/dev/null 2>/dev/null ; then
+			echo "bla bla : $1"
+			return 0
+		fi
+		shift
+  done
+  ;;
 *)
- :
-;;
+  :
+  ;;
+esac
 
 exit 0
+
 
