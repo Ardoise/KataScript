@@ -1,0 +1,138 @@
+{
+  "service": [
+    {
+      "platform": "centralized",
+      "name": "split",
+      "reload": {
+        "conf": "redis2elasticsearch.conf",
+        "input": "host0",
+        "output": "host0"
+      },
+      "start": "/etc/init.d/logstash start",
+      "stop": "/etc/init.d/logstash stop",
+      "status": "/etc/init.d/logstash status"
+    },
+    {
+      "platform": "centralized",
+      "name": "event",
+      "reload": {
+        "conf": "redis.conf"
+      },     
+      "start": "service redis status",
+      "stop": "service redis stop",
+      "status": "service redis status",
+      "chkconfig": "chkconfig redis on"
+    },
+    {
+      "platform": "centralized",
+      "name": "search",
+      "reload": {
+        "conf": "elasticsearch.yum",
+        "cluster": "centrallog"
+      },
+      "start": "service elasticsearch start",
+      "stop": "service elasticsearch stop",
+      "status": "service elasticsearch status",
+      "chkconfig": "chkconfig elasticsearch on"
+    }, 
+    {
+      "platform": "centralized",
+      "name": "shipper",
+      "reload": {
+        "conf": "shipper2redis.conf",
+        "input": "host1",
+        "output": "host0"
+      },
+      "start": "/etc/init.d/logstash start",
+      "stop": "/etc/init.d/logstash stop",
+      "status": "/etc/init.d/logstash status"
+    }
+  ],
+  "profil": [
+    {
+      "platform": "centralized",
+      "software": "logstash",
+      "path": "/opt/logstash",
+      "conf": "/etc/logstash",
+      "log": "/var/log/logstash",
+      "run": "/var/run/logstash"
+    },
+    {
+      "platform": "centralized",
+      "software": "redis",
+      "path": "/opt/redis",
+      "conf": "/etc/redis",
+      "log": "/var/log/redis",
+      "run": "/var/run/redis"
+    },
+    {
+      "platform": "centralized",
+      "software": "elasticsearch",
+      "path": "/opt/elasticsearch",
+      "conf": "/etc/elasticsearch",
+      "log": "/var/log/elasticsearch",
+      "run": "/var/run/elasticsearch"
+    },
+    {
+      "platform": "distributed",
+      "software": "logstash",
+      "path": "/opt/logstash",
+      "conf": "/etc/logstash",
+      "log": "/var/log/logstash",
+      "run": "/var/run/logstash"
+    }
+  ],
+  "software": [
+    {
+      "binary": "logstash-1.1.13-flatjar.jar",
+      "desc": "Logstash Server",
+      "name": "logstash",
+      "download": "https://logstash.objects.dreamhost.com/release/",
+      "version": "1.1.13"
+    },
+    {
+      "desc": "Redis Server",
+      "name": "redis",
+      "version": "2.6.14"
+    },
+    {
+      "desc": "Elasticsearch Server",
+      "name": "elasticsearch",
+      "version": "0.90.2"
+    },
+    {
+      "desc": "Mongodb Server",
+      "name": "mongodb",
+      "version": "2.4.5"
+    },
+    {
+      "desc": "Kibana Server",
+      "name": "kibana",
+      "version": "3.m.2"
+    },
+    {
+      "desc": "Flume Server",
+      "name": "flume",
+      "version": "1.2.5"    
+    },
+    {
+      "desc": "Graylog Server",
+      "name": "graylog",
+      "version": "0.0.0"
+    }
+  ],
+  "platform": [
+    {
+      "ip": "192.168.10.10",
+      "os": "lucid32",
+      "hostname": "host0",
+      "name": "centralized"
+    },
+    {
+      "ip": "192.168.10.11",
+      "os": "lucid32",
+      "hostname": "host1",
+      "name": "distributed"
+    }
+  ]
+}
