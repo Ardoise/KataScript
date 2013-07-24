@@ -74,5 +74,8 @@ clone_dir=/tmp/KataScript-build-$$;
 git clone https://github.com/Ardoise/KataScript.git $clone_dir;
 sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh install;
 # sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
+# source /usr/local/rvm/scripts/rvm"config": [
+        "\tredis2elasticsearch.conf"
+      ]
 echo "rm -rf $clone_dir";
 echo "unset clone_dir";

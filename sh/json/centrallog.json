@@ -4,13 +4,13 @@
     "ip": "192.168.17.89",
     "centralized": [
       "centrallog",
-      "flume",
-      "graylog2",
-      "kibana",
-      "mongodb",
-      "redis",
-      "logstash",
-      "elasticsearch"
+      "flume:[]",
+      "graylog2:[]",
+      "kibana:[]",
+      "mongodb:[]",
+      "redis:[]",
+      "logstash":[],
+      "elasticsearch:[]"
       ]
     },
     {
