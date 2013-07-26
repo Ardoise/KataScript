@@ -1,28 +1,28 @@
 #!/bin/sh -e
 ### BEGIN INIT INFO
-# Provides: centrallog: redis
-# Short-Description: DEPLOY SERVER: [REDIS]
+# Provides: centrallog: 
+# Short-Description: DEPLOY SERVER: []
 # Author: created by: https://github.com/Ardoise
 # Update: last-update: 20130721
 ### END INIT INFO
 
-# Description: SERVICE CENTRALLOG: redis (...)
-# - deploy redis v2.6.14
+# Description: SERVICE CENTRALLOG:  (...)
+# - deploy  v
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget make build-essential zlib1g-dev libssl-dev git-core
 # Depends  : lib/usergroup.sh
 #
-# CONFIG:   [ "/etc/redis", "/etc/redis/test" ]
-# BINARIES: [ "/opt/redis/", "/usr/share/redis/" ]
-# LOG:      [ "/var/log/redis/" ]
-# RUN:      [ "/var/run/redis/" ]
-# INIT:     [ "/etc/init.d/redis" ]
+# CONFIG:   [ "/etc/", "/etc//test" ]
+# BINARIES: [ "/opt//", "/usr/share//" ]
+# LOG:      [ "/var/log//" ]
+# RUN:      [ "/var/run//" ]
+# INIT:     [ "/etc/init.d/" ]
 
 # @License
 
-DESCRIPTION="REDIS Server";
-NAME="redis";
+DESCRIPTION=" Server";
+NAME="";
 
 SCRIPT_OK=0;
 SCRIPT_ERROR=1;
@@ -76,10 +76,10 @@ install)
   mkdir -p /var/log/$NAME || true; chown -R $uidgid /var/log/$NAME || true;
   mkdir -p /var/run/$NAME || true; chown -R $uidgid /var/run/$NAME || true;
 
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/null";
-  [ -s "/opt/$NAME/null" ] || (
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/";
+  [ -s "/opt/$NAME/" ] || (
     cd /opt/$NAME;
-    curl -OL  "/opt/redisnull";
+    curl -OL  "/opt/logstash";
   )
 
   #i#install#i#
@@ -94,20 +94,23 @@ remove)
 ;;
 start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
-service redis status
+  [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
+  #service $NAME start; #LSB
+  #i#start#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
-service redis stop
+  [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
+  #service $NAME stop; #LSB
+  #i#stop#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 status)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
-service redis status
+  [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
+  #service $NAME status; #LSB
+  #i#status#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 check)
@@ -157,14 +160,14 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check   - check centrallog::redis
-    install - install centrallog::redis
-    reload  - reload config centrallog::redis
-    remove  - remove centrallog::redis
-    start   - start centrallog::redis
-    status  - status centrallog::redis
-    stop    - stop centrallog::redis
-    upgrade - upgrade centrallog::redis
+    check   - check centrallog::
+    install - install centrallog::
+    reload  - reload config centrallog::
+    remove  - remove centrallog::
+    start   - start centrallog::
+    status  - status centrallog::
+    stop    - stop centrallog::
+    upgrade - upgrade centrallog::
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;

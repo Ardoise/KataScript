@@ -22,60 +22,43 @@ _EOF_
 
 JSON=json/cloud.json
 
-for l in $(cat $JSON |jq -r '.profil[]'); do
-  c=$(echo $l | cut -d':' -f1); C=$( echo $c | tr 'a-z' 'A-Z' );
-  d=$(cat $JSON | jq -r ".components.$c.desc");
-  n=$(cat $JSON | jq -r ".components.$c.name");
-  v=$(cat $JSON | jq -r ".components.$c.version");
-  b=$(cat $JSON | jq -r ".components.$c.binary");
-  p=$(cat $JSON | jq -r ".components.$c.path");
+# max=$(cat $JSON |jq -r -c '.profil | length'; # wc -l
+for l in $(cat $JSON |jq -r -c '.profil[]'); do
+
+  # echo $lœ
+  i=$(echo $l | jq -r '.id'); #echo $i
+  s=$(echo $l | jq -r '.software'); #echo $s
+  e=$(echo $l | jq -r '.platform'); #echo $e
+  p=$(echo $l | jq -r '.path'); #echo $p
+  c=$(echo $l | jq -r '.conf'); #echo $c
+  g=$(echo $l | jq -r '.log'); #echo $g
+  r=$(echo $l | jq -r '.run'); #echo $r
   
-  echo "hostc|$v|$n|$d|$b";
+  n=$(cat $JSON | jq -r -c ".software.$s.name");
+  N=$( echo $n | tr 'a-z' 'A-Z' );
+  d=$(cat $JSON | jq -r -c ".software.$s.desc");
+  v=$(cat $JSON | jq -r -c ".software.$s.version");
+  b=$(cat $JSON | jq -r -c ".software.$s.binary");
+  
+  echo "$e|$s|$v|$d|$b|$p";
   
   # 1 pass = many changes
   sed -e "s~xgenericx~$n~g" \
-      -e "s~XGENERICX~$C~g" \
+      -e "s~XGENERICX~$N~g" \
       -e "s~0.0.0~$v~g" \
       -e "s~#i#binary#i#~$b~g" \
       -e "s~#i#path#i#~$p~g" \
       -e "s~xlicensex~@License~g" \
-      centrallog/centralized-generic.rfu.sh > centrallog/centralized-$c.tmpl.sh;
+      centrallog/centralized-generic.rfu.sh > centrallog/$e-$n.tmpl.sh;
   
-  sed -i -e "/#i#install#i#/ s~.*~cat $JSON | jq -r .components.$c.install[]~e" centrallog/centralized-$c.tmpl.sh;
-  sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/centralized-$c.tmpl.sh;
-done
+  sed -i -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .service.$i.start~e" \
+         -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .service.$i.status~e" \
+         -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .service.$i.stop~e" \
+         centrallog/$e-$n.tmpl.sh;
 
-for l in $(cat $JSON |jq -r '.hosts[1].distributed[]'); do
-  c=$(echo $l | cut -d':' -f1); C=$( echo $c | tr 'a-z' 'A-Z' );
-  d=$(cat $JSON | jq -r ".components.$c.desc");
-  n=$(cat $JSON | jq -r ".components.$c.name");
-  v=$(cat $JSON | jq -r ".components.$c.version");
-  
-  echo "hostd|$v|$n|$d";
-  
-  sed -e "s/xgenericx/$n/g" \
-      -e "s/XGENERICX/$C/g" \
-      -e "s/0.0.0/$v/g" \
-      -e "s/xlicensex/@License/g" \
-      centrallog/centralized-generic.rfu.sh > centrallog/distributed-$c.tmpl.sh;
-      
-  sed -i -e "/#i#install#i#/ s~.*~cat $JSON | jq -r .components.$c.install[]~e" centrallog/distributed-$c.tmpl.sh;
-  sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/distributed-$c.tmpl.sh;
+  #sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/centralized-$n.tmpl.sh;
 done
 
 rm -f *.sh~
 
 exit 0
-
-# Ard0ise
-sudo apt-get update
-sudo apt-get install curl git-core
-clone_dir=/tmp/KataScript-build-$$;
-git clone https://github.com/Ardoise/KataScript.git $clone_dir;
-sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh install;
-# sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
-# source /usr/local/rvm/scripts/rvm"config": [
-        "\tredis2elasticsearch.conf"
-      ]
-echo "rm -rf $clone_dir";
-echo "unset clone_dir";
