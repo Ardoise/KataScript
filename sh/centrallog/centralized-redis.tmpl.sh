@@ -76,10 +76,10 @@ install)
   mkdir -p /var/log/$NAME || true; chown -R $uidgid /var/log/$NAME || true;
   mkdir -p /var/run/$NAME || true; chown -R $uidgid /var/run/$NAME || true;
 
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/null";
-  [ -s "/opt/$NAME/null" ] || (
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/redis-2.6.14.tar.gz";
+  [ -s "/opt/$NAME/redis-2.6.14.tar.gz" ] || (
     cd /opt/$NAME;
-    curl -OL  "/opt/redisnull";
+    curl -OL  "/opt/redisredis-2.6.14.tar.gz";
   )
 
   #i#install#i#

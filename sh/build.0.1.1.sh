@@ -25,7 +25,6 @@ JSON=json/cloud.json
 # max=$(cat $JSON |jq -r -c '.profil | length'; # wc -l
 for l in $(cat $JSON |jq -r -c '.profil[]'); do
 
-  # echo $lœ
   i=$(echo $l | jq -r '.id'); #echo $i
   s=$(echo $l | jq -r '.software'); #echo $s
   e=$(echo $l | jq -r '.platform'); #echo $e
