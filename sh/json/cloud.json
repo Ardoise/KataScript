@@ -119,9 +119,11 @@
       "version": "3.m.2"
     },
     "flume": {
+      "binary": "apache-flume-1.4.0-bin.tar.gz",
+      "download": "http://www.apache.org/dyn/closer.cgi/flume/1.4.0/",
       "desc": "Flume Server",
       "name": "flume",
-      "version": "1.2.5"    
+      "version": "1.4.0"
     },
     "graylog": {
       "desc": "Graylog Server",
