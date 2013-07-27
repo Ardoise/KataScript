@@ -91,7 +91,7 @@
       "version": "1.1.13"
     },
     "redis": {
-      "binary": "redis-2.8.0-rc1.tar.gz", #redis-2.6.14.tar.gz
+      "binary": "redis-2.6.14.tar.gz", #redis-2.8.0-rc1.tar.gz
       "download": "http://download.redis.io/releases/",
       "desc": "Redis Server",
       "name": "redis",
