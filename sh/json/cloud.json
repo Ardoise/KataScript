@@ -91,6 +91,8 @@
       "version": "1.1.13"
     },
     "redis": {
+      "binary": "redis-2.8.0-rc1.tar.gz", #redis-2.6.14.tar.gz
+      "download": "http://download.redis.io/releases/",
       "desc": "Redis Server",
       "name": "redis",
       "version": "2.6.14"
@@ -103,6 +105,8 @@
       "version": "0.90.2"
     },
     "mongodb": {
+      "binary": "mongodb-10gen",
+      "download": "http://downloads-distro.mongodb.org/repo/ubuntu-upstart",
       "desc": "Mongodb Server",
       "name": "mongodb",
       "version": "2.4.5"
