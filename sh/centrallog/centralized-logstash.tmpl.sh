@@ -3,7 +3,7 @@
 # Provides: centrallog: logstash
 # Short-Description: DEPLOY SERVER: [LOGSTASH]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130721
+# Update: last-update: 20130727
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: logstash (...)
