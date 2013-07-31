@@ -4,8 +4,8 @@
       "reload": {
         "pattern": "https://github.com/Ardoise/KataScript/blob/master/sh/json/redis2elasticsearch",
         "conf": "/etc/logstash/redis2elasticsearch.conf",
-        "input": "host0",
-        "output": "host0"
+        "input": "centralized",
+        "output": "centralized"
       },
       "start": "/etc/init.d/logstash start",
       "stop": "/etc/init.d/logstash stop",
@@ -34,8 +34,8 @@
       "reload": {
         "pattern": "https://github.com/Ardoise/KataScript/blob/master/sh/json/shipper2redis",
         "conf": "/etc/logstash/shipper2redis.conf",
-        "input": "host1",
-        "output": "host0"
+        "input": "distributed",
+        "output": "centralized"
       },
       "start": "/etc/init.d/logstash start",
       "stop": "/etc/init.d/logstash stop",
