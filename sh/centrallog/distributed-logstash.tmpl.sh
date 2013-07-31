@@ -47,7 +47,7 @@ check)
   #i#check#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
-config)
+config|reload)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
 PATTERN_FILE=https://github.com/Ardoise/KataScript/blob/master/sh/json/shipper2redis
 CONF_FILE=/etc/logstash/shipper2redis.conf

@@ -47,7 +47,7 @@ check)
   #i#check#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
-config)
+config|reload)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
 PATTERN_FILE=https://github.com/Ardoise/KataScript/blob/master/sh/etc/redis/6379.conf
 CONF_FILE=/etc/redis/6379.conf
