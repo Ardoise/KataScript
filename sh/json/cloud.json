@@ -2,7 +2,8 @@
   "service": {
     "split": {
       "reload": {
-        "conf": "$SH_DIR/json/redis2elasticsearch.conf",
+        "pattern": "https://github.com/Ardoise/KataScript/blob/master/sh/json/redis2elasticsearch",
+        "conf": "/etc/logstash/redis2elasticsearch.conf",
         "input": "host0",
         "output": "host0"
       },
@@ -31,7 +32,7 @@
     }, 
     "shipper": {
       "reload": {
-        "conf": "$SH_DIR/json/shipper2redis.conf",
+        "conf": "https://github.com/Ardoise/KataScript/blob/master/sh/json/shipper2redis",
         "input": "host1",
         "output": "host0"
       },

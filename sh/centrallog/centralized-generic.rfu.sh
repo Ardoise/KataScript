@@ -48,9 +48,8 @@ check)
 config)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   #i#config#i#;
-  [-s "${CONF_FILE}"] && (
-    CONF_FILENAME=`basename ${CONF_FILE}`;
-    cat ${CONF_FILE} > /etc/$NAME/$CONF_FILENAME
+  [! -z "${CONF_FILE}" -a ! -z "${PCONF_FILE}"] && (
+    cat ${PCONF_FILENAME} > ${CONF_FILE};
   )
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
