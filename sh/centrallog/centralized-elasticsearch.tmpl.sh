@@ -47,10 +47,12 @@ check)
 ;;
 config)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-CONF_FILE=elasticsearch.yum
-  [-s "${CONF_FILE}"] && (
-    CONF_FILENAME=`basename ${CONF_FILE}`;
-    cat ${CONF_FILE} > /etc/$NAME/$CONF_FILENAME
+"PATTERN_FILE="
+  # 
+"CONF_FILE=elasticsearch.yum"
+  
+  [! -z "${CONF_FILE}" -a ! -z "${PCONF_FILE}"] && (
+    cat ${PCONF_FILE} > ${CONF_FILE};
   )
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;

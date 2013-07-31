@@ -32,7 +32,8 @@
     }, 
     "shipper": {
       "reload": {
-        "conf": "https://github.com/Ardoise/KataScript/blob/master/sh/json/shipper2redis",
+        "pattern": "https://github.com/Ardoise/KataScript/blob/master/sh/json/shipper2redis",
+        "conf": "/etc/logstash/shipper2redis.conf",
         "input": "host1",
         "output": "host0"
       },

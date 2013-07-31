@@ -47,9 +47,12 @@ check)
 ;;
 config)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  #i#config#i#;
+  #i#pconfig#i#
+  # 
+  #i#config#i#
+  
   [! -z "${CONF_FILE}" -a ! -z "${PCONF_FILE}"] && (
-    cat ${PCONF_FILENAME} > ${CONF_FILE};
+    cat ${PCONF_FILE} > ${CONF_FILE};
   )
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
