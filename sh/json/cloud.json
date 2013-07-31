@@ -13,7 +13,8 @@
     },
     "event": {
       "reload": {
-        "conf": "redis.conf"
+        "pattern": "https://github.com/Ardoise/KataScript/blob/master/sh/etc/6379.conf",
+        "conf": "/etc/redis/6379.conf"
       },     
       "start": "service redis status",
       "stop": "service redis stop",
