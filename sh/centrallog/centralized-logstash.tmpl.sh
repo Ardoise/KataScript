@@ -50,7 +50,9 @@ config)
 PATTERN_FILE=https://github.com/Ardoise/KataScript/blob/master/sh/json/redis2elasticsearch
 CONF_FILE=/etc/logstash/redis2elasticsearch.conf
   [! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}"] && (
-    curl -OL ${PATTERN_FILE} -o ${CONF_FILE};
+    curl -OL ${PATTERN_FILE};
+    # CONTEXT VALUES LOCAL
+    sed -e 's~host => "${yourIP:=127.0.0.1}"~host => ${yourIP}~g' ${PATTERN_FILE} > ${CONF_FILE};
   )
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
