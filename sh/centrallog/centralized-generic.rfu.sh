@@ -50,7 +50,7 @@ config)
   #i#pconfig#i#
   #i#config#i#
   [! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}"] && (
-    cat ${PCONF_FILE} > ${CONF_FILE};
+    curl -OL ${PATTERN_FILE} -o ${CONF_FILE};
   )
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
