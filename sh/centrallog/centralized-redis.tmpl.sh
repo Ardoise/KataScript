@@ -32,6 +32,7 @@ cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null;
 SH_DIR=$(dirname $SCRIPT_DIR);
 platform="$(lsb_release -i -s)";
 platform_version="$(lsb_release -s -r)";
+yourIP=$(hostname -I | cut -d' ' -f1);
 
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
@@ -46,7 +47,11 @@ check)
 ;;
 config)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-redis.conf
+CONF_FILE=redis.conf
+  [-s "${CONF_FILE}"] && (
+    CONF_FILENAME=`basename ${CONF_FILE}`;
+    cat ${CONF_FILE} > /etc/$NAME/$CONF_FILENAME
+  )
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 install)

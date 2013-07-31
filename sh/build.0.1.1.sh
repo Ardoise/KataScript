@@ -53,7 +53,7 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
   sed -i -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .service.$i.start~e" \
          -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .service.$i.status~e" \
          -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .service.$i.stop~e" \
-         -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '.service.$i.reload.conf'~e" \
+         -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.service.$i.reload.conf'~e" \
          centrallog/$e-$n.tmpl.sh;
 
   #sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/centralized-$n.tmpl.sh;
