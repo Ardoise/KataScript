@@ -1,0 +1,10 @@
+cluster.name: centrallog
+node.name: "logstash"
+network.host: 192.168.19.19
+path.logs: "/var/log/elasticsearch"
+path.data: "/var/lib/elasticsearch"
+# path.config: "/etc/elasticsearch/elasticsearch"
+# If you want to check plugins before starting
+# plugin.mandatory: mapper-attachments, river-fs
+# If you want to disable multicast
+discovery.zen.ping.multicast.enabled: false

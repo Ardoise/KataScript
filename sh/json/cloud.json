@@ -13,7 +13,7 @@
     },
     "event": {
       "reload": {
-        "pattern": "https://github.com/Ardoise/KataScript/blob/master/sh/etc/6379.conf",
+        "pattern": "https://github.com/Ardoise/KataScript/blob/master/sh/etc/redis/6379.conf",
         "conf": "/etc/redis/6379.conf"
       },     
       "start": "service redis status",
@@ -23,7 +23,8 @@
     },
     "search": {
       "reload": {
-        "conf": "elasticsearch.yum",
+        "pattern": "https://github.com/Ardoise/KataScript/blob/master/sh/etc/elasticsearch/elasticsearch.yum",
+        "conf": "/etc/elasticsearch/elasticsearch.yum",
         "cluster": "centrallog"
       },
       "start": "service elasticsearch start",

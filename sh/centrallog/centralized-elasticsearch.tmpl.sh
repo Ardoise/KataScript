@@ -49,8 +49,8 @@ check)
 ;;
 config)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-PATTERN_FILE=
-CONF_FILE=elasticsearch.yum
+PATTERN_FILE=https://github.com/Ardoise/KataScript/blob/master/sh/etc/elasticsearch/elasticsearch.yum
+CONF_FILE=/etc/elasticsearch/elasticsearch.yum
   [! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}"] && (
     curl -OL ${PATTERN_FILE} -o ${CONF_FILE};
     # CONTEXT VALUES LOCAL
