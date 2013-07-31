@@ -2,7 +2,7 @@
   "service": {
     "split": {
       "reload": {
-        "conf": "redis2elasticsearch.conf",
+        "conf": "$SH_DIR/json/redis2elasticsearch.conf",
         "input": "host0",
         "output": "host0"
       },
@@ -31,7 +31,7 @@
     }, 
     "shipper": {
       "reload": {
-        "conf": "shipper2redis.conf",
+        "conf": "$SH_DIR/json/shipper2redis.conf",
         "input": "host1",
         "output": "host0"
       },
