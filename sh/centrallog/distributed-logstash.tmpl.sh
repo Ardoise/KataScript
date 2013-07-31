@@ -48,10 +48,8 @@ check)
 config)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
 PATTERN_FILE=https://github.com/Ardoise/KataScript/blob/master/sh/json/shipper2redis
-  # 
 CONF_FILE=/etc/logstash/shipper2redis.conf
-  
-  [! -z "${CONF_FILE}" -a ! -z "${PCONF_FILE}"] && (
+  [! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}"] && (
     cat ${PCONF_FILE} > ${CONF_FILE};
   )
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
