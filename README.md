@@ -29,7 +29,7 @@
 
 C0mp0nents :
 ==========================
-  [centrallog.json](https://github.com/Ardoise/KataScript/blob/master/sh/json/cloud.json)
+  [cloud.json](https://github.com/Ardoise/KataScript/blob/master/sh/json/cloud.json)
   - logstash [http://logstash.net] [v1.1.13]
   - redis [http://redis.io] [v2.6.14]
   - elasticsearch [http://elasticsearch.org] [v0.90.2]
