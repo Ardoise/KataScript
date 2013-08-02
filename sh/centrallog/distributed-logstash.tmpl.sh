@@ -49,10 +49,10 @@ check)
 ;;
 config|reload)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-PATTERN_FILE=https://github.com/Ardoise/KataScript/blob/master/sh/json/shipper2redis
+PATTERN_FILE=https://raw.github.com/Ardoise/KataScript/master/sh/json/shipper2redis
 CONF_FILE=/etc/logstash/shipper2redis.conf
   [! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}"] && (
-    curl -OL ${PATTERN_FILE} -o ${CONF_FILE};
+    curl -L ${PATTERN_FILE} -o ${CONF_FILE};
     # CONTEXT VALUES LOCAL
   )
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
@@ -65,12 +65,12 @@ install)
   Debian)
     apt-get update #--fix-missing
     apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline5-dev make curl git-core;
+      libreadline5-dev make curl git-core ;
     ;;
   Ubuntu)
     apt-get update #--fix-missing
     apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core;
+      libreadline-dev make curl git-core openjdk-6-jre-headless;
     ;;
   Redhat|Fedora|CentOS)
     yum update #--fix-missing

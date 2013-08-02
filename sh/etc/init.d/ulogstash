@@ -51,7 +51,7 @@ pid=`ps auxww | grep 'logstash-.*flatjar' | grep java | awk '{print $2}'`
 # Exit if the package is not installed
 if [ ! -x "$DAEMON" ]; then
 {
-  echo "Couldn't find $DAEMON"
+  echo "Couldn't find the package $DAEMON"
   exit 99
 }
 fi

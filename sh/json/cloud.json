@@ -2,7 +2,7 @@
   "service": {
     "split": {
       "reload": {
-        "pattern": "https://github.com/Ardoise/KataScript/blob/master/sh/json/redis2elasticsearch",
+        "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/json/redis2elasticsearch",
         "conf": "/etc/logstash/redis2elasticsearch.conf",
         "input": "centralized",
         "output": "centralized"
@@ -16,7 +16,7 @@
     },
     "event": {
       "reload": {
-        "pattern": "https://github.com/Ardoise/KataScript/blob/master/sh/etc/redis/6379.conf",
+        "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/redis/6379.conf",
         "conf": "/etc/redis/6379.conf"
       },     
       "start": "service redis status",
@@ -26,7 +26,7 @@
     },
     "search": {
       "reload": {
-        "pattern": "https://github.com/Ardoise/KataScript/blob/master/sh/etc/elasticsearch/elasticsearch.yum",
+        "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/elasticsearch/elasticsearch.yum",
         "conf": "/etc/elasticsearch/elasticsearch.yum",
         "cluster": "centrallog"
       },
@@ -37,7 +37,7 @@
     }, 
     "shipper": {
       "reload": {
-        "pattern": "https://github.com/Ardoise/KataScript/blob/master/sh/json/shipper2redis",
+        "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/json/shipper2redis",
         "conf": "/etc/logstash/shipper2redis.conf",
         "input": "distributed",
         "output": "centralized"
