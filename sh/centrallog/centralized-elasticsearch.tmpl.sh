@@ -103,7 +103,7 @@ install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
   [ -s "/etc/init.d/$NAME" ] || (
     cd /etc/init.d;
-    sudo curl -OL  "elasticsearch" -o /etc/init.d/$NAME;
+    sudo curl -OL  "null" -o /etc/init.d/$NAME;
     chmod a+x /etc/init.d/$NAME;
   )
   

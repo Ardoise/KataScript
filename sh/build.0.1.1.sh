@@ -40,6 +40,8 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
   b=$(cat $JSON | jq -r -c ".software.$s.binary");
   u=$(cat $JSON | jq -r -c ".software.$s.download");
   
+  t=$(cat $JSON | jq -r -c ".service.$s.daemon.initd");
+  
   echo "$e|$s|$v|$d|$b|$p";
   
   # 1 pass = many changes
@@ -49,14 +51,13 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
       -e "s~#i#binary#i#~$b~g" \
       -e "s~#i#path#i#~$p~g" \
       -e "s~#i#download#i#~$u$b~g" \
-      -e "s~#i#daemon#i#~$s~g" \
+      -e "s~#i#daemon#i#~$t~g" \
       -e "s~xlicensex~@License~g" \
       centrallog/centralized-generic.rfu.sh > centrallog/$e-$n.tmpl.sh;
   
   sed -i -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .service.$i.start~e" \
          -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .service.$i.status~e" \
          -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .service.$i.stop~e" \
-         -e "/#i#daemon#i#/ s~.*~cat $JSON | jq -r .service.$i.daemon.initd~e" \
          -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.service.$i.reload.pattern'~e" \
          -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.service.$i.reload.conf'~e" \
          centrallog/$e-$n.tmpl.sh;
