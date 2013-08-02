@@ -49,6 +49,7 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
       -e "s~#i#binary#i#~$b~g" \
       -e "s~#i#path#i#~$p~g" \
       -e "s~#i#download#i#~$u/$b~g" \
+      -e "s~//~/~g" \
       -e "s~xlicensex~@License~g" \
       centrallog/centralized-generic.rfu.sh > centrallog/$e-$n.tmpl.sh;
   

@@ -2,7 +2,7 @@
 ### BEGIN INIT INFO
 # Provides: centrallog: logstash
 # Short-Description: DEPLOY SERVER: [LOGSTASH]
-# Author: created by: https://github.com/Ardoise
+# Author: created by: https:/github.com/Ardoise
 # Update: last-update: 20130727
 ### END INIT INFO
 
@@ -97,7 +97,7 @@ install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/logstash-1.1.13-flatjar.jar";
   [ -s "/opt/$NAME/logstash-1.1.13-flatjar.jar" ] || (
     cd /opt/$NAME;
-    sudo curl -OL  "https://logstash.objects.dreamhost.com/release//logstash-1.1.13-flatjar.jar";
+    sudo curl -OL  "https:/logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar";
   )
 
   #i#install#i#
@@ -137,22 +137,22 @@ dist-upgrade)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   
   echo "USE HTTP-PROXY"
-  echo "export http_proxy='http://proxy.hostname.com:port'"
-  echo "export https_proxy='https://proxy.hostname.com:port'"
+  echo "export http_proxy='http:/proxy.hostname.com:port'"
+  echo "export https_proxy='https:/proxy.hostname.com:port'"
   
   echo "INSTALL RVM 1.21.9 with ruby 2.0.0-p247"
-  curl -L https://get.rvm.io | bash -s stable --ruby
+  curl -L https:/get.rvm.io | bash -s stable --ruby
   echo "rvm reinstall ruby"
   
   echo "INSTALL RVM 1.21.9 with jruby 1.7.4 and Rubies gems"
-  echo "curl -L https://get.rvm.io | bash -s stable --ruby=jruby \
+  echo "curl -L https:/get.rvm.io | bash -s stable --ruby=jruby \
   --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,\
   addressable,builder,launchy,liquid,syntax,maruku,rack,sass,rack-protection,\
   tilt,sinatra,watch,yui-compressor,bonsai,hpricot,mustache,rdiscount,ronn,\
   rails,puma";
   echo "rvm install 1.9.2 ; rvm use 1.9.2 --default ; ruby -v ; which ruby"
   echo "rvm reinstall jruby,rbx"
-  curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
+  curl -L https:/get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
   . ~/.rvm/scripts/rvm
   rvm notes
   rvm list known
@@ -160,9 +160,9 @@ dist-upgrade)
   # echo progress-bar >> ~/.curlrc
   
   echo "WGET JQ::JSON QUERY"
-  echo "curl -OL http://stedolan.github.io/jq/download/linux64/jq"
-  echo "curl -OL http://stedolan.github.io/jq/download/linux32/jq"
-  curl -OL http://stedolan.github.io/jq/download/linux32/jq
+  echo "curl -OL http:/stedolan.github.io/jq/download/linux64/jq"
+  echo "curl -OL http:/stedolan.github.io/jq/download/linux32/jq"
+  curl -OL http:/stedolan.github.io/jq/download/linux32/jq
   chmod a+x jq ; mv jq /usr/bin/
   
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
