@@ -100,6 +100,13 @@ install)
     sudo curl -OL  "http://www.elasticsearch.org/download/elasticsearch-0.90.2.tar.gz";
   )
 
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
+  [ -s "/etc/init.d/$NAME" ] || (
+    cd /etc/init.d;
+    sudo curl -OL  "elasticsearch" -o /etc/init.d/$NAME;
+    chmod a+x /etc/init.d/$NAME;
+  )
+  
   #i#install#i#
   
   chown -R $uidgid /opt/$NAME;

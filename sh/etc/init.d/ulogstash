@@ -1,0 +1,134 @@
+#! /bin/sh
+#
+# /etc/rc.d/init.d/logstash
+#
+# Starts Logstash as a daemon
+#
+# chkconfig: 2345 20 80
+# description: Starts Logstash as a daemon
+# pidfile: /var/run/logstash-agent.pid
+ 
+### BEGIN INIT INFO
+# Provides: logstash
+# Required-Start: $local_fs $remote_fs
+# Required-Stop: $local_fs $remote_fs
+# Default-Start: 2 3 4 5
+# Default-Stop: S 0 1 6
+# Short-Description: Logstash
+# Description: Starts Logstash as a daemon.
+# Author: christian.paredes@sbri.org, modified by https://github.com/paul-at
+# Update: ardoise.gisement@gmail.com, modified by https://github.com/ardoise
+ 
+### END INIT INFO
+ 
+# Amount of memory for Java
+JAVAMEM=256M
+ 
+# Location of logstash files
+LOCATION=/opt/logstash
+ 
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+DESC="Logstash Daemon"
+NAME=java
+DAEMON=`which java`
+CONFIG_DIR="/etc/logstash/"
+LOGFILE="/var/log/logstash/logstash.log"
+PATTERNSPATH="/opt/logstash/patterns"
+JARNAME=logstash-1.1.12-flatjar.jar;
+JARNAME=logstash-1.1.13-flatjar.jar;
+# --grok-patterns-path flag is deprecated
+# patterns_dir: ${PATTERNSPATH}
+ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} -vv --log ${LOGFILE}" ; # level=debug
+ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} -v --log ${LOGFILE}" ; # level=info
+ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM -jar $LOCATION/${JARNAME} agent --config ${CONFIG_DIR} --log ${LOGFILE}" ; # level=warn
+
+SCRIPTNAME=/etc/init.d/logstash
+base=logstash
+
+pid=`ps auxww | grep 'logstash-.*flatjar' | grep java | awk '{print $2}'`
+# pid="/var/run/$name.pid"
+   
+# Exit if the package is not installed
+if [ ! -x "$DAEMON" ]; then
+{
+  echo "Couldn't find $DAEMON"
+  exit 99
+}
+fi
+
+# Check if $pid (could be plural) are running
+checkpid() {
+  local i;
+  for i in $* ; do
+    [ -d "/proc/$i" ] && return 0
+  done
+  return 1
+}
+
+[ -e "/etc/rc.d/init.d/functions" ] && . /etc/rc.d/init.d/functions 
+[ -e "/etc/init.d/functions" ] && . /etc/init.d/functions
+[ -e "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
+
+#
+# Function that starts the daemon/service
+#
+do_start()
+{
+  if checkpid $pid; then
+    success
+  else
+    cd $LOCATION && ($DAEMON $ARGS &) && success || failure
+  fi
+}
+ 
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+#  # pid=`ps auxww | grep 'logstash.*monolithic' | grep java | awk '{print $2}'`
+#  if checkpid $pid 2>&1; then
+#    # TERM first, then KILL if not dead
+#    kill -TERM $pid >/dev/null 2>&1
+#    usleep 100000
+#    if checkpid $pid && sleep 1 &&
+#        checkpid $pid && sleep $delay &&
+#        checkpid $pid ; then
+#        kill -KILL $pid >/dev/null 2>&1
+#        usleep 100000
+#    fi
+#  fi
+#  checkpid $pid
+#  RC=$?
+#  [ "$RC" -eq 0 ] && failure $"$base shutdown" || success $"$base shutdown" 
+
+  if checkpid $pid; then
+    sudo kill -9 $pid
+  fi
+}
+ 
+case "$1" in
+start)
+  echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Starting $DESC: "
+  do_start
+;;
+stop)
+  echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Stopping $DESC: "
+  do_stop
+;;
+restart|reload)
+  echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Restarting $DESC: "
+  do_stop
+  do_start
+;;
+status)
+  status -p $pid
+;;
+*)
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Usage: $SCRIPTNAME {start|stop|status|restart}" >&2
+  exit 3
+;;
+esac
+ 
+echo
+exit 0

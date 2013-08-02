@@ -7,6 +7,9 @@
         "input": "centralized",
         "output": "centralized"
       },
+      "daemon": {
+        "initd": "https://github.com/Ardoise/KataScript/blob/master/sh/etc/init.d/ulogstash"
+      },
       "start": "/etc/init.d/logstash start",
       "stop": "/etc/init.d/logstash stop",
       "status": "/etc/init.d/logstash status"
@@ -38,6 +41,9 @@
         "conf": "/etc/logstash/shipper2redis.conf",
         "input": "distributed",
         "output": "centralized"
+      },
+      "daemon": {
+        "initd": "https://github.com/Ardoise/KataScript/blob/master/sh/etc/init.d/ulogstash"
       },
       "start": "/etc/init.d/logstash start",
       "stop": "/etc/init.d/logstash stop",

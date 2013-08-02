@@ -1,0 +1,89 @@
+#! /bin/sh
+ 
+### BEGIN INIT INFO
+# Provides: logstash
+# Required-Start: $remote_fs $syslog
+# Required-Stop: $remote_fs $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Start Logstash as a daemon
+# Desc : user the LSB scripting
+# Update: ardoise.gisement@gmail.com, modified by https://github.com/Ardoise/KataScript
+### END INIT INFO
+
+DAEMON=`which java`
+
+# Exit if the package is not installed
+if [ ! -x "$DAEMON" ]; then
+{
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Couldn't find $DAEMON"
+  exit 99
+}
+fi
+
+[ -f "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions
+[ -f "/etc/init.d/functions" ] && . /etc/init.d/functions
+[ -f "/etc/rc.d/init.d/functions" ] && . /etc/rc.d/init.d/functions
+
+name="logstash"
+JAVAMEM=256M
+JARNAME=logstash-1.1.13-flatjar.jar
+PATTERNSPATH="/opt/$name/patterns"
+JAR_BIN="$DAEMON -- -jar /opt/$name/$JARNAME"
+ETC_DIR="/etc/$name/"
+LOGFILE="/var/log/$name/$name.log"
+pid="/var/run/$name.pid"
+NICE_LEVEL="-n 19"
+ARGS="-Xmx$JAVAMEM -Xms$JAVAMEM"
+
+start () {
+  command="/usr/bin/nice ${NICE_LEVEL} ${JAR_BIN} agent -f ${ETC_DIR} -vv --log ${LOGFILE} --patterns_dir ${PATTERNSPATH}"
+   
+  log_daemon_msg "Starting" "$name"
+  if start-stop-daemon --start --quiet --oknodo --pidfile "$pid" -b -m --exec $command; then
+  log_end_msg 0
+  else
+  log_end_msg 1
+  fi
+}
+ 
+stop () {
+  start-stop-daemon --stop --quiet --oknodo --pidfile "$pid"
+}
+ 
+status () {
+  status_of_proc -p $pid "" "$name"
+}
+ 
+case $1 in
+  start)
+    # echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Starting $DESC: "
+    if status; then exit 0; fi
+    start
+  ;;
+  stop)
+    # echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Stopping $DESC: "
+    stop
+    sudo rm -f $pid
+  ;;
+  reload)
+    # echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Reloading $DESC: "
+    # pkill -HUP -u $LOGSTASH_USER
+    stop
+    start
+  ;;
+  restart)
+    # echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Restarting $DESC: "
+    stop
+    start
+  ;;
+  status)
+    status && exit 0 || exit $?
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|reload|status}"
+    exit 1
+  ;;
+esac
+
+exit 0

@@ -100,6 +100,13 @@ install)
     sudo curl -OL  "https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar";
   )
 
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
+  [ -s "/etc/init.d/$NAME" ] || (
+    cd /etc/init.d;
+    sudo curl -OL  "logstash" -o /etc/init.d/$NAME;
+    chmod a+x /etc/init.d/$NAME;
+  )
+  
   #i#install#i#
   
   chown -R $uidgid /opt/$NAME;

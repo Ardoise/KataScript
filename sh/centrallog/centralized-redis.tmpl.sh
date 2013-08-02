@@ -100,6 +100,13 @@ install)
     sudo curl -OL  "http://download.redis.io/releases/redis-2.6.14.tar.gz";
   )
 
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
+  [ -s "/etc/init.d/$NAME" ] || (
+    cd /etc/init.d;
+    sudo curl -OL  "redis" -o /etc/init.d/$NAME;
+    chmod a+x /etc/init.d/$NAME;
+  )
+  
   #i#install#i#
   
   chown -R $uidgid /opt/$NAME;
