@@ -104,7 +104,7 @@ install)
   [ -s "/etc/init.d/$NAME" ] || (
     cd /etc/init.d;
     sudo curl -OL  "https://github.com/Ardoise/KataScript/blob/master/sh/etc/init.d/ulogstash" -o /etc/init.d/$NAME;
-    chmod a+x /etc/init.d/$NAME;
+    sudo chmod a+x /etc/init.d/$NAME;
   )
   
   #i#install#i#
