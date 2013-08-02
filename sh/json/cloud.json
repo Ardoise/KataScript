@@ -2,7 +2,7 @@
   "service": {
     "split": {
       "reload": {
-        "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/json/redis2elasticsearch",
+        "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/redis2elasticsearch",
         "conf": "/etc/logstash/redis2elasticsearch.conf",
         "input": "centralized",
         "output": "centralized"
@@ -38,7 +38,7 @@
     }, 
     "shipper": {
       "reload": {
-        "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/json/shipper2redis",
+        "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/shipper2redis",
         "conf": "/etc/logstash/shipper2redis.conf",
         "input": "distributed",
         "output": "centralized"
