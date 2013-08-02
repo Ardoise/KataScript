@@ -40,7 +40,7 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
   b=$(cat $JSON | jq -r -c ".software.$s.binary");
   u=$(cat $JSON | jq -r -c ".software.$s.download");
   
-  t=$(cat $JSON | jq -r -c ".service.$s.daemon.initd");
+  t=$(cat $JSON | jq -r -c ".service.$i.daemon.initd");
   
   echo "$e|$s|$v|$d|$b|$p";
   
