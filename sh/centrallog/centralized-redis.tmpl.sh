@@ -97,7 +97,7 @@ install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/redis-2.6.14.tar.gz";
   [ -s "/opt/$NAME/redis-2.6.14.tar.gz" ] || (
     cd /opt/$NAME;
-    curl -OL  "http://download.redis.io/releases//redis-2.6.14.tar.gz";
+    sudo curl -OL  "http://download.redis.io/releases//redis-2.6.14.tar.gz";
   )
 
   #i#install#i#
