@@ -28,7 +28,7 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
   i=$(echo $l | jq -r '.id'); #echo $i
   s=$(echo $l | jq -r '.software'); #echo $s
   e=$(echo $l | jq -r '.platform'); #echo $e
-  p=$(echo $l | jq -r '.path'); #echo $p
+  u=$(echo $l | jq -r '.download'); #echo $u
   c=$(echo $l | jq -r '.conf'); #echo $c
   g=$(echo $l | jq -r '.log'); #echo $g
   r=$(echo $l | jq -r '.run'); #echo $r
@@ -46,7 +46,7 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
       -e "s~XGENERICX~$N~g" \
       -e "s~0.0.0~$v~g" \
       -e "s~#i#binary#i#~$b~g" \
-      -e "s~#i#path#i#~$p~g" \
+      -e "s~#i#download#i#~$u~g" \
       -e "s~xlicensex~@License~g" \
       centrallog/centralized-generic.rfu.sh > centrallog/$e-$n.tmpl.sh;
   

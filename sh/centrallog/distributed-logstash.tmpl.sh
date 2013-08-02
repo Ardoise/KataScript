@@ -97,7 +97,7 @@ install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/logstash-1.1.13-flatjar.jar";
   [ -s "/opt/$NAME/logstash-1.1.13-flatjar.jar" ] || (
     cd /opt/$NAME;
-    curl -OL  "#i#download#i#logstash-1.1.13-flatjar.jar";
+    curl -OL  "nulllogstash-1.1.13-flatjar.jar";
   )
 
   #i#install#i#
