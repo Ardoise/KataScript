@@ -54,6 +54,8 @@ config|reload)
   [ ! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}" ] && (
     curl -L ${PATTERN_FILE} -o ${CONF_FILE};
     # CONTEXT VALUES LOCAL
+    uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
+    chown -R $uidgid ${CONF_FILE};
   )
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
