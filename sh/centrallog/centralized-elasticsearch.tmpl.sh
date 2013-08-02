@@ -97,7 +97,7 @@ install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/elasticsearch-0.90.2.tar.gz";
   [ -s "/opt/$NAME/elasticsearch-0.90.2.tar.gz" ] || (
     cd /opt/$NAME;
-    curl -OL  "nullelasticsearch-0.90.2.tar.gz";
+    curl -OL  "http://www.elasticsearch.org/download//elasticsearch-0.90.2.tar.gz";
   )
 
   #i#install#i#
