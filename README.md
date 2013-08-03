@@ -21,7 +21,7 @@
       upgrade       - upgrade centrallog::<component>
       dist-upgrade  - upgrade distrib platform jruby::gems
   
-### service stand@l0ne :
+### service st@nd@l0ne :
     
     [RFU:v0.1.0]
     sh/standalone/standalone-jboss.rfu.sh     # VM CENTRAL
