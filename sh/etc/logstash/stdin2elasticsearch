@@ -13,7 +13,7 @@ output {
   }
   elasticsearch {
     embedded => false                #another process elasticsearch
-    host => "${yourIP:=127.0.0.1}"   #see elasticsearch.yml
+    host => "127.0.0.1"              #see elasticsearch.yml
     cluster => "centrallog"          #see elasticsearch.yml
   }  
 }

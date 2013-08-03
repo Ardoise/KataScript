@@ -32,8 +32,8 @@ output {
     debug_format => "json"
   }
   elasticsearch {
-    embedded => false                #another process elasticsearch
-    host => "${yourIP:=127.0.0.1}"   #see elasticsearch.yml
-    cluster => "centrallog"          #see elasticsearch.yml
+    embedded => false              #another process elasticsearch
+    host => "127.0.0.1"            #see elasticsearch.yml
+    cluster => "centrallog"        #see elasticsearch.yml
   }
 }

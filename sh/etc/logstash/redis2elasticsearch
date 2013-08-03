@@ -21,8 +21,6 @@ input {
     # threads => ... # number (optional), default: 1
     # timeout => ... # number (optional), default: 5
     # type => ... # string (required)
-    
-    host => "${yourIP:=127.0.0.1}" 
     type => "redis-input"
     data_type => "list"
     key => "logstash-redis"
@@ -55,7 +53,7 @@ output {
     # type => ... # string (optional), default: ""
     
     embedded => false                 #another process elasticsearch
-    host => "${yourIP:=127.0.0.1}"    #see elasticsearch.yml
+    host => "127.0.0.1"               #see elasticsearch.yml
     cluster => "centrallog"           #see elasticsearch.yml
   }
 }

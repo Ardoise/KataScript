@@ -59,7 +59,7 @@ output {
     # tags => ... # array (optional), default: []
     # timeout => ... # number (optional), default: 5
     # type => ... # string (optional), default: ""
-    host => "${redisIP:=127.0.0.1}"
+    host => "127.0.0.1"
     data_type => "list"
     key => "logstash-redis"
   }
