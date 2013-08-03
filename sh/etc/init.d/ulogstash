@@ -106,7 +106,7 @@ do_stop()
     sudo kill -9 $pid
   fi
 }
- 
+
 case "$1" in
 start)
   echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Starting $DESC: "
@@ -122,7 +122,13 @@ restart|reload)
   do_start
 ;;
 status)
-  status -p $pid
+  echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Status $DESC: "
+  # status -p $pid
+  if checkpid $pid; then
+    echo "service $DESC[pid=$pid] alive";
+  else
+    echo "service $DESC[pid=null] not running";
+  fi
 ;;
 *)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Usage: $SCRIPTNAME {start|stop|status|restart}" >&2
