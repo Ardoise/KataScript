@@ -125,9 +125,9 @@ status)
   echo -n "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: Status $DESC: "
   # status -p $pid
   if checkpid $pid; then
-    echo "service $DESC[pid=$pid] alive";
+    echo -n "[pid=$pid] alive";
   else
-    echo "service $DESC[pid=null] not running";
+    echo -n "[pid=null] not running";
   fi
 ;;
 *)
