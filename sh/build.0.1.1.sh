@@ -41,8 +41,10 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
   u=$(cat $JSON | jq -r -c ".software.$s.download");
   
   t=$(cat $JSON | jq -r -c .service.$i.daemon.initd);
+  hi=$(cat $JSON | jq -r -c .service.$i.reload.input);  #host Input
+  ho=$(cat $JSON | jq -r -c .service.$i.reload.output); #host Output
   
-  echo "$e|$s|$v|$d|$b|$p|$t";
+  echo "$e|$s|$v|$d|$b|$p|$t|$ho";
   
   # 1 pass = many changes
   sed -e "s~xgenericx~$n~g" \
