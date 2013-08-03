@@ -8,7 +8,7 @@
     sh/centrallog/distributed-flume.rfu.sh        # VM's DISTRIBUTED
     
     [RFU:v0.1.1-alpha]
-    sh/json/centrallog.json                       # VM[]::COMPONENT[]       STATEMENT
+    sh/json/cloud.json                            # VM[]::COMPONENT[]       STATEMENT
     sh/centrallog/<context>-<component>.tmpl.sh   # COMPONENT[]::COMMAND[]  LIFECYCLE
      Commandes :
       check         - check centrallog::<component>
