@@ -50,6 +50,41 @@
       "status": "/etc/init.d/logstash status"
     }
   },
+  "connector": {
+    "shipper": {
+      "id": "shipper",
+      "input": "logstash",
+      "filter": null,
+      "output": "redis"
+    },
+    "event": {
+      "id": "event",
+      "input": "redis",
+      "filter": null,
+      "output": "redis"
+    },
+    "split": {
+      "id": "split",
+      "input": "redis",
+      "filter": null,
+      "output": "logstash"
+    },
+    "index": {
+      "input": "logstash",
+      "filter": null,
+      "output": "elasticsearch"
+    },
+    "search": {
+      "input": "elasticsearch",
+      "filter": null,
+      "output": "head"
+    },
+    "dashboard": {
+      "input": "elasticsearch",
+      "filter": null,
+      "output": "kibana3"
+    }
+  },
   "profil": {
     "split": {
       "id": "split",
