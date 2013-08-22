@@ -70,16 +70,37 @@
       "output": "logstash"
     },
     "index": {
+      "id": "index",
       "input": "logstash",
       "filter": null,
       "output": "elasticsearch"
     },
     "search": {
+      "id": "search",
       "input": "elasticsearch",
       "filter": null,
       "output": "head"
     },
+    "bigdesk": {
+      "id": "search",
+      "input": "elasticsearch",
+      "filter": null,
+      "output": "bigdesk"
+    },
+    "paramedic": {
+      "id": "paramedic",
+      "input": "elasticsearch",
+      "filter": null,
+      "output": "paramedic"
+    },
+    "inquisitor": {
+      "id": "inquisitor",
+      "input": "elasticsearch",
+      "filter": null,
+      "output": "inquisitor"
+    },
     "dashboard": {
+      "id": "dashboard",
       "input": "elasticsearch",
       "filter": null,
       "output": "kibana3"
