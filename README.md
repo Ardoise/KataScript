@@ -7,9 +7,9 @@
     sh/centrallog/distributed-logstash.rfu.sh     # VM's DISTRIBUTED
     sh/centrallog/distributed-flume.rfu.sh        # VM's DISTRIBUTED
     
-    [RFU:v0.1.1-alpha]
-    sh/json/cloud.json                            # VM[]::COMPONENT[]       STATEMENT
-    sh/centrallog/<context>-<component>.tmpl.sh   # COMPONENT[]::COMMAND[]  LIFECYCLE
+    [RFU:v0.1.1-alpha2]
+    sh/json/cloud.json                            # VM[]::SOFTWARE[]       STATEMENT
+    sh/centrallog/<context>-<component>.tmpl.sh   # SOFTWARE[]::COMMAND[]  LIFECYCLE
      Commandes :
       check         - check centrallog::<component>
       install       - install centrallog::<component>
