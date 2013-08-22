@@ -1,5 +1,5 @@
 {
-  "service": {
+  "process": {
     "split": {
       "reload": {
         "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/redis2elasticsearch",
@@ -22,7 +22,7 @@
       "start": "service redis start",
       "stop": "service redis stop",
       "status": "service redis status",
-      "chkconfig": "chkconfig redis on"
+      "daemon": "chkconfig redis on"
     },
     "search": {
       "reload": {
@@ -33,7 +33,7 @@
       "start": "service elasticsearch start",
       "stop": "service elasticsearch stop",
       "status": "service elasticsearch status",
-      "chkconfig": "chkconfig elasticsearch on"
+      "daemon": "chkconfig elasticsearch on"
     }, 
     "shipper": {
       "reload": {
