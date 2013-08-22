@@ -40,9 +40,9 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
   b=$(cat $JSON | jq -r -c ".software.$s.binary");
   u=$(cat $JSON | jq -r -c ".software.$s.download");
   
-  t=$(cat $JSON | jq -r -c .service.$i.daemon.initd);
-  hi=$(cat $JSON | jq -r -c .service.$i.reload.input);  #host Input
-  ho=$(cat $JSON | jq -r -c .service.$i.reload.output); #host Output
+  t=$(cat $JSON | jq -r -c .process.$i.daemon.initd);
+  hi=$(cat $JSON | jq -r -c .process.$i.reload.input);  #host Input
+  ho=$(cat $JSON | jq -r -c .process.$i.reload.output); #host Output
   
   echo "$e|$s|$v|$d|$b|$p|$t|$ho";
   
@@ -57,11 +57,11 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
       -e "s~xlicensex~@License~g" \
       centrallog/centralized-generic.rfu.sh > centrallog/$e-$n.tmpl.sh;
   
-  sed -i -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .service.$i.start~e" \
-         -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .service.$i.status~e" \
-         -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .service.$i.stop~e" \
-         -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.service.$i.reload.pattern'~e" \
-         -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.service.$i.reload.conf'~e" \
+  sed -i -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .process.$i.start~e" \
+         -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .process.$i.status~e" \
+         -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .process.$i.stop~e" \
+         -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$i.reload.pattern'~e" \
+         -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$i.reload.conf'~e" \
          centrallog/$e-$n.tmpl.sh;
 
   #sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/centralized-$n.tmpl.sh;
