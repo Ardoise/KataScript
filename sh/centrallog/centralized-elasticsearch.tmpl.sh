@@ -105,7 +105,7 @@ install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
   [ -s "/etc/init.d/$NAME" ] || (
     cd /etc/init.d;
-    sudo curl -L  "null" -o /etc/init.d/$NAME;
+    sudo curl -L  "" -o /etc/init.d/$NAME;
     sudo chmod a+x /etc/init.d/$NAME;
   )
   

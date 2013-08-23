@@ -54,55 +54,55 @@
     "shipper": {
       "id": "shipper",
       "input": "logstash",
-      "filter": null,
+      "filter": "",
       "output": "redis"
     },
     "event": {
       "id": "event",
       "input": "redis",
-      "filter": null,
+      "filter": "",
       "output": "redis"
     },
     "split": {
       "id": "split",
       "input": "redis",
-      "filter": null,
+      "filter": "",
       "output": "logstash"
     },
     "index": {
       "id": "index",
       "input": "logstash",
-      "filter": null,
+      "filter": "",
       "output": "elasticsearch"
     },
     "search": {
       "id": "search",
       "input": "elasticsearch",
-      "filter": null,
+      "filter": "",
       "output": "head"
     },
     "bigdesk": {
       "id": "search",
       "input": "elasticsearch",
-      "filter": null,
+      "filter": "",
       "output": "bigdesk"
     },
     "paramedic": {
       "id": "paramedic",
       "input": "elasticsearch",
-      "filter": null,
+      "filter": "",
       "output": "paramedic"
     },
     "inquisitor": {
       "id": "inquisitor",
       "input": "elasticsearch",
-      "filter": null,
+      "filter": "",
       "output": "inquisitor"
     },
     "dashboard": {
       "id": "dashboard",
       "input": "elasticsearch",
-      "filter": null,
+      "filter": "",
       "output": "kibana3"
     }
   },
