@@ -51,59 +51,25 @@
     }
   },
   "connector": {
-    "shipper": {
+    "logstash": {
       "id": "shipper",
-      "input": "logstash",
-      "filter": "",
       "output": "redis"
     },
-    "event": {
-      "id": "event",
-      "input": "redis",
-      "filter": "",
-      "output": "redis"
+    "redis": {
+      "id": "event"
     },
-    "split": {
+    "logstash": {
       "id": "split",
       "input": "redis",
       "filter": "",
-      "output": "logstash"
-    },
-    "index": {
-      "id": "index",
-      "input": "logstash",
-      "filter": "",
       "output": "elasticsearch"
     },
-    "search": {
-      "id": "search",
-      "input": "elasticsearch",
-      "filter": "",
-      "output": "head"
+    "elasticsearch": {
+      "id": "index"
     },
-    "bigdesk": {
-      "id": "search",
-      "input": "elasticsearch",
-      "filter": "",
-      "output": "bigdesk"
-    },
-    "paramedic": {
-      "id": "paramedic",
-      "input": "elasticsearch",
-      "filter": "",
-      "output": "paramedic"
-    },
-    "inquisitor": {
-      "id": "inquisitor",
-      "input": "elasticsearch",
-      "filter": "",
-      "output": "inquisitor"
-    },
-    "dashboard": {
+    "kibana": {
       "id": "dashboard",
-      "input": "elasticsearch",
-      "filter": "",
-      "output": "kibana3"
+      "input": "elasticsearch"
     }
   },
   "profil": {
