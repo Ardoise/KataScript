@@ -53,23 +53,27 @@
   "connector": {
     "logstash": {
       "id": "shipper",
-      "output": "redis"
+      "output": "redis",
+      "platform": "distributed"
     },
     "redis": {
-      "id": "event"
+      "id": "event",
+      "platform": "centralized"
     },
     "logstash": {
       "id": "split",
       "input": "redis",
-      "filter": "",
-      "output": "elasticsearch"
+      "output": "elasticsearch",
+      "platform": "centralized"
     },
     "elasticsearch": {
-      "id": "index"
+      "id": "index",
+      "platform": "centralized"
     },
     "kibana": {
       "id": "dashboard",
-      "input": "elasticsearch"
+      "input": "elasticsearch",
+      "platform": "centralized"
     }
   },
   "profil": {
