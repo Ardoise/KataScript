@@ -181,6 +181,32 @@
       "os": "lucid32",
       "hostname": "host1",
       "name": "distributed"
-    }
+    },
+    "shard": [
+      "0": {
+      "ip": "192.168.10.11",
+      "os": "lucid32",
+      "hostname": "host1",
+      "name": "shard"
+      },
+      "1": {
+      "ip": "192.168.10.12",
+      "os": "lucid32",
+      "hostname": "host2",
+      "name": "shard"
+      },
+      "3": {
+      "ip": "192.168.10.13",
+      "os": "lucid32",
+      "hostname": "host3",
+      "name": "shard"
+      },
+      "4": {
+      "ip": "192.168.10.14",
+      "os": "lucid32",
+      "hostname": "host4",
+      "name": "shard"
+      }
+    ]
   }
 }
