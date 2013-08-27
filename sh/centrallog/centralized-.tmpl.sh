@@ -84,6 +84,7 @@ install)
   [ -s "/opt/$NAME/" ] || (
     cd /opt/$NAME;
     curl -OL  "/opt/logstash";
+    curl -OL  #i#download#i#;
   )
 
   #i#install#i#
