@@ -134,11 +134,11 @@
       "version": "2.6.14"
     },
     "elasticsearch": {
-      "binary": "elasticsearch-0.90.2.tar.gz",
+      "binary": "elasticsearch-0.90.3.tar.gz",
       "desc": "Elasticsearch Server",
       "name": "elasticsearch",
       "download": "http://www.elasticsearch.org/download/",
-      "version": "0.90.2"
+      "version": "0.90.3"
     },
     "mongodb": {
       "binary": "mongodb-10gen",
