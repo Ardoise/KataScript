@@ -145,7 +145,7 @@
       "download": "http://downloads-distro.mongodb.org/repo/ubuntu-upstart",
       "desc": "Mongodb Server",
       "name": "mongodb",
-      "version": "2.4.5"
+      "version": "2.4.6"
     },
     "kibana": {
       "binary": "master.tar.gz",
