@@ -6,7 +6,8 @@ DATE=$(date +'%Y-%m-%d'); echo $DATE;
 AUTHOR=`id -un`;
 [ -f "/etc/passwd" ] && AUTHOR=$(awk -v USER=$USER 'BEGIN { FS = ":" } $1 == USER { print $5 }' < /etc/passwd);
 echo $AUTHOR;
-[ -d "/tmp" ] || mkdir /tmp;
+tmp="/d/opt/tmp"
+[ -d "$tmp" ] || mkdir -p $tmp;
 EMAIL_ADDRESS="<${REPLYTO:-${USER}@$HOSTNAME}>"; echo $EMAIL_ADDRESS
 
 cat <<- _EOF_>licence.txt
@@ -58,17 +59,17 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
       -e "s~#i#download#i#~$u$b~g" \
       -e "s~#i#daemon#i#~$t~g" \
       -e "s~xlicensex~@License~g" \
-      centrallog/centralized-generic.rfu.sh > /tmp/$e-$n.tmpl.sh;);
+      centrallog/centralized-generic.rfu.sh > $tmp/$e-$n.tmpl.sh~;);
       #centrallog/centralized-generic.rfu.sh > centrallog/$e-$n.tmpl.sh;);
   
-  [ -f "/tmp/$e-$n.tmpl.sh" ] && (\
-  sed -i -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .process.$i.start~e" \
-         -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .process.$i.status~e" \
-         -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .process.$i.stop~e" \
-         -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$i.reload.pattern'~e" \
-         -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$i.reload.conf'~e" \
-         /tmp/$e-$n.tmpl.sh;);
-         #centrallog/$e-$n.tmpl.sh;);
+  [ -f "$tmp/$e-$n.tmpl.sh~" ] && (\
+  sed -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .process.$i.start~e" \
+      -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .process.$i.status~e" \
+      -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .process.$i.stop~e" \
+      -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$i.reload.pattern'~e" \
+      -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$i.reload.conf'~e" \
+      $tmp/$e-$n.tmpl.sh~ > $tmp/$e-$n.tmpl.sh;);
+      #centrallog/$e-$n.tmpl.sh;);
 
   #sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/centralized-$n.tmpl.sh;
 done
