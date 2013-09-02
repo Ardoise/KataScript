@@ -169,6 +169,32 @@
       "version": "0.13.0"
     }
   },
+  "os": {
+    "lucid32": {
+      "name": "lucid32",
+      "manager": "apt-get"
+    },
+    "lucid64": {
+      "name": "lucid64",
+      "manager": "apt-get"
+    },
+    "debian": {
+      "name": "debian",
+      "manager": "apt-get"
+    },
+    "centos": {
+      "name": "centos",
+      "manager": "yum"
+    },
+    "fedora": {
+      "name": "fedora",
+      "manager": "yum"
+    },
+    "redhat": {
+      "name": "redhat",
+      "manager": "yum"
+    }
+  },
   "platform": {
     "centralized": {
       "ip": "192.168.10.10",
