@@ -31,10 +31,10 @@ C0mp0nents :
 ==========================
   [cloud.json](https://github.com/Ardoise/KataScript/blob/master/sh/json/cloud.json)
   - logstash [http://logstash.net] [v1.1.13]
-  - redis [http://redis.io] [v2.6.14]
-  - elasticsearch [http://elasticsearch.org] [v0.90.2]
+  - redis [http://redis.io] [v2.6.16]
+  - elasticsearch [http://elasticsearch.org] [v0.90.3]
   - kibana3 [http://kibana.org] [v3m2]
-  - mongoDB [http://www.mongodb.org/] [v2.4.5]
+  - mongoDB [http://www.mongodb.org/] [v2.4.6]
   - graylog2 [http://graylog2.org] [v0.0.0][working]
   - flume [http://flume.apache.org] [v1.4.0][working]
   - JBossAS [http://download.jboss.org] [v7.1.1]
