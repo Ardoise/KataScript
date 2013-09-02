@@ -3,7 +3,10 @@
 PROGNAME=${0##*/}; echo $PROGNAME;
 VERSION="0.0.0"; echo $VERSION;
 DATE=$(date +'%Y-%m-%d'); echo $DATE;
-AUTHOR=$(awk -v USER=$USER 'BEGIN { FS = ":" } $1 == USER { print $5 }' < /etc/passwd); echo $AUTHOR
+AUTHOR=`id -un`;
+[ -f "/etc/passwd" ] && AUTHOR=$(awk -v USER=$USER 'BEGIN { FS = ":" } $1 == USER { print $5 }' < /etc/passwd);
+echo $AUTHOR;
+[ -d "/tmp" ] || mkdir /tmp;
 EMAIL_ADDRESS="<${REPLYTO:-${USER}@$HOSTNAME}>"; echo $EMAIL_ADDRESS
 
 cat <<- _EOF_>licence.txt
@@ -46,6 +49,7 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
   
   echo "$e|$s|$v|$d|$b|$p|$t|$ho";
   
+  [ -f "centrallog/$e-$n.tmpl.sh" ] && rm -f centrallog/$e-$n.tmpl.sh
   # 1 pass = many changes
   sed -e "s~xgenericx~$n~g" \
       -e "s~XGENERICX~$N~g" \

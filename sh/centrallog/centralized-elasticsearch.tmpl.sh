@@ -7,7 +7,7 @@
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: elasticsearch (...)
-# - deploy elasticsearch v0.90.2
+# - deploy elasticsearch v0.90.3
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget make build-essential zlib1g-dev libssl-dev git-core
@@ -96,10 +96,10 @@ install)
   mkdir -p /var/log/$NAME || true; chown -R $uidgid /var/log/$NAME || true;
   mkdir -p /var/run/$NAME || true; chown -R $uidgid /var/run/$NAME || true;
 
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/elasticsearch-0.90.2.tar.gz";
-  [ -s "/opt/$NAME/elasticsearch-0.90.2.tar.gz" ] || (
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/elasticsearch-0.90.3.tar.gz";
+  [ -s "/opt/$NAME/elasticsearch-0.90.3.tar.gz" ] || (
     cd /opt/$NAME;
-    sudo curl -OL  "http://www.elasticsearch.org/download/elasticsearch-0.90.2.tar.gz";
+    sudo curl -OL  "http://www.elasticsearch.org/download/elasticsearch-0.90.3.tar.gz";
   )
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
