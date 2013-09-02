@@ -7,9 +7,7 @@
         "input": "centralized",
         "output": "centralized"
       },
-      "daemon": {
-        "initd": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash"
-      },
+      "daemon": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash",
       "start": "/etc/init.d/logstash start",
       "stop": "/etc/init.d/logstash stop",
       "status": "/etc/init.d/logstash status"
@@ -42,9 +40,7 @@
         "input": "distributed",
         "output": "centralized"
       },
-      "daemon": {
-        "initd": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash"
-      },
+      "daemon": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash",
       "start": "/etc/init.d/logstash start",
       "stop": "/etc/init.d/logstash stop",
       "status": "/etc/init.d/logstash status"
