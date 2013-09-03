@@ -35,7 +35,6 @@ platform_version="$(lsb_release -s -r)";
 yourIP=$(hostname -I | cut -d' ' -f1);
 JSON=json/cloud.json
 
-
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
   exit $SCRIPT_ERROR
@@ -57,6 +56,14 @@ config|reload)
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE};
   )
+  
+    # echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
+  # [ -s "/etc/init.d/$NAME" ] || (
+    # cd /etc/init.d;
+    # sudo curl -L  "#i#daemon#i#" -o /etc/init.d/$NAME;
+    # sudo chmod a+x /etc/init.d/$NAME;
+  # )
+
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 install)
@@ -113,53 +120,82 @@ install)
     *.tar.gz|*.tgz)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "#i#download#i#");
       [ -s "$Cache$NAME/$file" ] && sudo tar -xvfz $Cache$NAME/$file;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+      rm -rf $Bin$Name/*.*;
+REOF
     ;;
     *.rpm)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "#i#download#i#");
       [ -s "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+      # TODO
+      #rpm -qa | grep $NAME
+      #rpm -e $NAME;
+      [ -d "$Bin$NAME" ] && rm -rf $Bin$NAME;
+REOF
     ;;
     *.deb)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "#i#download#i#");
       [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+      # TODO
+      #dpkg -l |grep "$NAME"
+      #dpkg -P "$NAME"
+      #dpkg --uninstall $NAME
+REOF
     ;;
     *.zip)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "#i#download#i#");
       [ -s "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+REOF
     ;;
     *.jar)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "#i#download#i#");
       [ -s "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+REOF
     ;;
     *)
       case "$platform" in
       Debian|Ubuntu)
         apt-get update #--fix-missing
         apt-get -y install $NAME;
+        cat <<-REOF >$Bin$Name/$Name.uninstall
+        apt-get uninstall $NAME;
+REOF
         ;;
       Redhat|Fedora|CentOS)
         yum update #--fix-missing
         yum -y install $NAME;
+        cat <<-REOF >$Bin$Name/$Name.uninstall
+        yum uninstall $NAME;
+REOF
         ;;
       esac
     ;;
   esac
+  cat <<-REOF >>$Bin$Name/$Name.uninstall
+    pkill -u $uidgid;
+    [ -f "$Cache$NAME" ] && rm -rf "$Cache$NAME";
+    [ -d "$Bin$NAME" ] && rm -rf "$Bin$NAME";
+    [ -d "$Log$NAME" ] && rm -rf "$Log$NAME";
+    [ -d "$Lib$NAME" ] && rm -rf "$Lib$NAME";
+    [ -d "$Run$NAME" ] && rm -rf "$Run$NAME";
+    [ -d "$Etc$NAME" ] && rm -rf "$Etc$NAME";
+REOF
   chown -R $uidgid $Bin$NAME || true;
-
-  # echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
-  # [ -s "/etc/init.d/$NAME" ] || (
-    # cd /etc/init.d;
-    # sudo curl -L  "#i#daemon#i#" -o /etc/init.d/$NAME;
-    # sudo chmod a+x /etc/init.d/$NAME;
-  # )
   
   #i#install#i#
   
   chown -R $uidgid /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
-remove)
+uninstall)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  #i#remove#i#
+  [ -s "$Bin$Name/$Name.uninstall" ] && cp $Bin$Name/$Name.uninstall /tmp/$Name.uninstall;
+  [ -s "/tmp/$Name.uninstall" ] && sh -x /tmp/$Name.uninstall;
+  #i#uninstall#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 start)
@@ -225,7 +261,7 @@ dist-upgrade)
     check   - check centrallog::xgenericx
     install - install centrallog::xgenericx
     reload  - reload config centrallog::xgenericx
-    remove  - remove centrallog::xgenericx
+    uninstall  - uninstall centrallog::xgenericx
     start   - start centrallog::xgenericx
     status  - status centrallog::xgenericx
     stop    - stop centrallog::xgenericx
