@@ -72,73 +72,57 @@
       "platform": "centralized"
     }
   },
-  "profil": {
+  "Profil": {
+    "Dir": {
+      "Etc": "/etc/",
+      "Log": "/var/log/",
+      "Lib": "/var/lib/",
+      "Bin": "/opt/",
+      "Run": "/var/run/",
+      "Cache": "/var/cache/"
+    },
     "split": {
       "id": "split",
       "platform": "centralized",
-      "software": "logstash",
-      "path": "/opt/logstash",
-      "conf": "/etc/logstash",
-      "log": "/var/log/logstash",
-      "run": "/var/run/logstash",
-      "lib": "/var/lib/logstash"
+      "software": "logstash"
     },
     "event": {
       "id": "event",
       "platform": "centralized",
-      "software": "redis",
-      "path": "/opt/redis",
-      "conf": "/etc/redis",
-      "lib": "/var/lib/redis",
-      "log": "/var/log/redis",
-      "run": "/var/run/redis"
+      "software": "redis"
     },
     "search": {
       "id": "search",
       "platform": "centralized",
-      "software": "elasticsearch",
-      "path": "/opt/elasticsearch",
-      "conf": "/etc/elasticsearch",
-      "lib": "/var/lib/elasticsearch",
-      "log": "/var/log/elasticsearch",
-      "run": "/var/run/elasticsearch"
+      "software": "elasticsearch"
     },
     "shipper": {
       "id": "shipper",
       "platform": "distributed",
-      "software": "logstash",
-      "path": "/opt/logstash",
-      "conf": "/etc/logstash",
-      "lib": "/var/lib/logstash",
-      "log": "/var/log/logstash",
-      "run": "/var/run/logstash"
+      "software": "logstash"
     }
   },
   "software": {
     "logstash": {
-      "binary": "logstash-1.1.13-flatjar.jar",
       "desc": "Logstash Server",
       "name": "logstash",
-      "download": "https://logstash.objects.dreamhost.com/release/",
+      "download": "https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar",
       "version": "1.1.13"
     },
     "redis": {
-      "binary": "redis-2.6.16.tar.gz",
-      "download": "http://download.redis.io/releases/",
+      "download": "http://download.redis.io/releases/redis-2.6.16.tar.gz",
       "desc": "Redis Server",
       "name": "redis",
       "version": "2.6.16"
     },
     "elasticsearch": {
-      "binary": "elasticsearch-0.90.3.tar.gz",
       "desc": "Elasticsearch Server",
       "name": "elasticsearch",
-      "download": "http://www.elasticsearch.org/download/",
+      "download": "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.deb",
       "version": "0.90.3"
     },
     "mongodb": {
-      "binary": "mongodb-10gen",
-      "download": "http://downloads-distro.mongodb.org/repo/ubuntu-upstart",
+      "download": "http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.4.6.tgz",
       "desc": "Mongodb Server",
       "name": "mongodb",
       "version": "2.4.6"

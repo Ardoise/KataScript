@@ -26,13 +26,33 @@ _EOF_
 
 JSON=json/cloud.json
 
-# max=$(cat $JSON |jq -r -c '.profil | length'; # wc -l
-for l in $(cat $JSON |jq -r -c '.profil[]'); do
+# PROFIL
+for l in $(cat $JSON |jq -r -c '.Profil.Dir'); do
+  Bin=$(echo $l | jq -r '.Bin'); echo "$Bin";        Bin=${Bin:-="/opt/"};
+  Cache=$(echo $l | jq -r '.Cache'); echo "$Cache";  Cache=${Cache:-="/var/cache/"};
+  Etc=$(echo $l | jq -r '.Etc'); echo "$Etc";        Etc=${Etc:-="/etc/"};
+  Lib=$(echo $l | jq -r '.Lib'); echo "$Lib";        Lib=${Lib:-="/var/lib/"};
+  Log=$(echo $l | jq -r '.Log'); echo "$Log";        Log=${Log:-="/var/log/"};
+  Run=$(echo $l | jq -r '.Run'); echo "$Run";        Run=${Run:-="/var/run/"};
+done
+[ -f "centrallog/centralized-generic.rfu.sh" ] && (\
+sed -e "s~#i#DirBin#i#~$Bin~g" \
+    -e "s~#i#DirCache#i#~$Cache~g" \
+    -e "s~#i#DirEtc#i#~$Etc~g" \
+    -e "s~#i#DirLib#i#~$Lib~g" \
+    -e "s~#i#DirLog#i#~$Log~g" \
+    -e "s~#i#DirRun#i#~Run~g" \
+    centrallog/centralized-generic.rfu.sh > $tmp/centralized-generic.rfu.sh.1);
+
+exit 0
+
+# max=$(cat $JSON |jq -r -c '.Profil | length'; # wc -l
+for l in $(cat $JSON |jq -r -c '.Profil[]'); do
 
   i=$(echo $l | jq -r '.id'); echo -n "$i|";
   s=$(echo $l | jq -r '.software'); echo -n "$s|";
   e=$(echo $l | jq -r '.platform'); echo -n "$e|";
-  p=$(echo $l | jq -r '.path'); echo -n "$p|";
+  p=$(echo $l | jq -r '.bin'); echo -n "$p|";
   c=$(echo $l | jq -r '.conf'); echo -n "$c|";
   g=$(echo $l | jq -r '.log'); echo -n "$g|";
   r=$(echo $l | jq -r '.run'); echo -n "$r|";
@@ -50,25 +70,25 @@ for l in $(cat $JSON |jq -r -c '.profil[]'); do
   
   #echo "$i|$e|$s|$v|$d|$b|$p|$t|$ho";
   echo
-  [ -f "centrallog/centralized-generic.rfu.sh" ] && (\
+  [ -f "$tmp/centralized-generic.rfu.sh.1" ] && (\
   sed -e "s~xgenericx~$n~g" \
       -e "s~XGENERICX~$N~g" \
       -e "s~0.0.0~$v~g" \
       -e "s~#i#binary#i#~$b~g" \
-      -e "s~#i#path#i#~$p~g" \
+      -e "s~#i#bin#i#~$p~g" \
       -e "s~#i#download#i#~$u$b~g" \
       -e "s~#i#daemon#i#~$t~g" \
       -e "s~xlicensex~@License~g" \
-      centrallog/centralized-generic.rfu.sh > $tmp/$e-$n.tmpl.sh~;);
+      $tmp/centralized-generic.rfu.sh.1 > $tmp/$e-$n.tmpl.sh.2);
       #centrallog/centralized-generic.rfu.sh > centrallog/$e-$n.tmpl.sh;);
   
-  [ -f "$tmp/$e-$n.tmpl.sh~" ] && (\
+  [ -f "$tmp/$e-$n.tmpl.sh.2" ] && (\
   sed -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .process.$i.start~e" \
       -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .process.$i.status~e" \
       -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .process.$i.stop~e" \
       -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$i.reload.pattern'~e" \
       -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$i.reload.conf'~e" \
-      $tmp/$e-$n.tmpl.sh~ > $tmp/$e-$n.tmpl.sh;);
+      $tmp/$e-$n.tmpl.sh.2 > $tmp/$e-$n.tmpl.sh);
       #centrallog/$e-$n.tmpl.sh;);
 
   #sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/centralized-$n.tmpl.sh;

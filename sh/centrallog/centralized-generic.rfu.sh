@@ -81,33 +81,76 @@ install)
     ;;
   esac
 
+  # CENTRALLOG : PROFIL
+  Bin="#i#DirBin#i#";echo "$Bin";
+  Cache="#i#DirCache#i#"; echo "$Cache";
+  Etc="#i#DirEtc#i#";echo "$Etc";
+  Lib="#i#DirLib#i#";echo "$Lib";
+  Log="#i#DirLog#i#";echo "$Log";
+  Run="#i#DirRun#i#";echo "$Run";
+  
   # DEPENDS : OWNER
   [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
   ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
   echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/centrallog_$NAME.sh;
-  
   uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
   
-  # CENTRALLOG : POINTER
-  mkdir -p /opt/$NAME || true; chown -R $uidgid /opt/$NAME || true;
-  mkdir -p /etc/$NAME/test || true; chown -R $uidgid /etc/$NAME || true;
-  mkdir -p /var/lib/$NAME || true; chown -R $uidgid /var/lib/$NAME || true;
-  mkdir -p /var/log/$NAME || true; chown -R $uidgid /var/log/$NAME || true;
-  mkdir -p /var/run/$NAME || true; chown -R $uidgid /var/run/$NAME || true;
+  # DEPENDS : PROFIL, OWNER
+  mkdir -p $Bin$NAME || true; chown -R $uidgid $Bin$NAME || true;
+  mkdir -p $Cache$NAME || true; chown -R $uidgid $Cache$NAME || true;
+  mkdir -p $Etc$NAME/test || true; chown -R $uidgid $Etc$NAME || true;
+  mkdir -p $Lib$NAME || true; chown -R $uidgid $Lib/$NAME || true;
+  mkdir -p $Log$NAME || true; chown -R $uidgid $Log/$NAME || true;
+  mkdir -p $Run$NAME || true; chown -R $uidgid $Run/$NAME || true;
 
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/#i#binary#i#";
-  [ -s "/opt/$NAME/#i#binary#i#" ] || (
-    cd /opt/$NAME;
-    sudo curl -OL  "#i#download#i#";
-  )
+  # DEPENDS : DOWNLOAD CACHE, INSTALL
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
+  Download="#i#download#i#";
+  file=$(basename $Download);
+  cd $Bin$Name;
+  case "$file" in
+    *.tar.gz|*.tgz)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "#i#download#i#");
+      [ -s "$Cache$NAME/$file" ] && sudo tar -xvfz $Cache$NAME/$file;
+    ;;
+    *.rpm)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "#i#download#i#");
+      [ -s "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
+    ;;
+    *.deb)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "#i#download#i#");
+      [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file;
+    ;;
+    *.zip)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "#i#download#i#");
+      [ -s "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file;
+    ;;
+    *.jar)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "#i#download#i#");
+      [ -s "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
+    ;;
+    *)
+      case "$platform" in
+      Debian|Ubuntu)
+        apt-get update #--fix-missing
+        apt-get -y install $NAME;
+        ;;
+      Redhat|Fedora|CentOS)
+        yum update #--fix-missing
+        yum -y install $NAME;
+        ;;
+      esac
+    ;;
+  esac
+  chown -R $uidgid $Bin$NAME || true;
 
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
-  [ -s "/etc/init.d/$NAME" ] || (
-    cd /etc/init.d;
-    sudo curl -L  "#i#daemon#i#" -o /etc/init.d/$NAME;
-    sudo chmod a+x /etc/init.d/$NAME;
-  )
+  # echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
+  # [ -s "/etc/init.d/$NAME" ] || (
+    # cd /etc/init.d;
+    # sudo curl -L  "#i#daemon#i#" -o /etc/init.d/$NAME;
+    # sudo chmod a+x /etc/init.d/$NAME;
+  # )
   
   #i#install#i#
   
