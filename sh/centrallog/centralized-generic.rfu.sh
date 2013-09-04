@@ -3,7 +3,7 @@
 # Provides: centrallog: xgenericx
 # Short-Description: DEPLOY SERVER: [XGENERICX]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130727
+# Update: last-update: 20130904
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: xgenericx (...)

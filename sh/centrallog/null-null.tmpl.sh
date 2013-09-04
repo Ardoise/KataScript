@@ -1,28 +1,28 @@
 #!/bin/sh -e
 ### BEGIN INIT INFO
-# Provides: centrallog: centrallog
-# Short-Description: DEPLOY SERVER: [CENTRALLOG]
+# Provides: centrallog: null
+# Short-Description: DEPLOY SERVER: [NULL]
 # Author: created by: https://github.com/Ardoise
 # Update: last-update: 20130904
 ### END INIT INFO
 
-# Description: SERVICE CENTRALLOG: centrallog (...)
-# - deploy centrallog v0.1.1b
+# Description: SERVICE CENTRALLOG: null (...)
+# - deploy null vnull
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget make build-essential zlib1g-dev libssl-dev git-core
 # Depends  : lib/usergroup.sh
 #
-# CONFIG:   [ "/etc/centrallog", "/etc/centrallog/test" ]
-# BINARIES: [ "/opt/centrallog/", "/usr/share/centrallog/" ]
-# LOG:      [ "/var/log/centrallog/" ]
-# RUN:      [ "/var/run/centrallog/" ]
-# INIT:     [ "/etc/init.d/centrallog" ]
+# CONFIG:   [ "/etc/null", "/etc/null/test" ]
+# BINARIES: [ "/opt/null/", "/usr/share/null/" ]
+# LOG:      [ "/var/log/null/" ]
+# RUN:      [ "/var/run/null/" ]
+# INIT:     [ "/etc/init.d/null" ]
 
 # @License
 
-DESCRIPTION="CENTRALLOG Server";
-NAME="centrallog";
+DESCRIPTION="NULL Server";
+NAME="null";
 
 SCRIPT_OK=0;
 SCRIPT_ERROR=1;
@@ -93,19 +93,19 @@ install)
 
   # DEPENDS : DOWNLOAD CACHE, INSTALL
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
-  Download="null";
+  Download="nullnull";
   file=$(basename $Download);
   cd $Bin$Name;
   case "$file" in
     *.tar.gz|*.tgz)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
       [ -s "$Cache$NAME/$file" ] && sudo tar -xvfz $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
       rm -rf $Bin$Name/*.*;
 REOF
     ;;
     *.rpm)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
       [ -s "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
       # TODO
@@ -115,7 +115,7 @@ REOF
 REOF
     ;;
     *.deb)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
       [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
       # TODO
@@ -125,13 +125,13 @@ REOF
 REOF
     ;;
     *.zip)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
       [ -s "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
 REOF
     ;;
     *.jar)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
       [ -s "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
       cat <<-REOF >$Bin$Name/$Name.uninstall
 REOF
@@ -260,14 +260,14 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check   - check centrallog::centrallog
-    install - install centrallog::centrallog
-    reload  - reload config centrallog::centrallog
-    uninstall  - uninstall centrallog::centrallog
-    start   - start centrallog::centrallog
-    status  - status centrallog::centrallog
-    stop    - stop centrallog::centrallog
-    upgrade - upgrade centrallog::centrallog
+    check   - check centrallog::null
+    install - install centrallog::null
+    reload  - reload config centrallog::null
+    uninstall  - uninstall centrallog::null
+    start   - start centrallog::null
+    status  - status centrallog::null
+    stop    - stop centrallog::null
+    upgrade - upgrade centrallog::null
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;
