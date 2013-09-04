@@ -60,7 +60,7 @@ CONF_FILE=/etc/logstash/shipper2redis.conf
     # echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
   # [ -s "/etc/init.d/$NAME" ] || (
     # cd /etc/init.d;
-    # sudo curl -L  "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash" -o /etc/init.d/$NAME;
+    # sudo curl -L  "chkconfig ulogstash on" -o /etc/init.d/$NAME;
     # sudo chmod a+x /etc/init.d/$NAME;
   # )
 

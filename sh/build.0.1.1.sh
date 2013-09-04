@@ -61,11 +61,10 @@ for l in $(cat $JSON |jq -r -c '.Profil[]'); do
   b=$(cat $JSON | jq -r -c ".software.$s.binary"); echo -n "$b|";
   u=$(cat $JSON | jq -r -c ".software.$s.download"); echo -n "$u|";
   
-  t=$(cat $JSON | jq -r -c .process.$i.daemon); echo -n "$t|";
+  Daemon=$(cat $JSON | jq -r -c .process.$i.Daemon.OnOff); echo -n "$Daemon|";
   hi=$(cat $JSON | jq -r -c .process.$i.reload.input);  echo -n "$hi|";
   ho=$(cat $JSON | jq -r -c .process.$i.reload.output); echo -n "$ho|";
   
-  #echo "$i|$e|$s|$v|$d|$b|$p|$t|$ho";
   echo
   [ -f "$tmp/centralized-generic.rfu.sh.1" ] && (\
   sed -e "s~xgenericx~$n~g" \
@@ -74,7 +73,7 @@ for l in $(cat $JSON |jq -r -c '.Profil[]'); do
       -e "s~#i#binary#i#~$b~g" \
       -e "s~#i#bin#i#~$p~g" \
       -e "s~#i#download#i#~$u~g" \
-      -e "s~#i#daemon#i#~$t~g" \
+      -e "s~#i#daemon#i#~$Daemon~g" \
       -e "s~xlicensex~@License~g" \
       $tmp/centralized-generic.rfu.sh.1 > $tmp/$e-$n.tmpl.sh.2);
   

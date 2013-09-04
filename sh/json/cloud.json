@@ -1,37 +1,44 @@
 {
   "process": {
     "split": {
+      "Daemon": {
+        "Pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash",
+        "OnOff": "chkconfig elasticsearch on"
+      },
       "reload": {
         "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/redis2elasticsearch",
         "conf": "/etc/logstash/redis2elasticsearch.conf",
         "input": "centralized",
         "output": "centralized"
       },
-      "daemon": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash",
       "start": "/etc/init.d/logstash start",
-      "stop": "/etc/init.d/logstash stop",
-      "status": "/etc/init.d/logstash status"
+      "status": "/etc/init.d/logstash status",
+      "stop": "/etc/init.d/logstash stop"
     },
     "event": {
+      "Daemon": {
+        "OnOff": "chkconfig redis on"
+      },
       "reload": {
         "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/redis/6379.conf",
         "conf": "/etc/redis/6379.conf"
       },     
       "start": "service redis start",
-      "stop": "service redis stop",
       "status": "service redis status",
-      "daemon": "chkconfig redis on"
+      "stop": "service redis stop"
     },
     "search": {
+      "Daemon": {
+        "OnOff": "chkconfig elasticsearch on"
+      },
       "reload": {
         "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/elasticsearch/elasticsearch.yum",
         "conf": "/etc/elasticsearch/elasticsearch.yum",
         "cluster": "centrallog"
       },
       "start": "service elasticsearch start",
-      "stop": "service elasticsearch stop",
       "status": "service elasticsearch status",
-      "daemon": "chkconfig elasticsearch on"
+      "stop": "service elasticsearch stop"
     }, 
     "shipper": {
       "reload": {
@@ -40,10 +47,13 @@
         "input": "distributed",
         "output": "centralized"
       },
-      "daemon": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash",
+      "Daemon": {
+        "Pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash",
+        "OnOff": "chkconfig ulogstash on"
+      },
       "start": "/etc/init.d/logstash start",
-      "stop": "/etc/init.d/logstash stop",
-      "status": "/etc/init.d/logstash status"
+      "status": "/etc/init.d/logstash status",
+      "stop": "/etc/init.d/logstash stop"
     }
   },
   "connector": {
