@@ -87,9 +87,9 @@ install)
   mkdir -p $Bin$NAME || true; chown -R $uidgid $Bin$NAME || true;
   mkdir -p $Cache$NAME || true; chown -R $uidgid $Cache$NAME || true;
   mkdir -p $Etc$NAME/test || true; chown -R $uidgid $Etc$NAME || true;
-  mkdir -p $Lib$NAME || true; chown -R $uidgid $Lib/$NAME || true;
-  mkdir -p $Log$NAME || true; chown -R $uidgid $Log/$NAME || true;
-  mkdir -p $Run$NAME || true; chown -R $uidgid $Run/$NAME || true;
+  mkdir -p $Lib$NAME || true; chown -R $uidgid $Lib$NAME || true;
+  mkdir -p $Log$NAME || true; chown -R $uidgid $Log$NAME || true;
+  mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DEPENDS : DOWNLOAD CACHE, INSTALL
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
