@@ -68,26 +68,6 @@ CONF_FILE=/etc/redis/6379.conf
 ;;
 install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  
-  # DEPENDS : PLATFORM
-  case "$platform" in
-  Debian)
-    apt-get update #--fix-missing #--no-install-recommends
-    apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline5-dev make curl git-core openjdk-7-jre-headless || return $?;
-    ;;
-  Ubuntu)
-    apt-get update #--fix-missing
-    apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core openjdk-7-jre-headless || return $?;
-    ;;
-  Redhat|Fedora|CentOS)
-    yum update #--fix-missing
-    yum -y install make curl git-core || return $?;
-    echo "NOT YET TESTED : your contribution is welc0me"
-    ;;
-  esac
-
   # CENTRALLOG : PROFIL
   Bin="/opt/";echo "$Bin";
   Cache="/var/cache/"; echo "$Cache";
