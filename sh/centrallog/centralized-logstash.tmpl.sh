@@ -74,12 +74,12 @@ install)
   Debian)
     apt-get update #--fix-missing
     apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline5-dev make curl git-core ;
+      libreadline5-dev make curl git-core openjdk-7-jre-headless;
     ;;
   Ubuntu)
     apt-get update #--fix-missing
     apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core openjdk-6-jre-headless;
+      libreadline-dev make curl git-core openjdk-7-jre-headless;
     ;;
   Redhat|Fedora|CentOS)
     yum update #--fix-missing
