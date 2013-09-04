@@ -35,7 +35,6 @@ platform_version="$(lsb_release -s -r)";
 yourIP=$(hostname -I | cut -d' ' -f1);
 JSON=json/cloud.json
 
-
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
   exit $SCRIPT_ERROR
@@ -57,6 +56,14 @@ CONF_FILE=/etc/logstash/redis2elasticsearch.conf
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE};
   )
+  
+    # echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
+  # [ -s "/etc/init.d/$NAME" ] || (
+    # cd /etc/init.d;
+    # sudo curl -L  "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash" -o /etc/init.d/$NAME;
+    # sudo chmod a+x /etc/init.d/$NAME;
+  # )
+
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 install)
@@ -81,42 +88,114 @@ install)
     ;;
   esac
 
+  # CENTRALLOG : PROFIL
+  Bin="/opt/";echo "$Bin";
+  Cache="/var/cache/"; echo "$Cache";
+  Etc="/etc/";echo "$Etc";
+  Lib="/var/lib/";echo "$Lib";
+  Log="/var/log/";echo "$Log";
+  Run="Run";echo "$Run";
+  
   # DEPENDS : OWNER
   [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
   ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
   echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/centrallog_$NAME.sh;
-  
   uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
   
-  # CENTRALLOG : POINTER
-  mkdir -p /opt/$NAME || true; chown -R $uidgid /opt/$NAME || true;
-  mkdir -p /etc/$NAME/test || true; chown -R $uidgid /etc/$NAME || true;
-  mkdir -p /var/lib/$NAME || true; chown -R $uidgid /var/lib/$NAME || true;
-  mkdir -p /var/log/$NAME || true; chown -R $uidgid /var/log/$NAME || true;
-  mkdir -p /var/run/$NAME || true; chown -R $uidgid /var/run/$NAME || true;
+  # DEPENDS : PROFIL, OWNER
+  mkdir -p $Bin$NAME || true; chown -R $uidgid $Bin$NAME || true;
+  mkdir -p $Cache$NAME || true; chown -R $uidgid $Cache$NAME || true;
+  mkdir -p $Etc$NAME/test || true; chown -R $uidgid $Etc$NAME || true;
+  mkdir -p $Lib$NAME || true; chown -R $uidgid $Lib/$NAME || true;
+  mkdir -p $Log$NAME || true; chown -R $uidgid $Log/$NAME || true;
+  mkdir -p $Run$NAME || true; chown -R $uidgid $Run/$NAME || true;
 
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/logstash-1.1.13-flatjar.jar";
-  [ -s "/opt/$NAME/logstash-1.1.13-flatjar.jar" ] || (
-    cd /opt/$NAME;
-    sudo curl -OL  "https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar";
-  )
-
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
-  [ -s "/etc/init.d/$NAME" ] || (
-    cd /etc/init.d;
-    sudo curl -L  "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash" -o /etc/init.d/$NAME;
-    sudo chmod a+x /etc/init.d/$NAME;
-  )
+  # DEPENDS : DOWNLOAD CACHE, INSTALL
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
+  Download="https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jarnull";
+  file=$(basename $Download);
+  cd $Bin$Name;
+  case "$file" in
+    *.tar.gz|*.tgz)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jarnull");
+      [ -s "$Cache$NAME/$file" ] && sudo tar -xvfz $Cache$NAME/$file;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+      rm -rf $Bin$Name/*.*;
+REOF
+    ;;
+    *.rpm)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jarnull");
+      [ -s "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+      # TODO
+      #rpm -qa | grep $NAME
+      #rpm -e $NAME;
+      [ -d "$Bin$NAME" ] && rm -rf $Bin$NAME;
+REOF
+    ;;
+    *.deb)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jarnull");
+      [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+      # TODO
+      #dpkg -l |grep "$NAME"
+      #dpkg -P "$NAME"
+      #dpkg --uninstall $NAME
+REOF
+    ;;
+    *.zip)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jarnull");
+      [ -s "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+REOF
+    ;;
+    *.jar)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jarnull");
+      [ -s "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+REOF
+    ;;
+    *)
+      case "$platform" in
+      Debian|Ubuntu)
+        apt-get update #--fix-missing
+        apt-get -y install $NAME;
+        cat <<-REOF >$Bin$Name/$Name.uninstall
+        apt-get uninstall $NAME;
+REOF
+        ;;
+      Redhat|Fedora|CentOS)
+        yum update #--fix-missing
+        yum -y install $NAME;
+        cat <<-REOF >$Bin$Name/$Name.uninstall
+        yum uninstall $NAME;
+REOF
+        ;;
+      esac
+    ;;
+  esac
+  cat <<-REOF >>$Bin$Name/$Name.uninstall
+    pkill -u $uidgid;
+    [ -f "$Cache$NAME" ] && rm -rf "$Cache$NAME";
+    [ -d "$Bin$NAME" ] && rm -rf "$Bin$NAME";
+    [ -d "$Log$NAME" ] && rm -rf "$Log$NAME";
+    [ -d "$Lib$NAME" ] && rm -rf "$Lib$NAME";
+    [ -d "$Run$NAME" ] && rm -rf "$Run$NAME";
+    [ -d "$Etc$NAME" ] && rm -rf "$Etc$NAME";
+REOF
+  chown -R $uidgid $Bin$NAME || true;
   
   #i#install#i#
   
   chown -R $uidgid /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
-remove)
+uninstall)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  #i#remove#i#
+  [ -s "$Bin$Name/$Name.uninstall" ] && cp $Bin$Name/$Name.uninstall /tmp/$Name.uninstall;
+  [ -s "/tmp/$Name.uninstall" ] && sh -x /tmp/$Name.uninstall;
+  #i#uninstall#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 start)
@@ -182,7 +261,7 @@ dist-upgrade)
     check   - check centrallog::logstash
     install - install centrallog::logstash
     reload  - reload config centrallog::logstash
-    remove  - remove centrallog::logstash
+    uninstall  - uninstall centrallog::logstash
     start   - start centrallog::logstash
     status  - status centrallog::logstash
     stop    - stop centrallog::logstash

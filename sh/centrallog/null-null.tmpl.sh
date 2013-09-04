@@ -1,28 +1,28 @@
 #!/bin/sh -e
 ### BEGIN INIT INFO
-# Provides: centrallog: redis
-# Short-Description: DEPLOY SERVER: [REDIS]
+# Provides: centrallog: null
+# Short-Description: DEPLOY SERVER: [NULL]
 # Author: created by: https://github.com/Ardoise
 # Update: last-update: 20130727
 ### END INIT INFO
 
-# Description: SERVICE CENTRALLOG: redis (...)
-# - deploy redis v2.6.16
+# Description: SERVICE CENTRALLOG: null (...)
+# - deploy null vnull
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget make build-essential zlib1g-dev libssl-dev git-core
 # Depends  : lib/usergroup.sh
 #
-# CONFIG:   [ "/etc/redis", "/etc/redis/test" ]
-# BINARIES: [ "/opt/redis/", "/usr/share/redis/" ]
-# LOG:      [ "/var/log/redis/" ]
-# RUN:      [ "/var/run/redis/" ]
-# INIT:     [ "/etc/init.d/redis" ]
+# CONFIG:   [ "/etc/null", "/etc/null/test" ]
+# BINARIES: [ "/opt/null/", "/usr/share/null/" ]
+# LOG:      [ "/var/log/null/" ]
+# RUN:      [ "/var/run/null/" ]
+# INIT:     [ "/etc/init.d/null" ]
 
 # @License
 
-DESCRIPTION="REDIS Server";
-NAME="redis";
+DESCRIPTION="NULL Server";
+NAME="null";
 
 SCRIPT_OK=0;
 SCRIPT_ERROR=1;
@@ -48,8 +48,8 @@ check)
 ;;
 config|reload)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-PATTERN_FILE=https://raw.github.com/Ardoise/KataScript/master/sh/etc/redis/6379.conf
-CONF_FILE=/etc/redis/6379.conf
+PATTERN_FILE=
+CONF_FILE=
   [ ! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}" ] && (
     curl -L ${PATTERN_FILE} -o ${CONF_FILE};
     # CONTEXT VALUES LOCAL
@@ -60,7 +60,7 @@ CONF_FILE=/etc/redis/6379.conf
     # echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
   # [ -s "/etc/init.d/$NAME" ] || (
     # cd /etc/init.d;
-    # sudo curl -L  "chkconfig redis on" -o /etc/init.d/$NAME;
+    # sudo curl -L  "null" -o /etc/init.d/$NAME;
     # sudo chmod a+x /etc/init.d/$NAME;
   # )
 
@@ -113,19 +113,19 @@ install)
 
   # DEPENDS : DOWNLOAD CACHE, INSTALL
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
-  Download="http://download.redis.io/releases/redis-2.6.16.tar.gznull";
+  Download="nullnull";
   file=$(basename $Download);
   cd $Bin$Name;
   case "$file" in
     *.tar.gz|*.tgz)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "http://download.redis.io/releases/redis-2.6.16.tar.gznull");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
       [ -s "$Cache$NAME/$file" ] && sudo tar -xvfz $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
       rm -rf $Bin$Name/*.*;
 REOF
     ;;
     *.rpm)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "http://download.redis.io/releases/redis-2.6.16.tar.gznull");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
       [ -s "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
       # TODO
@@ -135,7 +135,7 @@ REOF
 REOF
     ;;
     *.deb)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "http://download.redis.io/releases/redis-2.6.16.tar.gznull");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
       [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
       # TODO
@@ -145,13 +145,13 @@ REOF
 REOF
     ;;
     *.zip)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "http://download.redis.io/releases/redis-2.6.16.tar.gznull");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
       [ -s "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
 REOF
     ;;
     *.jar)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "http://download.redis.io/releases/redis-2.6.16.tar.gznull");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
       [ -s "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
       cat <<-REOF >$Bin$Name/$Name.uninstall
 REOF
@@ -201,19 +201,19 @@ uninstall)
 start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
-service redis start
+null
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
-service redis stop
+null
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 status)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
-service redis status
+null
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 upgrade)
@@ -258,14 +258,14 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check   - check centrallog::redis
-    install - install centrallog::redis
-    reload  - reload config centrallog::redis
-    uninstall  - uninstall centrallog::redis
-    start   - start centrallog::redis
-    status  - status centrallog::redis
-    stop    - stop centrallog::redis
-    upgrade - upgrade centrallog::redis
+    check   - check centrallog::null
+    install - install centrallog::null
+    reload  - reload config centrallog::null
+    uninstall  - uninstall centrallog::null
+    start   - start centrallog::null
+    status  - status centrallog::null
+    stop    - stop centrallog::null
+    upgrade - upgrade centrallog::null
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;

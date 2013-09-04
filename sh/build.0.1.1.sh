@@ -44,8 +44,6 @@ sed -e "s~#i#DirBin#i#~$Bin~g" \
     -e "s~#i#DirRun#i#~Run~g" \
     centrallog/centralized-generic.rfu.sh > $tmp/centralized-generic.rfu.sh.1);
 
-exit 0
-
 # max=$(cat $JSON |jq -r -c '.Profil | length'; # wc -l
 for l in $(cat $JSON |jq -r -c '.Profil[]'); do
 
@@ -80,7 +78,6 @@ for l in $(cat $JSON |jq -r -c '.Profil[]'); do
       -e "s~#i#daemon#i#~$t~g" \
       -e "s~xlicensex~@License~g" \
       $tmp/centralized-generic.rfu.sh.1 > $tmp/$e-$n.tmpl.sh.2);
-      #centrallog/centralized-generic.rfu.sh > centrallog/$e-$n.tmpl.sh;);
   
   [ -f "$tmp/$e-$n.tmpl.sh.2" ] && (\
   sed -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .process.$i.start~e" \
@@ -88,8 +85,7 @@ for l in $(cat $JSON |jq -r -c '.Profil[]'); do
       -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .process.$i.stop~e" \
       -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$i.reload.pattern'~e" \
       -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$i.reload.conf'~e" \
-      $tmp/$e-$n.tmpl.sh.2 > $tmp/$e-$n.tmpl.sh);
-      #centrallog/$e-$n.tmpl.sh;);
+      $tmp/$e-$n.tmpl.sh.2 > centrallog/$e-$n.tmpl.sh);
 
   #sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/centralized-$n.tmpl.sh;
 done
@@ -100,10 +96,10 @@ exit 0
 
 # Ard0ise
 sudo apt-get update
-sudo apt-get install curl git-core
+sudo apt-get -y install curl git-core sudo
 clone_dir=/tmp/KataScript-build-$$;
 git clone https://github.com/Ardoise/KataScript.git $clone_dir;
-sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh install;
 sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
+sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh install;
 echo "rm -rf $clone_dir";
 echo "unset clone_dir"; 
