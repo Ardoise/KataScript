@@ -6,12 +6,11 @@ DATE=$(date +'%Y-%m-%d'); echo $DATE;
 AUTHOR=`id -un`;
 [ -f "/etc/passwd" ] && AUTHOR=$(awk -v USER=$USER 'BEGIN { FS = ":" } $1 == USER { print $5 }' < /etc/passwd);
 echo $AUTHOR;
-tmp="/d/opt/tmp"
+tmp="/tmp";
 [ -d "$tmp" ] || mkdir -p $tmp;
 EMAIL_ADDRESS="<${REPLYTO:-${USER}@$HOSTNAME}>"; echo $EMAIL_ADDRESS
 
 cat <<- _EOF_>licence.txt
-	
 	# This program is free software: you can redistribute it and/or modify
 	# it under the terms of the GNU General Public License as published by
 	# the Free Software Foundation, either version 3 of the License, or
@@ -95,8 +94,11 @@ rm -f *.sh~
 exit 0
 
 # Ard0ise
-sudo apt-get update
-sudo apt-get -y install curl git-core sudo
+sudo apt-get update       #soft
+sudo apt-get upgrade      #system
+sudo apt-get dist-update  #kernel
+sudo apt-get autoremove   #purge
+sudo apt-get -y install curl git-core sudo 
 clone_dir=/tmp/KataScript-build-$$;
 git clone https://github.com/Ardoise/KataScript.git $clone_dir;
 sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
