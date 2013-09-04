@@ -164,6 +164,13 @@ REOF
     [ -d "$Run$NAME" ] && rm -rf "$Run$NAME";
     [ -d "$Etc$NAME" ] && rm -rf "$Etc$NAME";
 REOF
+
+  chown -R $uidgid $Bin$NAME || true;
+  chown -R $uidgid $Cache$NAME || true;
+  chown -R $uidgid $Etc$NAME || true;
+  chown -R $uidgid $Lib$NAME || true;
+  chown -R $uidgid $Log$NAME || true;
+  chown -R $uidgid $Run$NAME || true;
   chown -R $uidgid $Bin$NAME || true;
   
   #i#install#i#
@@ -215,14 +222,14 @@ dist-upgrade)
     apt-get upgrade
     apt-get dist-upgrade
     apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline5-dev make curl git-core openjdk-7-jre-headless || return $?;
+      libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig || return $?;
     ;;
   Ubuntu)
     apt-get update #--fix-missing
     apt-get upgrade
     apt-get dist-upgrade
     apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core openjdk-7-jre-headless || return $?;
+      libreadline-dev make curl git-core openjdk-7-jre-headless chkconfig || return $?;
     ;;
   Redhat|Fedora|CentOS)
     yum update #--fix-missing
