@@ -92,9 +92,9 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DEPENDS : DOWNLOAD CACHE, INSTALL
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   Download="null";
   file=$(basename $Download);
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$Name;
   case "$file" in
     *.tar.gz|*.tgz)
