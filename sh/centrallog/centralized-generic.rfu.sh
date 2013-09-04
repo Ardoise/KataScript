@@ -116,7 +116,7 @@ REOF
     ;;
     *.deb)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file --instdir $Bin$NAME;
+      [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file $Bin$NAME;
       cat <<-REOF >$Bin$Name/$Name.uninstall
       # TODO
       #dpkg -l |grep "$NAME"
