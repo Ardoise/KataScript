@@ -73,7 +73,7 @@ for l in $(cat $JSON |jq -r -c '.Profil[]'); do
       -e "s~0.0.0~$v~g" \
       -e "s~#i#binary#i#~$b~g" \
       -e "s~#i#bin#i#~$p~g" \
-      -e "s~#i#download#i#~$u$b~g" \
+      -e "s~#i#download#i#~$u~g" \
       -e "s~#i#daemon#i#~$t~g" \
       -e "s~xlicensex~@License~g" \
       $tmp/centralized-generic.rfu.sh.1 > $tmp/$e-$n.tmpl.sh.2);

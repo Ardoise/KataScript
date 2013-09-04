@@ -92,20 +92,20 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DEPENDS : DOWNLOAD CACHE, INSTALL
-  Download="nullnull";
+  Download="null";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$Name;
   case "$file" in
     *.tar.gz|*.tgz)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
       [ -s "$Cache$NAME/$file" ] && sudo tar -xvfz $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
       rm -rf $Bin$Name/*.*;
 REOF
     ;;
     *.rpm)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
       [ -s "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
       # TODO
@@ -115,7 +115,7 @@ REOF
 REOF
     ;;
     *.deb)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
       [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
       # TODO
@@ -125,13 +125,13 @@ REOF
 REOF
     ;;
     *.zip)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
       [ -s "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
 REOF
     ;;
     *.jar)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "nullnull");
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
       [ -s "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
       cat <<-REOF >$Bin$Name/$Name.uninstall
 REOF
