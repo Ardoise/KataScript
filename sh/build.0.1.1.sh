@@ -40,7 +40,7 @@ sed -e "s~#i#DirBin#i#~$Bin~g" \
     -e "s~#i#DirEtc#i#~$Etc~g" \
     -e "s~#i#DirLib#i#~$Lib~g" \
     -e "s~#i#DirLog#i#~$Log~g" \
-    -e "s~#i#DirRun#i#~Run~g" \
+    -e "s~#i#DirRun#i#~$Run~g" \
     centrallog/centralized-generic.rfu.sh > $tmp/centralized-generic.rfu.sh.1);
 
 # max=$(cat $JSON |jq -r -c '.Profil | length'; # wc -l

@@ -74,7 +74,7 @@ install)
   Etc="/etc/";echo "$Etc";
   Lib="/var/lib/";echo "$Lib";
   Log="/var/log/";echo "$Log";
-  Run="Run";echo "$Run";
+  Run="/var/run/";echo "$Run";
   
   # DEPENDS : OWNER
   [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
