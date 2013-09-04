@@ -1,28 +1,28 @@
 #!/bin/sh -e
 ### BEGIN INIT INFO
-# Provides: centrallog: Centrallog
+# Provides: centrallog: centrallog
 # Short-Description: DEPLOY SERVER: [CENTRALLOG]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130721
+# Update: last-update: 20130727
 ### END INIT INFO
 
-# Description: SERVICE CENTRALLOG: Centrallog (...)
-# - deploy Centrallog v0.1.1
+# Description: SERVICE CENTRALLOG: centrallog (...)
+# - deploy centrallog v0.1.1b
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget make build-essential zlib1g-dev libssl-dev git-core
 # Depends  : lib/usergroup.sh
 #
-# CONFIG:   [ "/etc/Centrallog", "/etc/Centrallog/test" ]
-# BINARIES: [ "/opt/Centrallog/", "/usr/share/Centrallog/" ]
-# LOG:      [ "/var/log/Centrallog/" ]
-# RUN:      [ "/var/run/Centrallog/" ]
-# INIT:     [ "/etc/init.d/Centrallog" ]
+# CONFIG:   [ "/etc/centrallog", "/etc/centrallog/test" ]
+# BINARIES: [ "/opt/centrallog/", "/usr/share/centrallog/" ]
+# LOG:      [ "/var/log/centrallog/" ]
+# RUN:      [ "/var/run/centrallog/" ]
+# INIT:     [ "/etc/init.d/centrallog" ]
 
 # @License
 
 DESCRIPTION="CENTRALLOG Server";
-NAME="Centrallog";
+NAME="centrallog";
 
 SCRIPT_OK=0;
 SCRIPT_ERROR=1;
@@ -32,6 +32,8 @@ cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null;
 SH_DIR=$(dirname $SCRIPT_DIR);
 platform="$(lsb_release -i -s)";
 platform_version="$(lsb_release -s -r)";
+yourIP=$(hostname -I | cut -d' ' -f1);
+JSON=json/cloud.json
 
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
@@ -39,6 +41,31 @@ if [ `id -u` -ne 0 ]; then
 fi
 
 case "$1" in
+check)
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  #i#check#i#
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
+;;
+config|reload)
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+PATTERN_FILE=
+CONF_FILE=
+  [ ! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}" ] && (
+    curl -L ${PATTERN_FILE} -o ${CONF_FILE};
+    # CONTEXT VALUES LOCAL
+    uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
+    chown -R $uidgid ${CONF_FILE};
+  )
+  
+    # echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
+  # [ -s "/etc/init.d/$NAME" ] || (
+    # cd /etc/init.d;
+    # sudo curl -L  "null" -o /etc/init.d/$NAME;
+    # sudo chmod a+x /etc/init.d/$NAME;
+  # )
+
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
+;;
 install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   
@@ -47,12 +74,12 @@ install)
   Debian)
     apt-get update #--fix-missing
     apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline5-dev make curl git-core;
+      libreadline5-dev make curl git-core openjdk-7-jre-headless;
     ;;
   Ubuntu)
     apt-get update #--fix-missing
     apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core;
+      libreadline-dev make curl git-core openjdk-7-jre-headless;
     ;;
   Redhat|Fedora|CentOS)
     yum update #--fix-missing
@@ -61,62 +88,132 @@ install)
     ;;
   esac
 
+  # CENTRALLOG : PROFIL
+  Bin="/opt/";echo "$Bin";
+  Cache="/var/cache/"; echo "$Cache";
+  Etc="/etc/";echo "$Etc";
+  Lib="/var/lib/";echo "$Lib";
+  Log="/var/log/";echo "$Log";
+  Run="Run";echo "$Run";
+  
   # DEPENDS : OWNER
   [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
   ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
   echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/centrallog_$NAME.sh;
-  
   uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
   
-  # CENTRALLOG : POINTER
-  mkdir -p /opt/$NAME || true; chown -R $uidgid /opt/$NAME || true;
-  mkdir -p /etc/$NAME/test || true; chown -R $uidgid /etc/$NAME || true;
-  mkdir -p /var/lib/$NAME || true; chown -R $uidgid /var/lib/$NAME || true;
-  mkdir -p /var/log/$NAME || true; chown -R $uidgid /var/log/$NAME || true;
-  mkdir -p /var/run/$NAME || true; chown -R $uidgid /var/run/$NAME || true;
+  # DEPENDS : PROFIL, OWNER
+  mkdir -p $Bin$NAME || true; chown -R $uidgid $Bin$NAME || true;
+  mkdir -p $Cache$NAME || true; chown -R $uidgid $Cache$NAME || true;
+  mkdir -p $Etc$NAME/test || true; chown -R $uidgid $Etc$NAME || true;
+  mkdir -p $Lib$NAME || true; chown -R $uidgid $Lib/$NAME || true;
+  mkdir -p $Log$NAME || true; chown -R $uidgid $Log/$NAME || true;
+  mkdir -p $Run$NAME || true; chown -R $uidgid $Run/$NAME || true;
 
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /opt/$NAME/null";
-  [ -s "/opt/$NAME/null" ] || (
-    cd /opt/$NAME;
-    curl -OL  "nullnull";
-  )
-
-	#blabla
-	#blabla
+  # DEPENDS : DOWNLOAD CACHE, INSTALL
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
+  Download="null";
+  file=$(basename $Download);
+  cd $Bin$Name;
+  case "$file" in
+    *.tar.gz|*.tgz)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
+      [ -s "$Cache$NAME/$file" ] && sudo tar -xvfz $Cache$NAME/$file;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+      rm -rf $Bin$Name/*.*;
+REOF
+    ;;
+    *.rpm)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
+      [ -s "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+      # TODO
+      #rpm -qa | grep $NAME
+      #rpm -e $NAME;
+      [ -d "$Bin$NAME" ] && rm -rf $Bin$NAME;
+REOF
+    ;;
+    *.deb)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
+      [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+      # TODO
+      #dpkg -l |grep "$NAME"
+      #dpkg -P "$NAME"
+      #dpkg --uninstall $NAME
+REOF
+    ;;
+    *.zip)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
+      [ -s "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+REOF
+    ;;
+    *.jar)
+      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL  "null");
+      [ -s "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
+      cat <<-REOF >$Bin$Name/$Name.uninstall
+REOF
+    ;;
+    *)
+      case "$platform" in
+      Debian|Ubuntu)
+        apt-get update #--fix-missing
+        apt-get -y install $NAME;
+        cat <<-REOF >$Bin$Name/$Name.uninstall
+        apt-get uninstall $NAME;
+REOF
+        ;;
+      Redhat|Fedora|CentOS)
+        yum update #--fix-missing
+        yum -y install $NAME;
+        cat <<-REOF >$Bin$Name/$Name.uninstall
+        yum uninstall $NAME;
+REOF
+        ;;
+      esac
+    ;;
+  esac
+  cat <<-REOF >>$Bin$Name/$Name.uninstall
+    pkill -u $uidgid;
+    [ -f "$Cache$NAME" ] && rm -rf "$Cache$NAME";
+    [ -d "$Bin$NAME" ] && rm -rf "$Bin$NAME";
+    [ -d "$Log$NAME" ] && rm -rf "$Log$NAME";
+    [ -d "$Lib$NAME" ] && rm -rf "$Lib$NAME";
+    [ -d "$Run$NAME" ] && rm -rf "$Run$NAME";
+    [ -d "$Etc$NAME" ] && rm -rf "$Etc$NAME";
+REOF
+  chown -R $uidgid $Bin$NAME || true;
+  
+  #i#install#i#
   
   chown -R $uidgid /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
-remove)
+uninstall)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  #i#remove#i#
+  [ -s "$Bin$Name/$Name.uninstall" ] && cp $Bin$Name/$Name.uninstall /tmp/$Name.uninstall;
+  [ -s "/tmp/$Name.uninstall" ] && sh -x /tmp/$Name.uninstall;
+  #i#uninstall#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
-  #service $NAME start; #LSB
-  #i#start#i#
+  # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
+null
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
-  #service $NAME stop; #LSB
-  #i#stop#i#
+  # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
+null
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 status)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
-  #service $NAME status; #LSB
-  #i#status#i#
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
-;;
-check)
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  #i#check#i#
+  # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
+null
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 upgrade)
@@ -127,7 +224,7 @@ upgrade)
 dist-upgrade)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   
-  echo "USE HTTP-PROXY"
+  echo "# FOR USE HTTP-PROXY"
   echo "export http_proxy='http://proxy.hostname.com:port'"
   echo "export https_proxy='https://proxy.hostname.com:port'"
   
@@ -161,14 +258,14 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check   - check centrallog::Centrallog
-    install - install centrallog::Centrallog
-    reload  - reload config centrallog::Centrallog
-    remove  - remove centrallog::Centrallog
-    start   - start centrallog::Centrallog
-    status  - status centrallog::Centrallog
-    stop    - stop centrallog::Centrallog
-    upgrade - upgrade centrallog::Centrallog
+    check   - check centrallog::centrallog
+    install - install centrallog::centrallog
+    reload  - reload config centrallog::centrallog
+    uninstall  - uninstall centrallog::centrallog
+    start   - start centrallog::centrallog
+    status  - status centrallog::centrallog
+    stop    - stop centrallog::centrallog
+    upgrade - upgrade centrallog::centrallog
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;

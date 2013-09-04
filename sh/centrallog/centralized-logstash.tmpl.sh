@@ -224,7 +224,7 @@ upgrade)
 dist-upgrade)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   
-  echo "USE HTTP-PROXY"
+  echo "# FOR USE HTTP-PROXY"
   echo "export http_proxy='http://proxy.hostname.com:port'"
   echo "export https_proxy='https://proxy.hostname.com:port'"
   
