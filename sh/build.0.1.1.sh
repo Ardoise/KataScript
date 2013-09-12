@@ -92,12 +92,19 @@ rm -f *.sh~
 
 exit 0
 
-# Ard0ise
+# VAGRANT
+dpkg -i http://files.vagrantup.com/packages/b12c7e8814171c1295ef82416ffe51e8a168a244/vagrant_1.3.1_x86_64.deb
+vagrant box add base http://files.vagrantup.com/precise32.box
+vagrant init
+vagrant up
+vagrant ssh
+
 sudo apt-get update       #soft
 sudo apt-get upgrade      #system
 sudo apt-get dist-update  #kernel
 sudo apt-get autoremove   #purge
 sudo apt-get -y install curl git-core sudo 
+
 clone_dir=/tmp/KataScript-build-$$;
 git clone https://github.com/Ardoise/KataScript.git $clone_dir;
 sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
