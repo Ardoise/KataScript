@@ -250,22 +250,22 @@ dist-upgrade)
   # DEPENDS : PLATFORM
   case "$platform" in
   Debian)
-    apt-get update #--fix-missing #--no-install-recommends
-    apt-get upgrade
-    apt-get dist-upgrade
-    apt-get -y install build-essential zlib1g-dev libssl-dev \
+    sudo apt-get update #--fix-missing #--no-install-recommends
+    sudo apt-get upgrade
+    sudo apt-get dist-upgrade
+    sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
       libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig || return $?;
     ;;
   Ubuntu)
-    apt-get update #--fix-missing
-    apt-get upgrade
-    apt-get dist-upgrade
-    apt-get -y install build-essential zlib1g-dev libssl-dev \
+    sudo apt-get update #--fix-missing
+    sudo apt-get upgrade
+    sudo apt-get dist-upgrade
+    sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
       libreadline-dev make curl git-core openjdk-7-jre-headless chkconfig || return $?;
     ;;
   Redhat|Fedora|CentOS)
-    yum update #--fix-missing
-    yum -y install make curl git-core || return $?;
+    sudo yum update #--fix-missing
+    sudo yum -y install make curl git-core || return $?;
     echo "NOT YET TESTED : your contribution is welc0me"
     ;;
   esac
