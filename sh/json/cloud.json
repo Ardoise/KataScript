@@ -167,32 +167,16 @@
       "desc": "Graylog2 Server",
       "name": "graylog2",
       "version": "0.13.0"
-    }
-  },
-  "os": {
-    "lucid32": {
-      "name": "lucid32",
-      "manager": "apt-get"
     },
-    "lucid64": {
-      "name": "lucid64",
-      "manager": "apt-get"
-    },
-    "debian": {
-      "name": "debian",
-      "manager": "apt-get"
-    },
-    "centos": {
-      "name": "centos",
-      "manager": "yum"
-    },
-    "fedora": {
-      "name": "fedora",
-      "manager": "yum"
-    },
-    "redhat": {
-      "name": "redhat",
-      "manager": "yum"
+    "vagrant": {
+      "download": "http://files.vagrantup.com/packages/b12c7e8814171c1295ef82416ffe51e8a168a244/vagrant_1.3.1_x86_64.deb",
+      "desc": "Vagrant PIC",
+      "name": "vagrant",
+      "version": "1.3.1",
+      "depends": {
+        "precise32": "http://files.vagrantup.com/precise32.box",
+        "precise64": "http://files.vagrantup.com/precise64.box"
+      }
     }
   },
   "platform": {
