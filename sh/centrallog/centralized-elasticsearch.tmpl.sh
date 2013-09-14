@@ -198,6 +198,32 @@ restart)
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
+daemon)
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  CMD="chkconfig elasticsearch on";
+  case $CMD in
+  *i#daemon#i*)
+    exec $CMD && exit 0 || exit $?; 
+    ;;
+  *)
+    chkconfig $NAME on && exit 0 || exit $?;
+    ;;
+  esac
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
+;;
+nodaemon)
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  CMD="chkconfig elasticsearch off";
+  case $CMD in
+  *i#nodaemon#i*)
+    exec $CMD && exit 0 || exit $?; 
+    ;;
+  *)
+    chkconfig $NAME off && exit 0 || exit $?;
+    ;;
+  esac
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
+;;
 start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);

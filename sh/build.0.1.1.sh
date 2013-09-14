@@ -71,7 +71,8 @@ for l in $(cat $JSON |jq -r -c '.Profil[]'); do
   b=$(cat $JSON | jq -r -c ".software.$s.binary"); echo -n "$b|";
   u=$(cat $JSON | jq -r -c ".software.$s.download"); echo -n "$u|";
   
-  Daemon=$(cat $JSON | jq -r -c .process.$i.Daemon.OnOff); echo -n "$Daemon|";
+  Daemon=$(cat $JSON | jq -r -c .process.$i.Daemon.On); echo -n "$Daemon|";
+  NoDaemon=$(cat $JSON | jq -r -c .process.$i.Daemon.Off); echo -n "$NoDaemon|";
   hi=$(cat $JSON | jq -r -c .process.$i.reload.input);  echo -n "$hi|";
   ho=$(cat $JSON | jq -r -c .process.$i.reload.output); echo -n "$ho|";
   
@@ -84,6 +85,7 @@ for l in $(cat $JSON |jq -r -c '.Profil[]'); do
       -e "s~#i#bin#i#~$p~g" \
       -e "s~#i#download#i#~$u~g" \
       -e "s~#i#daemon#i#~$Daemon~g" \
+      -e "s~#i#nodaemon#i#~$NoDaemon~g" \
       -e "s~xlicensex~@License~g" \
       $tmp/centralized-generic.rfu.sh.1 > $tmp/$e-$n.tmpl.sh.2);
   
