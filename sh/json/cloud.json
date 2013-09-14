@@ -115,6 +115,11 @@
       "id": "shipper",
       "platform": "distributed",
       "software": "logstash"
+    },
+   "dashboard": {
+      "id": "dashboard",
+      "platform": "centralized",
+      "software": "kibana3"
     }
   },
   "software": {
