@@ -3,7 +3,7 @@
 # Provides: centrallog: xgenericx
 # Short-Description: DEPLOY SERVER: [XGENERICX]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130904
+# Update: last-update: 20130914
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: xgenericx (...)
@@ -46,9 +46,8 @@ check)
   #i#check#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
-config|reload)
+init|config|reload)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  #i#pconfig#i#
   #i#config#i#
   [ ! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}" ] && (
     curl -L ${PATTERN_FILE} -o ${CONF_FILE};
@@ -56,19 +55,11 @@ config|reload)
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE};
   )
-  
-    # echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test /etc/init.d/$NAME";
-  # [ -s "/etc/init.d/$NAME" ] || (
-    # cd /etc/init.d;
-    # sudo curl -L  "#i#daemon#i#" -o /etc/init.d/$NAME;
-    # sudo chmod a+x /etc/init.d/$NAME;
-  # )
-
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  # CENTRALLOG : PROFIL
+  # PROFIL
   Bin="#i#DirBin#i#";echo "$Bin";
   Cache="#i#DirCache#i#"; echo "$Cache";
   Etc="#i#DirEtc#i#";echo "$Etc";
@@ -80,7 +71,7 @@ install)
   [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
   ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
-  echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/centrallog_$NAME.sh;
+  echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/profile.add.$NAME.sh;
   uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
   
   # DEPENDS : PROFIL, OWNER
@@ -126,14 +117,16 @@ REOF
     ;;
     *.zip)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -s "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file;
+      [ -s "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file -d $Bin$NAME/;
       cat <<-REOF >$Bin$Name/$Name.uninstall
+      [ -d "$Bin$NAME" ] && rm -rf $Bin$NAME
 REOF
     ;;
     *.jar)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -s "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
       cat <<-REOF >$Bin$Name/$Name.uninstall
+      [ -d "$Bin$NAME/$file" ] && rm -rf $Bin$NAME/$file
 REOF
     ;;
     *)
