@@ -84,7 +84,7 @@ install)
   mkdir -p $Log$NAME || true; chown -R $uidgid $Log$NAME || true;
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
-  # DOWNLOAD CACHE + PROFIL => INSTALL => UNINSTALL
+  # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
   Download="http://download.redis.io/releases/redis-2.6.16.tar.gz";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
@@ -94,7 +94,7 @@ install)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -s "$Cache$NAME/$file" ] && sudo tar -xvfz $Cache$NAME/$file;
       cat <<-REOF >$Bin$Name/$Name.uninstall
-      rm -rf $Bin$Name/*.*;
+      [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$Name/*.*;
 REOF
     ;;
     *.rpm)
@@ -104,7 +104,7 @@ REOF
       # TODO
       #rpm -qa | grep $NAME
       #rpm -e $NAME;
-      [ -d "$Bin$NAME" ] && rm -rf $Bin$NAME;
+      [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME;
 REOF
     ;;
     *.deb)
@@ -121,14 +121,14 @@ REOF
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -s "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file -d $Bin$NAME/;
       cat <<-REOF >$Bin$Name/$Name.uninstall
-      [ -d "$Bin$NAME" ] && rm -rf $Bin$NAME
+      [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME
 REOF
     ;;
     *.jar)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -s "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
       cat <<-REOF >$Bin$Name/$Name.uninstall
-      [ -d "$Bin$NAME/$file" ] && rm -f $Bin$NAME/$file
+      [ -d "$Bin$NAME/$file" -a -n "$NAME" ] && rm -f $Bin$NAME/$file
 REOF
     ;;
     *)
