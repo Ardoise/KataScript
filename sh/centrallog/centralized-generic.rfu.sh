@@ -15,6 +15,7 @@
 #
 # CONFIG:   [ "/etc/xgenericx", "/etc/xgenericx/test" ]
 # BINARIES: [ "/opt/xgenericx/", "/usr/share/xgenericx/" ]
+# LIB:      [ "/usr/lib/xgenericx/", "/usr/share/lib/xgenericx/" ]
 # LOG:      [ "/var/log/xgenericx/" ]
 # RUN:      [ "/var/run/xgenericx/" ]
 # INIT:     [ "/etc/init.d/xgenericx" ]

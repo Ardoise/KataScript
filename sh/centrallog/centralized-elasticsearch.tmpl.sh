@@ -15,6 +15,7 @@
 #
 # CONFIG:   [ "/etc/elasticsearch", "/etc/elasticsearch/test" ]
 # BINARIES: [ "/opt/elasticsearch/", "/usr/share/elasticsearch/" ]
+# LIB:      [ "/usr/lib/elasticsearch/", "/usr/share/lib/elasticsearch/" ]
 # LOG:      [ "/var/log/elasticsearch/" ]
 # RUN:      [ "/var/run/elasticsearch/" ]
 # INIT:     [ "/etc/init.d/elasticsearch" ]

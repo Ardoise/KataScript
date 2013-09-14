@@ -15,6 +15,7 @@
 #
 # CONFIG:   [ "/etc/redis", "/etc/redis/test" ]
 # BINARIES: [ "/opt/redis/", "/usr/share/redis/" ]
+# LIB:      [ "/usr/lib/redis/", "/usr/share/lib/redis/" ]
 # LOG:      [ "/var/log/redis/" ]
 # RUN:      [ "/var/run/redis/" ]
 # INIT:     [ "/etc/init.d/redis" ]

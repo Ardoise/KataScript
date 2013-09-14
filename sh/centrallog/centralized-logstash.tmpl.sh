@@ -15,6 +15,7 @@
 #
 # CONFIG:   [ "/etc/logstash", "/etc/logstash/test" ]
 # BINARIES: [ "/opt/logstash/", "/usr/share/logstash/" ]
+# LIB:      [ "/usr/lib/logstash/", "/usr/share/lib/logstash/" ]
 # LOG:      [ "/var/log/logstash/" ]
 # RUN:      [ "/var/run/logstash/" ]
 # INIT:     [ "/etc/init.d/logstash" ]

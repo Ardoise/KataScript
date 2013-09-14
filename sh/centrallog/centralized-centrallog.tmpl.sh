@@ -15,6 +15,7 @@
 #
 # CONFIG:   [ "/etc/centrallog", "/etc/centrallog/test" ]
 # BINARIES: [ "/opt/centrallog/", "/usr/share/centrallog/" ]
+# LIB:      [ "/usr/lib/centrallog/", "/usr/share/lib/centrallog/" ]
 # LOG:      [ "/var/log/centrallog/" ]
 # RUN:      [ "/var/run/centrallog/" ]
 # INIT:     [ "/etc/init.d/centrallog" ]
