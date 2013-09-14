@@ -188,7 +188,6 @@
     "centralized": [
       {
         "ip": "10.0.2.10",
-        "hostname": "host10.com",
         "vmname": "host10",
         "boxname": "precise32"
       }
@@ -196,25 +195,21 @@
     "distributed": [
       {
         "ip": "10.0.2.11",
-        "hostname": "host11.com",
         "vmname": "host11",
         "boxname": "precise32"
       },
       {
         "ip": "10.0.2.12",
-        "hostname": "host12.com",
         "vmname": "host12",
         "boxname": "precise32"
       },
       {
         "ip": "10.0.2.13",
-        "hostname": "host13.com",
         "vmname": "host13",
         "boxname": "precise32"
       },
       {
         "ip": "10.0.2.14",
-        "hostname": "host14.com",
         "vmname": "host14",
         "boxname": "precise64"
       }
