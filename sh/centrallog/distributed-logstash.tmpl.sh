@@ -290,7 +290,9 @@ dist-upgrade)
   curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
   
   echo -e "#\trvm-1.22.9 - #configure"
-  . ~/.rvm/scripts/rvm
+  [ -e "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
+  [ -e "~/rvm/scripts/profile_rvm" ] || cp /usr/local/rvm/scripts/rvm ~/rvm/scripts/profile_rvm;
+  
   rvm notes
   rvm list known
   rvm list
