@@ -289,9 +289,11 @@ dist-upgrade)
   # rails,puma;
   
   echo "#  rvm::jruby-1.7.4 - #install"
-  echo "#  rvm::gems::rails-x.x.x - #install"
-  echo "#  rvm::gems::puma-x.x.x - #install"
-  curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
+  curl -L https://get.rvm.io | bash -s stable --ruby=jruby
+    
+  #echo "#  rvm::gems::rails-x.x.x - #install"
+  #echo "#  rvm::gems::puma-x.x.x - #install"
+  #curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
   
   echo "#  rvm-1.22.9 - #configure"
   [ -e "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
