@@ -342,15 +342,17 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check   - check centrallog::xgenericx
-    install - install centrallog::xgenericx
-    reload  - reload config centrallog::xgenericx
-    uninstall  - uninstall centrallog::xgenericx
-    start   - start centrallog::xgenericx
-    status  - status centrallog::xgenericx
-    stop    - stop centrallog::xgenericx
-    update  - update centrallog::xgenericx
-    upgrade - upgrade git-centrallog::xgenericx
+    check     - check centrallog::xgenericx
+    daemon    - daemon on init.d centrallog::xgenericx
+    nodaemon  - daemon off init.d centrallog::xgenericx
+    install   - install centrallog::xgenericx
+    reload    - reload config centrallog::xgenericx
+    uninstall - uninstall centrallog::xgenericx
+    start     - start centrallog::xgenericx
+    status    - status centrallog::xgenericx
+    stop      - stop centrallog::xgenericx
+    update    - update centrallog::xgenericx
+    upgrade   - upgrade git-centrallog::xgenericx
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;

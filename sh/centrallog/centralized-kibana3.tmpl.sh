@@ -342,15 +342,17 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check   - check centrallog::kibana3
-    install - install centrallog::kibana3
-    reload  - reload config centrallog::kibana3
-    uninstall  - uninstall centrallog::kibana3
-    start   - start centrallog::kibana3
-    status  - status centrallog::kibana3
-    stop    - stop centrallog::kibana3
-    update  - update centrallog::kibana3
-    upgrade - upgrade git-centrallog::kibana3
+    check     - check centrallog::kibana3
+    daemon    - daemon on init.d centrallog::kibana3
+    nodaemon  - daemon off init.d centrallog::kibana3
+    install   - install centrallog::kibana3
+    reload    - reload config centrallog::kibana3
+    uninstall - uninstall centrallog::kibana3
+    start     - start centrallog::kibana3
+    status    - status centrallog::kibana3
+    stop      - stop centrallog::kibana3
+    update    - update centrallog::kibana3
+    upgrade   - upgrade git-centrallog::kibana3
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;

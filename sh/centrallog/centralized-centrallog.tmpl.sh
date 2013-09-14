@@ -342,15 +342,17 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check   - check centrallog::centrallog
-    install - install centrallog::centrallog
-    reload  - reload config centrallog::centrallog
-    uninstall  - uninstall centrallog::centrallog
-    start   - start centrallog::centrallog
-    status  - status centrallog::centrallog
-    stop    - stop centrallog::centrallog
-    update  - update centrallog::centrallog
-    upgrade - upgrade git-centrallog::centrallog
+    check     - check centrallog::centrallog
+    daemon    - daemon on init.d centrallog::centrallog
+    nodaemon  - daemon off init.d centrallog::centrallog
+    install   - install centrallog::centrallog
+    reload    - reload config centrallog::centrallog
+    uninstall - uninstall centrallog::centrallog
+    start     - start centrallog::centrallog
+    status    - status centrallog::centrallog
+    stop      - stop centrallog::centrallog
+    update    - update centrallog::centrallog
+    upgrade   - upgrade git-centrallog::centrallog
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;

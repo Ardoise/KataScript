@@ -342,15 +342,17 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check   - check centrallog::logstash
-    install - install centrallog::logstash
-    reload  - reload config centrallog::logstash
-    uninstall  - uninstall centrallog::logstash
-    start   - start centrallog::logstash
-    status  - status centrallog::logstash
-    stop    - stop centrallog::logstash
-    update  - update centrallog::logstash
-    upgrade - upgrade git-centrallog::logstash
+    check     - check centrallog::logstash
+    daemon    - daemon on init.d centrallog::logstash
+    nodaemon  - daemon off init.d centrallog::logstash
+    install   - install centrallog::logstash
+    reload    - reload config centrallog::logstash
+    uninstall - uninstall centrallog::logstash
+    start     - start centrallog::logstash
+    status    - status centrallog::logstash
+    stop      - stop centrallog::logstash
+    update    - update centrallog::logstash
+    upgrade   - upgrade git-centrallog::logstash
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;

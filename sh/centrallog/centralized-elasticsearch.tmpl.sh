@@ -342,15 +342,17 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check   - check centrallog::elasticsearch
-    install - install centrallog::elasticsearch
-    reload  - reload config centrallog::elasticsearch
-    uninstall  - uninstall centrallog::elasticsearch
-    start   - start centrallog::elasticsearch
-    status  - status centrallog::elasticsearch
-    stop    - stop centrallog::elasticsearch
-    update  - update centrallog::elasticsearch
-    upgrade - upgrade git-centrallog::elasticsearch
+    check     - check centrallog::elasticsearch
+    daemon    - daemon on init.d centrallog::elasticsearch
+    nodaemon  - daemon off init.d centrallog::elasticsearch
+    install   - install centrallog::elasticsearch
+    reload    - reload config centrallog::elasticsearch
+    uninstall - uninstall centrallog::elasticsearch
+    start     - start centrallog::elasticsearch
+    status    - status centrallog::elasticsearch
+    stop      - stop centrallog::elasticsearch
+    update    - update centrallog::elasticsearch
+    upgrade   - upgrade git-centrallog::elasticsearch
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;

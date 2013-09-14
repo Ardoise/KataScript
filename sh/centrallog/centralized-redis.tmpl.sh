@@ -342,15 +342,17 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check   - check centrallog::redis
-    install - install centrallog::redis
-    reload  - reload config centrallog::redis
-    uninstall  - uninstall centrallog::redis
-    start   - start centrallog::redis
-    status  - status centrallog::redis
-    stop    - stop centrallog::redis
-    update  - update centrallog::redis
-    upgrade - upgrade git-centrallog::redis
+    check     - check centrallog::redis
+    daemon    - daemon on init.d centrallog::redis
+    nodaemon  - daemon off init.d centrallog::redis
+    install   - install centrallog::redis
+    reload    - reload config centrallog::redis
+    uninstall - uninstall centrallog::redis
+    start     - start centrallog::redis
+    status    - status centrallog::redis
+    stop      - stop centrallog::redis
+    update    - update centrallog::redis
+    upgrade   - upgrade git-centrallog::redis
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;
