@@ -131,8 +131,8 @@
       "version": "1.1.13"
     },
     "redis": {
-      "download": "http://download.redis.io/releases/redis-2.6.16.tar.gz",
       "desc": "Redis Server",
+      "download": "http://download.redis.io/releases/redis-2.6.16.tar.gz",
       "name": "redis",
       "version": "2.6.16"
     },
