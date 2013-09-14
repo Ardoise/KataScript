@@ -54,11 +54,6 @@
       "start": "/etc/init.d/ulogstash start",
       "status": "/etc/init.d/ulogstash status",
       "stop": "/etc/init.d/ulogstash stop"
-    },
-    "vagrant": {
-      "init": "vagrant init",
-      "start": "vagrant up; vagrant ssh",
-      "uninstall": "vagrant destroy"
     }
   },
   "connector": {
