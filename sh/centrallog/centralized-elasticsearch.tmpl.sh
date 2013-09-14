@@ -10,7 +10,7 @@
 # - deploy elasticsearch v0.90.3
 #
 # Requires : you need root privileges tu run this script
-# Requires : curl wget make build-essential zlib1g-dev libssl-dev git-core
+# Requires : curl wget git-core
 # Depends  : lib/usergroup.sh
 #
 # CONFIG:   [ "/etc/elasticsearch", "/etc/elasticsearch/test" ]
