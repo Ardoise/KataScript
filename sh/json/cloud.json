@@ -180,11 +180,11 @@
       "version": "1.3.1",
       "depends": {
         "VirtualBox": [
-          {"name": "precise32", "url": "http://files.vagrantup.com/precise32.box"},
-          {"name": "precise64", "url": "http://files.vagrantup.com/precise64.box"}
+          {"boxname": "precise32", "boxurl": "http://files.vagrantup.com/precise32.box"},
+          {"boxname": "precise64", "boxurl": "http://files.vagrantup.com/precise64.box"}
         ],
         "VMware": [
-          {"name": "precise64_vmware", "url": "http://files.vagrantup.com/precise64_vmware.box"}
+          {"boxname": "precise64_vmware", "url": "http://files.vagrantup.com/precise64_vmware.box"}
         ]
       }
     }
@@ -193,35 +193,35 @@
     "centralized": [
       {
         "ip": "10.0.2.10",
-        "os": "precise32",
         "hostname": "host10.com",
-        "name": "host10"
+        "vmname": "host10",
+        "boxname": "precise32"
       }
     ],
     "distributed": [
       {
         "ip": "10.0.2.11",
-        "os": "precise32",
         "hostname": "host11.com",
-        "name": "host11"
+        "vmname": "host11",
+        "boxname": "precise32"
       },
       {
         "ip": "10.0.2.12",
-        "os": "precise32",
         "hostname": "host12.com",
-        "name": "host12"
+        "vmname": "host12",
+        "boxname": "precise32"
       },
       {
         "ip": "10.0.2.13",
-        "os": "precise32",
         "hostname": "host13.com",
-        "name": "host13"
+        "vmname": "host13",
+        "boxname": "precise32"
       },
       {
         "ip": "10.0.2.14",
-        "os": "precise32",
         "hostname": "host14.com",
-        "name": "host14"
+        "vmname": "host14",
+        "boxname": "precise64"
       }
     ]
   }
