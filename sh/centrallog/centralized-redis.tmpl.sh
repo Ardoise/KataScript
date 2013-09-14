@@ -196,9 +196,9 @@ restart)
 start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
-service redis start
+service redis_6379 start
   case $CMD in
-service redis start
+service redis_6379 start
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
@@ -210,9 +210,9 @@ service redis start
 stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
-service redis start
+service redis_6379 start
   case $CMD in
-service redis stop
+service redis_6379 stop
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
@@ -224,9 +224,9 @@ service redis stop
 status)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
-service redis status
+service redis_6379 status
   case $CMD in
-service redis start
+service redis_6379 start
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)

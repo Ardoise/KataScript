@@ -196,9 +196,9 @@ restart)
 start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
-/etc/init.d/logstash start
+/etc/init.d/ulogstash start
   case $CMD in
-/etc/init.d/logstash start
+/etc/init.d/ulogstash start
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
@@ -210,9 +210,9 @@ start)
 stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
-/etc/init.d/logstash start
+/etc/init.d/ulogstash start
   case $CMD in
-/etc/init.d/logstash stop
+/etc/init.d/ulogstash stop
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
@@ -224,9 +224,9 @@ stop)
 status)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
-/etc/init.d/logstash status
+/etc/init.d/ulogstash status
   case $CMD in
-/etc/init.d/logstash start
+/etc/init.d/ulogstash start
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
