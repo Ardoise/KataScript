@@ -183,35 +183,35 @@
     "centralized": [
       {
         "ip": "192.168.10.10",
-        "os": "lucid32",
-        "hostname": "host0",
-        "name": "centralized"
+        "os": "precise32",
+        "hostname": "host10.com",
+        "name": "host10"
       }
     ],
     "distributed": [
       {
         "ip": "192.168.10.11",
-        "os": "lucid32",
-        "hostname": "host1",
-        "name": "shard"
+        "os": "precise32",
+        "hostname": "host11.com",
+        "name": "host11"
       },
       {
         "ip": "192.168.10.12",
-        "os": "lucid32",
-        "hostname": "host2",
-        "name": "shard"
+        "os": "precise32",
+        "hostname": "host12.com",
+        "name": "host12"
       },
       {
         "ip": "192.168.10.13",
-        "os": "lucid32",
-        "hostname": "host3",
-        "name": "shard"
+        "os": "precise32",
+        "hostname": "host13.com",
+        "name": "host13"
       },
       {
         "ip": "192.168.10.14",
-        "os": "lucid32",
-        "hostname": "host4",
-        "name": "shard"
+        "os": "precise32",
+        "hostname": "host14.com",
+        "name": "host14"
       }
     ]
   }
