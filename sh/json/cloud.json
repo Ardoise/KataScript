@@ -120,7 +120,12 @@
       "platform": "distributed",
       "software": "logstash"
     },
-   "dashboard": {
+    "shipper2": {
+      "id": "shipper2",
+      "platform": "distributed",
+      "software": "flume"
+    },
+    "dashboard": {
       "id": "dashboard",
       "platform": "centralized",
       "software": "kibana3"
