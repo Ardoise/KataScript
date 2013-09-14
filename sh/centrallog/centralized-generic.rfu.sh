@@ -271,7 +271,7 @@ dist-upgrade)
   Redhat|Fedora|CentOS)
     sudo yum update #--fix-missing
     sudo yum -y install make curl git-core || return $?;
-    echo "# NOT YET TESTED : your contribution is welc0me";
+    echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
   esac
   
@@ -289,7 +289,7 @@ dist-upgrade)
   echo "#  rvm::gems::puma-x.x.x - #install"
   curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
   
-  echo "# rvm-1.22.9 - #configure"
+  echo "#  rvm-1.22.9 - #configure"
   [ -e "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   [ -e "~/rvm/scripts/profile_rvm" ] || cp /usr/local/rvm/scripts/rvm ~/rvm/scripts/profile_rvm;
   
@@ -298,7 +298,7 @@ dist-upgrade)
   rvm list
   # echo progress-bar >> ~/.curlrc
   
-  echo "# jq64-x.x.x - #install"
+  echo "#  jq64-x.x.x - #install"
   curl -OL http://stedolan.github.io/jq/download/linux64/jq; mv jq jq64;
   echo "#  jq32-x.x.x - #install"
   curl -OL http://stedolan.github.io/jq/download/linux32/jq;
