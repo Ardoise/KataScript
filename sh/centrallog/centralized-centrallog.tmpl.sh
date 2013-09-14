@@ -167,6 +167,7 @@ REOF
   chown -R $uidgid $Bin$NAME || true;
   
   #i#install#i#
+  #i#postinstall#i#
   
   chown -R $uidgid /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
@@ -178,22 +179,60 @@ uninstall)
   #i#uninstall#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
+restart)
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
+  CMD="#i#restart#i#";
+  case $CMD in
+  #i#restart#i#)
+    exec $CMD && exit 0 || exit $?; 
+    ;;
+  *)
+    service $NAME restart && exit 0 || exit $?;
+    ;;
+  esac
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
+;;
 start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
 null
+  case $CMD in
+null
+    exec $CMD && exit 0 || exit $?; 
+    ;;
+  *)
+    service $NAME start && exit 0 || exit $?;
+    ;;
+  esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
 null
+  case $CMD in
+null
+    exec $CMD && exit 0 || exit $?; 
+    ;;
+  *)
+    service $NAME stop && exit 0 || exit $?;
+    ;;
+  esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 status)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
 null
+  case $CMD in
+null
+    exec $CMD && exit 0 || exit $?; 
+    ;;
+  *)
+    service $NAME status && exit 0 || exit $?;
+    ;;
+  esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 upgrade)
