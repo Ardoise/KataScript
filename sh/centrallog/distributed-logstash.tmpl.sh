@@ -286,7 +286,7 @@ dist-upgrade)
   echo -e "#\trvm::gems::puma-x.x.x - #install"
   curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
   
-  echo -e "#\trvm-1.22.9 - #config"
+  echo -e "#\trvm-1.22.9 - #configure"
   . ~/.rvm/scripts/rvm
   rvm notes
   rvm list known
