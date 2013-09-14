@@ -110,7 +110,7 @@ vagrant ssh
 
 sudo apt-get update       #soft
 sudo apt-get upgrade      #system
-sudo apt-get dist-update  #kernel
+sudo apt-get dist-upgrade #kernel
 sudo apt-get autoremove   #purge
 sudo apt-get -y install curl git-core sudo 
 
