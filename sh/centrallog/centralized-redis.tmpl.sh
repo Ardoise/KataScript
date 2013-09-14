@@ -309,6 +309,7 @@ dist-upgrade)
     start   - start centrallog::redis
     status  - status centrallog::redis
     stop    - stop centrallog::redis
+    update  - update git-centrallog::redis
     upgrade - upgrade centrallog::redis
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_

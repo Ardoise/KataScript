@@ -309,6 +309,7 @@ dist-upgrade)
     start   - start centrallog::xgenericx
     status  - status centrallog::xgenericx
     stop    - stop centrallog::xgenericx
+    update  - update git-centrallog::xgenericx
     upgrade - upgrade centrallog::xgenericx
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_

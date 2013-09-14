@@ -309,6 +309,7 @@ dist-upgrade)
     start   - start centrallog::elasticsearch
     status  - status centrallog::elasticsearch
     stop    - stop centrallog::elasticsearch
+    update  - update git-centrallog::elasticsearch
     upgrade - upgrade centrallog::elasticsearch
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
