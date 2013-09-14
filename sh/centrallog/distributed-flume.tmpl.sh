@@ -86,7 +86,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="http://www.apache.org/dyn/closer.cgi/flume/1.4.0/apache-flume-1.4.0-bin.tar.gz";
+  Download="http://mirrors.ibiblio.org/apache/flume/1.4.0/apache-flume-1.4.0-bin.tar.gz";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;

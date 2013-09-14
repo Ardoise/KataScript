@@ -134,10 +134,15 @@
       "platform": "distributed",
       "software": "logstash"
     },
-    "shippertwo": {
-      "id": "shippertwo",
-      "platform": "centralized",
+    "shipper2": {
+      "id": "shipper2",
+      "platform": "distributed",
       "software": "flume"
+    },
+    "stockage": {
+      "id": "stockage",
+      "platform": "centralized",
+      "software": "mongodb"
     },
     "dashboard": {
       "id": "dashboard",
@@ -166,13 +171,13 @@
     },
     "elasticsearch": {
       "desc": "Elasticsearch Server",
-      "name": "elasticsearch",
       "download": "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.deb",
+      "name": "elasticsearch",
       "version": "0.90.3"
     },
     "mongodb": {
-      "download": "http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.4.6.tgz",
       "desc": "Mongodb Server",
+      "download": "http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.4.6.tgz",
       "name": "mongodb",
       "version": "2.4.6"
     },
@@ -183,8 +188,8 @@
       "version": "3.m.2"
     },
     "flume": {
-      "download": "http://mirrors.ibiblio.org/apache/flume/1.4.0/apache-flume-1.4.0-bin.tar.gz",
       "desc": "Flume Server",
+      "download": "http://mirrors.ibiblio.org/apache/flume/1.4.0/apache-flume-1.4.0-bin.tar.gz",
       "name": "flume",
       "version": "1.4.0",
       "gpg": "gpg --import KEYS; gpg --verify apache-flume-1.4.0-bin.tar.gz.asc"

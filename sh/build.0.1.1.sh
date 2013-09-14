@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 PROGNAME=${0##*/}; echo $PROGNAME;
 VERSION="0.0.0"; echo $VERSION;
@@ -54,7 +54,7 @@ sed -e "s~#i#DirBin#i#~$Bin~g" \
 # JSON => LocalENV
 # LocalENV + TEMPLATE.1 => TEMPLATE.2 => RFU
 JSON=json/cloud.json
-for l in $(cat $JSON |jq -r -c '.Profil[]'); do
+for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
 
   i=$(echo $l | jq -r '.id'); echo -n "$i|";
   s=$(echo $l | jq -r '.software'); echo -n "$s|";
