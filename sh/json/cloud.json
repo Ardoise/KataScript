@@ -180,19 +180,15 @@
     }
   },
   "platform": {
-    "centralized": {
-      "ip": "192.168.10.10",
-      "os": "lucid32",
-      "hostname": "host0",
-      "name": "centralized"
-    },
-    "distributed": {
-      "ip": "192.168.10.11",
-      "os": "lucid32",
-      "hostname": "host1",
-      "name": "distributed"
-    },
-    "shard": [
+    "centralized": [
+      {
+        "ip": "192.168.10.10",
+        "os": "lucid32",
+        "hostname": "host0",
+        "name": "centralized"
+      }
+    ],
+    "distributed": [
       {
         "ip": "192.168.10.11",
         "os": "lucid32",
