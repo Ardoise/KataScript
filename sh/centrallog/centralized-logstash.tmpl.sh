@@ -274,14 +274,12 @@ dist-upgrade)
   echo -e "#\trvm::ruby-2.0.0-p247 - #install"
   curl -L https://get.rvm.io | bash -s stable --ruby
   
-  # curl -L https://get.rvm.io | bash -s stable --ruby=jruby
   # --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,
   # addressable,builder,launchy,liquid,syntax,maruku,rack,sass,rack-protection,
   # tilt,sinatra,watch,yui-compressor,bonsai,hpricot,mustache,rdiscount,ronn,
   # rails,puma;
   
   echo -e "#\trvm::jruby-1.7.4 - #install"
-  echo -e "#\trvm::rails-x.x.x - #install"
   echo -e "#\trvm::gems::rails-x.x.x - #install"
   echo -e "#\trvm::gems::puma-x.x.x - #install"
   curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
