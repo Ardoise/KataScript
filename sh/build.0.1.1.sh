@@ -94,8 +94,17 @@ exit 0
 
 # VAGRANT
 dpkg -i http://files.vagrantup.com/packages/b12c7e8814171c1295ef82416ffe51e8a168a244/vagrant_1.3.1_x86_64.deb
+###############################
+#vagrant box add {title} {url}
+#vagrant init {title}
+#vagrant up
+# box: http://www.vagrantbox.es/
+# Ubuntu precise VirtualBox
+#vagrant box add base http://files.vagrantup.com/precise32.box
+#vagrant box add base http://files.vagrantup.com/precise64.box
+###############################
 vagrant box add base http://files.vagrantup.com/precise32.box
-vagrant init
+vagrant init base
 vagrant up
 vagrant ssh
 
