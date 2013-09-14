@@ -289,10 +289,9 @@ dist-upgrade)
   # echo progress-bar >> ~/.curlrc
   
   echo "WGET JQ::JSON QUERY"
-  echo "curl -OL http://stedolan.github.io/jq/download/linux64/jq"
-  echo "curl -OL http://stedolan.github.io/jq/download/linux32/jq"
-  curl -OL http://stedolan.github.io/jq/download/linux32/jq
-  chmod a+x jq ; mv jq /usr/bin/
+  curl -OL http://stedolan.github.io/jq/download/linux64/jq; mv jq jq64;
+  curl -OL http://stedolan.github.io/jq/download/linux32/jq;
+  chmod a+x jq* ; mv jq* /usr/bin/
   
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
