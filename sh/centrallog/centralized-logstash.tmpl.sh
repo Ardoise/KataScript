@@ -248,9 +248,9 @@ upgrade)
 dist-upgrade)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   
-  echo -e "#\tFOR USE HTTP-PROXY";
-  echo -e "#\texport http_proxy='http://proxy.hostname.com:port'";
-  echo -e "#\texport https_proxy='https://proxy.hostname.com:port'";
+  echo "#  FOR USE HTTP-PROXY";
+  echo "#  export http_proxy='http://proxy.hostname.com:port'";
+  echo "#  export https_proxy='https://proxy.hostname.com:port'";
   
   # DEPENDS : PLATFORM
   case "$platform" in
@@ -271,12 +271,12 @@ dist-upgrade)
   Redhat|Fedora|CentOS)
     sudo yum update #--fix-missing
     sudo yum -y install make curl git-core || return $?;
-    echo -e "#\tNOT YET TESTED : your contribution is welc0me";
+    echo "# NOT YET TESTED : your contribution is welc0me";
     ;;
   esac
   
-  echo -e "#\trvm-1.22.9 - #install"
-  echo -e "#\trvm::ruby-2.0.0-p247 - #install"
+  echo "#  rvm-1.22.9 - #install"
+  echo "#  rvm::ruby-2.0.0-p247 - #install"
   curl -L https://get.rvm.io | bash -s stable --ruby
   
   # --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,
@@ -284,12 +284,12 @@ dist-upgrade)
   # tilt,sinatra,watch,yui-compressor,bonsai,hpricot,mustache,rdiscount,ronn,
   # rails,puma;
   
-  echo -e "#\trvm::jruby-1.7.4 - #install"
-  echo -e "#\trvm::gems::rails-x.x.x - #install"
-  echo -e "#\trvm::gems::puma-x.x.x - #install"
+  echo "#  rvm::jruby-1.7.4 - #install"
+  echo "#  rvm::gems::rails-x.x.x - #install"
+  echo "#  rvm::gems::puma-x.x.x - #install"
   curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
   
-  echo -e "#\trvm-1.22.9 - #configure"
+  echo "# rvm-1.22.9 - #configure"
   [ -e "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   [ -e "~/rvm/scripts/profile_rvm" ] || cp /usr/local/rvm/scripts/rvm ~/rvm/scripts/profile_rvm;
   
@@ -298,9 +298,9 @@ dist-upgrade)
   rvm list
   # echo progress-bar >> ~/.curlrc
   
-  echo -e "#\tjq64-x.x.x - #install"
+  echo "# jq64-x.x.x - #install"
   curl -OL http://stedolan.github.io/jq/download/linux64/jq; mv jq jq64;
-  echo -e "#\tjq32-x.x.x - #install"
+  echo "#  jq32-x.x.x - #install"
   curl -OL http://stedolan.github.io/jq/download/linux32/jq;
   chmod a+x jq* ; mv jq* /usr/bin/
   
