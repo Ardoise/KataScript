@@ -3,7 +3,8 @@
     "split": {
       "Daemon": {
         "Pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash",
-        "OnOff": "chkconfig ulogstash on"
+        "On": "chkconfig ulogstash on",
+        "Off": "chkconfig ulogstash off"
       },
       "reload": {
         "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/redis2elasticsearch",
@@ -17,7 +18,8 @@
     },
     "event": {
       "Daemon": {
-        "OnOff": "chkconfig redis_6379 on"
+        "On": "chkconfig redis_6379 on",
+        "Off": "chkconfig redis_6379 off"
       },
       "reload": {
         "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/redis/6379.conf",
@@ -29,7 +31,8 @@
     },
     "search": {
       "Daemon": {
-        "OnOff": "chkconfig elasticsearch on"
+        "On": "chkconfig elasticsearch on",
+        "Off": "chkconfig elasticsearch off"
       },
       "reload": {
         "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/elasticsearch/elasticsearch.yum",
@@ -49,7 +52,8 @@
       },
       "Daemon": {
         "Pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash",
-        "OnOff": "chkconfig ulogstash on"
+        "On": "chkconfig ulogstash on",
+        "Off": "chkconfig ulogstash off"
       },
       "start": "/etc/init.d/ulogstash start",
       "status": "/etc/init.d/ulogstash status",
