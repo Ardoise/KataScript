@@ -23,9 +23,11 @@ cat <<-_EOF_ >licence.txt
 	# more details.
 _EOF_
 
+# ===================
+# LOAD GLOBAL CONTEXT
+# ===================
+# JSON => GlobalENV
 JSON=json/cloud.json
-
-# PROFIL
 for l in $(cat $JSON |jq -r -c '.Profil.Dir'); do
   Bin=$(echo $l | jq -r '.Bin'); echo "$Bin";        Bin=${Bin:-="/opt/"};
   Cache=$(echo $l | jq -r '.Cache'); echo "$Cache";  Cache=${Cache:-="/var/cache/"};
@@ -34,6 +36,9 @@ for l in $(cat $JSON |jq -r -c '.Profil.Dir'); do
   Log=$(echo $l | jq -r '.Log'); echo "$Log";        Log=${Log:-="/var/log/"};
   Run=$(echo $l | jq -r '.Run'); echo "$Run";        Run=${Run:-="/var/run/"};
 done
+
+
+# GlobalENV + TEMPLATE => TEMPLATE.1
 [ -f "centrallog/centralized-generic.rfu.sh" ] && (\
 sed -e "s~#i#DirBin#i#~$Bin~g" \
     -e "s~#i#DirCache#i#~$Cache~g" \
@@ -43,7 +48,12 @@ sed -e "s~#i#DirBin#i#~$Bin~g" \
     -e "s~#i#DirRun#i#~$Run~g" \
     centrallog/centralized-generic.rfu.sh > $tmp/centralized-generic.rfu.sh.1);
 
-# max=$(cat $JSON |jq -r -c '.Profil | length'; # wc -l
+# ===================
+# LOAD local CONTEXT
+# ===================
+# JSON => LocalENV
+# LocalENV + TEMPLATE.1 => TEMPLATE.2 => RFU
+JSON=json/cloud.json
 for l in $(cat $JSON |jq -r -c '.Profil[]'); do
 
   i=$(echo $l | jq -r '.id'); echo -n "$i|";
@@ -92,7 +102,9 @@ rm -f *.sh~
 
 exit 0
 
-# VAGRANT
+# ===================
+# RUN GLOBAL CONTEXT
+# ===================
 dpkg -i http://files.vagrantup.com/packages/b12c7e8814171c1295ef82416ffe51e8a168a244/vagrant_1.3.1_x86_64.deb
 ###############################
 #vagrant box add {title} {url}
@@ -119,4 +131,4 @@ git clone https://github.com/Ardoise/KataScript.git $clone_dir;
 sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
 sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh install;
 echo "rm -rf $clone_dir";
-echo "unset clone_dir"; 
+echo "unset clone_dir";
