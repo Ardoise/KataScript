@@ -10,7 +10,7 @@ tmp="/tmp";
 [ -d "$tmp" ] || mkdir -p $tmp;
 EMAIL_ADDRESS="<${REPLYTO:-${USER}@$HOSTNAME}>"; echo $EMAIL_ADDRESS
 
-cat <<- _EOF_>licence.txt
+cat <<-_EOF_ >licence.txt
 	# This program is free software: you can redistribute it and/or modify
 	# it under the terms of the GNU General Public License as published by
 	# the Free Software Foundation, either version 3 of the License, or
