@@ -18,6 +18,7 @@
 # LOG:      [ "/var/log/logstash/" ]
 # RUN:      [ "/var/run/logstash/" ]
 # INIT:     [ "/etc/init.d/logstash" ]
+# CACHE:    [ "/var/cache/logstash" ]
 
 # @License
 

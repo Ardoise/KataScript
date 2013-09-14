@@ -18,6 +18,7 @@
 # LOG:      [ "/var/log/centrallog/" ]
 # RUN:      [ "/var/run/centrallog/" ]
 # INIT:     [ "/etc/init.d/centrallog" ]
+# CACHE:    [ "/var/cache/centrallog" ]
 
 # @License
 

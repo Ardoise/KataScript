@@ -18,6 +18,7 @@
 # LOG:      [ "/var/log/elasticsearch/" ]
 # RUN:      [ "/var/run/elasticsearch/" ]
 # INIT:     [ "/etc/init.d/elasticsearch" ]
+# CACHE:    [ "/var/cache/elasticsearch" ]
 
 # @License
 

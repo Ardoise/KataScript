@@ -18,6 +18,7 @@
 # LOG:      [ "/var/log/xgenericx/" ]
 # RUN:      [ "/var/run/xgenericx/" ]
 # INIT:     [ "/etc/init.d/xgenericx" ]
+# CACHE:    [ "/var/cache/xgenericx" ]
 
 # xlicensex
 

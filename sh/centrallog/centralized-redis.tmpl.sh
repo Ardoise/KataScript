@@ -18,6 +18,7 @@
 # LOG:      [ "/var/log/redis/" ]
 # RUN:      [ "/var/run/redis/" ]
 # INIT:     [ "/etc/init.d/redis" ]
+# CACHE:    [ "/var/cache/redis" ]
 
 # @License
 
