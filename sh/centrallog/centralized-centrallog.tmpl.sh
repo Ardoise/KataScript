@@ -60,7 +60,8 @@ CONF_FILE=
 ;;
 install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  # PROFIL
+
+  # LocalENV
   Bin="/opt/";echo "$Bin";
   Cache="/var/cache/"; echo "$Cache";
   Etc="/etc/";echo "$Etc";
@@ -68,14 +69,14 @@ install)
   Log="/var/log/";echo "$Log";
   Run="/var/run/";echo "$Run";
   
-  # DEPENDS : OWNER
+  # OWNER
   [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
   ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
   echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/profile.add.$NAME.sh;
   uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
   
-  # DEPENDS : PROFIL, OWNER
+  # LocalENV + OWNER => PROFIL
   mkdir -p $Bin$NAME || true; chown -R $uidgid $Bin$NAME || true;
   mkdir -p $Cache$NAME || true; chown -R $uidgid $Cache$NAME || true;
   mkdir -p $Etc$NAME/test || true; chown -R $uidgid $Etc$NAME || true;
@@ -83,7 +84,7 @@ install)
   mkdir -p $Log$NAME || true; chown -R $uidgid $Log$NAME || true;
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
-  # DEPENDS : DOWNLOAD CACHE, INSTALL
+  # DOWNLOAD CACHE + PROFIL => INSTALL => UNINSTALL
   Download="";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
@@ -159,6 +160,11 @@ REOF
     [ -d "$Etc$NAME" ] && rm -rf "$Etc$NAME";
 REOF
 
+  # OWNER => POSTINSTALL
+  
+  #i#install#i#
+  #i#postinstall#i#
+
   chown -R $uidgid $Bin$NAME || true;
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
@@ -166,10 +172,7 @@ REOF
   chown -R $uidgid $Log$NAME || true;
   chown -R $uidgid $Run$NAME || true;
   chown -R $uidgid $Bin$NAME || true;
-  
-  #i#install#i#
-  #i#postinstall#i#
-  
+    
   chown -R $uidgid /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
