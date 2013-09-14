@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 ### BEGIN INIT INFO
 # Provides: centrallog: elasticsearch
 # Short-Description: DEPLOY SERVER: [ELASTICSEARCH]
@@ -295,7 +295,7 @@ dist-upgrade)
   
   echo "#  rvm-1.22.9 - #configure"
   [ -e "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
-  [ -e "~/rvm/scripts/profile_rvm" ] || cp /usr/local/rvm/scripts/rvm ~/rvm/scripts/profile_rvm;
+  [ -e "~/rvm/scripts/profile_rvm" ] || cp /usr/local/rvm/scripts/rvm ~/profile_rvm;
   
   rvm notes
   rvm list known
