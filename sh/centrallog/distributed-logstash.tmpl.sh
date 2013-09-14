@@ -126,7 +126,7 @@ REOF
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -s "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
       cat <<-REOF >$Bin$Name/$Name.uninstall
-      [ -d "$Bin$NAME/$file" ] && rm -rf $Bin$NAME/$file
+      [ -d "$Bin$NAME/$file" ] && rm -f $Bin$NAME/$file
 REOF
     ;;
     *)
@@ -184,7 +184,7 @@ restart)
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
   CMD="#i#restart#i#";
   case $CMD in
-  #i#restart#i#)
+  *i#restart#i*)
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
@@ -198,7 +198,7 @@ start)
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
 /etc/init.d/ulogstash start
   case $CMD in
-/etc/init.d/ulogstash start
+  *i#start#i*)
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
@@ -212,7 +212,7 @@ stop)
   # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
 /etc/init.d/ulogstash start
   case $CMD in
-/etc/init.d/ulogstash stop
+  *i#stop#i*)
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
@@ -226,7 +226,7 @@ status)
   # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
 /etc/init.d/ulogstash status
   case $CMD in
-/etc/init.d/ulogstash start
+  *i#start#i*)
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
