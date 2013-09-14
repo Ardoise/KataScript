@@ -10,7 +10,7 @@
 # - deploy logstash v1.1.13
 #
 # Requires : you need root privileges tu run this script
-# Requires : curl wget git-core
+# Requires : curl wget git-core gpg
 # Depends  : lib/usergroup.sh
 #
 # CONFIG:   [ "/etc/logstash", "/etc/logstash/test" ]
@@ -162,7 +162,6 @@ REOF
 REOF
 
   # OWNER => POSTINSTALL
-  
   #i#install#i#
   #i#postinstall#i#
 
@@ -290,18 +289,18 @@ dist-upgrade)
     sudo apt-get upgrade
     sudo apt-get dist-upgrade
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig || return $?;
+      libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpg || return $?;
     ;;
   Ubuntu)
     sudo apt-get update #--fix-missing
     sudo apt-get upgrade
     sudo apt-get dist-upgrade
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core openjdk-7-jre-headless chkconfig || return $?;
+      libreadline-dev make curl git-core openjdk-7-jre-headless chkconfig gpg || return $?;
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update #--fix-missing
-    sudo yum -y install make curl git-core || return $?;
+    sudo yum -y install make curl git-core gpg openjdk-7-jre-headless || return $?;
     echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
   esac
