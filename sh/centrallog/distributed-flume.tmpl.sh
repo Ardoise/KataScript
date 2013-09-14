@@ -50,7 +50,7 @@ check)
 ;;
 init|config|reload)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-CONF_FILE=
+CONF_FILE=/etc/flume/flume.conf
   [ ! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}" ] && (
     curl -L ${PATTERN_FILE} -o ${CONF_FILE};
     # CONTEXT VALUES LOCAL
@@ -199,7 +199,7 @@ restart)
 ;;
 daemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  CMD="null";
+  CMD="chkconfig flume on";
   case $CMD in
   *i#daemon#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -212,7 +212,7 @@ daemon)
 ;;
 nodaemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  CMD="null";
+  CMD="chkconfig flume off";
   case $CMD in
   *i#nodaemon#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -226,7 +226,7 @@ nodaemon)
 start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
-null
+service flume start
   case $CMD in
   *i#start#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -240,7 +240,7 @@ null
 stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
-null
+service flume start
   case $CMD in
   *i#stop#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -254,7 +254,7 @@ null
 status)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
-null
+service flume status
   case $CMD in
   *i#start#i*)
     exec $CMD && exit 0 || exit $?; 

@@ -58,6 +58,20 @@
       "start": "/etc/init.d/ulogstash start",
       "status": "/etc/init.d/ulogstash status",
       "stop": "/etc/init.d/ulogstash stop"
+    },
+    "shipper2": {
+      "reload": {
+        "conf": "/etc/flume/flume.conf",
+        "input": "distributed",
+        "output": "centralized"
+      },
+      "Daemon": {
+        "On": "chkconfig flume on",
+        "Off": "chkconfig flume off"
+      },
+      "start": "service flume start",
+      "status": "service flume status",
+      "stop": "service flume stop"
     }
   },
   "connector": {
