@@ -89,19 +89,19 @@ install)
   Download="";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
-  cd $Bin$Name;
+  cd $Bin$NAME;
   case "$file" in
     *.tar.gz|*.tgz)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -s "$Cache$NAME/$file" ] && sudo tar -xvfz $Cache$NAME/$file -C $Bin$NAME/;
-      cat <<-REOF >$Bin$Name/$Name.uninstall
-      [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$Name/*.*;
+      cat <<-REOF >$Bin$NAME/$NAME.uninstall
+      [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME/*.*;
 REOF
     ;;
     *.rpm)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -s "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
-      cat <<-REOF >$Bin$Name/$Name.uninstall
+      cat <<-REOF >$Bin$NAME/$NAME.uninstall
       # TODO
       #rpm -qa | grep $NAME
       #rpm -e $NAME;
@@ -111,7 +111,7 @@ REOF
     *.deb)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file --root=$Bin$NAME;
-      cat <<-REOF >$Bin$Name/$Name.uninstall
+      cat <<-REOF >$Bin$NAME/$NAME.uninstall
       # TODO
       #dpkg -l |grep "$NAME"
       #dpkg -P "$NAME"
@@ -121,14 +121,14 @@ REOF
     *.zip)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -s "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file -d $Bin$NAME/;
-      cat <<-REOF >$Bin$Name/$Name.uninstall
+      cat <<-REOF >$Bin$NAME/$NAME.uninstall
       [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME
 REOF
     ;;
     *.jar)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -s "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
-      cat <<-REOF >$Bin$Name/$Name.uninstall
+      cat <<-REOF >$Bin$NAME/$NAME.uninstall
       [ -d "$Bin$NAME/$file" -a -n "$NAME" ] && rm -f $Bin$NAME/$file
 REOF
     ;;
@@ -137,21 +137,21 @@ REOF
       Debian|Ubuntu)
         sudo apt-get update #--fix-missing
         sudo apt-get -y install $NAME;
-        cat <<-REOF >$Bin$Name/$Name.uninstall
+        cat <<-REOF >$Bin$NAME/$NAME.uninstall
         sudo apt-get uninstall $NAME;
 REOF
         ;;
       Redhat|Fedora|CentOS)
         sudo yum update #--fix-missing
         sudo yum -y install $NAME;
-        cat <<-REOF >$Bin$Name/$Name.uninstall
+        cat <<-REOF >$Bin$NAME/$NAME.uninstall
         sudo yum uninstall $NAME;
 REOF
         ;;
       esac
     ;;
   esac
-  cat <<-REOF >>$Bin$Name/$Name.uninstall
+  cat <<-REOF >>$Bin$NAME/$NAME.uninstall
     pkill -u $uidgid;
     [ -f "$Cache$NAME" ] && rm -rf "$Cache$NAME";
     [ -d "$Bin$NAME" ] && rm -rf "$Bin$NAME";
@@ -179,8 +179,8 @@ REOF
 ;;
 uninstall)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  [ -s "$Bin$Name/$Name.uninstall" ] && cp $Bin$Name/$Name.uninstall /tmp/$Name.uninstall;
-  [ -s "/tmp/$Name.uninstall" ] && sh -x /tmp/$Name.uninstall;
+  [ -s "$Bin$NAME/$NAME.uninstall" ] && cp $Bin$NAME/$NAME.uninstall /tmp/$NAME.uninstall;
+  [ -s "/tmp/$NAME.uninstall" ] && sh -x /tmp/$NAME.uninstall;
   #i#uninstall#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
