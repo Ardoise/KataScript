@@ -54,6 +54,11 @@
       "start": "/etc/init.d/ulogstash start",
       "status": "/etc/init.d/ulogstash status",
       "stop": "/etc/init.d/ulogstash stop"
+    },
+    "vagrant": {
+      "init": "vagrant init",
+      "start": "vagrant up; vagrant ssh",
+      "uninstall": "vagrant destroy"
     }
   },
   "connector": {
@@ -174,16 +179,20 @@
       "name": "vagrant",
       "version": "1.3.1",
       "depends": {
-        "VirtualBox": {"name": "precise32", "url": "http://files.vagrantup.com/precise32.box"},
-        "VirtualBox": {"name": "precise64", "url": "http://files.vagrantup.com/precise64.box"},
-        "VMware": {"name": "precise64_vmware", "url": "http://files.vagrantup.com/precise64_vmware.box"}
+        "VirtualBox": [
+          {"name": "precise32", "url": "http://files.vagrantup.com/precise32.box"},
+          {"name": "precise64", "url": "http://files.vagrantup.com/precise64.box"}
+        ],
+        "VMware": [
+          {"name": "precise64_vmware", "url": "http://files.vagrantup.com/precise64_vmware.box"}
+        ]
       }
     }
   },
   "platform": {
     "centralized": [
       {
-        "ip": "192.168.10.10",
+        "ip": "10.0.2.10",
         "os": "precise32",
         "hostname": "host10.com",
         "name": "host10"
@@ -191,25 +200,25 @@
     ],
     "distributed": [
       {
-        "ip": "192.168.10.11",
+        "ip": "10.0.2.11",
         "os": "precise32",
         "hostname": "host11.com",
         "name": "host11"
       },
       {
-        "ip": "192.168.10.12",
+        "ip": "10.0.2.12",
         "os": "precise32",
         "hostname": "host12.com",
         "name": "host12"
       },
       {
-        "ip": "192.168.10.13",
+        "ip": "10.0.2.13",
         "os": "precise32",
         "hostname": "host13.com",
         "name": "host13"
       },
       {
-        "ip": "192.168.10.14",
+        "ip": "10.0.2.14",
         "os": "precise32",
         "hostname": "host14.com",
         "name": "host14"
