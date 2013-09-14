@@ -235,6 +235,11 @@ status)
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
+update)
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  #i#update#i#
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
+;;
 upgrade)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   #i#upgrade#i#
@@ -309,8 +314,8 @@ dist-upgrade)
     start   - start centrallog::xgenericx
     status  - status centrallog::xgenericx
     stop    - stop centrallog::xgenericx
-    update  - update git-centrallog::xgenericx
-    upgrade - upgrade centrallog::xgenericx
+    update  - update centrallog::xgenericx
+    upgrade - upgrade git-centrallog::xgenericx
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;

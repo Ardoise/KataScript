@@ -235,6 +235,11 @@ service redis_6379 status
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
+update)
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  #i#update#i#
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
+;;
 upgrade)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   #i#upgrade#i#
@@ -309,8 +314,8 @@ dist-upgrade)
     start   - start centrallog::redis
     status  - status centrallog::redis
     stop    - stop centrallog::redis
-    update  - update git-centrallog::redis
-    upgrade - upgrade centrallog::redis
+    update  - update centrallog::redis
+    upgrade - upgrade git-centrallog::redis
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;

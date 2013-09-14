@@ -235,6 +235,11 @@ service elasticsearch status
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
+update)
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+  #i#update#i#
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
+;;
 upgrade)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   #i#upgrade#i#
@@ -309,8 +314,8 @@ dist-upgrade)
     start   - start centrallog::elasticsearch
     status  - status centrallog::elasticsearch
     stop    - stop centrallog::elasticsearch
-    update  - update git-centrallog::elasticsearch
-    upgrade - upgrade centrallog::elasticsearch
+    update  - update centrallog::elasticsearch
+    upgrade - upgrade git-centrallog::elasticsearch
     dist-upgrade - upgrade platform with jruby::gems
 _EOF_
 ;;
