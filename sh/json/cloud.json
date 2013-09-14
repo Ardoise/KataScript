@@ -76,7 +76,7 @@
       "id": "index",
       "platform": "centralized"
     },
-    "kibana": {
+    "kibana3": {
       "id": "dashboard",
       "input": "elasticsearch",
       "platform": "centralized"
@@ -148,11 +148,10 @@
       "name": "mongodb",
       "version": "2.4.6"
     },
-    "kibana": {
-      "binary": "master.tar.gz",
-      "download": "https://github.com/elasticsearch/kibana/archive/",
+    "kibana3": {
+      "download": "https://github.com/elasticsearch/kibana/archive/master.tar.gz",
       "desc": "Kibana Server",
-      "name": "kibana",
+      "name": "kibana3",
       "version": "3.m.2"
     },
     "flume": {
