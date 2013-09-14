@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 PROGNAME=${0##*/}; echo $PROGNAME;
 VERSION="0.0.0"; echo $VERSION;
