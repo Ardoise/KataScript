@@ -297,16 +297,6 @@ dist-upgrade)
   [ -e "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   [ -e "~/rvm/scripts/profile_rvm" ] || cp /usr/local/rvm/scripts/rvm ~/profile_rvm;
   
-  cat <<- _EOF_
-  # In case of problems:
-  #      run and read: rvm notes
-  #         read docs: http://rvm.io/
-  #        talk to us: http://webchat.freenode.net/?channels=rvm (http://freenode.net/faq.shtml#plusr)
-  #   read cheatsheet: http://cheat.errtheblog.com/s/rvm
-  #  watch screencast: http://screencasts.org/episodes/how-to-use-rvm
-  # open a bug report: https://github.com/wayneeseguin/rvm/issues
-_EOF_
-
   # rvm notes
   # rvm list known
   # rvm list
