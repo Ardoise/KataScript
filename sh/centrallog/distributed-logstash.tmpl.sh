@@ -132,17 +132,17 @@ REOF
     *)
       case "$platform" in
       Debian|Ubuntu)
-        apt-get update #--fix-missing
-        apt-get -y install $NAME;
+        sudo apt-get update #--fix-missing
+        sudo apt-get -y install $NAME;
         cat <<-REOF >$Bin$Name/$Name.uninstall
-        apt-get uninstall $NAME;
+        sudo apt-get uninstall $NAME;
 REOF
         ;;
       Redhat|Fedora|CentOS)
-        yum update #--fix-missing
-        yum -y install $NAME;
+        sudo yum update #--fix-missing
+        sudo yum -y install $NAME;
         cat <<-REOF >$Bin$Name/$Name.uninstall
-        yum uninstall $NAME;
+        sudo yum uninstall $NAME;
 REOF
         ;;
       esac
