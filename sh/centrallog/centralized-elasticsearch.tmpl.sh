@@ -93,7 +93,7 @@ install)
   case "$file" in
     *.tar.gz|*.tgz)
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -s "$Cache$NAME/$file" ] && sudo tar -xvfz $Cache$NAME/$file -C $Bin$NAME/;
+      [ -s "$Cache$NAME/$file" ] && sudo tar xvfz $Cache$NAME/$file -C $Bin$NAME/;
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
       [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME/*.*;
 REOF
