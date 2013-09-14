@@ -134,9 +134,9 @@
       "platform": "distributed",
       "software": "logstash"
     },
-    "shipper2": {
-      "id": "shipper2",
-      "platform": "distributed",
+    "shippertwo": {
+      "id": "shippertwo",
+      "platform": "centralized",
       "software": "flume"
     },
     "dashboard": {
