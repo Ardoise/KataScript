@@ -1,0 +1,15 @@
+  {
+    "bind_host":"",
+    "cluster ":"",
+    "codec": "plain",
+    "document_id":"nil",
+    "embedded ":"false",
+    "embedded_http_port": "9200-9300",
+    "flush_size":"100",
+    "host":"",
+    "idle_flush_time":"1",
+    "index":"logstash-%{+YYYY.MM.dd}",
+    "index_type":"",
+    "node_name":"",
+    "port":"9300-9400"
+}

@@ -1,0 +1,9 @@
+  {
+    "add_field":"{}",
+    "add_tag":[],
+    "coalesce":"",
+    "condrewrite":"",
+    "condrewriteother":"",
+    "remove_field":[],
+    "remove_tag": []
+}

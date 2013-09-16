@@ -1,0 +1,9 @@
+  {
+    "codec":"plain",
+    "collection":"",
+    "database":"",
+    "generateId":"false",
+    "isodate":"false",
+    "retry_delay":"3",
+    "uri":""
+}

@@ -1,0 +1,11 @@
+ {
+    "action":["append", "replace"],
+    "add_field":"{}",
+    "add_tag":[],
+    "nameserver":"",
+    "remove_field":[],
+    "remove_tag":[],
+    "resolve":"",
+    "reverse":"",
+    "timeout":"2"
+}

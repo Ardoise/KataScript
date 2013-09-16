@@ -1,0 +1,4 @@
+ {
+    "type":"Win32-EventLog",
+    "logfile":"System"
+  }

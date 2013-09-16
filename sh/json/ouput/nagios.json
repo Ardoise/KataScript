@@ -1,0 +1,5 @@
+  {
+    "codec": "plain",
+    "commandfile": "/var/lib/nagios3/rw/nagios.cmd",
+    "nagios_level":["0", "1", "2", "3"]
+}

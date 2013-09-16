@@ -1,0 +1,17 @@
+  {
+    "add_field":"{}",
+    "codec":"plain",
+    "data_timeout":"-1",
+    "debug":"false",
+    "host":"0.0.0.0",
+    "mode":["server", "client"],
+    "port":"",
+    "ssl_cacert":"",
+    "ssl_cert":"",
+    "ssl_enable":"false",
+    "ssl_key":"",
+    "ssl_key_passphrase":"nil",
+    "ssl_verify":"false",
+    "tags":"",
+    "type":""
+}

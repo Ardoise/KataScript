@@ -1,0 +1,7 @@
+ {
+    "host":"localhost",
+    "port":"1420",
+    "type":"apache-access",
+    "fields":[ "response" ],
+    "meter":[ "%{source}.apache.response.%{response}", "1" ]
+}

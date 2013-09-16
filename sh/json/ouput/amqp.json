@@ -1,0 +1,16 @@
+  {
+    "codec":"plain",
+    "debug":"false",
+    "durable":"true",
+    "exchange":"",
+    "exchange_type":["fanout", "direct", "topic"],
+    "host":"",
+    "key" :"logstash",
+    "password" :"guest",
+    "persistent" :"true",
+    "port" : "5672",
+    "ssl": "false",
+    "user": "guest",
+    "verify_ssl": "false",
+    "vhost": "/"
+}

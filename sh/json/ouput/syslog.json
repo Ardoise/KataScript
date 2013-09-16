@@ -1,0 +1,14 @@
+  {
+    "appname":"LOGSTASH",
+    "codec":"plain",
+    "facility":["kernel", "user-level", "mail", "daemon", "security/authorization", "syslogd", "line printer", "network news", "uucp", "clock", "security/authorization", "ftp", "ntp", "log audit", "log alert", "clock", "local0", "local1", "local2", "local3", "local4", "local5", "local6", "local7"] ,
+    "host":"",
+    "msgid":"-",
+    "port":"",
+    "procid":"-",
+    "protocol":"udp",
+    "rfc": ["rfc3164", "rfc5424"],
+    "severity":["emergency", "alert", "critical", "error", "warning", "notice", "informational", "debug"],
+    "sourcehost":"%{source}",
+    "timestamp":"%{@timestamp}"
+}

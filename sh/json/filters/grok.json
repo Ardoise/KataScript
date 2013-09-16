@@ -1,0 +1,15 @@
+  {
+    "add_field":"{}",
+    "add_tag":[],
+    "break_on_match":"true",
+    "drop_if_match":"false",
+    "keep_empty_captures":"false",
+    "match":"{}",
+    "named_captures_only":"true",
+    "overwrite":[],
+    "patterns_dir":[],
+    "remove_field":[],
+    "remove_tag":[],
+    "singles":"true",
+    "tag_on_failure":["_grokparsefailure"]
+}

@@ -1,0 +1,10 @@
+ {
+    "add_field":"{}",
+    "add_tag":[],
+    "database":"",
+    "fields":"",
+    "remove_field":[],
+    "remove_tag":[],
+    "source":"",
+    "target":"geoip"
+}

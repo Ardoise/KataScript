@@ -1,0 +1,14 @@
+ {
+    "add_field":"{}",
+    "add_tag":[],
+    "destination":"translation",
+    "dictionary":"{}",
+    "dictionary_path":"",
+    "exact":"true",
+    "fallback":"",
+    "field":"",
+    "override":"false",
+    "regex":"false",
+    "remove_field":[],
+    "remove_tag":[]
+}

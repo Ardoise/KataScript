@@ -1,0 +1,16 @@
+ {
+    "add_field":"{}",
+    "check_interval":"300",
+    "codec":"plain",
+    "debug":"false",
+    "delete":"false",
+    "fetch_count":"50",
+    "host":"",
+    "lowercase_headers":"true",
+    "password":"",
+    "port":"",
+    "secure":"true",
+    "tags":"",
+    "type":"",
+    "user":""
+}

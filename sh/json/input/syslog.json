@@ -1,0 +1,12 @@
+{
+    "add_field":"{}",
+    "codec":"plain",
+    "debug":"false",
+    "facility_labels":["kernel", "user-level", "mail", "system", "security/authorization", "syslogd", "line printer", "network news", "UUCP", "clock", "security/authorization", "FTP", "NTP", "log audit", "log alert", "clock", "local0", "local1", "local2", "local3", "local4", "local5", "local6", "local7"],
+    "host":"0.0.0.0",
+    "port":"514",
+    "severity_labels":["Emergency", "Alert", "Critical", "Error", "Warning", "Notice", "Informational", "Debug"],
+    "tags":"",
+    "type":"",
+    "use_labels":"true"
+}

@@ -1,0 +1,10 @@
+ {
+    "codec":"plain",
+    "document_id":"nil",
+    "flush_size":"100",
+    "host":"",
+    "idle_flush_time":"1",
+    "index":"logstash-%{+YYYY.MM.dd}",
+    "index_type":"",
+    "port":"9200"
+}

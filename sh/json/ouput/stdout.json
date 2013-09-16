@@ -1,0 +1,5 @@
+ {
+    "codec":"plain",
+    "debug":"false",
+    "message":"%{+yyyy-MM-dd'T'HH:mm:ss.SSSZ} %{host}: %{message}"
+}

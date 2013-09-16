@@ -1,0 +1,12 @@
+   {
+    "add_field":"{}",
+    "add_tag":[],
+    "negate":"false",
+    "pattern":"",
+    "patterns_dir":[],
+    "remove_field":[],
+    "remove_tag":[],
+    "source":"message",
+    "stream_identity":"%{host}-%{path}-%{type}",
+    "what":["previous", "next"] 
+	}

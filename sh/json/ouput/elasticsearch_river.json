@@ -1,0 +1,23 @@
+  {
+    "codec": "plain",
+    "debug" : "false",
+    "document_id ":"nil",
+    "durable":"true",
+    "es_bulk_size": "1000",
+    "es_bulk_timeout_ms":"100",
+    "es_host":"",
+    "es_ordered":"false",
+    "es_port":"9200",
+    "exchange":"elasticsearch",
+    "exchange_type":["fanout", "direct", "topic"],
+    "index":"logstash-%{+YYYY.MM.dd}",
+    "index_type":"%{type}",
+    "key":"elasticsearch",
+    "password":"guest",
+    "persistent":"true",
+    "queue":"elasticsearch",
+    "rabbitmq_host":"",
+    "rabbitmq_port":"5672",
+    "user":"guest",
+    "vhost": "/"
+}

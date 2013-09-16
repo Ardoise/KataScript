@@ -1,0 +1,11 @@
+ {
+    "codec":"plain",
+    "content_type":"",
+    "format":["json", "form", "message"],
+    "headers":"",
+    "http_method":["put", "post"],
+    "mapping":"",
+    "message":"",
+    "url":"",
+    "verify_ssl":"true"
+}

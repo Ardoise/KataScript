@@ -1,0 +1,10 @@
+  {
+    "add_field":"{}",
+    "add_tag":[],
+    "columns":[],
+    "remove_field":[],
+    "remove_tag":[],
+    "separator":",",
+    "source": "message",
+    "target":""
+  }

@@ -1,0 +1,11 @@
+{
+    "add_field":"{}",
+    "codec":"plain",
+    "count":"0",
+    "debug":"false",
+    "lines":"",
+    "message":"Hello world!",
+    "tags":"",
+    "threads" :"1",
+    "type":""
+}

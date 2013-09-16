@@ -1,0 +1,11 @@
+  {
+    "add_field":"{}",
+    "codec":"plain",
+    "community":"public",
+    "debug":"false",
+    "host": "0.0.0.0",
+    "port":"1062",
+    "tags":"",
+    "type":"",
+    "yamlmibdir":""
+}

@@ -1,0 +1,12 @@
+{
+    "add_field":"{}",
+    "codec":"plain",
+    "data_timeout":"5",
+    "debug":"false",
+    "host": "0.0.0.0",
+    "mode":["server", "client"], 
+    "port":"",
+    "tags":"",
+    "type":""
+}
+

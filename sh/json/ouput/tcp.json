@@ -1,0 +1,7 @@
+   {
+    "codec":"plain",
+    "host":"",
+    "mode":["server", "client"],
+    "port":"",
+    "reconnect_interval":"10"
+}
