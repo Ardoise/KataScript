@@ -1,13 +1,19 @@
 ## KATASCRIPT REST ReadyForUse
 ### service Centr@lL0g :
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
+
+    [INSTALL]
+    clone_dir=/tmp/KataScript-build-$$;
+    git clone https://github.com/Ardoise/KataScript.git $clone_dir;
+    sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
+    sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh install;
+    ...
+    sudo sh $clone_dir/sh/centrallog/<context>-<component>.tmpl.sh install;
+    ...
+    echo "rm -rf $clone_dir";
+    echo "unset clone_dir";
     
-    [RFU:v0.1.0]
-    sh/centrallog/centralized-centrallog.rfu.sh   # VM CENTRAL
-    sh/centrallog/distributed-logstash.rfu.sh     # VM's DISTRIBUTED
-    sh/centrallog/distributed-flume.rfu.sh        # VM's DISTRIBUTED
-    
-    [RFU:v0.1.1-alpha2]
+    [RFU:v0.1.1-alpha3]
     sh/json/cloud.json                            # VM[]::SOFTWARE[]       STATEMENT
     sh/centrallog/<context>-<component>.tmpl.sh   # SOFTWARE[]::COMMAND[]  LIFECYCLE
      Commandes :
@@ -20,6 +26,11 @@
       stop          - stop centrallog::<component>
       upgrade       - upgrade centrallog::<component>
       dist-upgrade  - upgrade distrib platform jruby::gems
+    
+    [RFU:v0.1.0]
+    sh/centrallog/centralized-centrallog.rfu.sh   # VM CENTRAL
+    sh/centrallog/distributed-logstash.rfu.sh     # VM's DISTRIBUTED
+    sh/centrallog/distributed-flume.rfu.sh        # VM's DISTRIBUTED
   
 ### service st@nd@l0ne :
     
@@ -38,6 +49,7 @@ C0mp0nents :
   - graylog2 [http://graylog2.org] [v0.0.0][working]
   - flume [http://flume.apache.org] [v1.4.0][working]
   - JBossAS [http://download.jboss.org] [v7.1.1]
+  - vagrant [http://www.vagrant.org/] [v1.3.1]
 
 Objectifs : + vs - : Practice 
 =============================
