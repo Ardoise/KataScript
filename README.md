@@ -8,7 +8,13 @@
     sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
     sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh install;
     ...
-    sudo sh $clone_dir/sh/centrallog/<context>-<component>.tmpl.sh install;
+    sudo sh $clone_dir/sh/centrallog/centralized-logstash.tmpl.sh install;
+    sudo sh $clone_dir/sh/centrallog/centralized-redis.tmpl.sh install;
+    sudo sh $clone_dir/sh/centrallog/centralized-elasticsearch.tmpl.sh install;
+    sudo sh $clone_dir/sh/centrallog/centralized-kibana3.tmpl.sh install;
+    sudo sh $clone_dir/sh/centrallog/centralized-mongodb.tmpl.sh install;
+    sudo sh $clone_dir/sh/centrallog/centralized-flume.tmpl.sh install;
+    sudo sh $clone_dir/sh/centrallog/distributed-logstash.tmpl.sh install;
     ...
     echo "rm -rf $clone_dir";
     echo "unset clone_dir";
