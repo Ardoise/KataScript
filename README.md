@@ -56,7 +56,7 @@ C0mp0nents :
   - graylog2 [http://graylog2.org] [v0.0.0][working]
   - flume [http://flume.apache.org] [v1.4.0][working]
   - JBossAS [http://download.jboss.org] [v7.1.1]
-  - vagrant [http://www.vagrant.org/] [v1.3.1]
+  - Vagrant [http://www.vagrantup.com/] [v1.3.1]
 
 Objectifs : + vs - : Practice 
 =============================
