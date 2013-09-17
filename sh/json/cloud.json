@@ -185,7 +185,7 @@
       "download": "https://github.com/elasticsearch/kibana/archive/master.tar.gz",
       "desc": "Kibana Server",
       "name": "kibana3",
-      "version": "3.m.2"
+      "version": "3.0.0m3pre"
     },
     "flume": {
       "desc": "Flume Server",
