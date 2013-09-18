@@ -1,0 +1,41 @@
+{
+    "title": "Elasticsearchconf",
+    "services": {
+        "Cluster": {
+            "ids": [
+                0
+            ]
+        },
+        "Node": {
+            "ids": []
+        },
+        "Index": {
+            "ids": []
+        },
+        "Paths": {
+            "ids": []
+        },
+        "Plugin": {
+            "ids": []
+        },
+        "Memory": {
+            "ids": []
+        },
+        "Network And HTTP": {
+            "ids": []
+        },
+        "Recovery Throttling": {
+            "ids": []
+        },
+        "Discovery": {
+            "ids": []
+        },
+        "Slow Log": {
+            "ids": []
+        },
+        "GC Logging": {
+            "ids": []
+        }
+    },
+    "editable": true
+}
