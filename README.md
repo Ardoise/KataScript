@@ -55,13 +55,13 @@ C0mp0nents :
 
 Objectifs : + vs - : Practice 
 =============================
-  - Benchmarks  (time faster)
-  - Power       (volume)
-  - Lean        (CPU,RAM)
-  - Rest        (http+html+uri)
+  - FAST        (time)
+  - SCALE       (volume)
+  - LEAN        (CPU,RAM,IO)
+  - REST        (http+html+uri)
   
-Kata Script REST
-================
+Kata Script REST/JSON
+=============================
   - JavaScript ... : js/\service\>/indexKata.js
   - Shell ........... : sh/\<service\>/indexKata.sh
   - Python ........ : py/\<service\>/indexKata.py
