@@ -155,7 +155,7 @@ REOF
     ;;
   esac
   cat <<-REOF >>$Bin$NAME/$NAME.uninstall
-    [ -f "$Cache$NAME" ] && rm -rf "$Cache$NAME";
+    # [ -f "$Cache$NAME/$file" ] && rm -f "$Cache$NAME/$file"; # with purge cache
     [ -d "$Bin$NAME" ] && rm -rf "$Bin$NAME";
     [ -d "$Log$NAME" ] && rm -rf "$Log$NAME";
     [ -d "$Lib$NAME" ] && rm -rf "$Lib$NAME";
