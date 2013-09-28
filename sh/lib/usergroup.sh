@@ -11,11 +11,11 @@
 # Requires : you need root privileges tu run this script
 #
 # CONFIG:   [ "/etc/passwd", "/etc/group" ]
-# BINARIES: [ "" ]
-# LOG:      [ "" ]
-# RUN:      [ "" ]
-# INIT:     [ "" ]
-# PLUGINS:  [ "" ]
+# BINARIES: []
+# LOG:      []
+# RUN:      []
+# INIT:     []
+# PLUGINS:  []
 
 # STATELESS
 group=${group:-lab-devops};
