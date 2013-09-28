@@ -171,7 +171,7 @@
     },
     "elasticsearch": {
       "desc": "Elasticsearch Server",
-      "download": "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.deb",
+      "download": "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.deb",
       "name": "elasticsearch",
       "version": "0.90.5"
     },

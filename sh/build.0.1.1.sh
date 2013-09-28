@@ -126,11 +126,4 @@ sudo apt-get update       #soft
 sudo apt-get upgrade      #system
 sudo apt-get dist-upgrade #kernel
 sudo apt-get autoremove   #purge
-sudo apt-get -y install curl git-core sudo 
-
-clone_dir=/tmp/KataScript-build-$$;
-git clone https://github.com/Ardoise/KataScript.git $clone_dir;
-sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
-sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh install;
-echo "rm -rf $clone_dir";
-echo "unset clone_dir";
+sudo apt-get -y install curl git-core sudo
