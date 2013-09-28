@@ -112,7 +112,7 @@ REOF
     ;;
     *.deb)
       [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -f "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file --root=$Bin$NAME;
+      [ -f "$Cache$NAME/$file" ] && (cd $Cache$NAME; sudo dpkg -i $file --root=$Bin$NAME);
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
       pkill -u $(echo $uidgid | cut -d':' -f1);
       namepkg=$(dpkg -l |grep "$NAME" |awk -F' ' '{print $2}');
