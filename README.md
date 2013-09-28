@@ -57,7 +57,7 @@ Objectifs : + vs - : Practice
 =============================
   - FAST        (time)
   - SCALE       (volume)
-  - LEAN        (CPU,RAM,IO)
+  - LEAN        (cpu,ramM,io)
   - REST        (http+html+uri)
   
 Kata Script REST/JSON
