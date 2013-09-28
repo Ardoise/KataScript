@@ -152,43 +152,43 @@
   },
   "software": {
     "centrallog": {
-      "desc": "Centrallog Component",
+      "title": "Centrallog Component",
       "name": "centrallog",
       "download": "",
       "version": "0.1.1b"
     },
     "logstash": {
-      "desc": "Logstash Server",
+      "title": "Logstash Server",
       "name": "logstash",
       "download": "https://logstash.objects.dreamhost.com/release/logstash-2.1.0-flatjar.jar",
       "version": "2.1.0"
     },
     "redis": {
-      "desc": "Redis Server",
+      "title": "Redis Server",
       "download": "http://download.redis.io/releases/redis-2.6.16.tar.gz",
       "name": "redis",
       "version": "2.6.16"
     },
     "elasticsearch": {
-      "desc": "Elasticsearch Server",
+      "title": "Elasticsearch Server",
       "download": "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.deb",
       "name": "elasticsearch",
       "version": "0.90.5"
     },
     "mongodb": {
-      "desc": "Mongodb Server",
+      "title": "Mongodb Server",
       "download": "http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.4.6.tgz",
       "name": "mongodb",
       "version": "2.4.6"
     },
     "kibana3": {
       "download": "https://github.com/elasticsearch/kibana/archive/master.tar.gz",
-      "desc": "Kibana Server",
+      "title": "Kibana Server",
       "name": "kibana3",
       "version": "3.0.0m3pre"
     },
     "flume": {
-      "desc": "Flume Server",
+      "title": "Flume Server",
       "download": "http://mirrors.ibiblio.org/apache/flume/1.4.0/apache-flume-1.4.0-bin.tar.gz",
       "name": "flume",
       "version": "1.4.0",
@@ -197,13 +197,13 @@
     "graylog2": {
       "binary": "graylog2-server-0.13.0-rc.1.tar.gz",
       "download": "https://github.com/Graylog2/graylog2-server/releases/download/0.13.0-rc.1/",
-      "desc": "Graylog2 Server",
+      "title": "Graylog2 Server",
       "name": "graylog2",
       "version": "0.13.0"
     },
     "vagrant": {
       "download": "http://files.vagrantup.com/packages/b12c7e8814171c1295ef82416ffe51e8a168a244/vagrant_1.3.1_x86_64.deb",
-      "desc": "Vagrant PIC",
+      "title": "Vagrant PIC",
       "name": "vagrant",
       "version": "1.3.1",
       "depends": {
@@ -220,6 +220,7 @@
   "platform": {
     "centralized": [
       {
+        "id": "10",
         "ip": "10.0.2.10",
         "vmname": "host10",
         "boxname": "precise32"
@@ -227,21 +228,25 @@
     ],
     "distributed": [
       {
+        "id": "11",
         "ip": "10.0.2.11",
         "vmname": "host11",
         "boxname": "precise32"
       },
       {
+        "id": "12",
         "ip": "10.0.2.12",
         "vmname": "host12",
         "boxname": "precise32"
       },
       {
+        "id": "13",
         "ip": "10.0.2.13",
         "vmname": "host13",
         "boxname": "precise32"
       },
       {
+        "id": "14",
         "ip": "10.0.2.14",
         "vmname": "host14",
         "boxname": "precise64"

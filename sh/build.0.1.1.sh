@@ -66,7 +66,7 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
   
   n=$(cat $JSON | jq -r -c ".software.$s.name"); echo -n "$n|";
   N=$( echo $n | tr 'a-z' 'A-Z' ); echo -n "$N|";
-  d=$(cat $JSON | jq -r -c ".software.$s.desc"); echo -n "$d|";
+  title=$(cat $JSON | jq -r -c ".software.$s.title"); echo -n "$title|"; # NotUSE
   v=$(cat $JSON | jq -r -c ".software.$s.version"); echo -n "$v|";
   b=$(cat $JSON | jq -r -c ".software.$s.binary"); echo -n "$b|";
   u=$(cat $JSON | jq -r -c ".software.$s.download"); echo -n "$u|";
@@ -97,7 +97,6 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
       -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$i.reload.conf'~e" \
       $tmp/$e-$n.tmpl.sh.2 > centrallog/$e-$n.tmpl.sh);
 
-  #sed -i -e "/#i#update#i#/ s~.*~cat $JSON | jq -r '.dist_upgrade.install[]'~e" centrallog/centralized-$n.tmpl.sh;
 done
 
 rm -f *.sh~
