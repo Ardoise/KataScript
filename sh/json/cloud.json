@@ -201,6 +201,20 @@
       "name": "graylog2",
       "version": "0.13.0"
     },
+    "oauth2": {
+      "binary": "",
+      "download": "",
+      "title": "OAuth Server",
+      "name": "oauth2",
+      "version": "0.0.0"
+    },
+    "openid": {
+      "binary": "",
+      "download": "",
+      "title": "OHab Server",
+      "name": "openid",
+      "version": "0.0.0"
+    },
     "vagrant": {
       "download": "http://files.vagrantup.com/packages/b12c7e8814171c1295ef82416ffe51e8a168a244/vagrant_1.3.1_x86_64.deb",
       "title": "Vagrant PIC",
@@ -220,8 +234,29 @@
   "platform": {
     "centralized": [
       {
-        "id": "10",
-        "title": "centralized",
+        "id": "1",
+        "title": "kataGit",
+        "ip": "10.0.2.10",
+        "vmname": "host10",
+        "boxname": "precise32"
+      },
+      {
+        "id": "2",
+        "title": "kataUI",
+        "ip": "10.0.2.10",
+        "vmname": "host10",
+        "boxname": "precise32"
+      },
+      {
+        "id": "3",
+        "title": "authent",
+        "ip": "10.0.2.10",
+        "vmname": "host10",
+        "boxname": "precise32"
+      },
+      {
+        "id": "4",
+        "title": "habilit",
         "ip": "10.0.2.10",
         "vmname": "host10",
         "boxname": "precise32"
@@ -229,42 +264,49 @@
     ],
     "distributed": [
       {
-        "id": "11",
+        "id": "1",
         "title": "shipper",
         "ip": "10.0.2.11",
         "vmname": "host11",
         "boxname": "precise32"
       },
       {
-        "id": "12",
+        "id": "2",
         "title": "broker",
         "ip": "10.0.2.12",
         "vmname": "host12",
         "boxname": "precise32"
       },
       {
-        "id": "13",
+        "id": "3",
         "title": "split",
         "ip": "10.0.2.13",
         "vmname": "host13",
         "boxname": "precise32"
       },
       {
-        "id": "14",
+        "id": "4",
         "title": "index",
         "ip": "10.0.2.14",
         "vmname": "host14",
         "boxname": "precise64"
       },
       {
-        "id": "15",
+        "id": "5",
+        "title": "search",
+        "ip": "10.0.2.14",
+        "vmname": "host14",
+        "boxname": "precise64"
+      },
+      {
+        "id": "6",
         "title": "dashboard",
         "ip": "10.0.2.15",
         "vmname": "host15",
         "boxname": "precise64"
       },
       {
-        "id": "16",
+        "id": "7",
         "title": "storage",
         "ip": "10.0.2.16",
         "vmname": "host16",
