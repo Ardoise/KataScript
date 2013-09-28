@@ -116,9 +116,9 @@ REOF
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
       pkill -u $(echo $uidgid | cut -d':' -f1);
       namepkg=$(dpkg -l |grep "$NAME" |awk -F' ' '{print $2}');
-      sudo dpkg -r \$namepkg; # not conf
-      sudo dpkg -P \$namepkg; # with conf
-      sudo dpkg --force-all --purge \$namepkg; # with purge
+      sudo dpkg -r \$namepkg;                     # not conf
+      # sudo dpkg -P \$namepkg;                   # with conf
+      # sudo dpkg --force-all --purge \$namepkg;  # with purge
 REOF
     ;;
     *.zip)
