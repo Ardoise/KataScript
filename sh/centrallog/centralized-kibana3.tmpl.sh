@@ -10,7 +10,7 @@
 # - deploy kibana3 v3.0.0m3pre
 #
 # Requires : you need root privileges tu run this script
-# Requires : curl wget git-core gpg
+# Requires : curl wget git-core gpg ssh
 # Depends  : lib/usergroup.sh
 #
 # CONFIG:   [ "/etc/kibana3", "/etc/kibana3/test" ]
@@ -289,18 +289,18 @@ dist-upgrade)
     sudo apt-get upgrade
     sudo apt-get dist-upgrade
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpg || return $?;
+      libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpg ssh || return $?;
     ;;
   Ubuntu)
     sudo apt-get update #--fix-missing
     sudo apt-get upgrade
     sudo apt-get dist-upgrade
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core openjdk-7-jre-headless chkconfig gpg || return $?;
+      libreadline-dev make curl git-core openjdk-7-jre-headless chkconfig gpg ssh || return $?;
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update #--fix-missing
-    sudo yum -y install make curl git-core gpg openjdk-7-jre-headless || return $?;
+    sudo yum -y install make curl git-core gpg openjdk-7-jre-headless ssh || return $?;
     echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
   esac
