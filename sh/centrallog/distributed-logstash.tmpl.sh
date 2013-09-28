@@ -112,6 +112,7 @@ REOF
       [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -f "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file --root=$Bin$NAME;
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
+      pkill -u $(echo $uidgid | cut -d':' -f1);
       namepkg=$(dpkg -l |grep "$NAME" |awk -F' ' '{print $2}');
       sudo dpkg -P \$namepkg
       sudo dpkg --uninstall \$namepkg
@@ -151,7 +152,6 @@ REOF
     ;;
   esac
   cat <<-REOF >>$Bin$NAME/$NAME.uninstall
-    pkill -u $(echo $uidgid | cut -d':' -f1);
     [ -f "$Cache$NAME" ] && rm -rf "$Cache$NAME";
     [ -d "$Bin$NAME" ] && rm -rf "$Bin$NAME";
     [ -d "$Log$NAME" ] && rm -rf "$Log$NAME";
