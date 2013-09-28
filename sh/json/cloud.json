@@ -232,20 +232,6 @@
         "ip": "10.0.2.10",
         "vmname": "host10",
         "boxname": "precise32"
-      },
-      {
-        "id": "3",
-        "title": "authent",
-        "ip": "10.0.2.10",
-        "vmname": "host10",
-        "boxname": "precise32"
-      },
-      {
-        "id": "4",
-        "title": "habilit",
-        "ip": "10.0.2.10",
-        "vmname": "host10",
-        "boxname": "precise32"
       }
     ],
     "distributed": [
