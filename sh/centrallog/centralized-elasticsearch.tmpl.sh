@@ -322,7 +322,7 @@ dist-upgrade)
   #curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
   
   #  rvm-x.y.z - #configure
-  [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
+  [ -f "/usr/local/rvm/scripts/rvm" ] && source /usr/local/rvm/scripts/rvm;
   [ -f "~/profile_rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/profile_rvm;
   
   # rvm notes
