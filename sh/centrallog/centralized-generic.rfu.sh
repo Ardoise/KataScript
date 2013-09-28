@@ -152,7 +152,7 @@ REOF
     ;;
   esac
   cat <<-REOF >>$Bin$NAME/$NAME.uninstall
-    pkill -u $uidgid;
+    pkill -u $(echo $uidgid | cut -d':' -f1);
     [ -f "$Cache$NAME" ] && rm -rf "$Cache$NAME";
     [ -d "$Bin$NAME" ] && rm -rf "$Bin$NAME";
     [ -d "$Log$NAME" ] && rm -rf "$Log$NAME";
