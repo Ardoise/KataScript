@@ -112,7 +112,6 @@ REOF
       [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file --root=$Bin$NAME;
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
-      #/bin/sh -e -x
       namepkg=$(dpkg -l |grep "$NAME" |awk -F' ' '{print $2}');
       dpkg -P \$namepkg
       dpkg --uninstall \$namepkg
