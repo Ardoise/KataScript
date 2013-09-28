@@ -180,6 +180,15 @@ REOF
 ;;
 uninstall)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
+
+  # LocalENV
+  Bin="#i#DirBin#i#";echo "$Bin";
+  Cache="#i#DirCache#i#"; echo "$Cache";
+  Etc="#i#DirEtc#i#";echo "$Etc";
+  Lib="#i#DirLib#i#";echo "$Lib";
+  Log="#i#DirLog#i#";echo "$Log";
+  Run="#i#DirRun#i#";echo "$Run";
+
   [ -f "$Bin$NAME/$NAME.uninstall" ] && cp $Bin$NAME/$NAME.uninstall /tmp/;
   [ -f "/tmp/$NAME.uninstall" ] && sudo sh /tmp/$NAME.uninstall;
   #i#uninstall#i#
