@@ -62,15 +62,14 @@ Objectifs : + vs - : Practice
   
 Kata Script REST/JSON
 =============================
-  - JavaScript ... : js/\service\>/indexKata.js
-  - Shell ........... : sh/\<service\>/indexKata.sh
-  - Python ........ : py/\<service\>/indexKata.py
-  - Ruby ........... : rb/\<service\>/indexKata.rb
-  - JSON ........... : json, json_event, txt
+  - JavaScript ... : [ "js/\<service\>/indexKata.js" ]
+  - Shell ........... : [ "sh/\<service\>/indexKata.sh" ]
+  - Python ........ : [ "py/\<service\>/indexKata.py" ]
+  - Ruby ........... : [ "rb/\<service\>/indexKata.rb" ]
+  - JSON ........... : [ "json/*.json", "*/json/*.json" ]
   - StyleGuide
     - https://code.google.com/p/google-styleguide/
     - http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
     - http://google-styleguide.googlecode.com/svn/trunk/htmlcssguide.xml
     - http://google-styleguide.googlecode.com/svn/trunk/shell.xml
     - http://google-styleguide.googlecode.com/svn/trunk/pyguide.html
-    - http://google-styleguide.googlecode.com/svn/trunk/xmlstyle.html
