@@ -112,11 +112,13 @@ REOF
     ;;
     *.deb)
       [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -f "$Cache$NAME/$file" ] && (cd $Cache$NAME; sudo dpkg-deb -x $file $Bin$NAME);
+      [ -f "$Cache$NAME/$file" ] && (cd $Cache$NAME; sudo dpkg -i -R $file);
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
       pkill -u $(echo $uidgid | cut -d':' -f1);
       namepkg=$(dpkg -l |grep "$NAME" |awk -F' ' '{print $2}');
-      sudo dpkg -P \$namepkg
+      sudo dpkg -r \$namepkg; # not conf
+      sudo dpkg -P \$namepkg; # with conf
+      sudo dpkg --force-all --purge \$namepkg; # with purge
 REOF
     ;;
     *.zip)
