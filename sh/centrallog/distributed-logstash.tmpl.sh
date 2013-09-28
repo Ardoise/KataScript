@@ -305,8 +305,8 @@ dist-upgrade)
     ;;
   esac
   
-  echo "#  rvm-1.22.13 - #install"
-  echo "#  rvm::ruby-2.0.0-p247 - #install"
+  #  rvm-x.y.z - #install
+  #  rvm::ruby-x.y.z - #install
   curl -L https://get.rvm.io | bash -s stable --ruby
   
   # --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,
@@ -314,14 +314,14 @@ dist-upgrade)
   # tilt,sinatra,watch,yui-compressor,bonsai,hpricot,mustache,rdiscount,ronn,
   # rails,puma;
   
-  echo "#  rvm::jruby-1.7.4 - #install"
+  #  rvm::jruby-x.y.z - #install
   curl -L https://get.rvm.io | bash -s stable --ruby=jruby
     
   #echo "#  rvm::gems::rails-x.x.x - #install"
   #echo "#  rvm::gems::puma-x.x.x - #install"
   #curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
   
-  echo "#  rvm-1.22.13 - #configure"
+  #  rvm-x.y.z - #configure
   [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   [ -f "~/profile_rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/profile_rvm;
   
