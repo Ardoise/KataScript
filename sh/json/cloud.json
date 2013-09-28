@@ -201,20 +201,6 @@
       "name": "graylog2",
       "version": "0.13.0"
     },
-    "oauth2": {
-      "binary": "",
-      "download": "",
-      "title": "OAuth Server",
-      "name": "oauth2",
-      "version": "0.0.0"
-    },
-    "openid": {
-      "binary": "",
-      "download": "",
-      "title": "OHab Server",
-      "name": "openid",
-      "version": "0.0.0"
-    },
     "vagrant": {
       "download": "http://files.vagrantup.com/packages/b12c7e8814171c1295ef82416ffe51e8a168a244/vagrant_1.3.1_x86_64.deb",
       "title": "Vagrant PIC",
