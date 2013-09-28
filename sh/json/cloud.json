@@ -209,7 +209,6 @@
       "gpg": "gpg --import KEYS; gpg --verify apache-flume-1.4.0-bin.tar.gz.asc"
     },
     "graylog2": {
-      "binary": "graylog2-server-0.13.0-rc.1.tar.gz",
       "download": "https://github.com/Graylog2/graylog2-server/releases/download/0.13.0-rc.1/",
       "title": "Graylog2 Server",
       "name": "graylog2",

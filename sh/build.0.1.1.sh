@@ -58,18 +58,13 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
 
   id=$(echo $l | jq -r '.id'); echo -n "$id|";
   soft=$(echo $l | jq -r '.software'); echo -n "$soft|";
-  e=$(echo $l | jq -r '.platform'); echo -n "$e|";
-  p=$(echo $l | jq -r '.bin'); echo -n "$p|";
-  c=$(echo $l | jq -r '.conf'); echo -n "$c|";
-  g=$(echo $l | jq -r '.log'); echo -n "$g|";
-  r=$(echo $l | jq -r '.run'); echo -n "$r|";
+  platform=$(echo $l | jq -r '.platform'); echo -n "$platform|";
   
-  n=$(cat $JSON | jq -r -c ".software.$soft.name"); echo -n "$n|";
-  N=$( echo $n | tr 'a-z' 'A-Z' ); echo -n "$N|";
+  name=$(cat $JSON | jq -r -c ".software.$soft.name"); echo -n "$name|";
+  NAME=$( echo $name | tr 'a-z' 'A-Z' ); echo -n "$NAME|";
   title=$(cat $JSON | jq -r -c ".software.$soft.title"); echo -n "$title|"; # NotUSE
-  v=$(cat $JSON | jq -r -c ".software.$soft.version"); echo -n "$v|";
-  b=$(cat $JSON | jq -r -c ".software.$soft.binary"); echo -n "$b|";
-  u=$(cat $JSON | jq -r -c ".software.$soft.download"); echo -n "$u|";
+  version=$(cat $JSON | jq -r -c ".software.$soft.version"); echo -n "$version|";
+  download=$(cat $JSON | jq -r -c ".software.$soft.download"); echo -n "$download|";
   
   Daemon=$(cat $JSON | jq -r -c .process.$id.Daemon.On); echo -n "$Daemon|";
   NoDaemon=$(cat $JSON | jq -r -c .process.$id.Daemon.Off); echo -n "$NoDaemon|";
@@ -78,24 +73,22 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
   
   echo
   [ -f "$tmp/centralized-generic.rfu.sh.1" ] && (\
-  sed -e "s~xgenericx~$n~g" \
-      -e "s~XGENERICX~$N~g" \
-      -e "s~0.0.0~$v~g" \
-      -e "s~#i#binary#i#~$b~g" \
-      -e "s~#i#bin#i#~$p~g" \
-      -e "s~#i#download#i#~$u~g" \
+  sed -e "s~xgenericx~$name~g" \
+      -e "s~XGENERICX~$NAME~g" \
+      -e "s~0.0.0~$version~g" \
+      -e "s~#i#download#i#~$download~g" \
       -e "s~#i#daemon#i#~$Daemon~g" \
       -e "s~#i#nodaemon#i#~$NoDaemon~g" \
       -e "s~xlicensex~@License~g" \
-      $tmp/centralized-generic.rfu.sh.1 > $tmp/$e-$n.tmpl.sh.2);
+      $tmp/centralized-generic.rfu.sh.1 > $tmp/$platform-$name.tmpl.sh.2);
   
-  [ -f "$tmp/$e-$n.tmpl.sh.2" ] && (\
+  [ -f "$tmp/$platform-$name.tmpl.sh.2" ] && (\
   sed -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .process.$id.start~e" \
       -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .process.$id.status~e" \
       -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .process.$id.stop~e" \
       -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$id.reload.pattern'~e" \
       -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$id.reload.conf'~e" \
-      $tmp/$e-$n.tmpl.sh.2 > centrallog/$e-$n.tmpl.sh);
+      $tmp/$platform-$name.tmpl.sh.2 > centrallog/$platform-$name.tmpl.sh);
 
 done
 
