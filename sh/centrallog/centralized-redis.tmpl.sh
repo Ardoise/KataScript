@@ -95,6 +95,7 @@ install)
       [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -f "$Cache$NAME/$file" ] && sudo tar xvfz $Cache$NAME/$file -C $Bin$NAME/;
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
+      pkill -u $(echo $uidgid | cut -d':' -f1);
       [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME/*.*;
 REOF
     ;;
@@ -102,6 +103,7 @@ REOF
       [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -f "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
+      pkill -u $(echo $uidgid | cut -d':' -f1);
       # TODO
       #rpm -qa | grep $NAME
       #rpm -e $NAME;
@@ -122,6 +124,7 @@ REOF
       [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
       [ -f "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file -d $Bin$NAME/;
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
+      pkill -u $(echo $uidgid | cut -d':' -f1);
       [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME
 REOF
     ;;
