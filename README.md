@@ -2,11 +2,10 @@
 ### service Centr@lL0g :
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
-    [INSTALL]
+    [RFU:v0.1.1-alpha3][INSTALL]
     clone_dir=/tmp/KataScript-build-$$;
     git clone https://github.com/Ardoise/KataScript.git $clone_dir;
     sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
-    sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh install;
     ...
     sudo sh $clone_dir/sh/centrallog/centralized-logstash.tmpl.sh install;
     sudo sh $clone_dir/sh/centrallog/centralized-redis.tmpl.sh install;
@@ -20,10 +19,12 @@
     echo "rm -rf $clone_dir";
     echo "unset clone_dir";
     
-    [RFU:v0.1.1-alpha3]
-    sh/json/cloud.json                            # VM[]::SOFTWARE[]       STATEMENT
-    sh/centrallog/<context>-<component>.tmpl.sh   # SOFTWARE[]::COMMAND[]  LIFECYCLE
-     Commandes :
+    [RFU:v0.1.1-alpha3][CONFIG]
+    sh/json/cloud.json
+    
+    [RFU:v0.1.1-alpha3][USAGE]
+    sudo sh sh/centrallog/<context>-<component>.tmpl.sh <command>
+     Commands :
       check         - check centrallog::<component>
       install       - install centrallog::<component>
       reload        - reload config centrallog::<component>
@@ -35,9 +36,9 @@
       dist-upgrade  - upgrade distrib platform jruby::gems
     
     [RFU:v0.1.0]
-    sh/centrallog/centralized-centrallog.rfu.sh   # VM CENTRAL
-    sh/centrallog/distributed-logstash.rfu.sh     # VM's DISTRIBUTED
-    sh/centrallog/distributed-flume.rfu.sh        # VM's DISTRIBUTED
+    sh/centrallog/centralized-centrallog.rfu.sh   # VM CENTRAL        @deprecated
+    sh/centrallog/distributed-logstash.rfu.sh     # VM's DISTRIBUTED  @deprecated
+    sh/centrallog/distributed-flume.rfu.sh        # VM's DISTRIBUTED  @deprecated
   
 ### service st@nd@l0ne :
     
@@ -48,9 +49,9 @@
 C0mp0nents :
 ==========================
   [cloud.json](https://github.com/Ardoise/KataScript/blob/master/sh/json/cloud.json)
-  - logstash [http://logstash.net] [v1.1.13]
+  - logstash [http://logstash.net] [v2.1.0]
   - redis [http://redis.io] [v2.6.16]
-  - elasticsearch [http://elasticsearch.org] [v0.90.3]
+  - elasticsearch [http://elasticsearch.org] [v0.90.5]
   - kibana3 [http://kibana.org] [v3m2]
   - mongoDB [http://www.mongodb.org/] [v2.4.6]
   - graylog2 [http://graylog2.org] [v0.0.0][working]
