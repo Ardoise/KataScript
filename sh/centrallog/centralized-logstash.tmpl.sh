@@ -161,7 +161,7 @@ REOF
     [ -d "$Log$NAME" ] && rm -rf "$Log$NAME";
     [ -d "$Lib$NAME" ] && rm -rf "$Lib$NAME";
     [ -d "$Run$NAME" ] && rm -rf "$Run$NAME";
-    [ -d "$Etc$NAME" ] && rm -rf "$Etc$NAME";
+    # [ -d "$Etc$NAME" ] && rm -rf "$Etc$NAME";  #noconf only package
 REOF
 
   # OWNER => POSTINSTALL
