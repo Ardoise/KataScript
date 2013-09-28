@@ -7,7 +7,7 @@
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: elasticsearch (...)
-# - deploy elasticsearch v0.90.3
+# - deploy elasticsearch v0.90.5
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget git-core gpg

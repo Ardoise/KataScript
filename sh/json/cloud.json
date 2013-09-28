@@ -160,8 +160,8 @@
     "logstash": {
       "desc": "Logstash Server",
       "name": "logstash",
-      "download": "https://logstash.objects.dreamhost.com/release/logstash-1.1.13-flatjar.jar",
-      "version": "1.1.13"
+      "download": "https://logstash.objects.dreamhost.com/release/logstash-2.1.0-flatjar.jar",
+      "version": "2.1.0"
     },
     "redis": {
       "desc": "Redis Server",
@@ -173,7 +173,7 @@
       "desc": "Elasticsearch Server",
       "download": "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.deb",
       "name": "elasticsearch",
-      "version": "0.90.3"
+      "version": "0.90.5"
     },
     "mongodb": {
       "desc": "Mongodb Server",

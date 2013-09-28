@@ -7,7 +7,7 @@
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: kibana3 (...)
-# - deploy kibana3 v3.m.2
+# - deploy kibana3 v3.0.0m3pre
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget git-core gpg
