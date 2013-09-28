@@ -7,7 +7,7 @@
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: logstash (...)
-# - deploy logstash v2.1.0
+# - deploy logstash v1.2.1
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget git-core gpg ssh
@@ -86,7 +86,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="https://logstash.objects.dreamhost.com/release/logstash-2.1.0-flatjar.jar";
+  Download="https://logstash.objects.dreamhost.com/release/logstash-1.2.1-flatjar.jar";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;

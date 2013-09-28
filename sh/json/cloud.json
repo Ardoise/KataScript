@@ -174,8 +174,8 @@
     "logstash": {
       "title": "Logstash Server",
       "name": "logstash",
-      "download": "https://logstash.objects.dreamhost.com/release/logstash-2.1.0-flatjar.jar",
-      "version": "2.1.0"
+      "download": "https://logstash.objects.dreamhost.com/release/logstash-1.2.1-flatjar.jar",
+      "version": "1.2.1"
     },
     "redis": {
       "title": "Redis Server",
