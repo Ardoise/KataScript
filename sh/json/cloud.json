@@ -221,6 +221,7 @@
     "centralized": [
       {
         "id": "10",
+        "title": "centralized",
         "ip": "10.0.2.10",
         "vmname": "host10",
         "boxname": "precise32"
@@ -229,26 +230,44 @@
     "distributed": [
       {
         "id": "11",
+        "title": "shipper",
         "ip": "10.0.2.11",
         "vmname": "host11",
         "boxname": "precise32"
       },
       {
         "id": "12",
+        "title": "broker",
         "ip": "10.0.2.12",
         "vmname": "host12",
         "boxname": "precise32"
       },
       {
         "id": "13",
+        "title": "split",
         "ip": "10.0.2.13",
         "vmname": "host13",
         "boxname": "precise32"
       },
       {
         "id": "14",
+        "title": "index",
         "ip": "10.0.2.14",
         "vmname": "host14",
+        "boxname": "precise64"
+      },
+      {
+        "id": "15",
+        "title": "dashboard",
+        "ip": "10.0.2.15",
+        "vmname": "host15",
+        "boxname": "precise64"
+      },
+      {
+        "id": "16",
+        "title": "storage",
+        "ip": "10.0.2.16",
+        "vmname": "host16",
         "boxname": "precise64"
       }
     ]
