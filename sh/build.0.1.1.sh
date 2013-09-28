@@ -56,25 +56,25 @@ sed -e "s~#i#DirBin#i#~$Bin~g" \
 JSON=json/cloud.json
 for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
 
-  i=$(echo $l | jq -r '.id'); echo -n "$i|";
-  s=$(echo $l | jq -r '.software'); echo -n "$s|";
+  id=$(echo $l | jq -r '.id'); echo -n "$id|";
+  soft=$(echo $l | jq -r '.software'); echo -n "$soft|";
   e=$(echo $l | jq -r '.platform'); echo -n "$e|";
   p=$(echo $l | jq -r '.bin'); echo -n "$p|";
   c=$(echo $l | jq -r '.conf'); echo -n "$c|";
   g=$(echo $l | jq -r '.log'); echo -n "$g|";
   r=$(echo $l | jq -r '.run'); echo -n "$r|";
   
-  n=$(cat $JSON | jq -r -c ".software.$s.name"); echo -n "$n|";
+  n=$(cat $JSON | jq -r -c ".software.$soft.name"); echo -n "$n|";
   N=$( echo $n | tr 'a-z' 'A-Z' ); echo -n "$N|";
-  title=$(cat $JSON | jq -r -c ".software.$s.title"); echo -n "$title|"; # NotUSE
-  v=$(cat $JSON | jq -r -c ".software.$s.version"); echo -n "$v|";
-  b=$(cat $JSON | jq -r -c ".software.$s.binary"); echo -n "$b|";
-  u=$(cat $JSON | jq -r -c ".software.$s.download"); echo -n "$u|";
+  title=$(cat $JSON | jq -r -c ".software.$soft.title"); echo -n "$title|"; # NotUSE
+  v=$(cat $JSON | jq -r -c ".software.$soft.version"); echo -n "$v|";
+  b=$(cat $JSON | jq -r -c ".software.$soft.binary"); echo -n "$b|";
+  u=$(cat $JSON | jq -r -c ".software.$soft.download"); echo -n "$u|";
   
-  Daemon=$(cat $JSON | jq -r -c .process.$i.Daemon.On); echo -n "$Daemon|";
-  NoDaemon=$(cat $JSON | jq -r -c .process.$i.Daemon.Off); echo -n "$NoDaemon|";
-  hi=$(cat $JSON | jq -r -c .process.$i.reload.input);  echo -n "$hi|";
-  ho=$(cat $JSON | jq -r -c .process.$i.reload.output); echo -n "$ho|";
+  Daemon=$(cat $JSON | jq -r -c .process.$id.Daemon.On); echo -n "$Daemon|";
+  NoDaemon=$(cat $JSON | jq -r -c .process.$id.Daemon.Off); echo -n "$NoDaemon|";
+  hi=$(cat $JSON | jq -r -c .process.$id.reload.input);  echo -n "$hi|";
+  ho=$(cat $JSON | jq -r -c .process.$id.reload.output); echo -n "$ho|";
   
   echo
   [ -f "$tmp/centralized-generic.rfu.sh.1" ] && (\
@@ -90,11 +90,11 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
       $tmp/centralized-generic.rfu.sh.1 > $tmp/$e-$n.tmpl.sh.2);
   
   [ -f "$tmp/$e-$n.tmpl.sh.2" ] && (\
-  sed -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .process.$i.start~e" \
-      -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .process.$i.status~e" \
-      -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .process.$i.stop~e" \
-      -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$i.reload.pattern'~e" \
-      -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$i.reload.conf'~e" \
+  sed -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .process.$id.start~e" \
+      -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .process.$id.status~e" \
+      -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .process.$id.stop~e" \
+      -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$id.reload.pattern'~e" \
+      -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$id.reload.conf'~e" \
       $tmp/$e-$n.tmpl.sh.2 > centrallog/$e-$n.tmpl.sh);
 
 done
