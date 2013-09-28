@@ -1,4 +1,7 @@
 {
+  "meta": {
+    "profile": "https://github.com/Ardoise/KataScript/blob/master/README.md"
+  },
   "process": {
     "split": {
       "Daemon": {
