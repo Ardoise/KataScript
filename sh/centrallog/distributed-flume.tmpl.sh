@@ -114,8 +114,8 @@ REOF
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
       # TODO
       namepkg=$(dpkg -l |grep "$NAME" |awk -F' ' '{print $2}');
-      #dpkg -P "$namepkg"
-      #dpkg --uninstall $namepkg
+      dpkg -P \$namepkg
+      dpkg --uninstall \$namepkg
 REOF
     ;;
     *.zip)
