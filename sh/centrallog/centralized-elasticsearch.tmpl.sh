@@ -289,18 +289,18 @@ dist-upgrade)
     sudo apt-get upgrade
     sudo apt-get dist-upgrade
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpg ssh || return $?;
+      libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh || return $?;
     ;;
   Ubuntu)
     sudo apt-get update #--fix-missing
     sudo apt-get upgrade
     sudo apt-get dist-upgrade
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core openjdk-7-jre-headless chkconfig gpg ssh || return $?;
+      libreadline-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh || return $?;
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update #--fix-missing
-    sudo yum -y install make curl git-core gpg openjdk-7-jre-headless ssh || return $?;
+    sudo yum -y install make curl git-core gpg openjdk-7-jre-headless gpgv ssh || return $?;
     echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
   esac
