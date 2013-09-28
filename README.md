@@ -43,13 +43,13 @@
 
 C0mp0nents :
 ==========================
-  - logstash [http://logstash.net] [v2.1.0]
-  - redis [http://redis.io] [v2.6.16]
-  - elasticsearch [http://elasticsearch.org] [v0.90.5]
-  - kibana3 [http://kibana.org] [v3.m.3]
-  - mongoDB [http://www.mongodb.org/] [v2.4.6]
-  - graylog2 [http://graylog2.org] [v0.0.0][working]
-  - flume [http://flume.apache.org] [v1.4.0][working]
+  - Logstash [http://logstash.net] [v2.1.0]
+  - Redis [http://redis.io] [v2.6.16]
+  - ElasticSearch [http://elasticsearch.org] [v0.90.5]
+  - Kibana3 [http://kibana.org] [v3.m.3]
+  - MongoDB [http://www.mongodb.org/] [v2.4.6]
+  - Graylog2 [http://graylog2.org] [v0.0.0][working]
+  - Flume [http://flume.apache.org] [v1.4.0][working]
   - JBossAS [http://download.jboss.org] [v7.1.1]
   - Vagrant [http://www.vagrantup.com/] [v1.3.1]
 
