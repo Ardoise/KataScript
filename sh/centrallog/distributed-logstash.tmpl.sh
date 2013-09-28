@@ -117,7 +117,6 @@ REOF
       pkill -u $(echo $uidgid | cut -d':' -f1);
       namepkg=$(dpkg -l |grep "$NAME" |awk -F' ' '{print $2}');
       sudo dpkg -P \$namepkg
-      sudo dpkg --uninstall \$namepkg
 REOF
     ;;
     *.zip)
