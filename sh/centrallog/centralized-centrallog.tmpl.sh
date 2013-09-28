@@ -113,9 +113,9 @@ REOF
       [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file --root=$Bin$NAME;
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
       # TODO
-      #dpkg -l |grep "$NAME"
-      #dpkg -P "$NAME"
-      #dpkg --uninstall $NAME
+      namepkg=$(dpkg -l |grep "$NAME" |awk -F' ' '{print $2}');
+      #dpkg -P "$namepkg"
+      #dpkg --uninstall $namepkg
 REOF
     ;;
     *.zip)
