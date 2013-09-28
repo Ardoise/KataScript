@@ -92,15 +92,15 @@ install)
   cd $Bin$NAME;
   case "$file" in
     *.tar.gz|*.tgz)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -s "$Cache$NAME/$file" ] && sudo tar xvfz $Cache$NAME/$file -C $Bin$NAME/;
+      [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
+      [ -f "$Cache$NAME/$file" ] && sudo tar xvfz $Cache$NAME/$file -C $Bin$NAME/;
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
       [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME/*.*;
 REOF
     ;;
     *.rpm)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -s "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
+      [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
+      [ -f "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
       # TODO
       #rpm -qa | grep $NAME
@@ -109,8 +109,8 @@ REOF
 REOF
     ;;
     *.deb)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -s "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file --root=$Bin$NAME;
+      [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
+      [ -f "$Cache$NAME/$file" ] && sudo dpkg -i $Cache$NAME/$file --root=$Bin$NAME;
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
       namepkg=$(dpkg -l |grep "$NAME" |awk -F' ' '{print $2}');
       sudo dpkg -P \$namepkg
@@ -118,15 +118,15 @@ REOF
 REOF
     ;;
     *.zip)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -s "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file -d $Bin$NAME/;
+      [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
+      [ -f "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file -d $Bin$NAME/;
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
       [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME
 REOF
     ;;
     *.jar)
-      [ -s "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -s "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
+      [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
+      [ -f "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
       cat <<-REOF >$Bin$NAME/$NAME.uninstall
       [ -d "$Bin$NAME/$file" -a -n "$NAME" ] && rm -f $Bin$NAME/$file
 REOF
@@ -177,8 +177,8 @@ REOF
 ;;
 uninstall)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  [ -s "$Bin$NAME/$NAME.uninstall" ] && cp $Bin$NAME/$NAME.uninstall /tmp/$NAME.uninstall;
-  [ -s "/tmp/$NAME.uninstall" ] && sh -x /tmp/$NAME.uninstall;
+  [ -f "$Bin$NAME/$NAME.uninstall" ] && cp $Bin$NAME/$NAME.uninstall /tmp/$NAME.uninstall;
+  [ -f "/tmp/$NAME.uninstall" ] && sh -x /tmp/$NAME.uninstall;
   #i#uninstall#i#
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
@@ -238,7 +238,7 @@ start)
 ;;
 stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
+  # [ -f "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
   CMD="#i#start#i#";
   case $CMD in
   *i#stop#i*)
@@ -252,7 +252,7 @@ stop)
 ;;
 status)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  # [ -s "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
+  # [ -f "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
   CMD="#i#status#i#";
   case $CMD in
   *i#start#i*)
