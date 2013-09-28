@@ -157,11 +157,12 @@ REOF
   esac
   cat <<-REOF >>$Bin$NAME/$NAME.uninstall
     # [ -f "$Cache$NAME/$file" ] && rm -f "$Cache$NAME/$file"; # with purge cache
+    [ -d "$Etc$NAME/test" ] && rm -rf "$Etc$NAME/test";  #noconf only package
     [ -d "$Bin$NAME" ] && rm -rf "$Bin$NAME";
     [ -d "$Log$NAME" ] && rm -rf "$Log$NAME";
     [ -d "$Lib$NAME" ] && rm -rf "$Lib$NAME";
     [ -d "$Run$NAME" ] && rm -rf "$Run$NAME";
-    # [ -d "$Etc$NAME" ] && rm -rf "$Etc$NAME";  #noconf only package
+
 REOF
 
   # OWNER => POSTINSTALL
