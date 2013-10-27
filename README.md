@@ -1,36 +1,36 @@
 ## KATASCRIPT REST/JSON Shell ReadyForUse
 
 ### PLATFORM
-    vagrant box add precise64 http://files.vagrantup.com/precise64.box
-    vagrant init precise64
-    vagrant up
-    vagrant ssh
+    $ vagrant box add precise64 http://files.vagrantup.com/precise64.box
+    $ vagrant init precise64
+    $ vagrant up
+    $ vagrant ssh
 
 ### SERVICE Centr@lL0g : [RFU:v0.1.1-alpha3]
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
 ##### [INSTALL]
-    clone_dir=/tmp/KataScript-build-$$;
-    git clone https://github.com/Ardoise/KataScript.git $clone_dir;
-    sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
+    $ clone_dir=/tmp/KataScript-build-$$;
+    $ git clone https://github.com/Ardoise/KataScript.git $clone_dir;
+    $ sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
     ...
-    sudo sh $clone_dir/sh/centrallog/centralized-logstash.tmpl.sh install;
-    sudo sh $clone_dir/sh/centrallog/centralized-redis.tmpl.sh install;
-    sudo sh $clone_dir/sh/centrallog/centralized-elasticsearch.tmpl.sh install;
-    sudo sh $clone_dir/sh/centrallog/centralized-kibana3.tmpl.sh install;
-    sudo sh $clone_dir/sh/centrallog/centralized-mongodb.tmpl.sh install;
+    $ sudo sh $clone_dir/sh/centrallog/centralized-logstash.tmpl.sh install;
+    $ sudo sh $clone_dir/sh/centrallog/centralized-redis.tmpl.sh install;
+    $ sudo sh $clone_dir/sh/centrallog/centralized-elasticsearch.tmpl.sh install;
+    $ sudo sh $clone_dir/sh/centrallog/centralized-kibana3.tmpl.sh install;
+    $ sudo sh $clone_dir/sh/centrallog/centralized-mongodb.tmpl.sh install;
     ...
-    sudo sh $clone_dir/sh/centrallog/distributed-logstash.tmpl.sh install;
-    sudo sh $clone_dir/sh/centrallog/distributed-flume.tmpl.sh install;
+    $ sudo sh $clone_dir/sh/centrallog/distributed-logstash.tmpl.sh install;
+    $ sudo sh $clone_dir/sh/centrallog/distributed-flume.tmpl.sh install;
     ...
-    echo "rm -rf $clone_dir";
-    echo "unset clone_dir";
+    $ echo "rm -rf $clone_dir";
+    $ echo "unset clone_dir";
     
 ##### [CONFIG]
 [sh/json/cloud.json](https://github.com/Ardoise/KataScript/blob/master/sh/json/cloud.json)
     
 ##### [USAGE]
-    sudo sh sh/centrallog/<context>-<component>.tmpl.sh <command>
+    $ sudo sh sh/centrallog/<context>-<component>.tmpl.sh <command>
      Commands :
       check         - check centrallog::<component>
       install       - install centrallog::<component>
@@ -45,8 +45,8 @@
 ### SERVICE st@nd@l0ne : [RFU:v0.1.0]
     
 ##### [INSTALL]
-    sh/standalone/standalone-jboss.rfu.sh
-    sh/standalone/standalone-ruby.rfu.sh
+    $ sh/standalone/standalone-jboss.rfu.sh
+    $ sh/standalone/standalone-ruby.rfu.sh
 
 C0mp0nents :
 ==========================
