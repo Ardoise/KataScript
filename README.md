@@ -9,7 +9,7 @@
 ### Service Centr@lL0g : [RFU:v0.1.1-alpha3]
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
-#### [INSTALL]
+##### [INSTALL]
     clone_dir=/tmp/KataScript-build-$$;
     git clone https://github.com/Ardoise/KataScript.git $clone_dir;
     sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
@@ -26,10 +26,10 @@
     echo "rm -rf $clone_dir";
     echo "unset clone_dir";
     
-#### [CONFIG]
+##### [CONFIG]
 [sh/json/cloud.json](https://github.com/Ardoise/KataScript/blob/master/sh/json/cloud.json)
     
-#### [USAGE]
+##### [USAGE]
     sudo sh sh/centrallog/<context>-<component>.tmpl.sh <command>
      Commands :
       check         - check centrallog::<component>
@@ -44,7 +44,7 @@
 
 ### SERVICE st@nd@l0ne : [RFU:v0.1.0]
     
-#### [INSTALL]
+##### [INSTALL]
     sh/standalone/standalone-jboss.rfu.sh
     sh/standalone/standalone-ruby.rfu.sh
 
