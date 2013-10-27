@@ -1,5 +1,12 @@
 ## KATASCRIPT REST/JSON Shell ReadyForUse
-### service Centr@lL0g : [RFU:v0.1.1-alpha3]
+
+### Platform
+    vagrant box add precise64 http://files.vagrantup.com/precise64.box
+    vagrant init precise64
+    vagrant up precise64
+    vagrant ssh
+
+### Service Centr@lL0g : [RFU:v0.1.1-alpha3]
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
 #### [INSTALL]
@@ -35,7 +42,7 @@
       upgrade       - upgrade centrallog::<component>
       dist-upgrade  - upgrade distrib platform jruby::gems
 
-### service st@nd@l0ne : [RFU:v0.1.0]
+### SERVICE st@nd@l0ne : [RFU:v0.1.0]
     
 #### [INSTALL]
     sh/standalone/standalone-jboss.rfu.sh
