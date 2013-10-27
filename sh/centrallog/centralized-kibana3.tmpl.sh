@@ -3,7 +3,7 @@
 # Provides: centrallog: kibana3
 # Short-Description: DEPLOY SERVER: [KIBANA3]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20130914
+# Update: last-update: 20131027
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: kibana3 (...)
@@ -269,7 +269,7 @@ status)
   # [ -f "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
 null
   case $CMD in
-  *i#start#i*)
+  *i#status#i*)
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
@@ -299,14 +299,14 @@ dist-upgrade)
   case "$platform" in
   Debian)
     sudo apt-get update #--fix-missing #--no-install-recommends
-    sudo apt-get upgrade
+    sudo apt-get -y upgrade
     sudo apt-get dist-upgrade
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
       libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh || return $?;
     ;;
   Ubuntu)
     sudo apt-get update #--fix-missing
-    sudo apt-get upgrade
+    sudo apt-get -y upgrade
     sudo apt-get dist-upgrade
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
       libreadline-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh || return $?;
@@ -317,32 +317,41 @@ dist-upgrade)
     echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
   esac
-  
+
+  # Install RVM
+  #  rvm-x.y.z - #install
+  #  rvm::ruby-x.y.z - #install
+  [ -f "/usr/local/rvm/scripts/rvm" ] || curl -L https://get.rvm.io | bash -s stable;
+  [ -f "/usr/local/rvm/scripts/rvm" ] && source /usr/local/rvm/scripts/rvm;
+  [ -f "~/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/.profile-rvm;
+  rvm requirements
+ 
+  #Install RUBY
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
   curl -L https://get.rvm.io | bash -s stable --ruby
+  #rvm install ruby
+  
+  #Install JRUBY
+  #  rvm::jruby-x.y.z - #install
+  #[ -f "/usr/local/rvm/rubies/jruby-1.7.6/bin/jruby" ] || 
+  curl -L https://get.rvm.io | bash -s stable --ruby=jruby
+  #rvm install jruby
   
   # --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,
   # addressable,builder,launchy,liquid,syntax,maruku,rack,sass,rack-protection,
   # tilt,sinatra,watch,yui-compressor,bonsai,hpricot,mustache,rdiscount,ronn,
-  # rails,puma;
+  # rails,puma,tire;
+  # curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
   
-  #  rvm::jruby-x.y.z - #install
-  curl -L https://get.rvm.io | bash -s stable --ruby=jruby
-    
   #echo "#  rvm::gems::rails-x.x.x - #install"
   #echo "#  rvm::gems::puma-x.x.x - #install"
-  #curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
-  
-  #  rvm-x.y.z - #configure
-  [ -f "/usr/local/rvm/scripts/rvm" ] && source /usr/local/rvm/scripts/rvm;
-  [ -f "~/profile_rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/profile_rvm;
-  
   # rvm notes
   # rvm list known
   # rvm list
   # echo progress-bar >> ~/.curlrc
   
+  #Install JSONQuery Tool
   echo "#  jq64-x.x.x - #install"
   curl -OL http://stedolan.github.io/jq/download/linux64/jq; mv jq jq64;
   echo "#  jq32-x.x.x - #install"
