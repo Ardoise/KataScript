@@ -3,7 +3,7 @@
 # Provides: centrallog: mongodb
 # Short-Description: DEPLOY SERVER: [MONGODB]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20131027
+# Update: last-update: 20131028
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: mongodb (...)

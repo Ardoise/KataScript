@@ -3,7 +3,7 @@
 # Provides: centrallog: redis
 # Short-Description: DEPLOY SERVER: [REDIS]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20131027
+# Update: last-update: 20131028
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: redis (...)
