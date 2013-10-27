@@ -3,7 +3,7 @@
 ### PLATFORM
     vagrant box add precise64 http://files.vagrantup.com/precise64.box
     vagrant init precise64
-    vagrant up precise64
+    vagrant up
     vagrant ssh
 
 ### SERVICE Centr@lL0g : [RFU:v0.1.1-alpha3]
