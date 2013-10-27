@@ -1,12 +1,12 @@
 ## KATASCRIPT REST/JSON Shell ReadyForUse
 
-### Platform
+### PLATFORM
     vagrant box add precise64 http://files.vagrantup.com/precise64.box
     vagrant init precise64
     vagrant up precise64
     vagrant ssh
 
-### Service Centr@lL0g : [RFU:v0.1.1-alpha3]
+### SERVICE Centr@lL0g : [RFU:v0.1.1-alpha3]
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
 ##### [INSTALL]
