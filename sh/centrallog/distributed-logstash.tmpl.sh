@@ -67,7 +67,7 @@ CONF_INPUT=https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/inpu
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE}.input;
   )
-CONF_FILTER=https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/filter/grok.json
+CONF_FILTER=
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_FILTER}" ] && (
     curl -L ${CONF_FILTER} -o ${CONF_FILE}.filter;
     # CONTEXT VALUES LOCAL
