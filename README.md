@@ -7,7 +7,7 @@
      $ vagrant up
      $ vagrant ssh
      vagrant@precise64:~$ sudo apt-get update
-     vagrant@precise64:~$ sudo apt-get install -y git curl
+     vagrant@precise64:~$ sudo apt-get install -y curl git-core sudo
 
 ### SERVICE Centr@lL0g : [RFU:v0.1.1-alpha3]
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
