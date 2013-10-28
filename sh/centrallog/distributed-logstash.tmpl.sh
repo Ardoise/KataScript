@@ -55,6 +55,7 @@ PATTERN_FILE=https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/sh
   [ ! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}" ] && (
     curl -L ${PATTERN_FILE} -o ${CONF_FILE};
     # CONTEXT VALUES LOCAL
+	sed -i 's/127.0.0.1/'${yourIP}'/g'
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE};
   )
