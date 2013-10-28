@@ -63,7 +63,7 @@ CONF_INPUT=
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_INPUT}" ] && (
     curl -L ${CONF_INPUT} -o ${CONF_FILE}.input;
     # CONTEXT VALUES LOCAL
-	sed -i -e 's/127.0.0.1/'${yourIP}'/g' -e 's/ : {$/ {/g' -e 's/ : / => /g' ${CONF_FILE}.input
+	sed -i -e 's/127.0.0.1/'${yourIP}'/g' -e 's/ : {$/ {/g' -e 's/ : / => /g' -e 's/,$//g' ${CONF_FILE}.input
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE}.input;
   )
@@ -71,7 +71,7 @@ CONF_FILTER=
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_FILTER}" ] && (
     curl -L ${CONF_FILTER} -o ${CONF_FILE}.filter;
     # CONTEXT VALUES LOCAL
-	sed -i -e 's/: {/ {/g' -e 's/ : / => /g' ${CONF_FILE}.filter
+	sed -i -e 's/: {/ {/g' -e 's/ : / => /g' -e 's/ : / => /g' ${CONF_FILE}.filter
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE}.filter;
   )
@@ -79,7 +79,7 @@ CONF_OUTPUT=
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_OUTPUT}" ] && (
     curl -L ${CONF_OUTPUT} -o ${CONF_FILE}.output;
     # CONTEXT VALUES LOCAL
-	sed -i -e 's/: {/ {/g' -e 's/ : / => /g' ${CONF_FILE}.output
+	sed -i -e 's/: {/ {/g' -e 's/ : / => /g' -e 's/ : / => /g' ${CONF_FILE}.output
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE}.output;
   )
