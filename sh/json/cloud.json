@@ -60,8 +60,9 @@
       "init": {
         "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/shipper2redis",
         "conf": "/etc/logstash/shipper2redis.conf",
-        "input": "distributed",
-        "output": "centralized"
+		"input": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/input/file.json",
+		"filter": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/filter/grok.json",
+        "output": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/output/redis.json"
       },
       "Daemon": {
         "Pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/init.d/ulogstash",

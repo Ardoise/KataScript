@@ -86,8 +86,11 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
   sed -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .process.$id.start~e" \
       -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .process.$id.status~e" \
       -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .process.$id.stop~e" \
-      -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$id.init.pattern'~e" \
       -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$id.init.conf'~e" \
+	  -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$id.init.pattern'~e" \
+      -e "/#i#input#i#/ s~.*~cat $JSON | jq -r '\"CONF_INPUT=\"+.process.$id.init.input'~e" \
+	  -e "/#i#filter#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILTER=\"+.process.$id.init.filter'~e" \
+	  -e "/#i#output#i#/ s~.*~cat $JSON | jq -r '\"CONF_OUTPUT=\"+.process.$id.init.output'~e" \
       $tmp/${pltfrm}-$name.tmpl.sh.2 > centrallog/${pltfrm}-$name.tmpl.sh);
 
 done

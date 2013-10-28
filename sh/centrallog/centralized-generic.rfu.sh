@@ -59,6 +59,31 @@ init|config)
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE};
   )
+  #i#input#i#
+  [ ! -z "${CONF_FILE}" -a ! -z "${CONF_INPUT}" ] && (
+    curl -L ${CONF_INPUT} -o ${CONF_FILE}.input;
+    # CONTEXT VALUES LOCAL
+	sed -i 's/127.0.0.1/'${yourIP}'/g' ${CONF_FILE}.input
+    uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
+    chown -R $uidgid ${CONF_FILE}.input;
+  )
+  #i#filter#i#
+  [ ! -z "${CONF_FILE}" -a ! -z "${CONF_FILTER}" ] && (
+    curl -L ${CONF_OUTPUT} -o ${CONF_FILE}.filter;
+    # CONTEXT VALUES LOCAL
+	# sed -i 's/127.0.0.1/'${yourIP}'/g' ${CONF_FILE}.filter
+    uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
+    chown -R $uidgid ${CONF_FILE}.filter;
+  )
+  #i#output#i#
+  [ ! -z "${CONF_FILE}" -a ! -z "${CONF_OUTPUT}" ] && (
+    curl -L ${CONF_OUTPUT} -o ${CONF_FILE}.output;
+    # CONTEXT VALUES LOCAL
+	# sed -i 's/127.0.0.1/'${yourIP}'/g' ${CONF_FILE}.output
+    uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
+    chown -R $uidgid ${CONF_FILE}.output;
+  )
+  
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 install)
