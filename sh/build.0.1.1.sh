@@ -68,8 +68,8 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
   
   Daemon=$(cat $JSON | jq -r -c .process.$id.Daemon.On); echo -n "$Daemon|";
   NoDaemon=$(cat $JSON | jq -r -c .process.$id.Daemon.Off); echo -n "$NoDaemon|";
-  hi=$(cat $JSON | jq -r -c .process.$id.reload.input);  echo -n "$hi|";
-  ho=$(cat $JSON | jq -r -c .process.$id.reload.output); echo -n "$ho|";
+  hi=$(cat $JSON | jq -r -c .process.$id.init.input);  echo -n "$hi|";
+  ho=$(cat $JSON | jq -r -c .process.$id.init.output); echo -n "$ho|";
   
   echo
   [ -f "$tmp/centralized-generic.rfu.sh.1" ] && (\
@@ -86,8 +86,8 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
   sed -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .process.$id.start~e" \
       -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .process.$id.status~e" \
       -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .process.$id.stop~e" \
-      -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$id.reload.pattern'~e" \
-      -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$id.reload.conf'~e" \
+      -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$id.init.pattern'~e" \
+      -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$id.init.conf'~e" \
       $tmp/$platform-$name.tmpl.sh.2 > centrallog/$platform-$name.tmpl.sh);
 
 done
@@ -95,27 +95,3 @@ done
 rm -f *.sh~
 
 exit 0
-
-# ===================
-# RUN GLOBAL CONTEXT
-# ===================
-dpkg -i http://files.vagrantup.com/packages/b12c7e8814171c1295ef82416ffe51e8a168a244/vagrant_1.3.1_x86_64.deb
-###############################
-#vagrant box add {title} {url}
-#vagrant init {title}
-#vagrant up
-# box: http://www.vagrantbox.es/
-# Ubuntu precise VirtualBox
-#vagrant box add base http://files.vagrantup.com/precise32.box
-#vagrant box add base http://files.vagrantup.com/precise64.box
-###############################
-vagrant box add base http://files.vagrantup.com/precise32.box
-vagrant init base
-vagrant up
-vagrant ssh
-
-sudo apt-get update       #soft
-sudo apt-get upgrade      #system
-sudo apt-get dist-upgrade #kernel
-sudo apt-get autoremove   #purge
-sudo apt-get -y install curl git-core sudo
