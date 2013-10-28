@@ -50,7 +50,6 @@ check)
 ;;
 init|config|reload)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  https://raw.github.com/Ardoise/KataScript/master/sh/yml/elasticsearch.yml
 CONF_FILE=/etc/logstash/shipper2redis.conf
   [ ! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}" ] && (
     curl -L ${PATTERN_FILE} -o ${CONF_FILE};
