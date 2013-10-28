@@ -1,6 +1,6 @@
 cluster.name: centrallog
-node.name: "logstash"
-network.host: 192.168.17.89
+node.name: "config"
+network.host: "127.0.0.1"
 path.logs: "/var/log/elasticsearch"
 path.data: "/var/lib/elasticsearch"
 # path.config: "/etc/elasticsearch/elasticsearch"
