@@ -69,7 +69,7 @@ CONF_INPUT=distributed
   )
 CONF_FILTER=
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_FILTER}" ] && (
-    curl -L ${CONF_OUTPUT} -o ${CONF_FILE}.filter;
+    curl -L ${CONF_FILTER} -o ${CONF_FILE}.filter;
     # CONTEXT VALUES LOCAL
 	sed -i -e 's/:/=>/g' ${CONF_FILE}.filter
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
