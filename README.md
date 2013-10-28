@@ -9,7 +9,7 @@
      vagrant@precise64:~$ sudo apt-get update
      vagrant@precise64:~$ sudo apt-get install -y curl git-core sudo
 
-### SERVICE RFU Centr@lL0g : [v0.1.1-alpha4]
+### SERVICE RFU Centr@lL0g-0.1.1a4
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
 ##### CONFIG :
@@ -45,7 +45,7 @@
       upgrade       - upgrade centrallog::<component>
       dist-upgrade  - upgrade distrib platform jruby::gems
 
-### SERVICE st@nd@l0ne : [RFU:v0.1.0]
+### SERVICE RFU st@nd@l0ne-0.1.0
     
 ##### INSTALL :
     $ sh/standalone/standalone-jboss.rfu.sh
