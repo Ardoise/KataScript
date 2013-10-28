@@ -63,7 +63,7 @@ CONF_INPUT=centralized
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_INPUT}" ] && (
     curl -L ${CONF_INPUT} -o ${CONF_FILE}.input;
     # CONTEXT VALUES LOCAL
-	sed -i -e 's/127.0.0.1/'${yourIP}'/g' -e 's/ : {$/ {$/g' -e 's/ : / => /g' ${CONF_FILE}.input
+	sed -i -e 's/127.0.0.1/'${yourIP}'/g' -e 's/ : {$/ {/g' -e 's/ : / => /g' ${CONF_FILE}.input
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE}.input;
   )
