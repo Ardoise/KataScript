@@ -91,26 +91,26 @@
     "logstash": {
       "id": "shipper",
       "output": "redis",
-      "platform": "distributed"
+      "Platform": "distributed"
     },
     "redis": {
       "id": "event",
-      "platform": "centralized"
+      "Platform": "centralized"
     },
     "logstash": {
       "id": "split",
       "input": "redis",
       "output": "elasticsearch",
-      "platform": "centralized"
+      "Platform": "centralized"
     },
     "elasticsearch": {
       "id": "index",
-      "platform": "centralized"
+      "Platform": "centralized"
     },
     "kibana3": {
       "id": "dashboard",
       "input": "elasticsearch",
-      "platform": "centralized"
+      "Platform": "centralized"
     }
   },
   "Profil": {
@@ -124,42 +124,42 @@
     },
     "centrallog": {
       "id": "centrallog",
-      "platform": "centralized",
+      "Platform": "centralized",
       "Software": "centrallog"
     },
     "split": {
       "id": "split",
-      "platform": "centralized",
+      "Platform": "centralized",
       "Software": "logstash"
     },
     "event": {
       "id": "event",
-      "platform": "centralized",
+      "Platform": "centralized",
       "Software": "redis"
     },
     "search": {
       "id": "search",
-      "platform": "centralized",
+      "Platform": "centralized",
       "Software": "elasticsearch"
     },
     "shipper": {
       "id": "shipper",
-      "platform": "distributed",
+      "Platform": "distributed",
       "Software": "logstash"
     },
     "shipper2": {
       "id": "shipper2",
-      "platform": "distributed",
+      "Platform": "distributed",
       "Software": "flume"
     },
     "stockage": {
       "id": "stockage",
-      "platform": "centralized",
+      "Platform": "centralized",
       "Software": "mongodb"
     },
     "dashboard": {
       "id": "dashboard",
-      "platform": "centralized",
+      "Platform": "centralized",
       "Software": "kibana3"
     }
   },
@@ -229,7 +229,7 @@
       }
     }
   },
-  "platform": {
+  "Platform": {
     "centralized": [
       {
         "id": "1",

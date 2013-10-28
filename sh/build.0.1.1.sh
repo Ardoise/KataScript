@@ -58,7 +58,7 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'Software'); do
 
   id=$(echo $l | jq -r '.id'); echo -n "$id|";
   soft=$(echo $l | jq -r '.Software'); echo -n "$soft|";
-  platform=$(echo $l | jq -r '.platform'); echo -n "$platform|";
+  Platform=$(echo $l | jq -r '.Platform'); echo -n "$Platform|";
   
   name=$(cat $JSON | jq -r -c ".Software.$soft.name"); echo -n "$name|";
   NAME=$( echo $name | tr 'a-z' 'A-Z' ); echo -n "$NAME|";
@@ -80,15 +80,15 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'Software'); do
       -e "s~#i#daemon#i#~$Daemon~g" \
       -e "s~#i#nodaemon#i#~$NoDaemon~g" \
       -e "s~xlicensex~@License~g" \
-      $tmp/centralized-generic.rfu.sh.1 > $tmp/$platform-$name.tmpl.sh.2);
+      $tmp/centralized-generic.rfu.sh.1 > $tmp/$Platform-$name.tmpl.sh.2);
   
-  [ -f "$tmp/$platform-$name.tmpl.sh.2" ] && (\
+  [ -f "$tmp/$Platform-$name.tmpl.sh.2" ] && (\
   sed -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .process.$id.start~e" \
       -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .process.$id.status~e" \
       -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .process.$id.stop~e" \
       -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$id.init.pattern'~e" \
       -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$id.init.conf'~e" \
-      $tmp/$platform-$name.tmpl.sh.2 > centrallog/$platform-$name.tmpl.sh);
+      $tmp/$Platform-$name.tmpl.sh.2 > centrallog/$Platform-$name.tmpl.sh);
 
 done
 
