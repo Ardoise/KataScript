@@ -66,6 +66,12 @@ CONF_INPUT=centralized
 	sed -i -e 's/127.0.0.1/'${yourIP}'/g' -e 's/ : {$/ {/g' -e 's/ : / => /g' -e 's/,$//g' ${CONF_FILE}.input
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE}.input;
+	
+	echo "input {" > ${CONF_FILE}.init
+	cat ${CONF_FILE}.input >> ${CONF_FILE}.init
+	echo "}" >> ${CONF_FILE}.init
+	
+	chown -R $uidgid ${CONF_FILE}.init;
   )
 CONF_FILTER=
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_FILTER}" ] && (
@@ -74,6 +80,12 @@ CONF_FILTER=
 	sed -i -e 's/: {/ {/g' -e 's/ : / => /g' -e 's/ : / => /g' ${CONF_FILE}.filter
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE}.filter;
+	
+	echo "filter {" >> ${CONF_FILE}.init
+	cat ${CONF_FILE}.filter >> ${CONF_FILE}.init
+	echo "}" >> ${CONF_FILE}.init
+	
+	chown -R $uidgid ${CONF_FILE}.init;
   )
 CONF_OUTPUT=centralized
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_OUTPUT}" ] && (
@@ -82,6 +94,12 @@ CONF_OUTPUT=centralized
 	sed -i -e 's/: {/ {/g' -e 's/ : / => /g' -e 's/ : / => /g' ${CONF_FILE}.output
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE}.output;
+	
+	echo "output {" >> ${CONF_FILE}.init
+	cat ${CONF_FILE}.output >> ${CONF_FILE}.init
+	echo "}" >> ${CONF_FILE}.init
+	
+	chown -R $uidgid ${CONF_FILE}.init;
   )
   
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
