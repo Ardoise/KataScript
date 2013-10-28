@@ -7,7 +7,7 @@
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: centrallog (...)
-# - deploy centrallog v0.1.1b
+# - deploy centrallog v0.1.1a4
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget git-core gpg ssh

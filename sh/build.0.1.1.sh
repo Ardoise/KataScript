@@ -11,7 +11,7 @@ tmp="/tmp";
 EMAIL_ADDRESS="<${REPLYTO:-${USER}@$HOSTNAME}>"; echo $EMAIL_ADDRESS
 
 cat <<-_EOF_ >licence.txt
-	# This program is free software: you can redistribute it and/or modify
+	# This program is free Software: you can redistribute it and/or modify
 	# it under the terms of the GNU General Public License as published by
 	# the Free Software Foundation, either version 3 of the License, or
 	# (at your option) any later version.
@@ -54,17 +54,17 @@ sed -e "s~#i#DirBin#i#~$Bin~g" \
 # JSON => LocalENV
 # LocalENV + TEMPLATE.1 => TEMPLATE.2 => RFU
 JSON=json/cloud.json
-for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
+for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'Software'); do
 
   id=$(echo $l | jq -r '.id'); echo -n "$id|";
-  soft=$(echo $l | jq -r '.software'); echo -n "$soft|";
+  soft=$(echo $l | jq -r '.Software'); echo -n "$soft|";
   platform=$(echo $l | jq -r '.platform'); echo -n "$platform|";
   
-  name=$(cat $JSON | jq -r -c ".software.$soft.name"); echo -n "$name|";
+  name=$(cat $JSON | jq -r -c ".Software.$soft.name"); echo -n "$name|";
   NAME=$( echo $name | tr 'a-z' 'A-Z' ); echo -n "$NAME|";
-  title=$(cat $JSON | jq -r -c ".software.$soft.title"); echo -n "$title|"; # NotUSE
-  version=$(cat $JSON | jq -r -c ".software.$soft.version"); echo -n "$version|";
-  download=$(cat $JSON | jq -r -c ".software.$soft.download"); echo -n "$download|";
+  title=$(cat $JSON | jq -r -c ".Software.$soft.title"); echo -n "$title|"; # NotUSE
+  version=$(cat $JSON | jq -r -c ".Software.$soft.version"); echo -n "$version|";
+  download=$(cat $JSON | jq -r -c ".Software.$soft.download"); echo -n "$download|";
   
   Daemon=$(cat $JSON | jq -r -c .process.$id.Daemon.On); echo -n "$Daemon|";
   NoDaemon=$(cat $JSON | jq -r -c .process.$id.Daemon.Off); echo -n "$NoDaemon|";
