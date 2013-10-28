@@ -1,6 +1,6 @@
 ## KATASCRIPT REST/JSON Shell ReadyForUse
 
-### PLATFORM portable
+### PLATFORM Portable
 ##### INSTALL :
      $ vagrant box add precise64 http://files.vagrantup.com/precise64.box
      $ vagrant init precise64
@@ -9,7 +9,7 @@
      vagrant@precise64:~$ sudo apt-get update
      vagrant@precise64:~$ sudo apt-get install -y curl git-core sudo
 
-### SERVICE Centr@lL0g : [RFU:v0.1.1-alpha3]
+### SERVICE RFU Centr@lL0g : [v0.1.1-alpha4]
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
 ##### CONFIG :
@@ -53,7 +53,7 @@
 
 C0mp0nents :
 ==========================
-  - Logstash [http://logstash.net] [v2.1.0]
+  - Logstash [http://logstash.net] [v1.2.2]
   - Redis [http://redis.io] [v2.6.16]
   - ElasticSearch [http://elasticsearch.org] [v0.90.5]
   - Kibana3 [http://kibana.org] [v3.m.3]
