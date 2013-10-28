@@ -91,26 +91,26 @@
     "logstash": {
       "id": "shipper",
       "output": "redis",
-      "Platform": "distributed"
+      "platform": "distributed"
     },
     "redis": {
       "id": "event",
-      "Platform": "centralized"
+      "platform": "centralized"
     },
     "logstash": {
       "id": "split",
       "input": "redis",
       "output": "elasticsearch",
-      "Platform": "centralized"
+      "platform": "centralized"
     },
     "elasticsearch": {
       "id": "index",
-      "Platform": "centralized"
+      "platform": "centralized"
     },
     "kibana3": {
       "id": "dashboard",
       "input": "elasticsearch",
-      "Platform": "centralized"
+      "platform": "centralized"
     }
   },
   "Profil": {
@@ -124,46 +124,46 @@
     },
     "centrallog": {
       "id": "centrallog",
-      "Platform": "centralized",
-      "Software": "centrallog"
+      "platform": "centralized",
+      "software": "centrallog"
     },
     "split": {
       "id": "split",
-      "Platform": "centralized",
-      "Software": "logstash"
+      "platform": "centralized",
+      "software": "logstash"
     },
     "event": {
       "id": "event",
-      "Platform": "centralized",
-      "Software": "redis"
+      "platform": "centralized",
+      "software": "redis"
     },
     "search": {
       "id": "search",
-      "Platform": "centralized",
-      "Software": "elasticsearch"
+      "platform": "centralized",
+      "software": "elasticsearch"
     },
     "shipper": {
       "id": "shipper",
-      "Platform": "distributed",
-      "Software": "logstash"
+      "platform": "distributed",
+      "software": "logstash"
     },
     "shipper2": {
       "id": "shipper2",
-      "Platform": "distributed",
-      "Software": "flume"
+      "platform": "distributed",
+      "software": "flume"
     },
     "stockage": {
       "id": "stockage",
-      "Platform": "centralized",
-      "Software": "mongodb"
+      "platform": "centralized",
+      "software": "mongodb"
     },
     "dashboard": {
       "id": "dashboard",
-      "Platform": "centralized",
-      "Software": "kibana3"
+      "platform": "centralized",
+      "software": "kibana3"
     }
   },
-  "Software": {
+  "software": {
     "centrallog": {
       "title": "Centrallog Component",
       "name": "centrallog",
@@ -229,7 +229,7 @@
       }
     }
   },
-  "Platform": {
+  "platform": {
     "centralized": [
       {
         "id": "1",

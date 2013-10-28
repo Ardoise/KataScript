@@ -11,9 +11,9 @@ tmp="/tmp";
 EMAIL_ADDRESS="<${REPLYTO:-${USER}@$HOSTNAME}>"; echo $EMAIL_ADDRESS
 
 cat <<-_EOF_ >licence.txt
-	# This program is free Software: you can redistribute it and/or modify
+	# This program is free software: you can redistribute it and/or modify
 	# it under the terms of the GNU General Public License as published by
-	# the Free Software Foundation, either version 3 of the License, or
+	# the Free software Foundation, either version 3 of the License, or
 	# (at your option) any later version.
 
 	# This program is distributed in the hope that it will be useful,
@@ -54,17 +54,17 @@ sed -e "s~#i#DirBin#i#~$Bin~g" \
 # JSON => LocalENV
 # LocalENV + TEMPLATE.1 => TEMPLATE.2 => RFU
 JSON=json/cloud.json
-for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'Software'); do
+for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
 
   id=$(echo $l | jq -r '.id'); echo -n "$id|";
-  soft=$(echo $l | jq -r '.Software'); echo -n "$soft|";
-  Platform=$(echo $l | jq -r '.Platform'); echo -n "$Platform|";
+  sftwr=$(echo $l | jq -r '.software'); echo -n "${sftwr}|";
+  pltfrm=$(echo $l | jq -r '.platform'); echo -n "${pltfrm}|";
   
-  name=$(cat $JSON | jq -r -c ".Software.$soft.name"); echo -n "$name|";
+  name=$(cat $JSON | jq -r -c ".software.${sftwr}.name"); echo -n "$name|";
   NAME=$( echo $name | tr 'a-z' 'A-Z' ); echo -n "$NAME|";
-  title=$(cat $JSON | jq -r -c ".Software.$soft.title"); echo -n "$title|"; # NotUSE
-  version=$(cat $JSON | jq -r -c ".Software.$soft.version"); echo -n "$version|";
-  download=$(cat $JSON | jq -r -c ".Software.$soft.download"); echo -n "$download|";
+  title=$(cat $JSON | jq -r -c ".software.${sftwr}.title"); echo -n "$title|"; # NotUSE
+  version=$(cat $JSON | jq -r -c ".software.${sftwr}.version"); echo -n "$version|";
+  download=$(cat $JSON | jq -r -c ".software.${sftwr}.download"); echo -n "$download|";
   
   Daemon=$(cat $JSON | jq -r -c .process.$id.Daemon.On); echo -n "$Daemon|";
   NoDaemon=$(cat $JSON | jq -r -c .process.$id.Daemon.Off); echo -n "$NoDaemon|";
@@ -80,15 +80,15 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'Software'); do
       -e "s~#i#daemon#i#~$Daemon~g" \
       -e "s~#i#nodaemon#i#~$NoDaemon~g" \
       -e "s~xlicensex~@License~g" \
-      $tmp/centralized-generic.rfu.sh.1 > $tmp/$Platform-$name.tmpl.sh.2);
+      $tmp/centralized-generic.rfu.sh.1 > $tmp/${pltfrm}-$name.tmpl.sh.2);
   
-  [ -f "$tmp/$Platform-$name.tmpl.sh.2" ] && (\
+  [ -f "$tmp/${pltfrm}-$name.tmpl.sh.2" ] && (\
   sed -e "/#i#start#i#/ s~.*~cat $JSON | jq -r .process.$id.start~e" \
       -e "/#i#status#i#/ s~.*~cat $JSON | jq -r .process.$id.status~e" \
       -e "/#i#stop#i#/ s~.*~cat $JSON | jq -r .process.$id.stop~e" \
       -e "/#i#pconfig#i#/ s~.*~cat $JSON | jq -r '\"PATTERN_FILE=\"+.process.$id.init.pattern'~e" \
       -e "/#i#config#i#/ s~.*~cat $JSON | jq -r '\"CONF_FILE=\"+.process.$id.init.conf'~e" \
-      $tmp/$Platform-$name.tmpl.sh.2 > centrallog/$Platform-$name.tmpl.sh);
+      $tmp/${pltfrm}-$name.tmpl.sh.2 > centrallog/${pltfrm}-$name.tmpl.sh);
 
 done
 
