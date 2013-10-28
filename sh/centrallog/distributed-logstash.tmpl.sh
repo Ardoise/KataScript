@@ -302,6 +302,7 @@ dist-upgrade)
     sudo apt-get update #--fix-missing #--no-install-recommends
     sudo apt-get -y upgrade
     sudo apt-get dist-upgrade
+	sudo apt-get autoremove
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
       libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh || return $?;
     ;;
@@ -309,6 +310,7 @@ dist-upgrade)
     sudo apt-get update #--fix-missing
     sudo apt-get -y upgrade
     sudo apt-get dist-upgrade
+	sudo apt-get autoremove
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
       libreadline-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh || return $?;
     ;;
