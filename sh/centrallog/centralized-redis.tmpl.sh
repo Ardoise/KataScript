@@ -59,48 +59,47 @@ PATTERN_FILE=https://raw.github.com/Ardoise/KataScript/master/sh/etc/redis/6379.
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE};
   )
+  
 CONF_INPUT=
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_INPUT}" ] && (
     curl -L ${CONF_INPUT} -o ${CONF_FILE}.input;
     # CONTEXT VALUES LOCAL
-	sed -i -e 's/127.0.0.1/'${yourIP}'/g' -e 's/ : {$/ {/g' -e 's/ : / => /g' -e 's/,$//g' ${CONF_FILE}.input
+	sed -i -e 's/127.0.0.1/'${yourIP}'/g' ${CONF_FILE}.input
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE}.input;
 	
-	echo "input {" > ${CONF_FILE}.init
-	cat ${CONF_FILE}.input >> ${CONF_FILE}.init
-	echo "}" >> ${CONF_FILE}.init
-	
-	chown -R $uidgid ${CONF_FILE}.init;
+	echo "input {" > ${CONF_FILE}.rb
+	cat ${CONF_FILE}.input >> ${CONF_FILE}.rb
+	echo "}" >> ${CONF_FILE}.rb
+	chown -R $uidgid ${CONF_FILE}.rb;
   )
 CONF_FILTER=
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_FILTER}" ] && (
     curl -L ${CONF_FILTER} -o ${CONF_FILE}.filter;
     # CONTEXT VALUES LOCAL
-	sed -i -e 's/: {/ {/g' -e 's/ : / => /g' -e 's/ : / => /g' ${CONF_FILE}.filter
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE}.filter;
 	
-	echo "filter {" >> ${CONF_FILE}.init
-	cat ${CONF_FILE}.filter >> ${CONF_FILE}.init
-	echo "}" >> ${CONF_FILE}.init
-	
-	chown -R $uidgid ${CONF_FILE}.init;
+	echo "filter {" >> ${CONF_FILE}.rb
+	cat ${CONF_FILE}.filter >> ${CONF_FILE}.rb
+	echo "}" >> ${CONF_FILE}.rb
+	chown -R $uidgid ${CONF_FILE}.rb;
   )
 CONF_OUTPUT=
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_OUTPUT}" ] && (
     curl -L ${CONF_OUTPUT} -o ${CONF_FILE}.output;
     # CONTEXT VALUES LOCAL
-	sed -i -e 's/: {/ {/g' -e 's/ : / => /g' -e 's/ : / => /g' ${CONF_FILE}.output
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
     chown -R $uidgid ${CONF_FILE}.output;
 	
-	echo "output {" >> ${CONF_FILE}.init
-	cat ${CONF_FILE}.output >> ${CONF_FILE}.init
-	echo "}" >> ${CONF_FILE}.init
-	
-	chown -R $uidgid ${CONF_FILE}.init;
+	echo "output {" >> ${CONF_FILE}.rb
+	cat ${CONF_FILE}.output >> ${CONF_FILE}.rb
+	echo "}" >> ${CONF_FILE}.rb
+	chown -R $uidgid ${CONF_FILE}.rb;
   )
+  
+  # convert json to_hash
+  [ -f "${CONF_FILE}.rb" ] && sed -i -e 's/ : {$/ {/g' -e 's/ : / => /g' -e 's/,$//g' ${CONF_FILE}.rb
   
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
