@@ -60,7 +60,7 @@ PATTERN_FILE=https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/re
     chown -R $uidgid ${CONF_FILE};
   )
   
-CONF_INPUT=centralized
+CONF_INPUT=https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/input/redis.json
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_INPUT}" ] && (
     curl -L ${CONF_INPUT} -o ${CONF_FILE}.input;
     # CONTEXT VALUES LOCAL
@@ -85,7 +85,7 @@ CONF_FILTER=
 	echo "}" >> ${CONF_FILE}.rb
 	chown -R $uidgid ${CONF_FILE}.rb;
   )
-CONF_OUTPUT=centralized
+CONF_OUTPUT=https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/output/elasticsearch.json
   [ ! -z "${CONF_FILE}" -a ! -z "${CONF_OUTPUT}" ] && (
     curl -L ${CONF_OUTPUT} -o ${CONF_FILE}.output;
     # CONTEXT VALUES LOCAL
