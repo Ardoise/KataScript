@@ -1,9 +1,0 @@
-{
-  "name": "http-shell",
-  "version": "0.1.0",
-  "author": "Ardoise <ardoise.gisement@gmail.com>",
-  "description": "exec command shell, exec file shell into http",
-  "dependencies": {
-    "child_process": "~0.1"
-  },
-}
