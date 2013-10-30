@@ -1,17 +1,26 @@
-"redis" : {
-  "batch" : "false",
-  "batch_events" : "50",
-  "batch_timeout" : "5",
-  "codec" : "plain",
-  "congestion_interval" : "1",
-  "congestion_threshold" : "0",
-  "data_type" : ["list", "channel"],
-  "db" : "0",
-  "host" : ["127.0.0.1"],
-  "key" : "",
-  "password" : "",
-  "port" : "6379",
-  "reconnect_interval" : "1",
-  "shuffle_hosts" : "true",
-  "timeout" : "5"
+{
+  "output": {
+    "redis": {
+      "timeout": "5",
+      "shuffle_hosts": "true",
+      "reconnect_interval": "1",
+      "port": "6379",
+      "password": "",
+      "key": "",
+      "host": [
+        "127.0.0.1"
+      ],
+      "batch": "false",
+      "batch_events": "50",
+      "batch_timeout": "5",
+      "codec": "plain",
+      "congestion_interval": "1",
+      "congestion_threshold": "0",
+      "data_type": [
+        "list",
+        "channel"
+      ],
+      "db": "0"
+    }
+  }
 }
