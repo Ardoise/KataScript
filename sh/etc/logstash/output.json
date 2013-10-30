@@ -1,39 +1,41 @@
-{
-  "elasticsearch": {
-    "host": "",
-    "flush_size": "100",
-    "embedded_http_port": "9200-9300",
-    "embedded": "false",
-    "document_id": "nil",
-    "port": "9300-9400",
-    "node_name": "",
-    "index_type": "",
-    "index": "config-%{+YYYY.MM.dd}",
-    "idle_flush_time": "1",
-    "bind_host": "",
-    "cluster": "",
-    "codec": "plain"
-  },
-  "redis": {
-    "db": "0",
-    "data_type": [
-      "list",
-      "channel"
-    ],
-    "congestion_threshold": "0",
-    "congestion_interval": "1",
-    "codec": "plain",
-    "batch_timeout": "5",
-    "batch_events": "50",
-    "timeout": "5",
-    "shuffle_hosts": "true",
-    "reconnect_interval": "1",
-    "port": "6379",
-    "password": "",
-    "key": "",
-    "host": [
-      "127.0.0.1"
-    ],
-    "batch": "false"
+ {
+  "output": {
+    "elasticsearch": {
+      "codec": "plain",
+      "cluster": "",
+      "bind_host": "",
+      "idle_flush_time": "1",
+      "index": "config-%{+YYYY.MM.dd}",
+      "host": "",
+      "flush_size": "100",
+      "embedded_http_port": "9200-9300",
+      "embedded": "false",
+      "document_id": "nil",
+      "port": "9300-9400",
+      "node_name": "",
+      "index_type": ""
+    },
+    "redis": {
+      "batch": "false",
+      "host": [
+        "127.0.0.1"
+      ],
+      "key": "",
+      "password": "",
+      "port": "6379",
+      "reconnect_interval": "1",
+      "shuffle_hosts": "true",
+      "db": "0",
+      "data_type": [
+        "list",
+        "channel"
+      ],
+      "congestion_threshold": "0",
+      "congestion_interval": "1",
+      "codec": "plain",
+      "batch_timeout": "5",
+      "batch_events": "50",
+      "timeout": "5"
+    }
   }
 }
