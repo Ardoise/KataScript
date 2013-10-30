@@ -1,0 +1,41 @@
+{
+  "input": {
+    "redis": {
+      "batch_count": "1",
+      "add_field": "{}",
+      "password": "",
+      "port": "6379",
+      "tags": "",
+      "threads": "1",
+      "key": "",
+      "host": "127.0.0.1",
+      "debug": "false",
+      "db": "0",
+      "data_type": [
+        "list",
+        "channel",
+        "pattern_channel"
+      ],
+      "codec": "plain",
+      "type": "",
+      "timeout": "5"
+    },
+    "file": {
+      "sincedb_write_interval": "15",
+      "sincedb_path": "",
+      "path": "",
+      "exclude": "",
+      "type": "",
+      "tags": "",
+      "stat_interval": "1",
+      "start_position": [
+        "beginning",
+        "end"
+      ],
+      "add_field": "",
+      "codec": "plain",
+      "debug": "false",
+      "discover_interval": "15"
+    }
+  }
+}

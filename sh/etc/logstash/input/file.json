@@ -1,14 +1,19 @@
-"file" : {
-  "add_field" : "",
-  "codec" : "plain",
-  "debug" : "false",
-  "discover_interval" : "15",
-  "exclude" : "",
-  "path" : "",
-  "sincedb_path" : "",
-  "sincedb_write_interval" : "15",
-  "start_position" : ["beginning", "end"],
-  "stat_interval" : "1",
-  "tags" : "",
-  "type" : ""
+{
+  "file": {
+    "type": "",
+    "tags": "",
+    "stat_interval": "1",
+    "start_position": [
+      "beginning",
+      "end"
+    ],
+    "add_field": "",
+    "codec": "plain",
+    "debug": "false",
+    "discover_interval": "15",
+    "exclude": "",
+    "path": "",
+    "sincedb_path": "",
+    "sincedb_write_interval": "15"
+  }
 }
