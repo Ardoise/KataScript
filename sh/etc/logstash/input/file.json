@@ -1,19 +1,21 @@
 {
-  "file": {
-    "type": "",
-    "tags": "",
-    "stat_interval": "1",
-    "start_position": [
-      "beginning",
-      "end"
-    ],
-    "add_field": "",
-    "codec": "plain",
-    "debug": "false",
-    "discover_interval": "15",
-    "exclude": "",
-    "path": "",
-    "sincedb_path": "",
-    "sincedb_write_interval": "15"
+  "input": {
+    "file": {
+      "sincedb_write_interval": "15",
+      "sincedb_path": "",
+      "path": "",
+      "exclude": "",
+      "type": "",
+      "tags": "",
+      "stat_interval": "1",
+      "start_position": [
+        "beginning",
+        "end"
+      ],
+      "add_field": "",
+      "codec": "plain",
+      "debug": "false",
+      "discover_interval": "15"
+    }
   }
 }
