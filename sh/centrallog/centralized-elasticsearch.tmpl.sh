@@ -7,7 +7,7 @@
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: elasticsearch (...)
-# - deploy elasticsearch v0.90.5
+# - deploy elasticsearch v0.90.6
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget git-core gpg ssh
@@ -41,6 +41,8 @@ if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
   exit $SCRIPT_ERROR
 fi
+
+using_shell=$(ps -p $$);
 
 case "$1" in
 check)
@@ -130,7 +132,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.deb";
+  Download="https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.6.deb";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;

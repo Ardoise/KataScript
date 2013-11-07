@@ -42,6 +42,8 @@ if [ `id -u` -ne 0 ]; then
   exit $SCRIPT_ERROR
 fi
 
+using_shell=$(ps -p $$);
+
 case "$1" in
 check)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
