@@ -186,7 +186,7 @@
       "title": "Elasticsearch Server",
       "download": "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.6.deb",
       "name": "elasticsearch",
-      "version": "0.90.6"
+      "version": "0.90.7"
     },
     "mongodb": {
       "title": "Mongodb Server",
@@ -194,11 +194,11 @@
       "name": "mongodb",
       "version": "2.4.6"
     },
-    "kibana3": {
-      "download": "https://github.com/elasticsearch/kibana/archive/master.tar.gz",
+    "kibana3": {      
+      "download": "https://download.elasticsearch.org/kibana/kibana/kibana-3.0.0milestone4.tar.gz",
       "title": "Kibana Server",
       "name": "kibana3",
-      "version": "3.0.0m3pre"
+      "version": "3.0.0m4"
     },
     "flume": {
       "title": "Flume Server",
