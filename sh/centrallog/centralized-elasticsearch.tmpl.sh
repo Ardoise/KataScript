@@ -132,7 +132,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.6.deb";
+  Download="https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.7.deb";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
