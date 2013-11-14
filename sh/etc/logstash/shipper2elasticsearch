@@ -24,6 +24,11 @@ filter {
     pattern => "%{SYSLOGLINE}"
     # You can specify multiple 'pattern' lines
   }
+  grok {
+   type => "apache-access"
+   match => [ "message", "%{COMBINEDAPACHELOG}" ]
+   #match => [ "message", "%{IP:client} %{WORD:method} %{URIPATHPARAM:request} %{NUMBER:bytes} %{NUMBER:duration}" ]
+  }
 }
 output {
   stdout {
