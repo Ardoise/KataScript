@@ -10,8 +10,8 @@
      vagrant@precise64:~$ sudo apt-get install -y curl git-core sudo
 
 ### SERVICE RFU Centr@lL0g-0.1.1a4
+  ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png)
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
-  ![Screenshots2](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png)
 
 ##### CONFIG :
 [sh/json/cloud.json](https://github.com/Ardoise/KataScript/blob/master/sh/json/cloud.json)
