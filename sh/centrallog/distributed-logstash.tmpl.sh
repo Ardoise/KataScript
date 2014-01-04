@@ -3,7 +3,7 @@
 # Provides: centrallog: logstash
 # Short-Description: DEPLOY SERVER: [LOGSTASH]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20131028
+# Update: last-update: 20140104
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: logstash (...)
@@ -36,6 +36,7 @@ platform="$(lsb_release -i -s)";
 platform_version="$(lsb_release -s -r)";
 yourIP=$(hostname -I | cut -d' ' -f1);
 JSON=json/cloud.json
+
 
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
@@ -264,7 +265,8 @@ daemon)
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
-    chkconfig $NAME on && exit 0 || exit $?;
+    $(which sysv-rc-conf) && (sysv-rc-conf $NAME on && exit 0 || exit $?);
+    $(which chkconfig) && (chkconfig $NAME on && exit 0 || exit $?);
     ;;
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
@@ -277,7 +279,8 @@ nodaemon)
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
-    chkconfig $NAME off && exit 0 || exit $?;
+    $(which sysv-rc-conf) && (sysv-rc-conf $NAME off && exit 0 || exit $?);
+    $(which chkconfig) && (chkconfig $NAME off && exit 0 || exit $?);
     ;;
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
@@ -357,7 +360,7 @@ dist-upgrade)
     sudo apt-get dist-upgrade
 	sudo apt-get autoremove
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh || return $?;
+      libreadline-dev make curl git-core openjdk-7-jre-headless sysv-rc-conf gpgv ssh || return $?;
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update #--fix-missing
