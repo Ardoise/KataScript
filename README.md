@@ -6,8 +6,8 @@
      $ vagrant init saucy64
      $ vagrant up
      $ vagrant ssh
-     vagrant@saucy64:~$ sudo apt-get update
-     vagrant@saucy64:~$ sudo apt-get install -y curl git-core sudo
+     vagrant@vagrant-ubuntu-saucy-64:~$ sudo apt-get update
+     vagrant@vagrant-ubuntu-saucy-64:~$ sudo apt-get install -y curl git-core sudo
 
 ### SERVICE RFU Centr@lL0g-0.1.1a4
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png)
