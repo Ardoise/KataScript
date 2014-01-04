@@ -372,7 +372,7 @@ dist-upgrade)
   # Install RVM
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
-  [ -f "/usr/local/rvm/scripts/rvm" ] || curl -L https://get.rvm.io | bash -s stable;
+  [ -f "/usr/local/rvm/scripts/rvm" ] || curl -sSL https://get.rvm.io | bash -s stable;
   [ -f "/usr/local/rvm/scripts/rvm" ] && source /usr/local/rvm/scripts/rvm;
   [ -f "~/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/.profile-rvm;
   rvm requirements
@@ -380,13 +380,13 @@ dist-upgrade)
   #Install RUBY
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
-  curl -L https://get.rvm.io | bash -s stable --ruby
+  curl -sSL https://get.rvm.io | bash -s stable --ruby
   #rvm install ruby
   
   #Install JRUBY
   #  rvm::jruby-x.y.z - #install
-  #[ -f "/usr/local/rvm/rubies/jruby-1.7.6/bin/jruby" ] || 
-  curl -L https://get.rvm.io | bash -s stable --ruby=jruby
+  #[ -f "/usr/local/rvm/rubies/jruby-1.7.9/bin/jruby" ] || 
+  curl -sSL https://get.rvm.io | bash -s stable --ruby=jruby
   #rvm install jruby
   
   # --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,
@@ -400,7 +400,7 @@ dist-upgrade)
   # rvm notes
   # rvm list known
   # rvm list
-  # echo progress-bar >> ~/.curlrc
+  echo progress-bar >> ~/.curlrc
   
   #Install JSONQuery Tool
   echo "#  jq64-x.x.x - #install"
