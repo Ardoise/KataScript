@@ -2,8 +2,8 @@
 
 ### PLATFORM Portable
 ##### INSTALL :
-     $ vagrant box add precise64 http://files.vagrantup.com/precise64.box
-     $ vagrant init precise64
+     $ vagrant box add saucy64 http://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box
+     $ vagrant init saucy64
      $ vagrant up
      $ vagrant ssh
      vagrant@precise64:~$ sudo apt-get update
