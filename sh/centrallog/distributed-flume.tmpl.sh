@@ -401,7 +401,7 @@ dist-upgrade)
   # rvm notes
   # rvm list known
   # rvm list
-  [[ $(grep -n "progress-bar" ~/.curlrc | cut -d':' -f1) ]] && echo progress-bar >> ~/.curlrc
+  [[ "$(grep -n 'progress-bar' ~/.curlrc | cut -d':' -f1)" > 0 ]] || echo progress-bar >> ~/.curlrc
   
   #Install JSONQuery Tool
   echo "#  jq64-x.x.x - #install"
