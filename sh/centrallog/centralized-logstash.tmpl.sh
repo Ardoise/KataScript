@@ -375,6 +375,8 @@ dist-upgrade)
   [ -f "/usr/local/rvm/scripts/rvm" ] || curl -sSL https://get.rvm.io | bash -s stable;
   [ -f "/usr/local/rvm/scripts/rvm" ] && source /usr/local/rvm/scripts/rvm;
   [ -f "~/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/.profile-rvm;
+  # 1:source /home/vagrant/.rvm/scripts/rvm | 0:source /home/vagrant/.rvm/scripts/rvm
+  [[ $(grep -n "source $HOME/.rvm/scripts/rvm" ~/.bash_profile | cut -d':' -f1) ]] && echo "source $HOME/.rvm/scripts/rvm" >> ~/.bash_profile
   rvm requirements
  
   #Install RUBY
@@ -400,7 +402,7 @@ dist-upgrade)
   # rvm notes
   # rvm list known
   # rvm list
-  echo progress-bar >> ~/.curlrc
+  [[ $(grep -n "progress-bar" ~/.curlrc | cut -d':' -f1) ]] && echo progress-bar >> ~/.curlrc
   
   #Install JSONQuery Tool
   echo "#  jq64-x.x.x - #install"
