@@ -373,9 +373,9 @@ dist-upgrade)
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
   [ -f "/usr/local/rvm/scripts/rvm" ] || curl -sSL https://get.rvm.io | bash -s stable;
-  [ -f "/usr/local/rvm/scripts/rvm" ] && source /usr/local/rvm/scripts/rvm;
+  [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   [ -f "~/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/.profile-rvm;
-  # 1:source /home/vagrant/.rvm/scripts/rvm | 0:source /home/vagrant/.rvm/scripts/rvm
+  # 1:. /home/vagrant/.rvm/scripts/rvm | 0:. /home/vagrant/.rvm/scripts/rvm
   [[ $(grep -n ". $HOME/.rvm/scripts/rvm" ~/.bash_profile | cut -d':' -f1) ]] && echo ". $HOME/.rvm/scripts/rvm" >> ~/.bash_profile
   rvm requirements
  
