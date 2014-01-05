@@ -376,7 +376,7 @@ dist-upgrade)
   [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   [ -f "~/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/.profile-rvm;
   # 1:. /home/vagrant/.rvm/scripts/rvm | 0:. /home/vagrant/.rvm/scripts/rvm
-  [[ $(grep -n ". $HOME/.rvm/scripts/rvm" ~/.bash_profile | cut -d':' -f1) ]] && echo ". $HOME/.rvm/scripts/rvm" >> ~/.bash_profile
+  [[ "$(grep -n '.rvm/scripts/rvm' ~/.bash_profile | cut -d':' -f1)" > 0 ]] || echo '. $HOME/.rvm/scripts/rvm' >> ~/.bash_profile
   rvm requirements
  
   #Install RUBY
