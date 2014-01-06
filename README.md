@@ -58,7 +58,7 @@ C0mp0nents :
   - Redis [http://redis.io] [v2.8.3]
   - ElasticSearch [http://elasticsearch.org] [v0.90.9]
   - Kibana3 [http://kibana.org] [v3.m.4]
-  - MongoDB [http://www.mongodb.org/] [v2.4.6]
+  - MongoDB [http://www.mongodb.org/] [v2.4.8]
   - Graylog2 [http://graylog2.org] [v0.0.0][working]
   - Flume [http://flume.apache.org] [v1.4.0][working]
   - JBossAS [http://download.jboss.org] [v7.1.1]

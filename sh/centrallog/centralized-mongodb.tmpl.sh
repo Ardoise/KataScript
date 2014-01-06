@@ -7,7 +7,7 @@
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: mongodb (...)
-# - deploy mongodb v2.4.6
+# - deploy mongodb v2.4.8
 #
 # Requires : you need root privileges tu run this script
 # Requires : curl wget git-core gpg ssh
@@ -133,7 +133,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.4.6.tgz";
+  Download="http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.4.8.tgz";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
