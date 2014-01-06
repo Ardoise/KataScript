@@ -214,7 +214,7 @@ REOF
 
   # OWNER => POSTINSTALL
   #i#install#i#
-  mkdir -p /usr/share/$NAME/plugin || true; chown -R $uidgid /usr/share/$NAME/plugin || true;
+  mkdir -p /usr/share/$NAME/plugin || true;
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;

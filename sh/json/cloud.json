@@ -187,8 +187,7 @@
       "download": "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.9.deb",
       "name": "elasticsearch",
       "version": "0.90.9",
-      "postinstall": "mkdir -p /usr/share/$NAME/plugin || true; chown -R $uidgid /usr/share/$NAME/plugin || true;",
-      "install": "mkdir -p /usr/share/$NAME/plugin || true; chown -R $uidgid /usr/share/$NAME/plugin || true;"
+      "postinstall": "mkdir -p /usr/share/$NAME/plugin || true;"
     },
     "mongodb": {
       "title": "Mongodb Server",
