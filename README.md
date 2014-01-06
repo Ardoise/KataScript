@@ -19,16 +19,16 @@
 ##### INSTALL :
     $ clone_dir=/tmp/KataScript-build-$$;
     $ git clone https://github.com/Ardoise/KataScript.git $clone_dir;
-    $ sudo sh $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
+    $ sudo bash $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
     ...
-    $ sudo sh $clone_dir/sh/centrallog/centralized-logstash.tmpl.sh install;
-    $ sudo sh $clone_dir/sh/centrallog/centralized-redis.tmpl.sh install;
-    $ sudo sh $clone_dir/sh/centrallog/centralized-elasticsearch.tmpl.sh install;
-    $ sudo sh $clone_dir/sh/centrallog/centralized-kibana3.tmpl.sh install;
-    $ sudo sh $clone_dir/sh/centrallog/centralized-mongodb.tmpl.sh install;
+    $ sudo bash $clone_dir/sh/centrallog/centralized-logstash.tmpl.sh install;
+    $ sudo bash $clone_dir/sh/centrallog/centralized-redis.tmpl.sh install;
+    $ sudo bash $clone_dir/sh/centrallog/centralized-elasticsearch.tmpl.sh install;
+    $ sudo bash $clone_dir/sh/centrallog/centralized-kibana3.tmpl.sh install;
+    $ sudo bash $clone_dir/sh/centrallog/centralized-mongodb.tmpl.sh install;
     ...
-    $ sudo sh $clone_dir/sh/centrallog/distributed-logstash.tmpl.sh install;
-    $ sudo sh $clone_dir/sh/centrallog/distributed-flume.tmpl.sh install;
+    $ sudo bash $clone_dir/sh/centrallog/distributed-logstash.tmpl.sh install;
+    $ sudo bash $clone_dir/sh/centrallog/distributed-flume.tmpl.sh install;
     ...
     $ echo "rm -rf $clone_dir";
     $ echo "unset clone_dir";
