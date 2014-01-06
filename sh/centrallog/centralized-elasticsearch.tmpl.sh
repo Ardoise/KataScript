@@ -214,7 +214,7 @@ REOF
 
   # OWNER => POSTINSTALL
   #i#install#i#
-  mkdir -p /usr/share/$NAME/plugin || true;
+  /usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
