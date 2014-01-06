@@ -178,9 +178,9 @@
 	},
     "redis": {
       "title": "Redis Server",
-      "download": "http://download.redis.io/releases/redis-2.6.16.tar.gz",
+      "download": "http://download.redis.io/releases/redis-2.8.3.tar.gz",
       "name": "redis",
-      "version": "2.6.16"
+      "version": "2.8.3"
     },
     "elasticsearch": {
       "title": "Elasticsearch Server",
@@ -194,7 +194,7 @@
       "name": "mongodb",
       "version": "2.4.6"
     },
-    "kibana3": {      
+    "kibana3": {
       "download": "https://download.elasticsearch.org/kibana/kibana/kibana-3.0.0milestone4.tar.gz",
       "title": "Kibana Server",
       "name": "kibana3",
