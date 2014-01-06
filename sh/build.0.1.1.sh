@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 PROGNAME=${0##*/}; echo $PROGNAME;
 VERSION="0.0.0"; echo $VERSION;
@@ -65,6 +65,7 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
   title=$(cat $JSON | jq -r -c ".software.${sftwr}.title"); echo -n "$title|"; # NotUSE
   version=$(cat $JSON | jq -r -c ".software.${sftwr}.version"); echo -n "$version|";
   download=$(cat $JSON | jq -r -c ".software.${sftwr}.download"); echo -n "$download|";
+  postinstall=$(cat $JSON | jq -r -c ".software.${sftwr}.postinstall"); echo -n "$postinstall|";
   
   Daemon=$(cat $JSON | jq -r -c .process.$id.Daemon.On); echo -n "$Daemon|";
   NoDaemon=$(cat $JSON | jq -r -c .process.$id.Daemon.Off); echo -n "$NoDaemon|";
@@ -77,6 +78,7 @@ for l in $(cat $JSON |jq -r -c '.Profil[]' |grep 'software'); do
       -e "s~XGENERICX~$NAME~g" \
       -e "s~0.0.0~$version~g" \
       -e "s~#i#download#i#~$download~g" \
+      -e "s~#i#postinstall#i#~$postinstall~g" \
       -e "s~#i#daemon#i#~$Daemon~g" \
       -e "s~#i#nodaemon#i#~$NoDaemon~g" \
       -e "s~xlicensex~@License~g" \

@@ -214,9 +214,8 @@ REOF
 
   # OWNER => POSTINSTALL
   #i#install#i#
-  #i#postinstall#i#
+  null
 
-  chown -R $uidgid $Bin$NAME || true;
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
   chown -R $uidgid $Lib$NAME || true;

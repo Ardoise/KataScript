@@ -175,7 +175,7 @@
       "name": "logstash",
       "download": "https://download.elasticsearch.org/logstash/logstash/logstash-1.3.2-flatjar.jar",
       "version": "1.3.2"
-	},
+    },
     "redis": {
       "title": "Redis Server",
       "download": "http://download.redis.io/releases/redis-2.8.3.tar.gz",
@@ -186,7 +186,9 @@
       "title": "Elasticsearch Server",
       "download": "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.9.deb",
       "name": "elasticsearch",
-      "version": "0.90.9"
+      "version": "0.90.9",
+      "postinstall": "mkdir -p /usr/share/$NAME/plugin || true; chown -R $uidgid /usr/share/$NAME/plugin || true;",
+      "install": "mkdir -p /usr/share/$NAME/plugin || true; chown -R $uidgid /usr/share/$NAME/plugin || true;"
     },
     "mongodb": {
       "title": "Mongodb Server",
