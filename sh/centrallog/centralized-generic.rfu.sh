@@ -3,13 +3,13 @@
 # Provides: centrallog: xgenericx
 # Short-Description: DEPLOY SERVER: [XGENERICX]
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20140104
+# Update: last-update: 20140106
 ### END INIT INFO
 
 # Description: SERVICE CENTRALLOG: xgenericx (...)
 # - deploy xgenericx v0.0.0
 #
-# Requires : you need root privileges tu run this script
+# Requires : you need root privileges tu run this script !
 # Requires : curl wget git-core gpg ssh
 # Depends  : lib/usergroup.sh
 #
@@ -39,7 +39,7 @@ JSON=json/cloud.json
 
 
 if [ `id -u` -ne 0 ]; then
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script"
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script !"
   exit $SCRIPT_ERROR
 fi
 
@@ -347,23 +347,23 @@ dist-upgrade)
   # DEPENDS : PLATFORM
   case "$platform" in
   Debian)
-    sudo apt-get update #--fix-missing #--no-install-recommends
-    sudo apt-get -y upgrade
-    sudo apt-get dist-upgrade
-	sudo apt-get autoremove
+    sudo apt-get update; #--fix-missing #--no-install-recommends
+    sudo apt-get -y upgrade;
+    sudo apt-get dist-upgrade;
+    sudo apt-get -y autoremove;
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
       libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh || return $?;
     ;;
   Ubuntu)
-    sudo apt-get update #--fix-missing
-    sudo apt-get -y upgrade
-    sudo apt-get dist-upgrade
-	sudo apt-get autoremove
+    sudo apt-get update; #--fix-missing
+    sudo apt-get -y upgrade;
+    sudo apt-get dist-upgrade;
+    sudo apt-get -y autoremove;
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
       libreadline-dev make curl git-core openjdk-7-jre-headless sysv-rc-conf gpgv ssh || return $?;
     ;;
   Redhat|Fedora|CentOS)
-    sudo yum update #--fix-missing
+    sudo yum update; #--fix-missing
     sudo yum -y install make curl git-core gpg openjdk-7-jre-headless gpgv ssh || return $?;
     echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
@@ -376,7 +376,7 @@ dist-upgrade)
   [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   [ -f "~/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/.profile-rvm;
   [[ "$(grep -n '.rvm/scripts/rvm' ~/.bash_profile | cut -d':' -f1)" > 0 ]] || echo '. $HOME/.rvm/scripts/rvm' >> ~/.bash_profile;
-  rvm requirements
+  rvm requirements;
  
   #Install RUBY
   #  rvm-x.y.z - #install
@@ -408,7 +408,7 @@ dist-upgrade)
   curl -OL http://stedolan.github.io/jq/download/linux64/jq; mv jq jq64;
   echo "#  jq32-x.x.x - #install"
   curl -OL http://stedolan.github.io/jq/download/linux32/jq;
-  chmod a+x jq* ; mv jq* /usr/bin/
+  chmod a+x jq* ; mv jq* /usr/bin/;
   
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
