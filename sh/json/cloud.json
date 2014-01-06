@@ -214,17 +214,19 @@
       "version": "0.13.0"
     },
     "vagrant": {
-      "download": "http://files.vagrantup.com/packages/b12c7e8814171c1295ef82416ffe51e8a168a244/vagrant_1.3.1_x86_64.deb",
+      "download": "https://dl.bintray.com/mitchellh/vagrant/vagrant_1.4.2_x86_64.deb",
       "title": "Vagrant PIC",
       "name": "vagrant",
-      "version": "1.3.1",
+      "version": "1.4.2",
       "depends": {
         "VirtualBox": [
           {"boxname": "precise32", "boxurl": "http://files.vagrantup.com/precise32.box"},
-          {"boxname": "precise64", "boxurl": "http://files.vagrantup.com/precise64.box"}
+          {"boxname": "precise64", "boxurl": "http://files.vagrantup.com/precise64.box"},
+          {"boxname": "saucy64", "boxurl": "http://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box"}
         ],
         "VMware": [
-          {"boxname": "precise64_vmware", "url": "http://files.vagrantup.com/precise64_vmware.box"}
+          {"boxname": "precise64_vmware", "url": "http://files.vagrantup.com/precise64_vmware.box"},
+          {"boxname": "saucy64_vmware", "url": "http://shopify-vagrant.s3.amazonaws.com/ubuntu-13.10_vmware.box"}
         ]
       }
     }
