@@ -133,7 +133,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="http://info.neotechnology.com/download_thanks.html?edition=community#i#download#i#release=2.0.0#i#download#i#platform=unix#i#download#i#packaging=zip#i#download#i#architecture=x64";
+  Download="http://info.neotechnology.com/download_thanks.html?edition=community#i#download#i#release=2.0.0#i#download#i#platform=unix";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
@@ -214,7 +214,7 @@ REOF
 
   # OWNER => POSTINSTALL
   #i#install#i#
-  null
+  ulimit -a 40000;echo 'http://www.oracle.com/technetwork/java/javase/downloads/index.html'
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
