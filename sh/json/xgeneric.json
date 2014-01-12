@@ -1,0 +1,20 @@
+{
+  "name": "xgeneric",
+  "description": "xgeneric Ready-For-Use for faster and easier web development.",
+  "version": "0.0.0",
+  "author": "eTopaze, Inc.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ard0ise/KataScript.git"
+  },
+  "homepage": "http://localhost:port/",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/Ard0ise/Katascript/blob/master/LICENSE"
+    }
+  ],
+  "devDependencies": {
+    "userlib": "~0.1"
+  }
+}

@@ -220,10 +220,12 @@
       "version": "3.0.0m4"
     },
     "neo4j": {
-      "download": "http://info.neotechnology.com/download_thanks.html?edition=community&release=2.0.0&platform=unix&packaging=zip&architecture=x64",
+      "download": "http://info.neotechnology.com/download_thanks.html?edition=community&release=2.0.0&platform=unix",
       "title": "Neo4j Server",
       "name": "neo4j",
-      "version": "2.0.0"
+      "version": "2.0.0",
+      "postinstall": "ulimit -a 40000;echo 'http://www.oracle.com/technetwork/java/javase/downloads/index.html'",
+      "homepage": "http://localhost:7474/"
     },
     "flume": {
       "title": "Flume Server",

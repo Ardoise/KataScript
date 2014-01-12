@@ -100,3 +100,24 @@ done
 rm -f *.sh~
 
 exit 0
+
+
+# BOWER
+# ==========
+npm install -g bower;
+bower install;
+bower search bootstrap
+bower install bootstrap;  #bower install <package>#<version>
+                          #bower install <name>=<package>#<version>
+                          #bower install git://github.com/someone/some-package.git#<version>
+
+npm install -g grunt-cli
+grunt
+grunt dist
+
+# BOOTSTRAP
+# ==========
+# https://github.com/twbs/bootstrap/releases/download/v3.0.3/bootstrap-3.0.3-dist.zip
+# https://github.com/twbs/bootstrap/archive/v3.0.3.zip
+# https://github.com/twbs/bootstrap/blob/v3.0.3/bower.json
+# <script src="/bower_components/jquery/index.js"></script>
