@@ -55,6 +55,19 @@
       "start": "service elasticsearch start",
       "status": "service elasticsearch status",
       "stop": "service elasticsearch stop"
+    },
+    "graphui": {
+      "Daemon": {
+        "On": "chkconfig neo4j on",
+        "Off": "chkconfig neo4j off"
+      },
+      "init": {
+    		"pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/neo4j/neo4j.conf",
+        "conf": "/etc/neo4j/neo4j.conf"
+      },
+      "start": "service neo4j start",
+      "status": "service neo4j status",
+      "stop": "service neo4j stop"
     }, 
     "shipper": {
       "init": {
@@ -157,6 +170,11 @@
       "platform": "centralized",
       "software": "mongodb"
     },
+    "graphui": {
+      "id": "graphui",
+      "platform": "centralized",
+      "software": "neo4j"
+    },
     "dashboard": {
       "id": "dashboard",
       "platform": "centralized",
@@ -200,6 +218,12 @@
       "title": "Kibana Server",
       "name": "kibana3",
       "version": "3.0.0m4"
+    },
+    "neo4j": {
+      "download": "http://info.neotechnology.com/download_thanks.html?edition=community&release=2.0.0&platform=unix&packaging=zip&architecture=x64",
+      "title": "Neo4j Server",
+      "name": "neo4j",
+      "version": "2.0.0"
     },
     "flume": {
       "title": "Flume Server",
