@@ -101,6 +101,14 @@ rm -f *.sh~
 
 exit 0
 
+sudo apt-get update;
+
+# NPM
+# http://nodejs.org/dist/v0.10.24/node-v0.10.24-linux-x64.tar.gz
+sudo apt-get install -y python-software-properties python g++ make;
+sudo add-apt-repository ppa:chris-lea/node.js;
+sudo apt-get update;
+sudo apt-get install nodejs rlwrap;
 
 # BOWER
 # ==========

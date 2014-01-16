@@ -1,18 +1,37 @@
 #!/bin/bash -e
+
 ### BEGIN INIT INFO
 # Provides: centrallog: centrallog
 # Short-Description: DEPLOY SERVER: [CENTRALLOG]
+# Description:  SERVICE CENTRALLOG: centrallog (...)
+#               deploy centrallog v0.1.1a4
 # Author: created by: https://github.com/Ardoise
-# Update: last-update: 20140106
+# Copyright (c) 2013-2014 "eTopaze"
+# Update: last-update: 20140116
 ### END INIT INFO
 
-# Description: SERVICE CENTRALLOG: centrallog (...)
-# - deploy centrallog v0.1.1a4
-#
 # Requires : you need root privileges tu run this script !
 # Requires : curl wget git-core gpg ssh
 # Depends  : lib/usergroup.sh
+# Required-Start:    $remote_fs $syslog $network
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+
+# @License
+# Katascript is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>
+
 # CONFIG:   [ "/etc/centrallog", "/etc/centrallog/test" ]
 # BINARIES: [ "/opt/centrallog/", "/usr/share/centrallog/" ]
 # LIB:      [ "/usr/lib/centrallog/", "/usr/share/lib/centrallog/" ]
@@ -21,10 +40,13 @@
 # INIT:     [ "/etc/init.d/centrallog" ]
 # CACHE:    [ "/var/cache/centrallog" ]
 
-# @License
-
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="CENTRALLOG Server";
 NAME="centrallog";
+DAEMON=/var/lib/$NAME/bin/$NAME;
+DAEMON_ARGS="start";
+PIDFILE=/var/run/$NAME.pid;
+SCRIPTNAME=/etc/init.d/$NAME;
 
 SCRIPT_OK=0;
 SCRIPT_ERROR=1;
@@ -44,6 +66,12 @@ if [ `id -u` -ne 0 ]; then
 fi
 
 using_shell=$(ps -p $$);
+
+# Load the VERBOSE setting and other rcS variables
+[-s "/lib/init/vars.sh" ] && . /lib/init/vars.sh;
+# Define LSB log_* functions.
+[-s "/lib/lsb/init-functions" ] && . /lib/lsb/init-functions;
+
 
 case "$1" in
 check)
