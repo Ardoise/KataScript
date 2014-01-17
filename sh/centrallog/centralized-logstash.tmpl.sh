@@ -68,9 +68,9 @@ fi
 using_shell=$(ps -p $$);
 
 # Load the VERBOSE setting and other rcS variables
-[-s /lib/init/vars.sh ] && . /lib/init/vars.sh;
+[ -s /lib/init/vars.sh ] && . /lib/init/vars.sh;
 # Define LSB log_* functions.
-[-s /lib/lsb/init-functions ] && . /lib/lsb/init-functions;
+[ -s /lib/lsb/init-functions ] && . /lib/lsb/init-functions;
 
 
 case "$1" in
