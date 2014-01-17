@@ -161,7 +161,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="http://info.neotechnology.com/download_thanks.html?edition=community#i#download#i#release=2.0.0#i#download#i#platform=unix";
+  Download="http://download.neo4j.org/artifact?edition=community#i#download#i#version=2.0.0#i#download#i#distribution=tarball#i#download#i#dlid=3376926";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
