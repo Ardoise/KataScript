@@ -161,7 +161,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="http://download.neo4j.org/artifact?edition=community#i#download#i#version=2.0.0#i#download#i#distribution=tarball#i#download#i#dlid=3376926";
+  Download="http://dist.neo4j.org/neo4j-community-2.0.0-unix.tar.gz";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;

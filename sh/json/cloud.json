@@ -220,7 +220,7 @@
       "version": "3.0.0m4"
     },
     "neo4j": {
-      "download": "http://download.neo4j.org/artifact?edition=community&version=2.0.0&distribution=tarball&dlid=3376926",
+      "download": "http://dist.neo4j.org/neo4j-community-2.0.0-unix.tar.gz",
       "title": "Neo4j Server",
       "name": "neo4j",
       "version": "2.0.0",
