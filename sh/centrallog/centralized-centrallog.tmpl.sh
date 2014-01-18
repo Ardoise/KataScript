@@ -268,6 +268,7 @@ uninstall)
   [ -f "$Bin$NAME/$NAME.uninstall" ] && cp $Bin$NAME/$NAME.uninstall /tmp/;
   [ -f "/tmp/$NAME.uninstall" ] && sudo sh /tmp/$NAME.uninstall;
   #i#uninstall#i#
+  [ -s "$Run$Name.pid" ] && kill -HUP `cat $Run$NAME.pid`;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 restart)
@@ -280,6 +281,7 @@ restart)
     ;;
   *)
     service $NAME restart && exit 0 || exit $?;
+    [ -s "$Run$Name.pid" ] && `cat $Run$NAME.pid`;
     ;;
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
@@ -322,6 +324,7 @@ null
     ;;
   *)
     service $NAME start && exit 0 || exit $?;
+    [ -s "$Run$Name.pid" ] && `cat $Run$NAME.pid`; 
     ;;
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
@@ -336,6 +339,7 @@ null
     ;;
   *)
     service $NAME stop && exit 0 || exit $?;
+    [ -s "$Run$Name.pid" ] && kill -HUP `cat $Run$NAME.pid`;
     ;;
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
@@ -350,6 +354,7 @@ null
     ;;
   *)
     service $NAME status && exit 0 || exit $?;
+    [ -s "$Run$Name.pid" ] && `cat $Run$NAME.pid`;
     ;;
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";

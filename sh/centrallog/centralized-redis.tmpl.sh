@@ -268,6 +268,7 @@ uninstall)
   [ -f "$Bin$NAME/$NAME.uninstall" ] && cp $Bin$NAME/$NAME.uninstall /tmp/;
   [ -f "/tmp/$NAME.uninstall" ] && sudo sh /tmp/$NAME.uninstall;
   #i#uninstall#i#
+  [ -s "$Run$Name.pid" ] && kill -HUP `cat $Run$NAME.pid`;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 restart)
@@ -280,6 +281,7 @@ restart)
     ;;
   *)
     service $NAME restart && exit 0 || exit $?;
+    [ -s "$Run$Name.pid" ] && `cat $Run$NAME.pid`;
     ;;
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
@@ -322,6 +324,7 @@ service redis_6379 start
     ;;
   *)
     service $NAME start && exit 0 || exit $?;
+    [ -s "$Run$Name.pid" ] && `cat $Run$NAME.pid`; 
     ;;
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
@@ -329,13 +332,14 @@ service redis_6379 start
 stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -f "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
-service redis_6379 start
+service redis_6379 stop
   case $CMD in
   *i#stop#i*)
     exec $CMD && exit 0 || exit $?; 
     ;;
   *)
     service $NAME stop && exit 0 || exit $?;
+    [ -s "$Run$Name.pid" ] && kill -HUP `cat $Run$NAME.pid`;
     ;;
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
@@ -350,6 +354,7 @@ service redis_6379 status
     ;;
   *)
     service $NAME status && exit 0 || exit $?;
+    [ -s "$Run$Name.pid" ] && `cat $Run$NAME.pid`;
     ;;
   esac
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
