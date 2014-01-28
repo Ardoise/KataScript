@@ -4,7 +4,7 @@
 # Provides: centrallog: logstash
 # Short-Description: DEPLOY SERVER: [LOGSTASH]
 # Description:  SERVICE CENTRALLOG: logstash (...)
-#               deploy logstash v1.3.2
+#               deploy logstash v1.3.3
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140116
@@ -161,7 +161,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="https://download.elasticsearch.org/logstash/logstash/logstash-1.3.2-flatjar.jar";
+  Download="https://download.elasticsearch.org/logstash/logstash/logstash-1.3.3-flatjar.jar";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;

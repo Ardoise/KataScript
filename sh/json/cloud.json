@@ -191,8 +191,8 @@
     "logstash": {
       "title": "Logstash Server",
       "name": "logstash",
-      "download": "https://download.elasticsearch.org/logstash/logstash/logstash-1.3.2-flatjar.jar",
-      "version": "1.3.2"
+      "download": "https://download.elasticsearch.org/logstash/logstash/logstash-1.3.3-flatjar.jar",
+      "version": "1.3.3"
     },
     "redis": {
       "title": "Redis Server",
