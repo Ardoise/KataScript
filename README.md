@@ -54,7 +54,7 @@
 
 C0mp0nents :
 ==========================
-  - Logstash [http://logstash.net] [v1.3.2]
+  - Logstash [http://logstash.net] [v1.3.3]
   - Redis [http://redis.io] [v2.8.3]
   - ElasticSearch [http://elasticsearch.org] [v1.0.0.RC2]
   - Kibana3 [http://kibana.org] [v3.m.4]
