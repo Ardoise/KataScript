@@ -4,7 +4,7 @@
 # Provides: centrallog: elasticsearch
 # Short-Description: DEPLOY SERVER: [ELASTICSEARCH]
 # Description:  SERVICE CENTRALLOG: elasticsearch (...)
-#               deploy elasticsearch v0.90.11
+#               deploy elasticsearch v1.0.0.RC2
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140116
@@ -161,7 +161,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.11.deb";
+  Download="https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.0.0.RC2.deb";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
