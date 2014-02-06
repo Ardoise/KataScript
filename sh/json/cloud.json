@@ -209,9 +209,9 @@
     },
     "mongodb": {
       "title": "Mongodb Server",
-      "download": "http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.4.8.tgz",
+      "download": "http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.4.9.tgz",
       "name": "mongodb",
-      "version": "2.4.8"
+      "version": "2.4.9"
     },
     "kibana3": {
       "download": "https://download.elasticsearch.org/kibana/kibana/kibana-3.0.0milestone4.tar.gz",
