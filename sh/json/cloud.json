@@ -199,7 +199,7 @@
       "download": "http://download.redis.io/releases/redis-2.8.5.tar.gz",
       "name": "redis",
       "version": "2.8.5",
-      "postinstall": "cd /etc/init.d/ ; ln -sf redis-server redis_6379"
+      "postinstall": "ls -ail /etc/init.d/redis*"
     },
     "elasticsearch": {
       "title": "Elasticsearch Server",

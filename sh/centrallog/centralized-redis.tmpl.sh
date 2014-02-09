@@ -242,7 +242,7 @@ REOF
 
   # OWNER => POSTINSTALL
   #i#install#i#
-  cd /etc/init.d/ ; ln -sf redis-server redis_6379
+  ls -ail /etc/init.d/redis*
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
