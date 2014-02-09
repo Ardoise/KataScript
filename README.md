@@ -9,7 +9,7 @@
      vagrant@vagrant-ubuntu-saucy-64:~$ sudo apt-get update
      vagrant@vagrant-ubuntu-saucy-64:~$ sudo apt-get install -y curl git-core sudo
 
-### SERVICE RFU Centr@lL0g-0.1.1a4
+### SERVICE RFU Centr@lL0g-1.0.0-beta
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png)
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
