@@ -198,7 +198,8 @@
       "title": "Redis Server",
       "download": "http://download.redis.io/releases/redis-2.8.5.tar.gz",
       "name": "redis",
-      "version": "2.8.5"
+      "version": "2.8.5",
+      "postinstall": "cp -p /etc/redis/redis.conf /etc/redis/redis_6379.conf"
     },
     "elasticsearch": {
       "title": "Elasticsearch Server",

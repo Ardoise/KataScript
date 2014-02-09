@@ -242,7 +242,7 @@ REOF
 
   # OWNER => POSTINSTALL
   #i#install#i#
-  null
+  cp -p /etc/redis/redis.conf /etc/redis/redis_6379.conf
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
