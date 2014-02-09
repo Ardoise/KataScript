@@ -2,17 +2,6 @@
   "meta": {
     "profile": "https://github.com/Ardoise/KataScript/blob/master/README.md"
   },
-  "posts": [{
-    "id" : 56,
-    "title" : "Foo",
-    "links": {
-      "author": "9",
-      "comments": [ "5", "12", "17", "20" ]
-    }
-  }, {
-    "id" : 57,
-    "title" : "Bar"
-  }],
   "process": {
     "split": {
       "Daemon": {
@@ -258,74 +247,5 @@
         ]
       }
     }
-  },
-  "platform": {
-    "centralized": [
-      {
-        "id": "1",
-        "title": "kataGit",
-        "ip": "10.0.2.10",
-        "vmname": "host10",
-        "boxname": "precise32"
-      },
-      {
-        "id": "2",
-        "title": "kataUI",
-        "ip": "10.0.2.10",
-        "vmname": "host10",
-        "boxname": "precise32"
-      }
-    ],
-    "distributed": [
-      {
-        "id": "1",
-        "title": "shipper",
-        "ip": "10.0.2.11",
-        "vmname": "host11",
-        "boxname": "precise32"
-      },
-      {
-        "id": "2",
-        "title": "broker",
-        "ip": "10.0.2.12",
-        "vmname": "host12",
-        "boxname": "precise32"
-      },
-      {
-        "id": "3",
-        "title": "split",
-        "ip": "10.0.2.13",
-        "vmname": "host13",
-        "boxname": "precise32"
-      },
-      {
-        "id": "4",
-        "title": "index",
-        "ip": "10.0.2.14",
-        "vmname": "host14",
-        "boxname": "precise64"
-      },
-      {
-        "id": "5",
-        "title": "search",
-        "ip": "10.0.2.14",
-        "vmname": "host14",
-        "boxname": "precise64"
-      },
-      {
-        "id": "6",
-        "title": "dashboard",
-        "ip": "10.0.2.15",
-        "vmname": "host15",
-        "boxname": "precise64"
-      },
-      {
-        "id": "7",
-        "title": "storage",
-        "ip": "10.0.2.16",
-        "vmname": "host16",
-        "boxname": "precise64"
-      }
-    ]
   }
 }
