@@ -45,7 +45,7 @@
       "status": "service elasticsearch status",
       "stop": "service elasticsearch stop"
     },
-    "graphui": {
+    "mapui": {
       "Daemon": {
         "On": "chkconfig neo4j on",
         "Off": "chkconfig neo4j off"
