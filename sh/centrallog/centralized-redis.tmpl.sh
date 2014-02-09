@@ -242,7 +242,7 @@ REOF
 
   # OWNER => POSTINSTALL
   #i#install#i#
-  ls -ail /etc/init.d/redis*
+  cd src; make; make install; cd ../utils; ./install_server.sh
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
