@@ -46,12 +46,6 @@
       upgrade       - upgrade centrallog::<component>
       dist-upgrade  - upgrade distrib platform jruby::gems
 
-### SERVICE RFU st@nd@l0ne-0.1.0
-    
-##### INSTALL :
-    $ sh/standalone/standalone-jboss.rfu.sh
-    $ sh/standalone/standalone-ruby.rfu.sh
-
 C0mp0nents :
 ==========================
   - Logstash [http://logstash.net] [v1.3.3]
