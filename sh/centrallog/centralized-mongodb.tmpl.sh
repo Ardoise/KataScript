@@ -59,7 +59,6 @@ platform_version="$(lsb_release -s -r)";
 yourIP=$(hostname -I | cut -d' ' -f1);
 JSON=json/cloud.json
 
-
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script !"
   exit $SCRIPT_ERROR

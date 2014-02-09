@@ -59,7 +59,6 @@ platform_version="$(lsb_release -s -r)";
 yourIP=$(hostname -I | cut -d' ' -f1);
 JSON=json/cloud.json
 
-
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script !"
   exit $SCRIPT_ERROR
@@ -81,8 +80,8 @@ check)
 ;;
 init|config)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-CONF_FILE=/etc/neo4j/neo4j.conf
-PATTERN_FILE=https://raw.github.com/Ardoise/KataScript/master/sh/etc/neo4j/neo4j.conf
+CONF_FILE=
+PATTERN_FILE=
   [ ! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}" ] && (
     curl -L ${PATTERN_FILE} -o ${CONF_FILE};
     # CONTEXT VALUES LOCAL
@@ -288,7 +287,7 @@ restart)
 ;;
 daemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  CMD="chkconfig neo4j on";
+  CMD="null";
   case $CMD in
   *i#daemon#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -302,7 +301,7 @@ daemon)
 ;;
 nodaemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  CMD="chkconfig neo4j off";
+  CMD="null";
   case $CMD in
   *i#nodaemon#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -317,7 +316,7 @@ nodaemon)
 start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
-service neo4j start
+null
   case $CMD in
   *i#start#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -332,7 +331,7 @@ service neo4j start
 stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -f "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
-service neo4j stop
+null
   case $CMD in
   *i#stop#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -347,7 +346,7 @@ service neo4j stop
 status)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -f "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
-service neo4j status
+null
   case $CMD in
   *i#status#i*)
     exec $CMD && exit 0 || exit $?; 
