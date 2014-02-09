@@ -89,32 +89,6 @@
       "stop": "service flume stop"
     }
   },
-  "connector": {
-    "logstash": {
-      "id": "shipper",
-      "output": "redis",
-      "platform": "distributed"
-    },
-    "redis": {
-      "id": "event",
-      "platform": "centralized"
-    },
-    "logstash": {
-      "id": "split",
-      "input": "redis",
-      "output": "elasticsearch",
-      "platform": "centralized"
-    },
-    "elasticsearch": {
-      "id": "index",
-      "platform": "centralized"
-    },
-    "kibana3": {
-      "id": "dashboard",
-      "input": "elasticsearch",
-      "platform": "centralized"
-    }
-  },
   "Profil": {
     "Dir": {
       "Etc": "/etc/",
