@@ -243,7 +243,7 @@ REOF
 REOF
 
   #i#install#i#
-  [ -s "/etc/default/$NAME" ] && ( cat "/etc/default/$NAME" |grep -i 'user=' | sed -i -e "s/=${NAME}$/=${uidgid}/1,s/^#//g" )
+  [ -s "/etc/default/$NAME" ] && ( cat "/etc/default/$NAME" |grep -i 'user=' | sed -i -e "s/=${NAME}$/=$uidgid/1;s/^#//g" )
 
   # OWNER => POSTINSTALL
   ulimit -a 40000;echo 'http://www.oracle.com/technetwork/java/javase/downloads/index.html'
