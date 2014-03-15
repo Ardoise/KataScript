@@ -150,6 +150,8 @@ install)
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
   echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/profile.add.$NAME.sh;
   uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
+    uid=`echo ${uidgid} | cut -F':' -f1`;
+    gid=`echo ${uidgid} | cut -F':' -f2`;
   
   # LocalENV + OWNER => PROFIL
   mkdir -p $Bin$NAME || true; chown -R $uidgid $Bin$NAME || true;
@@ -244,8 +246,8 @@ REOF
 
   #i#install#i#
   [ -s /etc/default/$NAME.init ] || ( cp /etc/default/$NAME /etc/default/$NAME.init )
-  [ -s /etc/default/$NAME ] && ( sed -i -e "/USER/s/USER=${NAME}$/USER=$uid/1;/USER/s/^#//g" /etc/default/$NAME )
-  [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=$gid/1;/GROUP/s/^#//g" /etc/default/$NAME )
+  [ -s /etc/default/$NAME ] && ( sed -i -e "/USER/s/USER=${NAME}$/USER=${uid}/1;/USER/s/^#//g" /etc/default/$NAME )
+  [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALL
   /usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head
