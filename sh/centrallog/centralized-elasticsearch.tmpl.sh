@@ -246,7 +246,7 @@ REOF
   #i#install#i#
   /usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head
 
-  [ -s "/etc/default/$NAME" ] && ( cat "/etc/default/$NAME" |grep -i 'user=' | sed -i -e 's/=${NAME}$/=${uidgid}/1;s/^#//g'; )
+  [ -s "/etc/default/$NAME" ] && ( cat "/etc/default/$NAME" |grep -i 'user=' | sed -i -e 's/=${NAME}$/=${uidgid}/1' -e 's/^#//g' )
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
