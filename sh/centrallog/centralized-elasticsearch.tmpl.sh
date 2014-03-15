@@ -242,11 +242,11 @@ REOF
 
 REOF
 
-  # OWNER => POSTINSTALL
   #i#install#i#
-  /usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head
+  [ -s "/etc/default/$NAME" ] && ( cat "/etc/default/$NAME" |grep -i 'user=' | sed -i -e "s/=${NAME}$/=${uidgid}/1,s/^#//g" )
 
-  [ -s "/etc/default/$NAME" ] && ( cat "/etc/default/$NAME" |grep -i 'user=' | sed -i -e 's/=${NAME}$/=${uidgid}/1,s/^#//g' )
+  # OWNER => POSTINSTALL
+  /usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;

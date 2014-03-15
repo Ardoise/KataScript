@@ -242,11 +242,11 @@ REOF
 
 REOF
 
-  # OWNER => POSTINSTALL
   #i#install#i#
-  cd src; make; make install; cd ../utils; ./install_server.sh
+  [ -s "/etc/default/$NAME" ] && ( cat "/etc/default/$NAME" |grep -i 'user=' | sed -i -e "s/=${NAME}$/=${uidgid}/1,s/^#//g" )
 
-  [ -s "/etc/default/$NAME" ] && ( cat "/etc/default/$NAME" |grep -i 'user=' | sed -i -e 's/=${NAME}$/=${uidgid}/1,s/^#//g' )
+  # OWNER => POSTINSTALL
+  cd src; make; make install; cd ../utils; ./install_server.sh
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
