@@ -150,8 +150,8 @@ install)
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
   echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/profile.add.$NAME.sh;
   uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
-    uid=`echo ${uidgid} | cut -F':' -f1`;
-    gid=`echo ${uidgid} | cut -F':' -f2`;
+    uid=`echo ${uidgid} | cut -d':' -f1`;
+    gid=`echo ${uidgid} | cut -d':' -f2`;
   
   # LocalENV + OWNER => PROFIL
   mkdir -p $Bin$NAME || true; chown -R $uidgid $Bin$NAME || true;
