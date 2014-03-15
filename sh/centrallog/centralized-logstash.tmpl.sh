@@ -160,7 +160,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="https://download.elasticsearch.org/logstash/logstash/logstash-1.3.3-flatjar.jar";
+  Download="http://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.3.3-1-debian_all.deb";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
