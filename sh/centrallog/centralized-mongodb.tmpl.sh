@@ -243,7 +243,8 @@ REOF
 REOF
 
   #i#install#i#
-  [ -s "/etc/default/$NAME" ] && ( cat "/etc/default/$NAME" |grep -i 'user=' | sed -i -e "s/=${NAME}$/=$uidgid/1;s/^#//g" )
+  [ -s /etc/default/$NAME.init ] || ( cp -Rp /etc/default/$NAME /etc/default/$NAME.init )
+  [ -s /etc/default/$NAME ] && ( sed -i -e "s/USER=${NAME}$/USER=$uidgid/1;s/^#//g" /etc/default/$NAME)
 
   # OWNER => POSTINSTALL
   null
