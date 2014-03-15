@@ -248,7 +248,7 @@ REOF
 
   [ -s "/etc/default/$NAME" ] && (
     cat "/etc/default/$NAME" |grep -i 'user=' |\
-    sed -e 's/='$NAME'$/='${uidgid}'/1;s/^#//g';
+    sed -i -e 's/='$NAME'$/='${uidgid}'/1;s/^#//g';
   )
 
   chown -R $uidgid $Cache$NAME || true;
