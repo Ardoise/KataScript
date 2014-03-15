@@ -246,6 +246,11 @@ REOF
   #i#install#i#
   ulimit -a 40000;echo 'http://www.oracle.com/technetwork/java/javase/downloads/index.html'
 
+  [ -s "/etc/default/$NAME" ] && (
+    cat "/etc/default/$NAME" |grep -i 'user=' |\
+    sed -e 's/='$NAME'$/='${uidgid}'/1;s/^#//g';
+  )
+
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
   chown -R $uidgid $Lib$NAME || true;

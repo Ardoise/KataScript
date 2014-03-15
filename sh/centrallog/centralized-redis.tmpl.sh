@@ -246,6 +246,11 @@ REOF
   #i#install#i#
   cd src; make; make install; cd ../utils; ./install_server.sh
 
+  [ -s "/etc/default/$NAME" ] && (
+    cat "/etc/default/$NAME" |grep -i 'user=' |\
+    sed -e 's/='$NAME'$/='${uidgid}'/1;s/^#//g';
+  )
+
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
   chown -R $uidgid $Lib$NAME || true;
