@@ -159,6 +159,9 @@ install)
   mkdir -p $Log$NAME || true; chown -R $uidgid $Log$NAME || true;
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
+  # OWNER => PREINSTALL
+  null
+
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
   Download="http://download.redis.io/releases/redis-2.8.7.tar.gz";
   file=$(basename $Download);

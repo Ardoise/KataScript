@@ -159,6 +159,9 @@ install)
   mkdir -p $Log$NAME || true; chown -R $uidgid $Log$NAME || true;
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
+  # OWNER => PREINSTALL
+  null
+
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
   Download="https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.0.1.deb";
   file=$(basename $Download);

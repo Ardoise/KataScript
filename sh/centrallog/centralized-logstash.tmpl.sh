@@ -159,6 +159,9 @@ install)
   mkdir -p $Log$NAME || true; chown -R $uidgid $Log$NAME || true;
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
+  # OWNER => PREINSTALL
+  sudo apt-get install default-jre-headless
+
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
   Download="http://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.3.3-1-debian_all.deb";
   file=$(basename $Download);

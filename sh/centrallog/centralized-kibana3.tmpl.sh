@@ -159,6 +159,9 @@ install)
   mkdir -p $Log$NAME || true; chown -R $uidgid $Log$NAME || true;
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
+  # OWNER => PREINSTALL
+  null
+
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
   Download="https://download.elasticsearch.org/kibana/kibana/kibana-3.0.0milestone5.tar.gz";
   file=$(basename $Download);

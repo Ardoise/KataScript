@@ -159,6 +159,9 @@ install)
   mkdir -p $Log$NAME || true; chown -R $uidgid $Log$NAME || true;
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
+  # OWNER => PREINSTALL
+  null
+
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
   Download="http://mirrors.ibiblio.org/apache/flume/1.4.0/apache-flume-1.4.0-bin.tar.gz";
   file=$(basename $Download);

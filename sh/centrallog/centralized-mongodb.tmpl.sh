@@ -159,6 +159,9 @@ install)
   mkdir -p $Log$NAME || true; chown -R $uidgid $Log$NAME || true;
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
+  # OWNER => PREINSTALL
+  null
+
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
   Download="http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.4.9.tgz";
   file=$(basename $Download);
