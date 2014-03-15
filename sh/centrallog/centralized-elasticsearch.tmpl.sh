@@ -243,8 +243,9 @@ REOF
 REOF
 
   #i#install#i#
-  [ -s /etc/default/$NAME.init ] || ( cp -Rp /etc/default/$NAME /etc/default/$NAME.init )
-  [ -s /etc/default/$NAME ] && ( sed -i -e "s/USER=${NAME}$/USER=$uidgid/1;s/^#//g" /etc/default/$NAME)
+  [ -s /etc/default/$NAME.init ] || ( cp /etc/default/$NAME /etc/default/$NAME.init )
+  [ -s /etc/default/$NAME ] && ( sed -i -e "/USER/s/USER=${NAME}$/USER=$uid/1;/USER/s/^#//g" /etc/default/$NAME )
+  [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/USER=${NAME}$/GROUP=$gid/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALL
   /usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head
