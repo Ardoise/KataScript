@@ -454,6 +454,10 @@ dist-upgrade)
   # rvm list known
   # rvm list
   [[ "$(grep -n 'progress-bar' ~/.curlrc | cut -d':' -f1)" > 0 ]] || echo progress-bar >> ~/.curlrc
+
+  #GEM RUBIES
+  gem update
+  #gem install poi2csv
   
   #Install JSONQuery Tool
   echo "#  jq64-x.x.x - #install"
