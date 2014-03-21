@@ -156,7 +156,8 @@
       "name": "logstash",
       "download": "https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.4.0-1-c82dc09_all.deb",
       "version": "1.4.0",
-      "preinstall": "sudo apt-get install default-jre-headless"
+      "preinstall": "sudo apt-get install default-jre-headless",
+      "postinstall": "cd /opt/logstash;bin/plugin install contrib"
     },
     "redis": {
       "title": "Redis Server",
