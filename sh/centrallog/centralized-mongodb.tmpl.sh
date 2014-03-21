@@ -416,11 +416,19 @@ dist-upgrade)
   [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   [ -f "~/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/.profile-rvm;
   [[ "$(grep -n '.rvm/scripts/rvm' ~/.bash_profile | cut -d':' -f1)" > 0 ]] || echo '. $HOME/.rvm/scripts/rvm' >> ~/.bash_profile;
-  rvm requirements;  
-  rvm reload; #IF NEW VERSION
-  echo 'echo rvm_auto_reload_flag=1 >> ~/.rvmrc' # for auto reload with msg.
-  echo 'echo rvm_auto_reload_flag=2 >> ~/.rvmrc' # for silent auto reload.
-  #rvm install ruby-rspec-core;
+  rvm requirements;
+
+  echo "If old RVM installed yet";
+  echo "Please do one of the following:";
+  echo "* 'rvm reload'";
+  echo "* open a new shell";
+  echo "* 'echo rvm_auto_reload_flag=1 >> ~/.rvmrc' # for auto reload with msg.";
+  echo "* 'echo rvm_auto_reload_flag=2 >> ~/.rvmrc' # for silent auto reload.";
+
+  # TESTS UNIT SPEC
+  #rvm install ruby-rspec-core;                   # TESTS UNIT SPEC
+  #sudo apt-get install ruby-rspec-core           # TESTS UNIT SPEC
+  #rspec spec/the/test.rb
 
   #Install RUBY
   #  rvm-x.y.z - #install
@@ -432,7 +440,7 @@ dist-upgrade)
   #  rvm::jruby-x.y.z - #install
   #[ -f "/usr/local/rvm/rubies/jruby-1.7.9/bin/jruby" ] || 
   curl -sSL https://get.rvm.io | bash -s stable --ruby=jruby
-  #rvm install jruby
+  #rvm reinstall jruby
   
   # --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,
   # addressable,builder,launchy,liquid,syntax,maruku,rack,sass,rack-protection,
