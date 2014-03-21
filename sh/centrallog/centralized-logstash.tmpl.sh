@@ -416,8 +416,12 @@ dist-upgrade)
   [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   [ -f "~/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/.profile-rvm;
   [[ "$(grep -n '.rvm/scripts/rvm' ~/.bash_profile | cut -d':' -f1)" > 0 ]] || echo '. $HOME/.rvm/scripts/rvm' >> ~/.bash_profile;
-  rvm requirements;
- 
+  rvm requirements;  
+  rvm reload; #IF NEW VERSION
+  echo 'echo rvm_auto_reload_flag=1 >> ~/.rvmrc' # for auto reload with msg.
+  echo 'echo rvm_auto_reload_flag=2 >> ~/.rvmrc' # for silent auto reload.
+  #rvm install ruby-rspec-core;
+
   #Install RUBY
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
