@@ -168,9 +168,9 @@
     },
     "elasticsearch": {
       "title": "Elasticsearch Server",
-      "download": "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.0.1.deb",
+      "download": "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.1.0.deb",
       "name": "elasticsearch",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "postinstall": "/usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head"
     },
     "mongodb": {

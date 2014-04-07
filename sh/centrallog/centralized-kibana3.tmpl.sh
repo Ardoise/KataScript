@@ -457,6 +457,7 @@ dist-upgrade)
 
   #GEM RUBIES
   gem update
+  gem install bundler
   #gem install poi2csv
   
   #Install JSONQuery Tool
