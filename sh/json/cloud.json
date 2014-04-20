@@ -207,10 +207,10 @@
       "version": "0.13.0"
     },
     "vagrant": {
-      "download": "https://dl.bintray.com/mitchellh/vagrant/vagrant_1.4.2_x86_64.deb",
+      "download": "https://dl.bintray.com/mitchellh/vagrant/vagrant_1.5.3_x86_64.deb",
       "title": "Vagrant PIC",
       "name": "vagrant",
-      "version": "1.4.2",
+      "version": "1.5.3",
       "depends": {
         "VirtualBox": [
           {"boxname": "precise32", "boxurl": "http://files.vagrantup.com/precise32.box"},
