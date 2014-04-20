@@ -215,7 +215,8 @@
         "VirtualBox": [
           {"boxname": "precise32", "boxurl": "http://files.vagrantup.com/precise32.box"},
           {"boxname": "precise64", "boxurl": "http://files.vagrantup.com/precise64.box"},
-          {"boxname": "saucy64", "boxurl": "http://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box"}
+          {"boxname": "saucy64", "boxurl": "http://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box"},
+          {"boxname": "trusty64", "boxurl": "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"}
         ],
         "VMware": [
           {"boxname": "precise64_vmware", "url": "http://files.vagrantup.com/precise64_vmware.box"},
