@@ -51,7 +51,7 @@ C0mp0nents :
   - Logstash [http://logstash.net] [v1.4.0-1]
   - Redis [http://redis.io] [v2.8.8]
   - ElasticSearch [http://elasticsearch.org] [v1.1.1]
-  - Kibana3 [http://kibana.org] [v3.m.5]
+  - Kibana3 [http://kibana.org] [v3.0.0-m5]
   - MongoDB [http://www.mongodb.org/] [v2.4.9]
   - Graylog2 [http://graylog2.org] [v0.0.0][working]
   - Flume [http://flume.apache.org] [v1.4.0][working]
