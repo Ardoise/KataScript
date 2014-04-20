@@ -9,7 +9,7 @@
      vagrant@vagrant-ubuntu-precise-64:~$ sudo apt-get update
      vagrant@vagrant-ubuntu-precise-64:~$ sudo apt-get install -y curl git-core sudo
 
-### SERVICE RFU Centr@lL0g-1.2.0
+### SERVICE RFU Centr@lL0g-1.3.0
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png?t=1397990235326)
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
@@ -55,6 +55,7 @@ C0mp0nents :
   - ElasticSearch [http://elasticsearch.org] [v1.1.1]
   - Kibana3 [http://kibana.org] [v3.0.0-m5]
   - MongoDB [http://www.mongodb.org/] [v2.6.0]
+  - Hadoop [http://hadoop.apache.org] [v2.4.0]
   - Graylog2 [http://graylog2.org] [v0.0.0][working]
   - Flume [http://flume.apache.org] [v1.4.0][working]
   - JBossAS [http://download.jboss.org] [v7.1.1]
