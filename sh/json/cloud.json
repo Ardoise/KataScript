@@ -38,7 +38,7 @@
         "Off": "chkconfig elasticsearch off"
       },
       "init": {
-		"pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/elasticsearch/elasticsearch.yml",
+		    "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/elasticsearch/elasticsearch.yml",
         "conf": "/etc/elasticsearch/elasticsearch.yml"
       },
       "start": "service elasticsearch start",
@@ -87,6 +87,18 @@
       "start": "service flume start",
       "status": "service flume status",
       "stop": "service flume stop"
+    },
+    "ihm": {
+      "init": {
+        "conf": "/etc/nginx/http.conf"
+      },
+      "Daemon": {
+        "On": "service nginx on",
+        "Off": "service nginx off"
+      },
+      "start": "service nginx start",
+      "status": "service nginx status",
+      "stop": "service nginx stop"
     }
   },
   "Profil": {
@@ -142,6 +154,11 @@
       "id": "dashboard",
       "platform": "centralized",
       "software": "kibana3"
+    },
+    "ihm": {
+      "id": "ihm",
+      "platform": "centralized",
+      "software": "nginx"
     }
   },
   "software": {
@@ -165,6 +182,12 @@
       "name": "redis",
       "version": "2.8.8",
       "postinstall": "cd src; make; make install; cd ../utils; ./install_server.sh"
+    },
+    "nginx": {
+      "title": "NGinx Server",
+      "download": "http://nginx.org/download/nginx-1.5.13.tar.gz",
+      "name": "nginx",
+      "version": "1.5.3"
     },
     "elasticsearch": {
       "title": "Elasticsearch Server",
