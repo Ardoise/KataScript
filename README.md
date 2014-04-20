@@ -2,12 +2,12 @@
 
 ### PLATFORM Portable
 ##### INSTALL :
-     $ vagrant box add saucy64 http://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box
-     $ vagrant init saucy64
+     $ vagrant box add trusty64 https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
+     $ vagrant init trusty64
      $ vagrant up
      $ vagrant ssh
-     vagrant@vagrant-ubuntu-saucy-64:~$ sudo apt-get update
-     vagrant@vagrant-ubuntu-saucy-64:~$ sudo apt-get install -y curl git-core sudo
+     vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get update
+     vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get install -y curl git-core sudo
 
 ### SERVICE RFU Centr@lL0g-1.1.0
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png)
