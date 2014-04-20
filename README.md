@@ -2,12 +2,12 @@
 
 ### PLATFORM Portable
 ##### INSTALL :
-     $ vagrant box add trusty64 https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
-     $ vagrant init trusty64
+     $ vagrant box add precise64 https://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box
+     $ vagrant init precise64
      $ vagrant up
      $ vagrant ssh
-     vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get update
-     vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get install -y curl git-core sudo
+     vagrant@vagrant-ubuntu-precise-64:~$ sudo apt-get update
+     vagrant@vagrant-ubuntu-precise-64:~$ sudo apt-get install -y curl git-core sudo
 
 ### SERVICE RFU Centr@lL0g-1.2.0
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png?t=1397990235326)
