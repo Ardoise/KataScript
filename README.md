@@ -9,7 +9,7 @@
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get update
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get install -y curl git-core sudo
 
-### SERVICE RFU Centr@lL0g-1.1.0
+### SERVICE RFU Centr@lL0g-1.2.0
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png)
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
@@ -21,6 +21,7 @@
     $ git clone https://github.com/Ardoise/KataScript.git $clone_dir;
     $ sudo bash $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
     ...
+    $ sudo bash $clone_dir/sh/centrallog/centralized-nginx.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-logstash.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-redis.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-elasticsearch.tmpl.sh install;
@@ -48,6 +49,7 @@
 
 C0mp0nents :
 ==========================
+  - Nginx [http://nginx.org] [v1.5.3]
   - Logstash [http://logstash.net] [v1.4.0-1]
   - Redis [http://redis.io] [v2.8.8]
   - ElasticSearch [http://elasticsearch.org] [v1.1.1]
