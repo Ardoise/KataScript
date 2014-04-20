@@ -187,7 +187,7 @@
       "title": "NGinx Server",
       "download": "http://nginx.org/download/nginx-1.5.13.tar.gz",
       "name": "nginx",
-      "version": "1.5.3"
+      "version": "1.5.13"
     },
     "elasticsearch": {
       "title": "Elasticsearch Server",

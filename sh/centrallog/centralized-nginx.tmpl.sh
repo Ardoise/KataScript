@@ -4,7 +4,7 @@
 # Provides: centrallog: nginx
 # Short-Description: DEPLOY SERVER: [NGINX]
 # Description:  SERVICE CENTRALLOG: nginx (...)
-#               deploy nginx v1.5.3
+#               deploy nginx v1.5.13
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140116

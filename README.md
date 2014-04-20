@@ -49,7 +49,7 @@
 
 C0mp0nents :
 ==========================
-  - Nginx [http://nginx.org] [v1.5.3]
+  - Nginx [http://nginx.org] [v1.5.13]
   - Logstash [http://logstash.net] [v1.4.0-1]
   - Redis [http://redis.io] [v2.8.8]
   - ElasticSearch [http://elasticsearch.org] [v1.1.1]
