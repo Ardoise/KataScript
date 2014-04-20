@@ -49,7 +49,7 @@
 C0mp0nents :
 ==========================
   - Logstash [http://logstash.net] [v1.4.0-1]
-  - Redis [http://redis.io] [v2.8.7]
+  - Redis [http://redis.io] [v2.8.8]
   - ElasticSearch [http://elasticsearch.org] [v1.1.1]
   - Kibana3 [http://kibana.org] [v3.m.5]
   - MongoDB [http://www.mongodb.org/] [v2.4.9]

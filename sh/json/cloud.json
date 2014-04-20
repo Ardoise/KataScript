@@ -161,9 +161,9 @@
     },
     "redis": {
       "title": "Redis Server",
-      "download": "http://download.redis.io/releases/redis-2.8.7.tar.gz",
+      "download": "http://download.redis.io/releases/redis-2.8.8.tar.gz",
       "name": "redis",
-      "version": "2.8.7",
+      "version": "2.8.8",
       "postinstall": "cd src; make; make install; cd ../utils; ./install_server.sh"
     },
     "elasticsearch": {
