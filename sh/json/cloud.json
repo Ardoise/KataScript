@@ -204,7 +204,8 @@
       "title": "NGinx Server",
       "download": "http://nginx.org/download/nginx-1.5.13.tar.gz",
       "name": "nginx",
-      "version": "1.5.13"
+      "version": "1.5.13",
+      "postinstall": "sudo -s; apt-get install wget libcgi-fast-perl fcgiwrap spawn-fcgi;/etc/init.d/fcgiwrap restart"
     },
     "elasticsearch": {
       "title": "Elasticsearch Server",

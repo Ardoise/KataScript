@@ -467,6 +467,10 @@ dist-upgrade)
   curl -OL http://stedolan.github.io/jq/download/linux32/jq;
   chmod a+x jq* ; mv jq* /usr/bin/;
   
+  #Install Perl
+  #perl -MCPAN -e shell
+  #cpan[1]> install FCGI
+
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 *)

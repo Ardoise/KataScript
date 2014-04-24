@@ -1,0 +1,2 @@
+elasticsearch            -    nofile            999999
+elasticsearch            -    memlock           unlimited

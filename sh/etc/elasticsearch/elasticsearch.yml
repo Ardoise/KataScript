@@ -8,3 +8,4 @@ path.data: "/var/lib/elasticsearch"
 # plugin.mandatory: mapper-attachments, river-fs
 # If you want to disable multicast
 discovery.zen.ping.multicast.enabled: false
+bootstrap.mlockall: true
