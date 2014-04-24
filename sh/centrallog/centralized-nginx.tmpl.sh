@@ -250,7 +250,7 @@ REOF
   [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALL
-  null
+  sudo -s; apt-get install wget libcgi-fast-perl fcgiwrap spawn-fcgi;/etc/init.d/fcgiwrap restart
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
@@ -467,6 +467,10 @@ dist-upgrade)
   curl -OL http://stedolan.github.io/jq/download/linux32/jq;
   chmod a+x jq* ; mv jq* /usr/bin/;
   
+  #Install Perl
+  #perl -MCPAN -e shell
+  #cpan[1]> install FCGI
+
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 *)
