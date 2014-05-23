@@ -4,7 +4,7 @@
 # Provides: centrallog: redis
 # Short-Description: DEPLOY SERVER: [REDIS]
 # Description:  SERVICE CENTRALLOG: redis (...)
-#               deploy redis v2.8.8
+#               deploy redis v2.8.9
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140116
@@ -165,7 +165,7 @@ install)
   null
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="http://download.redis.io/releases/redis-2.8.8.tar.gz";
+  Download="http://download.redis.io/releases/redis-2.8.9.tar.gz";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;

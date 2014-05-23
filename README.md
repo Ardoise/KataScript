@@ -52,7 +52,7 @@ C0mp0nents :
 ==========================
   - Nginx [http://nginx.org] [v1.6.0]
   - Logstash [http://logstash.net] [v1.4.1-1]
-  - Redis [http://redis.io] [v2.8.8]
+  - Redis [http://redis.io] [v2.8.9]
   - ElasticSearch [http://elasticsearch.org] [v1.2.0]
   - Kibana3 [http://kibana.org] [v3.1.0]
   - MongoDB [http://www.mongodb.org/] [v2.6.0]
