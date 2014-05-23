@@ -59,12 +59,10 @@ C0mp0nents :
   - Nginx [http://nginx.org] [v1.6.0]
   - Redis [http://redis.io] [v2.8.9]
   - Vagrant [http://www.vagrantup.com/] [v1.6.2]
-
-
+  - ...
   - Flume [http://flume.apache.org] [v1.5.0][working]
   - Hadoop [http://hadoop.apache.org] [v2.4.0][working]
-
-  
+  - ...
   - Couchbase [http://www.couchbase.com/] [v2.2.0][as soon]
   - CouchDB [http://couchdb.apache.org/] [v1.5.1][as soon]
   - Kafka [http://couchdb.apache.org/] [v0.8.1-1][as soon]
