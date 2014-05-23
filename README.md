@@ -57,10 +57,9 @@ C0mp0nents :
   - Kibana3 [http://kibana.org] [v3.1.0]
   - MongoDB [http://www.mongodb.org/] [v2.6.1]
   - Hadoop [http://hadoop.apache.org] [v2.4.0]
-  - Graylog2 [http://graylog2.org] [v0.0.0][working]
   - Flume [http://flume.apache.org] [v1.4.0][working]
   - JBossAS [http://download.jboss.org] [v7.1.1]
-  - Vagrant [http://www.vagrantup.com/] [v1.5.3]
+  - Vagrant [http://www.vagrantup.com/] [v1.6.2]
 
 Objectifs : + vs - : Practice 
 =============================
