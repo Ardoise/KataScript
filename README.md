@@ -48,7 +48,7 @@
       upgrade       - upgrade centrallog::<component>
       dist-upgrade  - upgrade distrib platform jruby::gems
 
-C0mp0nents :
+Softwares :
 ==========================
   - ElasticSearch [http://elasticsearch.org] [v1.2.0]
   - JBossAS [http://download.jboss.org] [v7.1.1]
