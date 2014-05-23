@@ -216,9 +216,9 @@
     },
     "mongodb": {
       "title": "Mongodb Server",
-      "download": "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.0.tgz",
+      "download": "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.1.tgz",
       "name": "mongodb",
-      "version": "2.6.0"
+      "version": "2.6.1"
     },
     "hadoop": {
       "title": "Hadoop Server",

@@ -4,7 +4,7 @@
 # Provides: centrallog: mongodb
 # Short-Description: DEPLOY SERVER: [MONGODB]
 # Description:  SERVICE CENTRALLOG: mongodb (...)
-#               deploy mongodb v2.6.0
+#               deploy mongodb v2.6.1
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140116
@@ -165,7 +165,7 @@ install)
   null
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.0.tgz";
+  Download="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.1.tgz";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
