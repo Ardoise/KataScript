@@ -233,19 +233,19 @@
       "version": "3.1.0"
     },
     "neo4j": {
-      "download": "http://dist.neo4j.org/neo4j-community-2.0.0-unix.tar.gz",
+      "download": "http://dist.neo4j.org/neo4j-community-2.0.3-unix.tar.gz",
       "title": "Neo4j Server",
       "name": "neo4j",
-      "version": "2.0.0",
+      "version": "2.0.3",
       "postinstall": "ulimit -a 40000;echo 'http://www.oracle.com/technetwork/java/javase/downloads/index.html'",
       "homepage": "http://localhost:7474/"
     },
     "flume": {
       "title": "Flume Server",
-      "download": "http://mirrors.ibiblio.org/apache/flume/1.4.0/apache-flume-1.4.0-bin.tar.gz",
+      "download": "http://www.apache.org/dyn/closer.cgi/flume/1.5.0/apache-flume-1.5.0-bin.tar.gz",
       "name": "flume",
-      "version": "1.4.0",
-      "gpg": "gpg --import KEYS; gpg --verify apache-flume-1.4.0-bin.tar.gz.asc"
+      "version": "1.5.0",
+      "gpg": "gpg --import KEYS; gpg --verify apache-flume-1.5.0-bin.tar.gz.asc"
     },
     "graylog2": {
       "download": "https://github.com/Graylog2/graylog2-server/releases/download/0.13.0-rc.1/",

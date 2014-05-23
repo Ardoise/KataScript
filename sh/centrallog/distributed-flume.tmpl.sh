@@ -4,7 +4,7 @@
 # Provides: centrallog: flume
 # Short-Description: DEPLOY SERVER: [FLUME]
 # Description:  SERVICE CENTRALLOG: flume (...)
-#               deploy flume v1.4.0
+#               deploy flume v1.5.0
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140116
@@ -165,7 +165,7 @@ install)
   null
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="http://mirrors.ibiblio.org/apache/flume/1.4.0/apache-flume-1.4.0-bin.tar.gz";
+  Download="http://www.apache.org/dyn/closer.cgi/flume/1.5.0/apache-flume-1.5.0-bin.tar.gz";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;

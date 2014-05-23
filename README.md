@@ -56,10 +56,11 @@ C0mp0nents :
   - ElasticSearch [http://elasticsearch.org] [v1.2.0]
   - Kibana3 [http://kibana.org] [v3.1.0]
   - MongoDB [http://www.mongodb.org/] [v2.6.1]
+  - Neo4J [http://www.neo4j.org] [v2.0.3]
   - Hadoop [http://hadoop.apache.org] [v2.4.0]
-  - Flume [http://flume.apache.org] [v1.4.0][working]
   - JBossAS [http://download.jboss.org] [v7.1.1]
   - Vagrant [http://www.vagrantup.com/] [v1.6.2]
+  - Flume [http://flume.apache.org] [v1.5.0][working]
 
 Objectifs : + vs - : Practice 
 =============================

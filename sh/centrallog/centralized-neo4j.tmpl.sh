@@ -4,7 +4,7 @@
 # Provides: centrallog: neo4j
 # Short-Description: DEPLOY SERVER: [NEO4J]
 # Description:  SERVICE CENTRALLOG: neo4j (...)
-#               deploy neo4j v2.0.0
+#               deploy neo4j v2.0.3
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140116
@@ -165,7 +165,7 @@ install)
   null
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="http://dist.neo4j.org/neo4j-community-2.0.0-unix.tar.gz";
+  Download="http://dist.neo4j.org/neo4j-community-2.0.3-unix.tar.gz";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
