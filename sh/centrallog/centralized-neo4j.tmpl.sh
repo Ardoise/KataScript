@@ -7,7 +7,7 @@
 #               deploy neo4j v2.0.3
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
-# Update: last-update: 20140116
+# Update: last-update: 20140501
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
