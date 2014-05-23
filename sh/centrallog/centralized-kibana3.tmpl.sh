@@ -4,7 +4,7 @@
 # Provides: centrallog: kibana3
 # Short-Description: DEPLOY SERVER: [KIBANA3]
 # Description:  SERVICE CENTRALLOG: kibana3 (...)
-#               deploy kibana3 v3.0.0m5
+#               deploy kibana3 v3.1.0
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140116
@@ -165,7 +165,7 @@ install)
   null
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="https://download.elasticsearch.org/kibana/kibana/kibana-3.0.0milestone5.tar.gz";
+  Download="https://download.elasticsearch.org/kibana/kibana/kibana-3.1.0.tar.gz";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;

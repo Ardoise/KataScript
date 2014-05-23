@@ -51,10 +51,10 @@
 C0mp0nents :
 ==========================
   - Nginx [http://nginx.org] [v1.5.13]
-  - Logstash [http://logstash.net] [v1.4.0-1]
+  - Logstash [http://logstash.net] [v1.4.1-1]
   - Redis [http://redis.io] [v2.8.8]
-  - ElasticSearch [http://elasticsearch.org] [v1.1.1]
-  - Kibana3 [http://kibana.org] [v3.0.0-m5]
+  - ElasticSearch [http://elasticsearch.org] [v1.2.0]
+  - Kibana3 [http://kibana.org] [v3.1.0]
   - MongoDB [http://www.mongodb.org/] [v2.6.0]
   - Hadoop [http://hadoop.apache.org] [v2.4.0]
   - Graylog2 [http://graylog2.org] [v0.0.0][working]
