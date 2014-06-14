@@ -4,7 +4,7 @@
 # Provides: centrallog: centrallog
 # Short-Description: DEPLOY SERVER: [CENTRALLOG]
 # Description:  SERVICE CENTRALLOG: centrallog (...)
-#               deploy centrallog v1.1.0
+#               deploy centrallog v1.4.6
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140501
