@@ -9,7 +9,7 @@
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get update
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get install -y curl git-core sudo
 
-### SERVICE RFU Centr@lL0g-1.4.6
+### SERVICE RFU Centr@lL0g-1.4.7
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png?t=1398001932606)
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
@@ -56,7 +56,7 @@ Softwares :
   - Logstash [http://logstash.net] [v1.4.1-1]
   - MongoDB [http://www.mongodb.org/] [v2.6.1]
   - Neo4J [http://www.neo4j.org] [v2.0.3]
-  - Nginx [http://nginx.org] [v1.6.0]
+  - Nginx [http://nginx.org] [v1.7.2]
   - Redis [http://redis.io] [v2.8.9]
   - Vagrant [http://www.vagrantup.com/] [v1.6.2]
   - ...
