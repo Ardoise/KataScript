@@ -4,10 +4,10 @@
 # Provides: centrallog: nginx
 # Short-Description: DEPLOY SERVER: [NGINX]
 # Description:  SERVICE CENTRALLOG: nginx (...)
-#               deploy nginx v1.5.13
+#               deploy nginx v1.7.2
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
-# Update: last-update: 20140116
+# Update: last-update: 20140501
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -165,7 +165,7 @@ install)
   null
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="http://nginx.org/download/nginx-1.5.13.tar.gz";
+  Download="http://nginx.org/download/nginx-1.7.2.tar.gz";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
@@ -250,7 +250,7 @@ REOF
   [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALL
-  sudo -s; apt-get install wget libcgi-fast-perl fcgiwrap spawn-fcgi;/etc/init.d/fcgiwrap restart
+  sudo apt-get install wget libcgi-fast-perl fcgiwrap spawn-fcgi;sudo /etc/init.d/fcgiwrap restart;
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
@@ -462,9 +462,9 @@ dist-upgrade)
   
   #Install JSONQuery Tool
   echo "#  jq64-x.x.x - #install"
-  curl -OL http://stedolan.github.io/jq/download/linux64/jq; mv jq jq64;
+  curl -OL http://stedolan.github.io/jq/download/linux64/jq;
   echo "#  jq32-x.x.x - #install"
-  curl -OL http://stedolan.github.io/jq/download/linux32/jq;
+  curl -OL http://stedolan.github.io/jq/download/linux32/jq; mv jq jq32;
   chmod a+x jq* ; mv jq* /usr/bin/;
   
   #Install Perl

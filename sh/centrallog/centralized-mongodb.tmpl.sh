@@ -462,9 +462,9 @@ dist-upgrade)
   
   #Install JSONQuery Tool
   echo "#  jq64-x.x.x - #install"
-  curl -OL http://stedolan.github.io/jq/download/linux64/jq; mv jq jq64;
+  curl -OL http://stedolan.github.io/jq/download/linux64/jq;
   echo "#  jq32-x.x.x - #install"
-  curl -OL http://stedolan.github.io/jq/download/linux32/jq;
+  curl -OL http://stedolan.github.io/jq/download/linux32/jq; mv jq jq32;
   chmod a+x jq* ; mv jq* /usr/bin/;
   
   #Install Perl
