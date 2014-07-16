@@ -213,8 +213,10 @@
       "download": "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.1.deb",
       "name": "elasticsearch",
       "version": "1.2.1",
-      "postinstall": "/usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head",
-      "postinstall": "/usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head2"
+      "postinstall": [
+        "/usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head",
+        "/usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head2"
+      ]
     },
     "mongodb": {
       "title": "Mongodb Server",
