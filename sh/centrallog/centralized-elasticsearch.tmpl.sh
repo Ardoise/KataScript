@@ -165,7 +165,7 @@ install)
   null
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
- https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.1.deb
+ Download=https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.1.deb
   Download="#i#download#i#";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";

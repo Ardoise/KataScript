@@ -165,7 +165,7 @@ install)
   null
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
- 
+ Download=
   Download="#i#download#i#";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
