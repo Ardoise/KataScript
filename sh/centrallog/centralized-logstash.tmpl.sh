@@ -4,7 +4,7 @@
 # Provides: centrallog: logstash
 # Short-Description: DEPLOY SERVER: [LOGSTASH]
 # Description:  SERVICE CENTRALLOG: logstash (...)
-#               deploy logstash v1.4.1
+#               deploy logstash v1.4.2
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140501
@@ -165,7 +165,7 @@ install)
   sudo apt-get install default-jre-headless
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
- https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.4.1-1-bd507eb_all.deb
+ https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.4.2-1-bd507eb_all.deb
   Download="#i#download#i#";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";

@@ -189,7 +189,8 @@
       "title": "Logstash Server",
       "name": "logstash",
       "download": "https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.4.1-1-bd507eb_all.deb",
-      "version": "1.4.1",
+      "download": "https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.4.2-1-bd507eb_all.deb",
+      "version": "1.4.2",
       "preinstall": "sudo apt-get install default-jre-headless",
       "postinstall": "cd /opt/logstash;bin/plugin install contrib"
     },
