@@ -252,7 +252,7 @@ REOF
   [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALL
-  ["/usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head","/usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head2"];
+  ["/usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head","/usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head2"]|jq -r '.'
   #i#postinstall#i#
 
   chown -R $uidgid $Cache$NAME || true;

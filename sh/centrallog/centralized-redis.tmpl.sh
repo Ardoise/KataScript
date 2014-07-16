@@ -252,7 +252,7 @@ REOF
   [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALL
-  cd src; make; make install; cd ../utils; ./install_server.sh;
+  cd src; make; make install; cd ../utils; ./install_server.sh|jq -r '.'
   #i#postinstall#i#
 
   chown -R $uidgid $Cache$NAME || true;
