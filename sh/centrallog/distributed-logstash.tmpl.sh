@@ -162,8 +162,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # OWNER => PREINSTALL
-  sudo apt-get install default-jre-headless;
-  #i#preinstall#i#
+sudo apt-get install default-jre-headless
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
 
@@ -259,7 +258,7 @@ REOF
   [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALL
-
+cd /opt/logstash;bin/plugin install contrib
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;

@@ -162,8 +162,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # OWNER => PREINSTALL
-  null;
-  #i#preinstall#i#
+
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
 
@@ -258,7 +257,9 @@ REOF
   [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALL
-
+ulimit -a 40000
+echo 'http://www.oracle.com/technetwork/java/javase/downloads/index.html'
+echo 'homepage': 'http://localhost:7474/'
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;

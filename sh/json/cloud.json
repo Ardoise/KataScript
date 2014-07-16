@@ -276,8 +276,9 @@
       "name": "neo4j",
       "version": "2.0.3",
       "postinstalls": [
-        "ulimit -a 40000;echo 'http://www.oracle.com/technetwork/java/javase/downloads/index.html'",
-        "homepage": "http://localhost:7474/"
+        "ulimit -a 40000",
+        "echo 'http://www.oracle.com/technetwork/java/javase/downloads/index.html'", 
+        "echo 'homepage': 'http://localhost:7474/'"
       ]
     },
     "flume": {

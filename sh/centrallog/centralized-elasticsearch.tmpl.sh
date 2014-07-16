@@ -162,8 +162,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # OWNER => PREINSTALL
-  null;
-  #i#preinstall#i#
+
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
 
