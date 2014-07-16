@@ -166,7 +166,7 @@ install)
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
   Download=""
-  Download="#i#download#i#";
+  #i#download#i#
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;

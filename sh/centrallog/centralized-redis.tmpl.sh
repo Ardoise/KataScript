@@ -166,7 +166,7 @@ install)
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
   Download="http://download.redis.io/releases/redis-2.8.9.tar.gz"
-  Download="#i#download#i#";
+  #i#download#i#
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
