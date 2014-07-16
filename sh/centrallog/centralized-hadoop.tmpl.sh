@@ -165,7 +165,7 @@ install)
   null
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="http://apache.mirrors.lucidnetworks.net/hadoop/common/hadoop-2.4.0/hadoop-2.4.0.tar.gz"
+  Download="http://apache.mirrors.lucidnetworks.net/hadoop/common/hadoop-2.4.0/hadoop-2.4.0.tar.gz";
   #i#download#i#
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";

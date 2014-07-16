@@ -165,7 +165,7 @@ install)
   null
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.1.tgz"
+  Download="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.1.tgz";
   #i#download#i#
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
