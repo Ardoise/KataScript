@@ -166,8 +166,7 @@ install)
   #i#preinstall#i#
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-  Download="http://www.apache.org/dyn/closer.cgi/flume/1.5.0/apache-flume-1.5.0-bin.tar.gz";
-  #i#download#i#
+http://www.apache.org/dyn/closer.cgi/flume/1.5.0/apache-flume-1.5.0-bin.tar.gz
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
