@@ -225,10 +225,10 @@
     "elasticsearch": {
       "title": "Elasticsearch Server",
       "downloads": [
-        "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.1.deb"
+        "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.2.deb"
       ],
       "name": "elasticsearch",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "postinstalls": [
         "/usr/share/$NAME/bin/plugin --install mobz/elasticsearch-head",
         "/usr/share/$NAME/bin/plugin --install lukas-vlcek/bigdesk",
