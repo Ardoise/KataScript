@@ -166,7 +166,7 @@ install)
   #i#preinstall#i#
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-curl -OL
+https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.1.deb
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
