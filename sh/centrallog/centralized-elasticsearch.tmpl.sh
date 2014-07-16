@@ -252,8 +252,18 @@ REOF
   [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALL
-/usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head
-/usr/share/$NAME/bin/plugin -install mobz/elasticsearch-head2
+/usr/share/$NAME/bin/plugin --install mobz/elasticsearch-head
+/usr/share/$NAME/bin/plugin --install lukas-vlcek/bigdesk
+/usr/share/$NAME/bin/plugin --install andrewvc/elastic-hammer
+/usr/share/$NAME/bin/plugin --install polyfractal/elasticsearch-inquisitor
+/usr/share/$NAME/bin/plugin --install karmi/elasticsearch-paramedic
+/usr/share/$NAME/bin/plugin --install royrusso/elasticsearch-HQ
+/usr/share/$NAME/bin/plugin --install polyfractal/elasticsearch-segmentspy
+/usr/share/$NAME/bin/plugin --install xyu/elasticsearch-whatson
+/usr/share/$NAME/bin/plugin --install hiredman/elasticsearch-lang-clojure
+/usr/share/$NAME/bin/plugin --install elasticsearch/elasticsearch-lang-groovy/2.0.0
+/usr/share/$NAME/bin/plugin --install elasticsearch/elasticsearch-lang-javascript/2.1.0
+/usr/share/$NAME/bin/plugin --install elasticsearch/elasticsearch-lang-python/2.0.0
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
