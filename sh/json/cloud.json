@@ -182,15 +182,15 @@
     "centrallog": {
       "title": "Centrallog Component",
       "name": "centrallog",
-      "download": [],
+      "downloads": [],
       "version": "1.4.6"
     },
     "logstash": {
       "title": "Logstash Server",
       "name": "logstash",
-      "download": [
-        "https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.4.1-1-bd507eb_all.deb",
-        "https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.4.2-1-bd507eb_all.deb"
+      "downloads": [
+        "https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.4.2-1-2c0f5a1_all.deb",
+        "https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash-contrib_1.4.2-1-efd53ef_all.deb"
       ],
       "version": "1.4.2",
       "preinstall": "sudo apt-get install default-jre-headless",
@@ -198,7 +198,7 @@
     },
     "redis": {
       "title": "Redis Server",
-      "download": [
+      "downloads": [
         "http://download.redis.io/releases/redis-2.8.9.tar.gz"
       ],
       "name": "redis",
@@ -207,7 +207,7 @@
     },
     "nginx": {
       "title": "NGinx Server",
-      "download": [
+      "downloads": [
         "http://nginx.org/download/nginx-1.7.2.tar.gz"
       ],
       "name": "nginx",
@@ -216,7 +216,7 @@
     },
     "elasticsearch": {
       "title": "Elasticsearch Server",
-      "download": [
+      "downloads": [
         "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.1.deb"
       ],
       "name": "elasticsearch",
@@ -238,7 +238,7 @@
     },
     "mongodb": {
       "title": "Mongodb Server",
-      "download": [
+      "downloads": [
         "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.1.tgz"
       ],
       "name": "mongodb",
@@ -246,14 +246,14 @@
     },
     "hadoop": {
       "title": "Hadoop Server",
-      "download": [
+      "downloads": [
         "http://apache.mirrors.lucidnetworks.net/hadoop/common/hadoop-2.4.0/hadoop-2.4.0.tar.gz"
       ],
       "name": "hadoop",
       "version": "2.4.0"
     },
     "kibana3": {
-      "download": [
+      "downloads": [
         "https://download.elasticsearch.org/kibana/kibana/kibana-3.1.0.tar.gz"
       ],
       "title": "Kibana Server",
@@ -261,7 +261,7 @@
       "version": "3.1.0"
     },
     "neo4j": {
-      "download": [
+      "downloads": [
         "http://dist.neo4j.org/neo4j-community-2.0.3-unix.tar.gz"
       ],
       "title": "Neo4j Server",
@@ -272,7 +272,7 @@
     },
     "flume": {
       "title": "Flume Server",
-      "download": [
+      "downloads": [
         "http://www.apache.org/dyn/closer.cgi/flume/1.5.0/apache-flume-1.5.0-bin.tar.gz"
       ],
       "name": "flume",
@@ -280,7 +280,7 @@
       "gpg": "gpg --import KEYS; gpg --verify apache-flume-1.5.0-bin.tar.gz.asc"
     },
     "graylog2": {
-      "download": [
+      "downloads": [
         "https://github.com/Graylog2/graylog2-server/releases/download/0.13.0-rc.1/"
       ],
       "title": "Graylog2 Server",
@@ -288,7 +288,7 @@
       "version": "0.13.0"
     },
     "vagrant": {
-      "download": [
+      "downloads": [
         "https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.2_x86_64.deb"
       ],
       "title": "Vagrant PIC",

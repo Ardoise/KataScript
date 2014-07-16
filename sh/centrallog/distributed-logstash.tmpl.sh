@@ -168,8 +168,8 @@ install)
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
 
   downloads=(
-https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.4.1-1-bd507eb_all.deb
-https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.4.2-1-bd507eb_all.deb
+https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.4.2-1-2c0f5a1_all.deb
+https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash-contrib_1.4.2-1-efd53ef_all.deb
   );
 
   for d in "${downloads[@]}"; do
