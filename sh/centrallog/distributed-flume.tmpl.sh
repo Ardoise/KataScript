@@ -162,7 +162,7 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # OWNER => PREINSTALL
-  null
+  null;
   #i#preinstall#i#
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
@@ -252,7 +252,7 @@ REOF
   [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALL
-  null
+  null;
   #i#postinstall#i#
 
   chown -R $uidgid $Cache$NAME || true;
@@ -299,7 +299,7 @@ restart)
 ;;
 daemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  chkconfig flume on
+  chkconfig flume on;
   CMD="#i#daemon#i#";
   case $CMD in
   *i#daemon#i*)
@@ -314,7 +314,7 @@ daemon)
 ;;
 nodaemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  chkconfig flume off
+  chkconfig flume off;
   CMD="#i#nodaemon#i#";
   case $CMD in
   *i#nodaemon#i*)
