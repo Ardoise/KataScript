@@ -163,6 +163,7 @@ install)
 
   # OWNER => PREINSTALL
   null
+  #i#preinstall#i#
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
   Download="https://download.elasticsearch.org/kibana/kibana/kibana-3.1.0.tar.gz";
@@ -252,6 +253,7 @@ REOF
 
   # OWNER => POSTINSTALL
   null
+  #i#postinstall#i#
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
@@ -297,7 +299,8 @@ restart)
 ;;
 daemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  CMD="null";
+  null
+  CMD="#i#daemon#i#";
   case $CMD in
   *i#daemon#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -311,7 +314,8 @@ daemon)
 ;;
 nodaemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  CMD="null";
+  null
+  CMD="#i#nodaemon#i#";
   case $CMD in
   *i#nodaemon#i*)
     exec $CMD && exit 0 || exit $?; 

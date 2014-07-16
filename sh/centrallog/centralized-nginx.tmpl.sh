@@ -163,6 +163,7 @@ install)
 
   # OWNER => PREINSTALL
   null
+  #i#preinstall#i#
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
   Download="http://nginx.org/download/nginx-1.7.2.tar.gz";
@@ -252,6 +253,7 @@ REOF
 
   # OWNER => POSTINSTALL
   sudo apt-get install wget libcgi-fast-perl fcgiwrap spawn-fcgi;sudo /etc/init.d/fcgiwrap restart;
+  #i#postinstall#i#
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
@@ -297,7 +299,8 @@ restart)
 ;;
 daemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  CMD="service nginx on";
+  service nginx on
+  CMD="#i#daemon#i#";
   case $CMD in
   *i#daemon#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -311,7 +314,8 @@ daemon)
 ;;
 nodaemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  CMD="service nginx off";
+  service nginx off
+  CMD="#i#nodaemon#i#";
   case $CMD in
   *i#nodaemon#i*)
     exec $CMD && exit 0 || exit $?; 
