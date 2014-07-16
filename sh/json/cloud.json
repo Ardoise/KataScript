@@ -193,8 +193,12 @@
         "https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash-contrib_1.4.2-1-efd53ef_all.deb"
       ],
       "version": "1.4.2",
-      "preinstall": "sudo apt-get install default-jre-headless",
-      "postinstall": "cd /opt/logstash;bin/plugin install contrib"
+      "preinstalls": [
+        "sudo apt-get install default-jre-headless"
+      ],
+      "postinstalls": [
+        "cd /opt/logstash;bin/plugin install contrib"
+      ]
     },
     "redis": {
       "title": "Redis Server",
@@ -203,7 +207,9 @@
       ],
       "name": "redis",
       "version": "2.8.9",
-      "postinstall": "cd src; make; make install; cd ../utils; ./install_server.sh"
+      "postinstalls": [
+        "cd src; make; make install; cd ../utils; ./install_server.sh"
+      ]
     },
     "nginx": {
       "title": "NGinx Server",
@@ -212,7 +218,9 @@
       ],
       "name": "nginx",
       "version": "1.7.2",
-      "postinstall": "sudo apt-get install wget libcgi-fast-perl fcgiwrap spawn-fcgi;sudo /etc/init.d/fcgiwrap restart;"
+      "postinstalls": [
+        "sudo apt-get install wget libcgi-fast-perl fcgiwrap spawn-fcgi;sudo /etc/init.d/fcgiwrap restart;"
+      ]
     },
     "elasticsearch": {
       "title": "Elasticsearch Server",
@@ -221,7 +229,7 @@
       ],
       "name": "elasticsearch",
       "version": "1.2.1",
-      "postinstall": [
+      "postinstalls": [
         "/usr/share/$NAME/bin/plugin --install mobz/elasticsearch-head",
         "/usr/share/$NAME/bin/plugin --install lukas-vlcek/bigdesk",
         "/usr/share/$NAME/bin/plugin --install andrewvc/elastic-hammer",
@@ -267,8 +275,10 @@
       "title": "Neo4j Server",
       "name": "neo4j",
       "version": "2.0.3",
-      "postinstall": "ulimit -a 40000;echo 'http://www.oracle.com/technetwork/java/javase/downloads/index.html'",
-      "homepage": "http://localhost:7474/"
+      "postinstalls": [
+        "ulimit -a 40000;echo 'http://www.oracle.com/technetwork/java/javase/downloads/index.html'",
+        "homepage": "http://localhost:7474/"
+      ]
     },
     "flume": {
       "title": "Flume Server",
