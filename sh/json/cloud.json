@@ -182,8 +182,7 @@
     "centrallog": {
       "title": "Centrallog Component",
       "name": "centrallog",
-      "download": [
-      ],
+      "download": [],
       "version": "1.4.6"
     },
     "logstash": {
