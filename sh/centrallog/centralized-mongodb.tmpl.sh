@@ -145,7 +145,7 @@ install)
   Run="/var/run/";echo "$Run";
   
   #OWNER
-  [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
+  [ -x "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
   ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
   echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/profile.add.$NAME.sh;
