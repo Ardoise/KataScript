@@ -136,7 +136,7 @@ CONF_OUTPUT=https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/out
 install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
 
-  # LocalENV
+  #LocalENV
   Bin="/opt/";echo "$Bin";
   Cache="/var/cache/"; echo "$Cache";
   Etc="/etc/";echo "$Etc";
@@ -144,7 +144,7 @@ install)
   Log="/var/log/";echo "$Log";
   Run="/var/run/";echo "$Run";
   
-  # OWNER
+  #OWNER
   [ -e "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
   ${SH_DIR}/lib/usergroup.sh POST uid=$NAME gid=$NAME group=devops pass=$NAME;
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
@@ -153,7 +153,7 @@ install)
     uid=`echo ${uidgid} | cut -d':' -f1`;
     gid=`echo ${uidgid} | cut -d':' -f2`;
   
-  # LocalENV + OWNER => PROFIL
+  #LocalENV + OWNER => PROFIL
   mkdir -p $Bin$NAME || true; chown -R $uidgid $Bin$NAME || true;
   mkdir -p $Cache$NAME || true; chown -R $uidgid $Cache$NAME || true;
   mkdir -p $Etc$NAME/test || true; chown -R $uidgid $Etc$NAME || true;
@@ -161,11 +161,10 @@ install)
   mkdir -p $Log$NAME || true; chown -R $uidgid $Log$NAME || true;
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
-  # OWNER => PREINSTALL
+  # OWNER => PREINSTALLS[]
 sudo apt-get install default-jre-headless
 
-  # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-
+  # OWNER => DOWNLOADS[]
   downloads=(
 https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash_1.4.2-1-2c0f5a1_all.deb
 https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash-contrib_1.4.2-1-efd53ef_all.deb
@@ -257,7 +256,7 @@ REOF
   [ -s /etc/default/$NAME ] && ( sed -i -e "/USER/s/USER=${NAME}$/USER=${uid}/1;/USER/s/^#//g" /etc/default/$NAME )
   [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
-  # OWNER => POSTINSTALL
+  # OWNER => POSTINSTALLS[]
 cd /opt/logstash;bin/plugin install contrib
 
   chown -R $uidgid $Cache$NAME || true;
