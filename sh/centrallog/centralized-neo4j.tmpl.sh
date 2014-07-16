@@ -166,7 +166,7 @@ install)
   #i#preinstall#i#
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-http://dist.neo4j.org/neo4j-community-2.0.3-unix.tar.gz
+
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
