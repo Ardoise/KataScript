@@ -165,7 +165,7 @@ install)
   null
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
- Download="http://nginx.org/download/nginx-1.7.2.tar.gz"
+  Download="http://nginx.org/download/nginx-1.7.2.tar.gz"
   Download="#i#download#i#";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";

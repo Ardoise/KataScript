@@ -165,7 +165,7 @@ install)
   null
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
- Download="https://download.elasticsearch.org/kibana/kibana/kibana-3.1.0.tar.gz"
+  Download="https://download.elasticsearch.org/kibana/kibana/kibana-3.1.0.tar.gz"
   Download="#i#download#i#";
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
