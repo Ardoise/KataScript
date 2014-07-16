@@ -166,7 +166,7 @@ install)
   #i#preinstall#i#
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
-
+https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.1.tgz
   file=$(basename $Download);
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
   cd $Bin$NAME;
