@@ -167,74 +167,81 @@ install)
 
   # DOWNLOAD|CACHE + PROFIL => INSTALL => UNINSTALL
 
-  file=$(basename $Download);
-  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
-  cd $Bin$NAME;
-  case "$file" in
-    *.tar.gz|*.tgz)
-      [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -f "$Cache$NAME/$file" ] && sudo tar xvfz $Cache$NAME/$file -C $Bin$NAME/;
-      cat <<-REOF >$Bin$NAME/$NAME.uninstall
-      pkill -u $(echo $uidgid | cut -d':' -f1);
-      [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME/*.*;
-REOF
-    ;;
-    *.rpm)
-      [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -f "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
-      cat <<-REOF >$Bin$NAME/$NAME.uninstall
-      pkill -u $(echo $uidgid | cut -d':' -f1);
-      # TODO
-      #rpm -qa | grep $NAME
-      #rpm -e $NAME;
-      [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME;
-REOF
-    ;;
-    *.deb)
-      [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -f "$Cache$NAME/$file" ] && (cd $Cache$NAME; sudo dpkg -i -R $file);
-      cat <<-REOF >$Bin$NAME/$NAME.uninstall
-      pkill -u $(echo $uidgid | cut -d':' -f1);
-      namepkg=$(dpkg -l |grep "$NAME" |awk -F' ' '{print $2}');
-      sudo dpkg -r \$namepkg;                     # not conf
-      # sudo dpkg -P \$namepkg;                   # with conf
-      # sudo dpkg --force-all --purge \$namepkg;  # with purge
-REOF
-    ;;
-    *.zip)
-      [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -f "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file -d $Bin$NAME/;
-      cat <<-REOF >$Bin$NAME/$NAME.uninstall
-      pkill -u $(echo $uidgid | cut -d':' -f1);
-      [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME
-REOF
-    ;;
-    *.jar)
-      [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "$Download");
-      [ -f "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
-      cat <<-REOF >$Bin$NAME/$NAME.uninstall
-      [ -d "$Bin$NAME/$file" -a -n "$NAME" ] && rm -f $Bin$NAME/$file
-REOF
-    ;;
-    *)
-      case "$platform" in
-      Debian|Ubuntu)
-        sudo apt-get update #--fix-missing
-        sudo apt-get -y install $NAME;
+  downloads=(
+
+  );
+
+  for d in "${downloads[@]}"; do
+    file=$(basename ${d});
+    echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
+    cd $Bin$NAME;
+    case "$file" in
+      *.tar.gz|*.tgz)
+        [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "${d}");
+        [ -f "$Cache$NAME/$file" ] && sudo tar xvfz $Cache$NAME/$file -C $Bin$NAME/;
         cat <<-REOF >$Bin$NAME/$NAME.uninstall
-        sudo apt-get uninstall $NAME;
+        pkill -u $(echo $uidgid | cut -d':' -f1);
+        [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME/*.*;
 REOF
-        ;;
-      Redhat|Fedora|CentOS)
-        sudo yum update #--fix-missing
-        sudo yum -y install $NAME;
+      ;;
+      *.rpm)
+        [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "${d}");
+        [ -f "$Cache$NAME/$file" ] && sudo rpm -ivh $Cache$NAME/$file;
         cat <<-REOF >$Bin$NAME/$NAME.uninstall
-        sudo yum uninstall $NAME;
+        pkill -u $(echo $uidgid | cut -d':' -f1);
+        # TODO
+        #rpm -qa | grep $NAME
+        #rpm -e $NAME;
+        [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME;
 REOF
-        ;;
-      esac
-    ;;
-  esac
+      ;;
+      *.deb)
+        [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "${d}");
+        [ -f "$Cache$NAME/$file" ] && (cd $Cache$NAME; sudo dpkg -i -R $file);
+        cat <<-REOF >$Bin$NAME/$NAME.uninstall
+        pkill -u $(echo $uidgid | cut -d':' -f1);
+        namepkg=$(dpkg -l |grep "$NAME" |awk -F' ' '{print $2}');
+        sudo dpkg -r \$namepkg;                     # not conf
+        # sudo dpkg -P \$namepkg;                   # with conf
+        # sudo dpkg --force-all --purge \$namepkg;  # with purge
+REOF
+      ;;
+      *.zip)
+        [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "${d}");
+        [ -f "$Cache$NAME/$file" ] && sudo unzip $Cache$NAME/$file -d $Bin$NAME/;
+        cat <<-REOF >$Bin$NAME/$NAME.uninstall
+        pkill -u $(echo $uidgid | cut -d':' -f1);
+        [ -d "$Bin$NAME" -a -n "$NAME" ] && rm -rf $Bin$NAME
+REOF
+      ;;
+      *.jar)
+        [ -f "$Cache$NAME/$file" ] || (cd $Cache$NAME; sudo curl -OL "${d}");
+        [ -f "$Cache$NAME/$file" ] && sudo cp -R $Cache$NAME/$file $Bin$NAME/;
+        cat <<-REOF >$Bin$NAME/$NAME.uninstall
+        [ -d "$Bin$NAME/$file" -a -n "$NAME" ] && rm -f $Bin$NAME/$file
+REOF
+      ;;
+      *)
+        case "$platform" in
+        Debian|Ubuntu)
+          sudo apt-get update #--fix-missing
+          sudo apt-get -y install $NAME;
+          cat <<-REOF >$Bin$NAME/$NAME.uninstall
+          sudo apt-get uninstall $NAME;
+REOF
+          ;;
+        Redhat|Fedora|CentOS)
+          sudo yum update #--fix-missing
+          sudo yum -y install $NAME;
+          cat <<-REOF >$Bin$NAME/$NAME.uninstall
+          sudo yum uninstall $NAME;
+REOF
+          ;;
+        esac
+      ;;
+    esac
+  done #downloads
+
   cat <<-REOF >>$Bin$NAME/$NAME.uninstall
     # [ -f "$Cache$NAME/$file" ] && rm -f "$Cache$NAME/$file"; # with purge cache
     [ -d "$Etc$NAME/test" ] && rm -rf "$Etc$NAME/test";  #noconf only package
