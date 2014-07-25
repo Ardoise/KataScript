@@ -4,7 +4,7 @@
 # Provides: centrallog: hadoop
 # Short-Description: DEPLOY SERVER: [HADOOP]
 # Description:  SERVICE CENTRALLOG: hadoop (...)
-#               deploy hadoop v2.4.0
+#               deploy hadoop v2.4.1
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140501
@@ -166,7 +166,8 @@ install)
 
   # OWNER => DOWNLOADS[]
   downloads=(
-http://apache.mirrors.lucidnetworks.net/hadoop/common/hadoop-2.4.0/hadoop-2.4.0.tar.gz
+http://apache.mirrors.lucidnetworks.net/hadoop/common/hadoop-2.4.1/hadoop-2.4.1.tar.gz
+http://apache.mirrors.lucidnetworks.net/hadoop/common/hadoop-2.4.1/hadoop-2.4.1-src.tar.gz
   );
 
   for d in "${downloads[@]}"; do

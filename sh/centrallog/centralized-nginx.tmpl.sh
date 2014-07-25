@@ -4,7 +4,7 @@
 # Provides: centrallog: nginx
 # Short-Description: DEPLOY SERVER: [NGINX]
 # Description:  SERVICE CENTRALLOG: nginx (...)
-#               deploy nginx v1.7.2
+#               deploy nginx v1.7.3
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140501
@@ -166,7 +166,7 @@ install)
 
   # OWNER => DOWNLOADS[]
   downloads=(
-http://nginx.org/download/nginx-1.7.2.tar.gz
+http://nginx.org/download/nginx-1.7.3.tar.gz
   );
 
   for d in "${downloads[@]}"; do

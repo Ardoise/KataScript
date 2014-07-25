@@ -9,7 +9,7 @@
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get update
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get install -y curl git-core sudo
 
-### SERVICE RFU Centr@lL0g-1.4.7
+### SERVICE RFU Centr@lL0g-1.4.8
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png?t=1398001932606)
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
@@ -50,18 +50,18 @@
 
 Softwares :
 ==========================
-  - ElasticSearch [http://elasticsearch.org] [v1.2.2]
+  - ElasticSearch [http://elasticsearch.org] [v1.3.0]
   - JBossAS [http://download.jboss.org] [v7.1.1]
   - Kibana3 [http://kibana.org] [v3.1.0]
   - Logstash [http://logstash.net] [v1.4.2-1]
-  - MongoDB [http://www.mongodb.org/] [v2.6.1]
-  - Neo4J [http://www.neo4j.org] [v2.0.3]
-  - Nginx [http://nginx.org] [v1.7.2]
-  - Redis [http://redis.io] [v2.8.9]
-  - Vagrant [http://www.vagrantup.com/] [v1.6.2]
+  - MongoDB [http://www.mongodb.org/] [v2.6.3]
+  - Neo4J [http://www.neo4j.org] [v2.1.2]
+  - Nginx [http://nginx.org] [v1.7.3]
+  - Redis [http://redis.io] [v2.8.13]
+  - Vagrant [http://www.vagrantup.com/] [v1.6.3]
   - ...
   - Flume [http://flume.apache.org] [v1.5.0][working]
-  - Hadoop [http://hadoop.apache.org] [v2.4.0][working]
+  - Hadoop [http://hadoop.apache.org] [v2.4.1][working]
   - ...
   - Couchbase [http://www.couchbase.com/] [v2.2.0][as soon]
   - CouchDB [http://couchdb.apache.org/] [v1.5.1][as soon]

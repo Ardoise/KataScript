@@ -4,7 +4,7 @@
 # Provides: centrallog: neo4j
 # Short-Description: DEPLOY SERVER: [NEO4J]
 # Description:  SERVICE CENTRALLOG: neo4j (...)
-#               deploy neo4j v2.0.3
+#               deploy neo4j v2.1.2
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140501
@@ -166,7 +166,7 @@ install)
 
   # OWNER => DOWNLOADS[]
   downloads=(
-http://dist.neo4j.org/neo4j-community-2.0.3-unix.tar.gz
+http://dist.neo4j.org/neo4j-community-2.1.2-unix.tar.gz
   );
 
   for d in "${downloads[@]}"; do

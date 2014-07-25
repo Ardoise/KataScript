@@ -167,6 +167,7 @@ install)
   # OWNER => DOWNLOADS[]
   downloads=(
 http://www.apache.org/dyn/closer.cgi/flume/1.5.0/apache-flume-1.5.0-bin.tar.gz
+http://www.apache.org/dyn/closer.cgi/flume/1.5.0/apache-flume-1.5.0-src.tar.gz
   );
 
   for d in "${downloads[@]}"; do

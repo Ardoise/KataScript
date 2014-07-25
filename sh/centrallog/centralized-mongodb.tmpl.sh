@@ -4,7 +4,7 @@
 # Provides: centrallog: mongodb
 # Short-Description: DEPLOY SERVER: [MONGODB]
 # Description:  SERVICE CENTRALLOG: mongodb (...)
-#               deploy mongodb v2.6.1
+#               deploy mongodb v2.6.3
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140501
@@ -166,7 +166,7 @@ install)
 
   # OWNER => DOWNLOADS[]
   downloads=(
-https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.1.tgz
+https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.3.tgz
   );
 
   for d in "${downloads[@]}"; do
