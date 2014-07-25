@@ -266,10 +266,6 @@ REOF
 /usr/share/$NAME/bin/plugin --install xyu/elasticsearch-whatson
 /usr/share/$NAME/bin/plugin --install lmenezes/elasticsearch-kopf
 /usr/share/$NAME/bin/plugin --install jettro/elasticsearch-gui
-/usr/share/$NAME/bin/plugin --install hiredman/elasticsearch-lang-clojure
-/usr/share/$NAME/bin/plugin --install elasticsearch/elasticsearch-lang-groovy/2.0.0
-/usr/share/$NAME/bin/plugin --install elasticsearch/elasticsearch-lang-javascript/2.1.0
-/usr/share/$NAME/bin/plugin --install elasticsearch/elasticsearch-lang-python/2.0.0
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
