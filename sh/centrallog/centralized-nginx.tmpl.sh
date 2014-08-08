@@ -256,7 +256,10 @@ REOF
   [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALLS[]
-sudo apt-get install wget libcgi-fast-perl fcgiwrap spawn-fcgi;sudo /etc/init.d/fcgiwrap restart;
+sudo cd /opt/nginx/nginx-1.7.3
+sudo ./configure --sbin-path=/usr/local/nginx/nginx --conf-path=/usr/local/nginx/nginx.conf --pid-path=/usr/local/nginx/nginx.pid --with-zlib=../zlib-1.1.3 --with-pcre=../pcre-4.4
+sudo make; sudo make install
+sudo -s; nginx=development; add-apt-repository ppa:nginx/$nginx; apt-get update ;apt-get install nginx
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;

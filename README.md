@@ -50,7 +50,7 @@
 
 Softwares :
 ==========================
-  - ElasticSearch [http://elasticsearch.org] [v1.3.0]
+  - ElasticSearch [http://elasticsearch.org] [v1.3.1]
   - JBossAS [http://download.jboss.org] [v7.1.1]
   - Kibana3 [http://kibana.org] [v3.1.0]
   - Logstash [http://logstash.net] [v1.4.2-1]
