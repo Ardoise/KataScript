@@ -352,7 +352,7 @@ nodaemon)
 start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
-service elasticsearch start
+service elasticsearch restart
   case $CMD in
   *i#start#i*)
     exec $CMD && exit 0 || exit $?; 
