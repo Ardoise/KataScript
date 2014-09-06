@@ -256,6 +256,16 @@ REOF
   [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALLS[]
+/usr/share/$NAME/bin/plugin --remove mobz/elasticsearch-head
+/usr/share/$NAME/bin/plugin --remove lukas-vlcek/bigdesk
+/usr/share/$NAME/bin/plugin --remove andrewvc/elastic-hammer
+/usr/share/$NAME/bin/plugin --remove polyfractal/elasticsearch-inquisitor
+/usr/share/$NAME/bin/plugin --remove karmi/elasticsearch-paramedic
+/usr/share/$NAME/bin/plugin --remove royrusso/elasticsearch-HQ
+/usr/share/$NAME/bin/plugin --remove polyfractal/elasticsearch-segmentspy
+/usr/share/$NAME/bin/plugin --remove xyu/elasticsearch-whatson
+/usr/share/$NAME/bin/plugin --remove lmenezes/elasticsearch-kopf
+/usr/share/$NAME/bin/plugin --remove jettro/elasticsearch-gui
 /usr/share/$NAME/bin/plugin --install mobz/elasticsearch-head
 /usr/share/$NAME/bin/plugin --install lukas-vlcek/bigdesk
 /usr/share/$NAME/bin/plugin --install andrewvc/elastic-hammer
