@@ -531,6 +531,19 @@ dist-upgrade)
     sudo yum -y install python3-pip;
     echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
+  *)
+    curl http://python-distribute.org/distribute_setup.py |sudo python3
+    curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py |sudo python3
+    echo "#  for old install : curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py |sudo python2"
+
+    echo "#  Install from source"
+    echo "#    wget http://www.python.org/ftp/python/3.4.1/Python-3.4.1.tar.xz";
+    echo "#    tar xJf ./Python-3.4.1.tar.xz";
+    echo "#    cd ./Python-3.4.1";
+    echo "#    ./configure --prefix=/opt/python3.4";
+    echo "#    make && sudo make install";
+    echo "#    echo 'alias py=\"/opt/python3.4/bin/python3.4\"' >> ~/.bashrc";
+  ;;
   esac
 
   #Install PIP3
