@@ -437,7 +437,7 @@ dist-upgrade)
     ;;
   esac
 
-  #Install RVM
+  #Install RVM##1.25.30
   #rvm-x.y.z - #install
   #rvm::ruby-x.y.z - #install
   [ -f "/usr/local/rvm/scripts/rvm" ] || curl -sSL https://get.rvm.io | bash -s stable;
@@ -445,6 +445,8 @@ dist-upgrade)
   [ -f "~/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/.profile-rvm;
   [[ "$(grep -n '.rvm/scripts/rvm' ~/.bash_profile | cut -d':' -f1)" > 0 ]] || echo '. $HOME/.rvm/scripts/rvm' >> ~/.bash_profile;
   rvm requirements;
+  #Installing required packages: gawk, libyaml-dev, libsqlite3-dev, sqlite3, autoconf, libgdbm-dev, libncurses5-dev, automake, libtool, bison, libffi-dev...
+
 
   echo "#  If old RVM installed yet";
   echo "#  Please do one of the following:";
@@ -453,15 +455,15 @@ dist-upgrade)
   echo "* 'echo rvm_auto_reload_flag=1 >> ~/.rvmrc' # for auto reload with msg.";
   echo "* 'echo rvm_auto_reload_flag=2 >> ~/.rvmrc' # for silent auto reload.";
 
-  #Install RUBY
+  #Install RUBY##2.1.2
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
   curl -sSL https://get.rvm.io |bash -s stable --ruby
   #rvm reinstall ruby
   
-  #Install JRUBY
+  #Install JRUBY##1.7.15
   #rvm::jruby-x.y.z - #install
-  #[ -f "/usr/local/rvm/rubies/jruby-1.7.9/bin/jruby" ] || 
+  #[ -f "/usr/local/rvm/rubies/jruby-1.7.15/bin/jruby" ] || 
   curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby
   #rvm reinstall jruby
   
@@ -469,7 +471,7 @@ dist-upgrade)
   # addressable,builder,launchy,liquid,syntax,maruku,rack,sass,rack-protection,
   # tilt,sinatra,watch,yui-compressor,bonsai,hpricot,mustache,rdiscount,ronn,
   # rails,puma,tire;
-  # curl -L https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
+  # curl -L https://get.rvm.io |bash -s stable --ruby=jruby --gems=rails,puma
   
   #echo "#  rvm::gems::rails-x.x.x - #install"
   #echo "#  rvm::gems::puma-x.x.x - #install"
@@ -499,7 +501,7 @@ dist-upgrade)
   Ubuntu|Debian)
     sudo apt-get -y install python3-minimal;
     alias python=python3
-    python sh/py/hello.py;
+    python ${SH_DIR}/py/hello.py;
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update; #--fix-missing
@@ -507,6 +509,9 @@ dist-upgrade)
     echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
   esac
+
+  #Install PIP3
+  # pip3 list
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
