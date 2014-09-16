@@ -537,7 +537,7 @@ dist-upgrade)
   # pip3 list
 
   #Install UWSGI
-  [ -d /opt/uwsgi ] || mkdir -p /opt/uwsgi
+  [ -d /opt ] || mkdir -p /opt
   cd /opt && sudo -s
   curl http://uwsgi.it/install |bash -s default /opt/uwsgi
   /opt/uwsgi --version
