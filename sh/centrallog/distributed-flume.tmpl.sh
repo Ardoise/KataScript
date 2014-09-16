@@ -389,9 +389,10 @@ upgrade)
 dist-upgrade)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   
-  echo "#  FOR USE HTTP-PROXY";
-  echo "#  export http_proxy='http://proxy.hostname.com:port'";
-  echo "#  export https_proxy='https://proxy.hostname.com:port'";
+  echo "#  TO USE HTTP-PROXY";
+  echo "#  export http_proxy='http://user@yourproxy.com:port'";
+  echo "#  export https_proxy='https://user@yourproxy.com:port'";
+  echo "#  export USEPROXY=1";
   
   # DEPENDS : PLATFORM
   case "$platform" in
@@ -401,7 +402,7 @@ dist-upgrade)
     sudo apt-get dist-upgrade;
     sudo apt-get -y autoremove;
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh || return $?;
+      libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh;
     ;;
   Ubuntu)
     sudo apt-get update; #--fix-missing
@@ -409,11 +410,11 @@ dist-upgrade)
     sudo apt-get dist-upgrade;
     sudo apt-get -y autoremove;
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core openjdk-7-jre-headless sysv-rc-conf gpgv ssh || return $?;
+      libreadline-dev make curl git-core openjdk-7-jre-headless sysv-rc-conf gpgv ssh;
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update; #--fix-missing
-    sudo yum -y install make curl git-core gpg openjdk-7-jre-headless gpgv ssh || return $?;
+    sudo yum -y install make curl git-core gpg openjdk-7-jre-headless gpgv ssh;
     echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
   esac
@@ -427,8 +428,8 @@ dist-upgrade)
   [[ "$(grep -n '.rvm/scripts/rvm' ~/.bash_profile | cut -d':' -f1)" > 0 ]] || echo '. $HOME/.rvm/scripts/rvm' >> ~/.bash_profile;
   rvm requirements;
 
-  echo "If old RVM installed yet";
-  echo "Please do one of the following:";
+  echo "#  If old RVM installed yet";
+  echo "#  Please do one of the following:";
   echo "* 'rvm reload'";
   echo "* open a new shell";
   echo "* 'echo rvm_auto_reload_flag=1 >> ~/.rvmrc' # for auto reload with msg.";
@@ -438,7 +439,7 @@ dist-upgrade)
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
   curl -sSL https://get.rvm.io |bash -s stable --ruby
-  #rvm install ruby
+  #rvm reinstall ruby
   
   #Install JRUBY
   #rvm::jruby-x.y.z - #install
@@ -479,6 +480,8 @@ dist-upgrade)
   case "$platform" in
   Ubuntu|Debian)
     sudo apt-get -y install python3-minimal;
+    alias python=python3
+    python sh/py/hello.py;
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update; #--fix-missing
