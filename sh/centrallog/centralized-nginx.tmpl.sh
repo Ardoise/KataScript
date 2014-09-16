@@ -533,6 +533,7 @@ dist-upgrade)
   #Install PIP3
   sudo pip3 install elasticsearch;
   sudo pip3 install virtualenv;
+  sudo pip3 install virtualenvwrapper;  #passage d'un env à l'autre
   sudo pip3 install urllib3;
   sudo pip3 install pyOpenSSL;
   sudo pip3 install jinja2;
@@ -552,6 +553,62 @@ dist-upgrade)
   echo "#  pip3 list";
   echo "#       list                        List installed packages.";
   # pip3 list
+  
+  #===========
+  # VIRTUALENV
+  #===========
+  #Creation des env. virtualisés pour chaque projet
+  for p in p3; do
+    home=/opt/virtualenv;
+    projet=${p};
+
+    [ -d ${home} ] || mkdir ${home};
+    [ -d ${home} ] && cd ${home};
+
+    virtualenv ${projet} --no-site-packages
+                          #-p /usr/bin/python3
+                          #-p /usr/bin/python2.6
+                          # --distribute
+                          # --no-site-packages      #Isolation/OS
+                          # --system-site-packages  #heritage/OS
+                          # environnement vierge, pas d héritage des libs systèmes, mais seulement accès aux libs standards de Python (os, sys, itertools, json, etc).
+
+    case ${projet} in
+      p3)
+        virtualenv ${projet} -p /usr/bin/python3 --no-site-packages
+        . ${projet}/bin/activate
+
+        echo "*** Appel d'un script !!! ***";
+        echo "${home}/${projet}/bin/python mon_script.py";
+
+        #pip3 install Flask==dev
+        #git clone http://github.com/mitsuhiko/flask.git
+        #python3 __init__.py 
+        pip3 install --user lxml
+        pip3 install --user elasticsearch;
+        pip3 install --user virtualenv;
+        pip3 install --user virtualenvwrapper;  #passage d'un env à l'autre
+        pip3 install --user urllib3;
+        pip3 install --user pyOpenSSL;
+        pip3 install --user jinja2;
+        pip3 install --user flask;
+        pip3 install --user flask-script;
+        pip3 install --user uwsgi;
+        pip3 install --user pycurl;
+        pip3 install --user pyparsing;
+        pip3 install --user pycrypto;
+        pip3 install --user requests;
+        pip3 install --user paramiko;
+        pip3 install --user oauthlib;
+        pip3 install --user html5lib;
+        pip3 install --user httplib2;
+        pip3 install --user markdown;
+        pip3 list
+      ;;
+    esac
+    deactivate
+    sudo chown -R www-data:www-data /opt/virtualenv
+  done
 
   #Install UWSGI
   [ -d /opt ] || mkdir -p /opt
