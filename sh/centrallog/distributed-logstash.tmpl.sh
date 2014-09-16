@@ -499,16 +499,42 @@ dist-upgrade)
     echo "#  detect pip3 : $(pip3 --version 2>&1)";
     echo "#  detect pip2 : $(pip2 --version 2>&1)";
     echo "#  detect pip : $(pip --version 2>&1)";
-    
+
+    #Package Distribution
+    sudo apt-get install -y python3-lxml;
+    sudo apt-get install -y python3-flask python3-flask-script;
+    sudo apt-get install -y python3-jinja2;
+    sudo apt-get install -y uwsgi-plugin-python3;
+    sudo apt-get install -y uwsgi-plugins-all; #OPTION    
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update; #--fix-missing
     sudo yum -y install python3-minimal;
+    sudo yum -y install python3-pip;
     echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
   esac
 
   #Install PIP3
+  sudo pip3 install elasticsearch;
+  sudo pip3 install virtualenv;
+  sudo pip3 install urllib3;
+  sudo pip3 install pyOpenSSL;
+  sudo pip3 install jinja2;
+  sudo pip3 install flask;
+  sudo pip3 install flask-script;
+  sudo pip3 install lxml;
+  sudo pip3 install uwsgi;
+  sudo pip3 install pycurl;
+  sudo pip3 install pyparsing;
+  sudo pip3 install pycrypto;
+  sudo pip3 install requests;
+  sudo pip3 install paramiko;
+  sudo pip3 install oauthlib;
+  sudo pip3 install html5lib;
+  sudo pip3 install httplib2;
+  echo "#  pip3 list";
+  echo "#       list                        List installed packages.";
   # pip3 list
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
