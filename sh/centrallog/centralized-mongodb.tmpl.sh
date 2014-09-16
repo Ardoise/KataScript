@@ -502,7 +502,7 @@ dist-upgrade)
     stop      - stop centrallog::mongodb
     update    - update centrallog::mongodb
     upgrade   - upgrade git-centrallog::mongodb
-    dist-upgrade - upgrade platform with jruby::gems
+    dist-upgrade - upgrade platform with jruby::gems Python3::pip3
 _EOF_
 ;;
 esac

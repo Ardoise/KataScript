@@ -503,7 +503,7 @@ dist-upgrade)
     stop      - stop centrallog::flume
     update    - update centrallog::flume
     upgrade   - upgrade git-centrallog::flume
-    dist-upgrade - upgrade platform with jruby::gems
+    dist-upgrade - upgrade platform with jruby::gems Python3::pip3
 _EOF_
 ;;
 esac

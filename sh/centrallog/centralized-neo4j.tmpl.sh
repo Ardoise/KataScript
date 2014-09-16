@@ -504,7 +504,7 @@ dist-upgrade)
     stop      - stop centrallog::neo4j
     update    - update centrallog::neo4j
     upgrade   - upgrade git-centrallog::neo4j
-    dist-upgrade - upgrade platform with jruby::gems
+    dist-upgrade - upgrade platform with jruby::gems Python3::pip3
 _EOF_
 ;;
 esac

@@ -502,7 +502,7 @@ dist-upgrade)
     stop      - stop centrallog::kibana3
     update    - update centrallog::kibana3
     upgrade   - upgrade git-centrallog::kibana3
-    dist-upgrade - upgrade platform with jruby::gems
+    dist-upgrade - upgrade platform with jruby::gems Python3::pip3
 _EOF_
 ;;
 esac
