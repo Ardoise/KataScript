@@ -482,16 +482,24 @@ dist-upgrade)
   case "$platform" in
   Ubuntu|Debian)
     sudo apt-get -y install python3-minimal;
-    [[ "$(grep -n 'alias python=python3' ${HOME}/.bash_aliases |cut -d':' -f1)" > 0 ]] || echo alias python=python3 >> ${HOME}/.bash_aliases
+    sudo apt-get -y install -y python3;
+    sudo apt-get -y install -y python3-dev;  #bibliothèques avec des extensions en C
+    [[ "$(grep -n 'alias python=python3' ${HOME}/.bash_aliases |cut -d':' -f1)" > 0 ]] || echo "alias python=python3" >> ${HOME}/.bash_aliases;
     echo "#  source ${HOME}/.bash_aliases";
-    . ${HOME}/.bash_aliases
-    msg=$(python2 --version 2>&1);
-    echo "#  detect python2 : ${msg}";
-    msg=$(python3 --version  2>&1);
-    echo "#  detect python3 : ${msg}";
-    msg=$(python --version 2>&1);
-    echo "#  detect python (default) : ${msg}";
+    . ${HOME}/.bash_aliases;
+    echo "#  detect python2 : $(python2 --version 2>&1)";
+    echo "#  detect python3 : $(python3 --version 2>&1)";
+    echo "#  detect python  : $(python  --version 2>&1)";
     python ${SH_DIR}/py/hello.py;
+
+    sudo apt-get -y install -y python3-pip;
+    [[ "$(grep -n 'alias pip=pip3' ${HOME}/.bash_aliases |cut -d':' -f1)" > 0 ]] || echo "alias pip=pip3" >> ${HOME}/.bash_aliases;
+    echo "#  source ${HOME}/.bash_aliases";
+    . ${HOME}/.bash_aliases;
+    echo "#  detect pip3 : $(pip3 --version 2>&1)";
+    echo "#  detect pip2 : $(pip2 --version 2>&1)";
+    echo "#  detect pip : $(pip --version 2>&1)";
+    
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update; #--fix-missing
