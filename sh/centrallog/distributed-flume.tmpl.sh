@@ -582,25 +582,25 @@ dist-upgrade)
         #pip3 install Flask==dev
         #git clone http://github.com/mitsuhiko/flask.git
         #python3 __init__.py 
-        pip3 install --user lxml
-        pip3 install --user elasticsearch;
-        pip3 install --user virtualenv;
-        pip3 install --user virtualenvwrapper;  #passage d'un env à l'autre
-        pip3 install --user urllib3;
-        pip3 install --user pyOpenSSL;
-        pip3 install --user jinja2;
-        pip3 install --user flask;
-        pip3 install --user flask-script;
-        pip3 install --user uwsgi;
-        pip3 install --user pycurl;
-        pip3 install --user pyparsing;
-        pip3 install --user pycrypto;
-        pip3 install --user requests;
-        pip3 install --user paramiko;
-        pip3 install --user oauthlib;
-        pip3 install --user html5lib;
-        pip3 install --user httplib2;
-        pip3 install --user markdown;
+        pip3 install lxml
+        pip3 install elasticsearch;
+        pip3 install virtualenv;
+        pip3 install virtualenvwrapper;  #passage d'un env à l'autre
+        pip3 install urllib3;
+        pip3 install pyOpenSSL;
+        pip3 install jinja2;
+        pip3 install flask;
+        pip3 install flask-script;
+        pip3 install uwsgi;
+        pip3 install pycurl;
+        pip3 install pyparsing;
+        pip3 install pycrypto;
+        pip3 install requests;
+        pip3 install paramiko;
+        pip3 install oauthlib;
+        pip3 install html5lib;
+        pip3 install httplib2;
+        pip3 install markdown;
         pip3 list
       ;;
     esac
