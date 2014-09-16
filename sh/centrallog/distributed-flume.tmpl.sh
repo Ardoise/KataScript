@@ -482,7 +482,14 @@ dist-upgrade)
   case "$platform" in
   Ubuntu|Debian)
     sudo apt-get -y install python3-minimal;
+    cat <<-EOF >>${HOME}/.bash_aliases
     alias python=python3
+EOF
+    . ${HOME}/.bash_aliases
+    echo "# detect python2 : $(python2 --version)";
+    echo "# detect python3 : $(python3 --version)";
+    echo "# source ${HOME}/.bash_aliases";
+    echo "# detect python (default) : $(python --version)";
     python ${SH_DIR}/py/hello.py;
     ;;
   Redhat|Fedora|CentOS)
