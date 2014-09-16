@@ -46,7 +46,7 @@
       status        - status centrallog::<component>
       stop          - stop centrallog::<component>
       upgrade       - upgrade centrallog::<component>
-      dist-upgrade  - upgrade distrib platform jruby::gems
+      dist-upgrade  - upgrade distrib platform jruby::gems python3::pip3
 
 Softwares :
 ==========================
