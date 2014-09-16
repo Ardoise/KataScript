@@ -547,6 +547,7 @@ dist-upgrade)
   sudo pip3 install oauthlib;
   sudo pip3 install html5lib;
   sudo pip3 install httplib2;
+  sudo pip3 install markdown;
   echo "#  pip3 list";
   echo "#       list                        List installed packages.";
   # pip3 list
