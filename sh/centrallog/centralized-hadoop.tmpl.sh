@@ -561,7 +561,7 @@ dist-upgrade)
     stop      - stop centrallog::hadoop
     update    - update centrallog::hadoop
     upgrade   - upgrade git-centrallog::hadoop
-    dist-upgrade - upgrade platform with jruby::gems Python3::pip3
+    dist-upgrade - upgrade platform with jruby::gems python3::pip3
 _EOF_
 ;;
 esac

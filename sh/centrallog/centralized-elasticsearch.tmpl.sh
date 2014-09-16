@@ -579,7 +579,7 @@ dist-upgrade)
     stop      - stop centrallog::elasticsearch
     update    - update centrallog::elasticsearch
     upgrade   - upgrade git-centrallog::elasticsearch
-    dist-upgrade - upgrade platform with jruby::gems Python3::pip3
+    dist-upgrade - upgrade platform with jruby::gems python3::pip3
 _EOF_
 ;;
 esac
