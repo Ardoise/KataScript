@@ -423,18 +423,18 @@ dist-upgrade)
   #rvm::ruby-x.y.z - #install
   [ -f "/usr/local/rvm/scripts/rvm" ] || curl -sSL https://get.rvm.io | bash -s stable;
   [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
-  [ -f "~/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/.profile-rvm;
-  [[ "$(grep -n '.rvm/scripts/rvm' ~/.bash_profile | cut -d':' -f1)" > 0 ]] || echo '. $HOME/.rvm/scripts/rvm' >> ~/.bash_profile;
+  [ -f "${HOME}/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ${HOME}/.profile-rvm;
+  [[ "$(grep -n '.rvm/scripts/rvm' ${HOME}/.bash_profile | cut -d':' -f1)" > 0 ]] || echo '. $HOME/.rvm/scripts/rvm' >> ${HOME}/.bash_profile;
   rvm requirements;
   #Installing required packages: gawk, libyaml-dev, libsqlite3-dev, sqlite3, autoconf, libgdbm-dev, libncurses5-dev, automake, libtool, bison, libffi-dev...
 
 
   echo "#  If old RVM installed yet";
   echo "#  Please do one of the following:";
-  echo "* 'rvm reload'";
-  echo "* open a new shell";
-  echo "* 'echo rvm_auto_reload_flag=1 >> ~/.rvmrc' # for auto reload with msg.";
-  echo "* 'echo rvm_auto_reload_flag=2 >> ~/.rvmrc' # for silent auto reload.";
+  echo "#    'rvm reload'";
+  echo "#    'open a new shell'";
+  echo "#    'echo rvm_auto_reload_flag=1 >> ${HOME}/.rvmrc' # for auto reload with msg.";
+  echo "#    'echo rvm_auto_reload_flag=2 >> ${HOME}/.rvmrc' # for silent auto reload.";
 
   #Install RUBY##2.1.2
   #  rvm-x.y.z - #install
@@ -459,7 +459,7 @@ dist-upgrade)
   # rvm notes
   # rvm list known
   # rvm list
-  [[ "$(grep -n 'progress-bar' ~/.curlrc | cut -d':' -f1)" > 0 ]] || echo progress-bar >> ~/.curlrc
+  [[ "$(grep -n 'progress-bar' ${HOME}/.curlrc |cut -d':' -f1)" > 0 ]] || echo progress-bar >> ${HOME}/.curlrc
 
   #Install GEM RUBIES
   gem update
@@ -481,14 +481,12 @@ dist-upgrade)
   case "$platform" in
   Ubuntu|Debian)
     sudo apt-get -y install python3-minimal;
-    cat <<-EOF >>${HOME}/.bash_aliases
-    alias python=python3
-EOF
+    [[ "$(grep -n 'alias python=python3' ${HOME}/.bash_aliases |cut -d':' -f1)" > 0 ]] || echo alias python=python3 >> ${HOME}/.bash_aliases
+    echo "#  source ${HOME}/.bash_aliases";
     . ${HOME}/.bash_aliases
-    echo "# detect python2 : $(python2 --version)";
-    echo "# detect python3 : $(python3 --version)";
-    echo "# source ${HOME}/.bash_aliases";
-    echo "# detect python (default) : $(python --version)";
+    echo "#  detect python2 : $(python2 --version)";
+    echo "#  detect python3 : $(python3 --version)";
+    echo "#  detect python (default) : $(python --version)";
     python ${SH_DIR}/py/hello.py;
     ;;
   Redhat|Fedora|CentOS)
