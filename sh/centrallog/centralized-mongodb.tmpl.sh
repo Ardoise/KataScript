@@ -536,6 +536,16 @@ dist-upgrade)
   echo "#       list                        List installed packages.";
   # pip3 list
 
+  #======
+  # UWSGI
+  #======
+  [ -d /opt/uwsgi ] || mkdir -p /opt/uwsgi
+  cd /opt && sudo -s
+  curl http://uwsgi.it/install |bash -s default /opt/uwsgi
+  /opt/uwsgi --version
+  chown www-data:www-data /opt/uwsgi
+  rm -rf /opt/uwsgi_latest_from_installer*
+
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
 *)
