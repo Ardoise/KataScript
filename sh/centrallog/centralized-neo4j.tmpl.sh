@@ -7,7 +7,7 @@
 #               deploy neo4j v2.1.2
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
-# Update: last-update: 20140501
+# Update: last-update: 20140915
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -419,9 +419,9 @@ dist-upgrade)
     ;;
   esac
 
-  # Install RVM
-  #  rvm-x.y.z - #install
-  #  rvm::ruby-x.y.z - #install
+  #Install RVM
+  #rvm-x.y.z - #install
+  #rvm::ruby-x.y.z - #install
   [ -f "/usr/local/rvm/scripts/rvm" ] || curl -sSL https://get.rvm.io | bash -s stable;
   [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   [ -f "~/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ~/.profile-rvm;
@@ -435,21 +435,16 @@ dist-upgrade)
   echo "* 'echo rvm_auto_reload_flag=1 >> ~/.rvmrc' # for auto reload with msg.";
   echo "* 'echo rvm_auto_reload_flag=2 >> ~/.rvmrc' # for silent auto reload.";
 
-  # TESTS UNIT SPEC
-  #rvm install ruby-rspec-core;                   # TESTS UNIT SPEC
-  #sudo apt-get install ruby-rspec-core           # TESTS UNIT SPEC
-  #rspec spec/the/test.rb
-
   #Install RUBY
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
-  curl -sSL https://get.rvm.io | bash -s stable --ruby
+  curl -sSL https://get.rvm.io |bash -s stable --ruby
   #rvm install ruby
   
   #Install JRUBY
-  #  rvm::jruby-x.y.z - #install
+  #rvm::jruby-x.y.z - #install
   #[ -f "/usr/local/rvm/rubies/jruby-1.7.9/bin/jruby" ] || 
-  curl -sSL https://get.rvm.io | bash -s stable --ruby=jruby
+  curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby
   #rvm reinstall jruby
   
   # --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,
@@ -465,12 +460,12 @@ dist-upgrade)
   # rvm list
   [[ "$(grep -n 'progress-bar' ~/.curlrc | cut -d':' -f1)" > 0 ]] || echo progress-bar >> ~/.curlrc
 
-  #GEM RUBIES
+  #Install GEM RUBIES
   gem update
   gem install bundler
   #gem install poi2csv
   
-  #Install JSONQuery Tool
+  #Install JSONQuery Parser
   echo "#  jq64-x.x.x - #install"
   curl -OL http://stedolan.github.io/jq/download/linux64/jq;
   echo "#  jq32-x.x.x - #install"
@@ -480,6 +475,18 @@ dist-upgrade)
   #Install Perl
   #perl -MCPAN -e shell
   #cpan[1]> install FCGI
+
+  #Install Python3
+  case "$platform" in
+  Ubuntu|Debian)
+    sudo apt-get -y install python3-minimal;
+    ;;
+  Redhat|Fedora|CentOS)
+    sudo yum update; #--fix-missing
+    sudo yum -y install python3-minimal;
+    echo "#  NOT YET TESTED : your contribution is welc0me";
+    ;;
+  esac
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
