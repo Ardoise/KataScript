@@ -612,7 +612,7 @@ dist-upgrade)
 
   #Install UWSGI
   [ -d /opt ] || mkdir -p /opt
-  cd /opt && sudo -s
+  cd /opt
   curl http://uwsgi.it/install |bash -s default /opt/uwsgi
   /opt/uwsgi --version
   chown www-data:www-data /opt/uwsgi
