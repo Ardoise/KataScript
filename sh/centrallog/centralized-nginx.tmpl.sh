@@ -483,7 +483,6 @@ dist-upgrade)
   #Install Python3
   case "$platform" in
   Ubuntu|Debian)
-    sudo apt-get -y install python3-minimal;
     sudo apt-get -y install -y python3;
     sudo apt-get -y install -y python3-dev;  #bibliothèques avec des extensions en C
     [[ "$(grep -n 'alias python=python3' ${HOME}/.bash_aliases |cut -d':' -f1)" > 0 ]] || echo "alias python=python3" >> ${HOME}/.bash_aliases;
@@ -503,56 +502,88 @@ dist-upgrade)
     echo "#  detect pip : $(pip --version 2>&1)";
 
     #Package Distribution
-    sudo apt-get install -y python3-lxml;
-    sudo apt-get install -y python3-flask python3-flask-script;
-    sudo apt-get install -y python3-jinja2;
-    sudo apt-get install -y uwsgi-plugin-python3;
-    sudo apt-get install -y uwsgi-plugins-all; #OPTION    
+    sudo apt-get install -y uwsgi-plugins-all; #OPTION
     ;;
   Redhat|Fedora|CentOS)
-    sudo yum update; #--fix-missing
-    sudo yum -y install python3-minimal;
-    sudo yum -y install python3-pip;
-    echo "#  NOT YET TESTED : your contribution is welc0me";
+    #==========
+    #PYTHON27
+    #==========
+    cat <<EOF >/etc/yum.repos.d/scl_python27.repo
+[scl_python27]
+name=Python 2.7 Dynamic Software Collection
+baseurl=http://people.redhat.com/bkabrda/python27-rhel-6/
+failovermethod=priority
+enabled=1
+gpgcheck=0
+EOF
+    yum update
+    yum search python27
+    yum install python27
+
+    #==========
+    #PYTHON33
+    #==========
+    cat <<EOF >/etc/yum.repos.d/scl_python33.repo
+[scl_python33]
+name=Python 3.3 Dynamic Software Collection
+baseurl=http://people.redhat.com/bkabrda/python33-rhel-6/
+failovermethod=priority
+enabled=1
+gpgcheck=0
+EOF
+    yum update
+    yum search python33
+    yum install python33
+
+    #==========
+    #RUBY
+    #==========
+    cat <<EOF >/etc/yum.repos.d/scl_ruby193.repo
+[scl_ruby193]
+name=Ruby 1.9.3 Dynamic Software Collection
+baseurl=http://people.redhat.com/bkabrda/ruby193-rhel-6/
+failovermethod=priority
+enabled=1
+gpgcheck=0
+EOF
+    yum update
+    yum search ruby193
+
+    sudo yum update; #--fix-missing --skip-broken
+    sudo yum upgrade;
+    echo "#  sudo yum check";
+    yum install openssl-devel gcc curl wget git git-core python-devel
+    #==========
+    echo "#  install PYTHON3.4 from source"
+    #==========
+    cd /tmp;
+    wget http://www.python.org/ftp/python/3.4.1/Python-3.4.1.tar.xz;
+    tar xJf ./Python-3.4.1.tar.xz;
+    cd ./Python-3.4.1;
+    ./configure;
+    make;
+    make install;
+    #==========
+    echo "#  install PIP from source";
+    #==========
+    cd /tmp;
+    curl -OL https://bootstrap.pypa.io/get-pip.py
+    echo '  python get-pip.py --proxy="[user:passwd@]proxy.server:port"'
+    python get-pip.py
+    pip install virtualenv
+    pip install -U pip
     ;;
   *)
-    curl http://python-distribute.org/distribute_setup.py |sudo python3
-    curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py |sudo python3
-    echo "#  for old install : curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py |sudo python2"
-
     echo "#  Install from source"
     echo "#    wget http://www.python.org/ftp/python/3.4.1/Python-3.4.1.tar.xz";
     echo "#    tar xJf ./Python-3.4.1.tar.xz";
     echo "#    cd ./Python-3.4.1";
     echo "#    ./configure --prefix=/opt/python3.4";
     echo "#    make && sudo make install";
-    echo "#    echo 'alias py=\"/opt/python3.4/bin/python3.4\"' >> ~/.bashrc";
+    echo "#    echo 'alias py=\"/opt/python3.4/bin/python3\"' >> $HOME/.bashrc";
+    echo "#    echo 'alias py=\"/opt/python3.4/bin/python3\"' >> $HOME/.bash_aliases";
   ;;
   esac
-
-  #Install PIP3
-  sudo pip3 install elasticsearch;
-  sudo pip3 install virtualenv;
-  sudo pip3 install virtualenvwrapper;  #passage d'un env à l'autre
-  sudo pip3 install urllib3;
-  sudo pip3 install pyOpenSSL;
-  sudo pip3 install jinja2;
-  sudo pip3 install flask;
-  sudo pip3 install flask-script;
-  sudo pip3 install lxml;
-  sudo pip3 install uwsgi;
-  sudo pip3 install pycurl;
-  sudo pip3 install pyparsing;
-  sudo pip3 install pycrypto;
-  sudo pip3 install requests;
-  sudo pip3 install paramiko;
-  sudo pip3 install oauthlib;
-  sudo pip3 install html5lib;
-  sudo pip3 install httplib2;
-  sudo pip3 install markdown;
-  echo "#  pip3 list";
-  echo "#       list                        List installed packages.";
-  # pip3 list
   
   #===========
   # VIRTUALENV
@@ -565,13 +596,12 @@ dist-upgrade)
     [ -d ${home} ] || mkdir ${home};
     [ -d ${home} ] && cd ${home};
 
-    virtualenv ${projet} --no-site-packages
-                          #-p /usr/bin/python3
-                          #-p /usr/bin/python2.6
-                          # --distribute
-                          # --no-site-packages      #Isolation/OS
-                          # --system-site-packages  #heritage/OS
-                          # environnement vierge, pas d héritage des libs systèmes, mais seulement accès aux libs standards de Python (os, sys, itertools, json, etc).
+    #-p /usr/bin/python3
+    #-p /usr/bin/python2.6
+    # --distribute
+    # --no-site-packages      #Isolation/OS
+    # --system-site-packages  #heritage/OS
+    # environnement vierge, pas d héritage des libs systèmes, mais seulement accès aux libs standards de Python (os, sys, itertools, json, etc).
 
     case ${projet} in
       p3)
@@ -580,10 +610,13 @@ dist-upgrade)
 
         echo "*** Appel d'un script !!! ***";
         echo "${home}/${projet}/bin/python mon_script.py";
+        echo "#  virtualenv=$(virtualenv --version) must be necessary >1.10"
 
         #pip3 install Flask==dev
         #git clone http://github.com/mitsuhiko/flask.git
-        #python3 __init__.py 
+        #python3 __init__.py
+        python --version
+        pip3 --version
         pip3 install lxml
         pip3 install elasticsearch;
         pip3 install virtualenv;
@@ -608,6 +641,15 @@ dist-upgrade)
     esac
     deactivate
     sudo chown -R www-data:www-data /opt/virtualenv
+
+    #==========
+    echo "#  create RUNTIME VIRTUALENV"
+    #==========
+    echo "source /opt/virtualenv/p3/bin/activate";
+    echo "# ... operations ...#";
+    echo "#  deactivate";
+    # TESTED OK
+
   done
 
   #Install UWSGI
