@@ -604,12 +604,12 @@ EOF
 
     case ${projet} in
       p3)
-        virtualenv ${projet} -p /usr/bin/python3 --no-site-packages
+        echo "#  virtualenv=$(virtualenv --version) must be necessary >1.10"
+        virtualenv ${projet} -p $(which python3) --no-site-packages
         . ${projet}/bin/activate
 
         echo "*** Appel d'un script !!! ***";
         echo "${home}/${projet}/bin/python mon_script.py";
-        echo "#  virtualenv=$(virtualenv --version) must be necessary >1.10"
 
         #pip3 install Flask==dev
         #git clone http://github.com/mitsuhiko/flask.git
