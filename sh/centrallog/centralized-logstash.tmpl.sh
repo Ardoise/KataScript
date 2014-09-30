@@ -7,7 +7,7 @@
 #               deploy logstash v1.4.2
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
-# Update: last-update: 20140915
+# Update: last-update: 20140930
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -419,7 +419,7 @@ dist-upgrade)
     ;;
   esac
 
-  #Install RVM##1.25.30
+  #Install RVM##1.25.32
   #rvm-x.y.z - #install
   #rvm::ruby-x.y.z - #install
   [ -f "/usr/local/rvm/scripts/rvm" ] || curl -sSL https://get.rvm.io | bash -s stable;
@@ -437,13 +437,13 @@ dist-upgrade)
   echo "#    'echo rvm_auto_reload_flag=1 >> ${HOME}/.rvmrc' # for auto reload with msg.";
   echo "#    'echo rvm_auto_reload_flag=2 >> ${HOME}/.rvmrc' # for silent auto reload.";
 
-  #Install RUBY##2.1.2
+  #Install RUBY##2.1.3
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
   curl -sSL https://get.rvm.io |bash -s stable --ruby
   #rvm reinstall ruby
   
-  #Install JRUBY##1.7.15
+  #Install JRUBY##1.7.16
   #rvm::jruby-x.y.z - #install
   #[ -f "/usr/local/rvm/rubies/jruby-1.7.15/bin/jruby" ] || 
   curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby
@@ -478,9 +478,9 @@ dist-upgrade)
   #perl -MCPAN -e shell
   #cpan[1]> install FCGI
 
-  #Install Python3
   case "$platform" in
   Ubuntu|Debian)
+    #Install PYTHON3##3.1.4
     sudo apt-get -y install -y python3;
     sudo apt-get -y install -y python3-dev;  #bibliothèques avec des extensions en C
     [[ "$(grep -n 'alias python=python3' ${HOME}/.bash_aliases |cut -d':' -f1)" > 0 ]] || echo "alias python=python3" >> ${HOME}/.bash_aliases;
@@ -503,9 +503,7 @@ dist-upgrade)
     sudo apt-get install -y uwsgi-plugins-all; #OPTION
     ;;
   Redhat|Fedora|CentOS)
-    #==========
-    #PYTHON27
-    #==========
+    #Install PYTHON2##2.7.1
     cat <<EOF >/etc/yum.repos.d/scl_python27.repo
 [scl_python27]
 name=Python 2.7 Dynamic Software Collection
@@ -518,9 +516,7 @@ EOF
     yum search python27
     yum install python27
 
-    #==========
-    #PYTHON33
-    #==========
+    #Install PYTHON3##3.3.1
     cat <<EOF >/etc/yum.repos.d/scl_python33.repo
 [scl_python33]
 name=Python 3.3 Dynamic Software Collection
@@ -533,9 +529,7 @@ EOF
     yum search python33
     yum install python33
 
-    #==========
-    #RUBY
-    #==========
+    #Install RUBY##1.9.1
     cat <<EOF >/etc/yum.repos.d/scl_ruby193.repo
 [scl_ruby193]
 name=Ruby 1.9.3 Dynamic Software Collection
@@ -650,7 +644,7 @@ EOF
 
   done
 
-  #Install UWSGI
+  #Install UWSGI##1.4.6
   [ -d /opt ] || mkdir -p /opt
   cd /opt
   curl http://uwsgi.it/install |bash -s default /opt/uwsgi
