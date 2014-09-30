@@ -9,7 +9,7 @@
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get update
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get install -y curl git-core sudo
 
-### SERVICE RFU Centr@lL0g-1.4.9
+### SERVICE RFU Centr@lL0g-1.4.10
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png?t=1398001932606)
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
@@ -50,7 +50,7 @@
 
 Softwares :
 ==========================
-  - ElasticSearch [http://elasticsearch.org] [v1.3.2]
+  - ElasticSearch [http://elasticsearch.org] [v1.3.3]
   - JBossAS [http://download.jboss.org] [v7.1.1]
   - Kibana3 [http://kibana.org] [v3.1.0]
   - Logstash [http://logstash.net] [v1.4.2-1]
