@@ -609,25 +609,26 @@ EOF
         #python3 __init__.py
         python --version
         pip3 --version
-        pip3 install lxml
-        pip3 install elasticsearch;
-        pip3 install virtualenv;
-        pip3 install virtualenvwrapper;  #passage d'un env à l'autre
-        pip3 install urllib3;
-        pip3 install pyOpenSSL;
-        pip3 install jinja2;
-        pip3 install flask;
-        pip3 install flask-script;
-        pip3 install uwsgi;
-        pip3 install pycurl;
-        pip3 install pyparsing;
-        pip3 install pycrypto;
-        pip3 install requests;
-        pip3 install paramiko;
-        pip3 install oauthlib;
-        pip3 install html5lib;
-        pip3 install httplib2;
-        pip3 install markdown;
+        pip3 install --upgrade lxml
+        pip3 install --upgrade elasticsearch;
+        pip3 install --upgrade virtualenv;
+        pip3 install --upgrade virtualenvwrapper;  #passage d'un env à l'autre
+        pip3 install --upgrade urllib3;
+        pip3 install --upgrade pyOpenSSL;
+        pip3 install --upgrade jinja2;
+        pip3 install --upgrade flask;
+        pip3 install --upgrade flask-script;
+        pip3 install --upgrade uwsgi;
+        pip3 install --upgrade pycurl;
+        pip3 install --upgrade pyparsing;
+        pip3 install --upgrade pycrypto;
+        pip3 install --upgrade requests;
+        pip3 install --upgrade paramiko;
+        pip3 install --upgrade oauthlib;
+        pip3 install --upgrade html5lib;
+        pip3 install --upgrade httplib2;
+        pip3 install --upgrade markdown;
+        pip3 install --upgrade google-api-python-client;
         pip3 list
       ;;
     esac
