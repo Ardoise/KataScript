@@ -647,6 +647,7 @@ EOF
         pip3 install --upgrade httplib2;
         pip3 install --upgrade markdown;
         pip3 install --upgrade google-api-python-client;
+        pip3 install --upgrade python-oauth2;
         pip3 list
       ;;
     esac
