@@ -556,7 +556,7 @@ EOF
     cd ./Python-3.4.1;
     ./configure;
     make;
-    make install;
+    sudo make install;
     #==========
     echo "#  install PIP from source";
     #==========
@@ -564,18 +564,18 @@ EOF
     curl -OL https://bootstrap.pypa.io/get-pip.py
     echo '  python get-pip.py --proxy="[user:passwd@]proxy.server:port"'
     python get-pip.py
-    pip install virtualenv
-    pip install -U pip
+    sudo pip install -U virtualenv
+    sudo pip install -U pip
     ;;
   *)
     echo "#  Install from source"
-    echo "#    wget http://www.python.org/ftp/python/3.4.1/Python-3.4.1.tar.xz";
-    echo "#    tar xJf ./Python-3.4.1.tar.xz";
-    echo "#    cd ./Python-3.4.1";
-    echo "#    ./configure --prefix=/opt/python3.4";
-    echo "#    make && sudo make install";
-    echo "#    echo 'alias py=\"/opt/python3.4/bin/python3\"' >> $HOME/.bashrc";
-    echo "#    echo 'alias py=\"/opt/python3.4/bin/python3\"' >> $HOME/.bash_aliases";
+    wget http://www.python.org/ftp/python/3.4.1/Python-3.4.1.tar.xz;
+    tar xJf ./Python-3.4.1.tar.xz;
+    cd ./Python-3.4.1;
+    ./configure --prefix=/opt/python3.4;
+    make && sudo make install;
+    echo 'alias py=\"/opt/python3.4/bin/python3\"' >> $HOME/.bashrc;
+    echo 'alias py=\"/opt/python3.4/bin/python3\"' >> $HOME/.bash_aliases;
   ;;
   esac
   
@@ -648,13 +648,17 @@ EOF
 
   done
 
-  #Install UWSGI##1.4.6
+  #==========
+  echo "#  create UWSGI##2.0.7"
+  #==========
+  . /opt/virtualenv/p3/bin/activate
   [ -d /opt ] || mkdir -p /opt
   cd /opt
   curl http://uwsgi.it/install |bash -s default /opt/uwsgi
   /opt/uwsgi --version
   chown www-data:www-data /opt/uwsgi
   rm -rf /opt/uwsgi_latest_from_installer*
+  deactivate
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
