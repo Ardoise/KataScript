@@ -4,7 +4,7 @@
 # Provides: centrallog: elasticsearch
 # Short-Description: DEPLOY SERVER: [ELASTICSEARCH]
 # Description:  SERVICE CENTRALLOG: elasticsearch (...)
-#               deploy elasticsearch v1.3.3
+#               deploy elasticsearch v1.3.4
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
 # Update: last-update: 20140930
@@ -166,7 +166,7 @@ install)
 
   # OWNER => DOWNLOADS[]
   downloads=(
-https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.3.deb
+https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.deb
   );
 
   for d in "${downloads[@]}"; do
