@@ -500,6 +500,9 @@ dist-upgrade)
 
     #Package Distribution
     sudo apt-get install -y uwsgi-plugins-all; #OPTION
+
+    #Package Distribution
+    sudo dpkg-reconfigure locales -a
     ;;
   Redhat|Fedora|CentOS)
     #Install PYTHON2##2.7.1
