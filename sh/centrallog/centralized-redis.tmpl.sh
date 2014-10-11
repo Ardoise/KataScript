@@ -427,12 +427,13 @@ dist-upgrade)
   rvm requirements;
   #Installing required packages: gawk, libyaml-dev, libsqlite3-dev, sqlite3, autoconf, libgdbm-dev, libncurses5-dev, automake, libtool, bison, libffi-dev...
 
-  echo "#  If old RVM installed yet";
-  echo "#  Please do one of the following:";
-  echo "#    'rvm reload'";
-  echo "#    'open a new shell'";
-  echo "#    'echo rvm_auto_reload_flag=1 >> ${HOME}/.rvmrc' # for auto reload with msg.";
-  echo "#    'echo rvm_auto_reload_flag=2 >> ${HOME}/.rvmrc' # for silent auto reload.";
+  #DEPRECATED
+  # echo "#  If old RVM installed yet";
+  # echo "#  Please do one of the following:";
+  # echo "#    'rvm reload'";
+  # echo "#    'open a new shell'";
+  # echo "#    'echo rvm_auto_reload_flag=1 >> ${HOME}/.rvmrc' # for auto reload with msg.";
+  # echo "#    'echo rvm_auto_reload_flag=2 >> ${HOME}/.rvmrc' # for silent auto reload.";
 
   echo "#  Install RUBY##2.1.3";
   #  rvm-x.y.z - #install
