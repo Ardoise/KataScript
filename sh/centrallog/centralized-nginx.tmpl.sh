@@ -439,13 +439,13 @@ dist-upgrade)
   echo "#    'echo rvm_auto_reload_flag=1 >> ${HOME}/.rvmrc' # for auto reload with msg.";
   echo "#    'echo rvm_auto_reload_flag=2 >> ${HOME}/.rvmrc' # for silent auto reload.";
 
-  #Install RUBY##2.1.3
+  echo "#  Install RUBY##2.1.3";
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
   curl -sSL https://get.rvm.io |bash -s stable --ruby
   #rvm reinstall ruby
   
-  #Install JRUBY##1.7.16
+  echo "#  Install JRUBY##1.7.16";
   #rvm::jruby-x.y.z - #install
   #[ -f "/usr/local/rvm/rubies/jruby-1.7.15/bin/jruby" ] || 
   curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby
@@ -469,10 +469,10 @@ dist-upgrade)
   gem install bundler
   #gem install poi2csv
   
-  #Install JSONQuery Parser
-  echo "#  jq64-x.x.x - #install"
+  echo "#  Install JSONQuery Parser";
+  echo "#    jq64-x.x.x - #install"
   curl -OL http://stedolan.github.io/jq/download/linux64/jq;
-  echo "#  jq32-x.x.x - #install"
+  echo "#    jq32-x.x.x - #install"
   curl -OL http://stedolan.github.io/jq/download/linux32/jq; mv jq jq32;
   chmod a+x jq* ; mv jq* /usr/bin/;
   
@@ -589,7 +589,7 @@ dist-upgrade)
   python${PYTHON_VERSION} -m pip install -U pip
 
   #==========
-  echo "#  install VIRTUALENV|SETUPTOOLS";
+  echo "#  install VIRTUALENV|SETUPTOOLS with pip";
   #==========
   python${PYTHON_VERSION} -m pip install --upgrade virtualenv
   python${PYTHON_VERSION} -m virtualenv --version
@@ -631,6 +631,8 @@ dist-upgrade)
     #-p /usr/bin/python3.4
     
     #echo "#  install packages#x.y.z"
+    #for this version : ONLY UID=ROOT CAN DO THAT !!!
+    #next version await (--user) used
     case ${project} in
       p3)
         echo "#    virtualenv=$(virtualenv --version) must be necessary >1.10"
@@ -678,27 +680,18 @@ dist-upgrade)
     echo "# ... operations ...#";
     echo "#  deactivate";
     # TESTED OK
-
-    #==========
-    echo "#  install UWSGI#2.0.7 from source [OPTION]"
-    #========== SOURCE
-    cd /opt
-    curl http://uwsgi.it/install |sudo bash -s default /opt/uwsgi
-    /opt/uwsgi --version
-    chown www-data:www-data /opt/uwsgi
-    rm -rf uwsgi_latest_from_installer*
-    chown www-data:www-data /opt/uwsgi; #HTTP SERVER USED
   done
 
   #==========
-  echo "#  create UWSGI##2.0.7"
+  echo "#  install UWSGI#2.0.7 from source [OPTION]"
   #========== SOURCE
   [ -d /opt ] || mkdir -p /opt
   cd /opt
-  curl http://uwsgi.it/install |bash -s default /opt/uwsgi
+  curl http://uwsgi.it/install |sudo bash -s default /opt/uwsgi
   /opt/uwsgi --version
   chown www-data:www-data /opt/uwsgi
-  rm -rf /opt/uwsgi_latest_from_installer*
+  rm -rf uwsgi_latest_from_installer*
+  chown www-data:www-data /opt/uwsgi; #HTTP SERVER USED
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
