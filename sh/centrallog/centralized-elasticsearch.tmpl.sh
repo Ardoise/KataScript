@@ -420,7 +420,7 @@ dist-upgrade)
     sudo apt-get dist-upgrade;
     sudo apt-get -y autoremove;
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh;
+      libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh wget;
     ;;
   Ubuntu)
     sudo apt-get update; #--fix-missing
@@ -428,7 +428,7 @@ dist-upgrade)
     sudo apt-get dist-upgrade;
     sudo apt-get -y autoremove;
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core openjdk-7-jre-headless sysv-rc-conf gpgv ssh;
+      libreadline-dev make curl git-core openjdk-7-jre-headless sysv-rc-conf gpgv ssh libcurl4-openssl-dev wget;
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update; #--fix-missing
@@ -578,9 +578,10 @@ dist-upgrade)
   wget ${PYTHON_URI_SRC}
   tar xJf ./${PYTHON_FILE_SRC};
   cd ./${PYTHON_FILE_SRC%%.tar.xz};
-  ./configure --prefix=/opt/python${PYTHON_VERSION};
-  make && sudo make install;
-  if test `uname -s` = Darwin; then cp python-config.py python-config; fi
+  [ -d /opt/python${PYTHON_VERSION}/lib/python${PYTHON_VERSION} ] || (
+    ./configure --prefix=/opt/python${PYTHON_VERSION};
+    make && sudo make install;
+  )
   #
   #PYTHON_ALIAS='alias py="/opt/python'${PYTHON_VERSION}'/bin/python3";';
   PYTHON_ALIAS='alias py="/opt/python3.4/bin/python3";';
@@ -657,13 +658,15 @@ dist-upgrade)
         for p in pip; do
           python${PYTHON_VERSION} -m ${p:-pip} --version
           python${PYTHON_VERSION} -m ${p:-pip} --list
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade libxml2;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade libxslt;
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade lxml; #BUG
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade elasticsearch;
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade virtualenv;
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade virtualenvwrapper;
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade urllib3;
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pyOpenSSL;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade jinja2;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade jinja2; #.markupsafe .itsdangerous .werkzeug
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade flask;
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade flask-script;
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade uwsgi;
@@ -671,7 +674,7 @@ dist-upgrade)
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pyparsing;
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pycrypto;
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade requests;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade paramiko;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade paramiko; #.ecdsa
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade oauthlib;
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade html5lib;
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade httplib2;
@@ -682,9 +685,10 @@ dist-upgrade)
           python${PYTHON_VERSION} -m ${p:-pip} install --upgrade freeze;
           python${PYTHON_VERSION} -m ${p:-pip} freeze -l;
         done
+
+        deactivate
       ;;
     esac
-    deactivate
     chown -R www-data:www-data /opt/virtualenv
 
     #==========
