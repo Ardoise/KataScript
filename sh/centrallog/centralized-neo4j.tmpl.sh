@@ -479,188 +479,225 @@ dist-upgrade)
   #perl -MCPAN -e shell
   #cpan[1]> install FCGI
 
-  case "$platform" in
-  Ubuntu|Debian)
-    #Install PYTHON3##3.1.4
-    sudo apt-get -y install -y python3;
-    sudo apt-get -y install -y python3-dev;  #bibliothèques avec des extensions en C
-    [[ "$(grep -n 'alias python=python3' ${HOME}/.bash_aliases |cut -d':' -f1)" > 0 ]] || echo "alias python=python3" >> ${HOME}/.bash_aliases;
-    echo "#  source ${HOME}/.bash_aliases";
-    . ${HOME}/.bash_aliases;
-    echo "#  detect python2 : $(python2 --version 2>&1)";
-    echo "#  detect python3 : $(python3 --version 2>&1)";
-    echo "#  detect python  : $(python  --version 2>&1)";
-    python ${SH_DIR}/py/hello.py;
+#   case "$platform" in
+#   Ubuntu|Debian)
+#     #Install PYTHON3##3.1.4
+#     sudo apt-get -y install -y python3;
+#     sudo apt-get -y install -y python3-dev;  #bibliothèques avec des extensions en C
+#     [[ "$(grep -n 'alias python=python3' ${HOME}/.bash_aliases |cut -d':' -f1)" > 0 ]] || echo "alias python=python3" >> ${HOME}/.bash_aliases;
+#     echo "#  source ${HOME}/.bash_aliases";
+#     . ${HOME}/.bash_aliases;
+#     echo "#  detect python2 : $(python2 --version 2>&1)";
+#     echo "#  detect python3 : $(python3 --version 2>&1)";
+#     echo "#  detect python  : $(python  --version 2>&1)";
+#     python ${SH_DIR}/py/hello.py;
 
-    sudo apt-get -y install -y python3-pip;
-    [[ "$(grep -n 'alias pip=pip3' ${HOME}/.bash_aliases |cut -d':' -f1)" > 0 ]] || echo "alias pip=pip3" >> ${HOME}/.bash_aliases;
-    echo "#  source ${HOME}/.bash_aliases";
-    . ${HOME}/.bash_aliases;
-    echo "#  detect pip3 : $(pip3 --version 2>&1)";
-    echo "#  detect pip2 : $(pip2 --version 2>&1)";
-    echo "#  detect pip : $(pip --version 2>&1)";
+#     sudo apt-get -y install -y python3-pip;
+#     [[ "$(grep -n 'alias pip=pip3' ${HOME}/.bash_aliases |cut -d':' -f1)" > 0 ]] || echo "alias pip=pip3" >> ${HOME}/.bash_aliases;
+#     echo "#  source ${HOME}/.bash_aliases";
+#     . ${HOME}/.bash_aliases;
+#     echo "#  detect pip3 : $(pip3 --version 2>&1)";
+#     echo "#  detect pip2 : $(pip2 --version 2>&1)";
+#     echo "#  detect pip : $(pip --version 2>&1)";
 
-    #Package Distribution
-    sudo apt-get install -y uwsgi-plugins-all; #OPTION
+#     #Package Distribution
+#     sudo apt-get install -y uwsgi-plugins-all; #OPTION
 
-    #Package Distribution
-    sudo dpkg-reconfigure locales -a
-    ;;
-  Redhat|Fedora|CentOS)
-    #Install PYTHON2##2.7.1
-    cat <<EOF >/etc/yum.repos.d/scl_python27.repo
-[scl_python27]
-name=Python 2.7 Dynamic Software Collection
-baseurl=http://people.redhat.com/bkabrda/python27-rhel-6/
-failovermethod=priority
-enabled=1
-gpgcheck=0
-EOF
-    yum update
-    yum search python27
-    yum install python27
+#     #Package Distribution
+#     echo "sudo dpkg-reconfigure locales -a";
+#     ;;
+#   Redhat|Fedora|CentOS)
+#     #Install PYTHON2##2.7.1
+#     cat <<EOF >/etc/yum.repos.d/scl_python27.repo
+# [scl_python27]
+# name=Python 2.7 Dynamic Software Collection
+# baseurl=http://people.redhat.com/bkabrda/python27-rhel-6/
+# failovermethod=priority
+# enabled=1
+# gpgcheck=0
+# EOF
+#     yum update
+#     yum search python27
+#     yum install python27
 
-    #Install PYTHON3##3.3.1
-    cat <<EOF >/etc/yum.repos.d/scl_python33.repo
-[scl_python33]
-name=Python 3.3 Dynamic Software Collection
-baseurl=http://people.redhat.com/bkabrda/python33-rhel-6/
-failovermethod=priority
-enabled=1
-gpgcheck=0
-EOF
-    yum update
-    yum search python33
-    yum install python33
+#     #Install PYTHON3##3.3.1
+#     cat <<EOF >/etc/yum.repos.d/scl_python33.repo
+# [scl_python33]
+# name=Python 3.3 Dynamic Software Collection
+# baseurl=http://people.redhat.com/bkabrda/python33-rhel-6/
+# failovermethod=priority
+# enabled=1
+# gpgcheck=0
+# EOF
+#     yum update
+#     yum search python33
+#     yum install python33
 
-    #Install RUBY##1.9.1
-    cat <<EOF >/etc/yum.repos.d/scl_ruby193.repo
-[scl_ruby193]
-name=Ruby 1.9.3 Dynamic Software Collection
-baseurl=http://people.redhat.com/bkabrda/ruby193-rhel-6/
-failovermethod=priority
-enabled=1
-gpgcheck=0
-EOF
-    yum update
-    yum search ruby193
+#     #Install RUBY##1.9.1
+#     cat <<EOF >/etc/yum.repos.d/scl_ruby193.repo
+# [scl_ruby193]
+# name=Ruby 1.9.3 Dynamic Software Collection
+# baseurl=http://people.redhat.com/bkabrda/ruby193-rhel-6/
+# failovermethod=priority
+# enabled=1
+# gpgcheck=0
+# EOF
+#     yum update
+#     yum search ruby193
 
-    sudo yum update; #--fix-missing --skip-broken
-    sudo yum upgrade;
-    echo "#  sudo yum check";
-    yum install openssl-devel gcc curl wget git git-core python-devel
-    #==========
-    echo "#  install PYTHON3.4 from source"
-    #==========
-    cd /tmp;
-    wget http://www.python.org/ftp/python/3.4.1/Python-3.4.1.tar.xz;
-    tar xJf ./Python-3.4.1.tar.xz;
-    cd ./Python-3.4.1;
-    ./configure;
-    make;
-    sudo make install;
-    #==========
-    echo "#  install PIP from source";
-    #==========
-    cd /tmp;
-    curl -OL https://bootstrap.pypa.io/get-pip.py
-    echo '  python get-pip.py --proxy="[user:passwd@]proxy.server:port"'
-    python get-pip.py
-    sudo pip install -U virtualenv
-    sudo pip install -U pip
-    ;;
-  *)
-    echo "#  Install from source"
-    wget http://www.python.org/ftp/python/3.4.1/Python-3.4.1.tar.xz;
-    tar xJf ./Python-3.4.1.tar.xz;
-    cd ./Python-3.4.1;
-    ./configure --prefix=/opt/python3.4;
-    make && sudo make install;
-    echo 'alias py=\"/opt/python3.4/bin/python3\"' >> $HOME/.bashrc;
-    echo 'alias py=\"/opt/python3.4/bin/python3\"' >> $HOME/.bash_aliases;
-  ;;
-  esac
+#     sudo yum update; #--fix-missing --skip-broken
+#     sudo yum upgrade;
+#     echo "#  sudo yum check";
+#     yum install openssl-devel gcc curl wget git git-core python-devel
+#     ;;
+#   esac
   
-  #===========
-  # VIRTUALENV
-  #===========
-  #Creation des env. virtualisés pour chaque projet
+  #==========
+  echo "#  install PYTHON3#3.4.2 from source"
+  #========== SOURCE
+  PYTHON_VERSION=3.4;
+  PYTHON_VERSION_SRC=${PYTHON_VERSION}.2;
+  PYTHON_FILE_SRC="Python-${PYTHON_VERSION_SRC}.tar.xz";
+  PYTHON_URI_SRC=https://www.python.org/ftp/python/${PYTHON_VERSION_SRC}/${PYTHON_FILE_SRC};
+  cd /tmp
+  wget ${PYTHON_URI_SRC}
+  tar xJf ./${PYTHON_FILE_SRC};
+  cd ./${PYTHON_FILE_SRC%%.tar.xz};
+  ./configure --prefix=/opt/python${PYTHON_VERSION};
+  make && sudo make install;
+  if test `uname -s` = Darwin; then cp python-config.py python-config; fi
+  #
+  #PYTHON_ALIAS='alias py="/opt/python'${PYTHON_VERSION}'/bin/python3";';
+  PYTHON_ALIAS='alias py="/opt/python3.4/bin/python3";';
+  for a in ${HOME}/.bashrc ${HOME}/.bash_aliases; do
+    sed 's~alias py=.*~~' ${a} >${a}.kstmp; #previous if exist
+    echo ${PYTHON_ALIAS} >> ${a}.kstmp;
+    mv ${a}.kstmp ${a};
+    . ${a};
+  done
+  echo "#    use python with python${PYTHON_VERSION}";
+
+  #==========
+  echo "#  install PIP#1.5.4 from source [RECOMMENDED]";
+  #==========
+  cd /tmp;
+  curl -OL https://bootstrap.pypa.io/get-pip.py
+  echo '#    python get-pip.py --proxy="[user:passwd@]proxy.server:port"'
+  python${PYTHON_VERSION} get-pip.py
+  python${PYTHON_VERSION} -m pip --version
+  python${PYTHON_VERSION} -m pip install -U pip
+
+  #==========
+  echo "#  install VIRTUALENV|SETUPTOOLS";
+  #==========
+  python${PYTHON_VERSION} -m pip install --upgrade virtualenv
+  python${PYTHON_VERSION} -m virtualenv --version
+  python${PYTHON_VERSION} -m pip install --upgrade setuptools
+
+  #python2   -m pip install SomePackage  # default Python 2
+  #python2.7 -m pip install SomePackage  # specifically Python 2.7
+  #python3   -m pip install SomePackage  # default Python 3
+  #python3.4 -m pip install SomePackage  # specifically Python 3.4
+
+  #==========
+  #echo "#  install VIRTUALENV#1.9.7 from source"
+  #========== SOURCE
+  [ -d /opt/virtualenv ] || mkdir -p /opt/virtualenv
+  cd /tmp
+  #curl -O https://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.9.tar.gz
+  #tar xvfz virtualenv-1.9.tar.gz
+  #sudo mv virtualenv-1.9 /opt/virtualenv
+  cd /opt/virtualenv;
+  #echo "#     To install globally from source:"
+  #python${PYTHON_VERSION} setup.py install
+  #echo "#     To use locally from source:"
+  #installation d'1 env. /opt/virtual/p3
+  #sudo $(which python3) virtualenv.py p3
+
+  #create env python
   for p in p3; do
     home=/opt/virtualenv;
-    projet=${p};
+    project=${p};
 
-    [ -d ${home} ] || mkdir ${home};
+    [ -d ${home} ] || mkdir -p ${home};
     [ -d ${home} ] && cd ${home};
 
+    export VIRTUALENV_PYTHON=/opt/python${PYTHON_VERSION}/bin/python${PYTHON_VERSION}
+    
+    #-p /usr/bin/python2
+    #-p /usr/bin/python2.7
     #-p /usr/bin/python3
-    #-p /usr/bin/python2.6
-    # --distribute
-    # --no-site-packages      #Isolation/OS
-    # --system-site-packages  #heritage/OS
-    # environnement vierge, pas d héritage des libs systèmes, mais seulement accès aux libs standards de Python (os, sys, itertools, json, etc).
-
-    case ${projet} in
+    #-p /usr/bin/python3.4
+    
+    #echo "#  install packages#x.y.z"
+    case ${project} in
       p3)
-        echo "#  virtualenv=$(virtualenv --version) must be necessary >1.10"
-        virtualenv ${projet} -p $(which python3) --no-site-packages
-        . ${projet}/bin/activate
+        echo "#    virtualenv=$(virtualenv --version) must be necessary >1.10"
+        sudo virtualenv -p python${PYTHON_VERSION} /opt/virtualenv/${project}
+        echo "#    source /opt/virtualenv/${project}/bin/activate";
+        . /opt/virtualenv/${project}/bin/activate
 
-        echo "*** Appel d'un script !!! ***";
-        echo "${home}/${projet}/bin/python mon_script.py";
-
-        #pip3 install Flask==dev
-        #git clone http://github.com/mitsuhiko/flask.git
-        #python3 __init__.py
-        python --version
-        pip3 --version
-        pip3 install --upgrade lxml
-        pip3 install --upgrade elasticsearch;
-        pip3 install --upgrade virtualenv;
-        pip3 install --upgrade virtualenvwrapper;  #passage d'un env à l'autre
-        pip3 install --upgrade urllib3;
-        pip3 install --upgrade pyOpenSSL;
-        pip3 install --upgrade jinja2;
-        pip3 install --upgrade flask;
-        pip3 install --upgrade flask-script;
-        pip3 install --upgrade uwsgi;
-        pip3 install --upgrade pycurl;
-        pip3 install --upgrade pyparsing;
-        pip3 install --upgrade pycrypto;
-        pip3 install --upgrade requests;
-        pip3 install --upgrade paramiko;
-        pip3 install --upgrade oauthlib;
-        pip3 install --upgrade html5lib;
-        pip3 install --upgrade httplib2;
-        pip3 install --upgrade markdown;
-        pip3 install --upgrade google-api-python-client;
-        pip3 install --upgrade python-oauth2;
-        pip3 list
+        for p in pip; do
+          python${PYTHON_VERSION} -m ${p:-pip} --version
+          python${PYTHON_VERSION} -m ${p:-pip} --list
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade lxml; #BUG
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade elasticsearch;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade virtualenv;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade virtualenvwrapper;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade urllib3;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pyOpenSSL;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade jinja2;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade flask;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade flask-script;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade uwsgi;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pycurl; #BUG
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pyparsing;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pycrypto;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade requests;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade paramiko;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade oauthlib;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade html5lib;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade httplib2;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade markdown;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade google-api-python-client;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade python-oauth2;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pip-tools;
+          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade freeze;
+          python${PYTHON_VERSION} -m ${p:-pip} freeze -l;
+        done
       ;;
     esac
     deactivate
-    sudo chown -R www-data:www-data /opt/virtualenv
+    chown -R www-data:www-data /opt/virtualenv
 
     #==========
-    echo "#  create RUNTIME VIRTUALENV"
+    echo "#  to USE RUNTIME VIRTUALENV"
     #==========
     echo "source /opt/virtualenv/p3/bin/activate";
     echo "# ... operations ...#";
     echo "#  deactivate";
     # TESTED OK
 
+    #==========
+    echo "#  install UWSGI#2.0.7 from source [OPTION]"
+    #========== SOURCE
+    cd /opt
+    curl http://uwsgi.it/install |sudo bash -s default /opt/uwsgi
+    /opt/uwsgi --version
+    chown www-data:www-data /opt/uwsgi
+    rm -rf uwsgi_latest_from_installer*
+    chown www-data:www-data /opt/uwsgi; #HTTP SERVER USED
   done
 
   #==========
   echo "#  create UWSGI##2.0.7"
-  #==========
-  . /opt/virtualenv/p3/bin/activate
+  #========== SOURCE
   [ -d /opt ] || mkdir -p /opt
   cd /opt
   curl http://uwsgi.it/install |bash -s default /opt/uwsgi
   /opt/uwsgi --version
   chown www-data:www-data /opt/uwsgi
   rm -rf /opt/uwsgi_latest_from_installer*
-  deactivate
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
