@@ -416,7 +416,8 @@ dist-upgrade)
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update; #--fix-missing
-    sudo yum -y install make curl git-core gpg openjdk-7-jre-headless gpgv ssh;
+    sudo yum -y install make curl git-core gpg openjdk-7-jre-headless gpgv ssh \
+      openssl-devel gcc curl wget git python-devel;
     echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
   esac
@@ -481,35 +482,27 @@ dist-upgrade)
   #perl -MCPAN -e shell
   #cpan[1]> install FCGI
 
-#   case "$platform" in
-#   Ubuntu|Debian)
-#     #Install PYTHON3##3.1.4
-#     sudo apt-get -y install -y python3;
-#     sudo apt-get -y install -y python3-dev;  #bibliothèques avec des extensions en C
-#     [[ "$(grep -n 'alias python=python3' ${HOME}/.bash_aliases |cut -d':' -f1)" > 0 ]] || echo "alias python=python3" >> ${HOME}/.bash_aliases;
-#     echo "#  source ${HOME}/.bash_aliases";
-#     . ${HOME}/.bash_aliases;
-#     echo "#  detect python2 : $(python2 --version 2>&1)";
-#     echo "#  detect python3 : $(python3 --version 2>&1)";
-#     echo "#  detect python  : $(python  --version 2>&1)";
-#     python ${SH_DIR}/py/hello.py;
+   case "$platform" in
+   Ubuntu|Debian)
+     #Install PYTHON3##3.1.4
+     sudo apt-get -y install -y python3;
+     sudo apt-get -y install -y python3-dev;  #bibliothèques avec des extensions en C
+     sudo apt-get -y install -y python3-pip;
 
-#     sudo apt-get -y install -y python3-pip;
-#     [[ "$(grep -n 'alias pip=pip3' ${HOME}/.bash_aliases |cut -d':' -f1)" > 0 ]] || echo "alias pip=pip3" >> ${HOME}/.bash_aliases;
-#     echo "#  source ${HOME}/.bash_aliases";
-#     . ${HOME}/.bash_aliases;
-#     echo "#  detect pip3 : $(pip3 --version 2>&1)";
-#     echo "#  detect pip2 : $(pip2 --version 2>&1)";
-#     echo "#  detect pip : $(pip --version 2>&1)";
+     echo "#  detect python2 : $(python2 --version 2>&1)";
+     echo "#  detect python3 : $(python3 --version 2>&1)";
+     echo "#  detect python  : $(python  --version 2>&1)";  
+     echo "#  detect pip : $(pip --version 2>&1)";
+     python3 ${SH_DIR}/py/hello.py;
 
-#     #Package Distribution
-#     sudo apt-get install -y uwsgi-plugins-all; #OPTION
+     #Package Distribution
+     sudo apt-get install -y uwsgi-plugins-all; #OPTION
 
-#     #Package Distribution
-#     echo "sudo dpkg-reconfigure locales -a";
-#     ;;
-#   Redhat|Fedora|CentOS)
-#     #Install PYTHON2##2.7.1
+     #Package Distribution
+     echo "sudo dpkg-reconfigure locales -a";
+     ;;
+   Redhat|Fedora|CentOS)
+     #Install PYTHON2##2.7.1
 #     cat <<EOF >/etc/yum.repos.d/scl_python27.repo
 # [scl_python27]
 # name=Python 2.7 Dynamic Software Collection
@@ -518,9 +511,9 @@ dist-upgrade)
 # enabled=1
 # gpgcheck=0
 # EOF
-#     yum update
-#     yum search python27
-#     yum install python27
+     yum update
+     yum search python27
+     echo "#     yum install python27"
 
 #     #Install PYTHON3##3.3.1
 #     cat <<EOF >/etc/yum.repos.d/scl_python33.repo
@@ -531,9 +524,9 @@ dist-upgrade)
 # enabled=1
 # gpgcheck=0
 # EOF
-#     yum update
-#     yum search python33
-#     yum install python33
+     yum update
+     yum search python33
+     echo "#     yum install python33"
 
 #     #Install RUBY##1.9.1
 #     cat <<EOF >/etc/yum.repos.d/scl_ruby193.repo
@@ -544,15 +537,10 @@ dist-upgrade)
 # enabled=1
 # gpgcheck=0
 # EOF
-#     yum update
-#     yum search ruby193
-
-#     sudo yum update; #--fix-missing --skip-broken
-#     sudo yum upgrade;
-#     echo "#  sudo yum check";
-#     yum install openssl-devel gcc curl wget git git-core python-devel
-#     ;;
-#   esac
+     yum update
+     yum search ruby193
+     ;;
+   esac
   
   #==========
   echo "#  install PYTHON3#3.4.2 from source"
@@ -617,15 +605,12 @@ dist-upgrade)
   #installation d'1 env. /opt/virtual/p3
   #sudo $(which python3) virtualenv.py p3
 
-  #create env python
-  for p in p3; do
+  for p in p3 p34; do
     home=/opt/virtualenv;
     project=${p};
 
     [ -d ${home} ] || mkdir -p ${home};
     [ -d ${home} ] && cd ${home};
-
-    export VIRTUALENV_PYTHON=/opt/python${PYTHON_VERSION}/bin/python${PYTHON_VERSION}
     
     #-p /usr/bin/python2
     #-p /usr/bin/python2.7
@@ -635,47 +620,59 @@ dist-upgrade)
     #echo "#  install packages#x.y.z"
     #for this version : ONLY UID=ROOT CAN DO THAT !!!
     #next version await (--user) used
+
+    echo "#    virtualenv=$(virtualenv --version) must be necessary >1.10"
     case ${project} in
       p3)
-        echo "#    virtualenv=$(virtualenv --version) must be necessary >1.10"
+        eval VIRTUALENV_PYTHON=$(which python3);
+        export VIRTUALENV_PYTHON;
+        echo "#    create env Python3 with VIRTUALENV_PYTHON=${VIRTUALENV_PYTHON}"
+        #PACKAGE SYSTEM DISTRIB
         sudo virtualenv -p python${PYTHON_VERSION} /opt/virtualenv/${project}
         echo "#    source /opt/virtualenv/${project}/bin/activate";
         . /opt/virtualenv/${project}/bin/activate
-
-        for p in pip; do
-          python${PYTHON_VERSION} -m ${p:-pip} --version
-          python${PYTHON_VERSION} -m ${p:-pip} --list
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade libxml2;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade libxslt;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade lxml; #BUG
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade elasticsearch;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade virtualenv;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade virtualenvwrapper;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade urllib3;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pyOpenSSL;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade jinja2; #.markupsafe .itsdangerous .werkzeug
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade flask;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade flask-script;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade uwsgi;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pycurl; #BUG
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pyparsing;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pycrypto;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade requests;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade paramiko; #.ecdsa
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade oauthlib;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade html5lib;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade httplib2;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade markdown;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade google-api-python-client;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade python-oauth2;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade pip-tools;
-          python${PYTHON_VERSION} -m ${p:-pip} install --upgrade freeze;
-          python${PYTHON_VERSION} -m ${p:-pip} freeze -l;
-        done
-
-        deactivate
+      ;;
+      p34)
+        #PACKAGE LOCAL
+        export VIRTUALENV_PYTHON=/opt/python${PYTHON_VERSION}/bin/python${PYTHON_VERSION};
+        echo "#    create env Python3 with VIRTUALENV_PYTHON=${VIRTUALENV_PYTHON}"
+        sudo virtualenv -p /opt/python${PYTHON_VERSION}/bin/python${PYTHON_VERSION} /opt/virtualenv/${project}
+        echo "#    source /opt/virtualenv/${project}/bin/activate";
+        . /opt/virtualenv/${project}/bin/activate
       ;;
     esac
+    
+    python${PYTHON_VERSION} -m pip --version
+    python${PYTHON_VERSION} -m pip --list
+    python${PYTHON_VERSION} -m pip install --upgrade libxml2;
+    python${PYTHON_VERSION} -m pip install --upgrade libxslt;
+    python${PYTHON_VERSION} -m pip install --upgrade lxml; #BUG
+    python${PYTHON_VERSION} -m pip install --upgrade elasticsearch;
+    python${PYTHON_VERSION} -m pip install --upgrade virtualenv;
+    python${PYTHON_VERSION} -m pip install --upgrade virtualenvwrapper;
+    python${PYTHON_VERSION} -m pip install --upgrade urllib3;
+    python${PYTHON_VERSION} -m pip install --upgrade pyOpenSSL;
+    python${PYTHON_VERSION} -m pip install --upgrade jinja2; #.markupsafe .itsdangerous .werkzeug
+    python${PYTHON_VERSION} -m pip install --upgrade flask;
+    python${PYTHON_VERSION} -m pip install --upgrade flask-script;
+    python${PYTHON_VERSION} -m pip install --upgrade uwsgi;
+    python${PYTHON_VERSION} -m pip install --upgrade pycurl; #BUG
+    python${PYTHON_VERSION} -m pip install --upgrade pyparsing;
+    python${PYTHON_VERSION} -m pip install --upgrade pycrypto;
+    python${PYTHON_VERSION} -m pip install --upgrade requests;
+    python${PYTHON_VERSION} -m pip install --upgrade paramiko; #.ecdsa
+    python${PYTHON_VERSION} -m pip install --upgrade oauthlib;
+    python${PYTHON_VERSION} -m pip install --upgrade html5lib;
+    python${PYTHON_VERSION} -m pip install --upgrade httplib2;
+    python${PYTHON_VERSION} -m pip install --upgrade markdown;
+    python${PYTHON_VERSION} -m pip install --upgrade google-api-python-client;
+    python${PYTHON_VERSION} -m pip install --upgrade python-oauth2;
+    python${PYTHON_VERSION} -m pip install --upgrade pip-tools;
+    python${PYTHON_VERSION} -m pip install --upgrade freeze;
+    python${PYTHON_VERSION} -m pip freeze -l;
+
+    deactivate
+
     chown -R www-data:www-data /opt/virtualenv
 
     #==========
