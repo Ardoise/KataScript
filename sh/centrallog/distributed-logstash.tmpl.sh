@@ -424,11 +424,9 @@ dist-upgrade)
   #rvm::ruby-x.y.z - #install
   [ -f "/usr/local/rvm/scripts/rvm" ] || curl -sSL https://get.rvm.io | bash -s stable;
   [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
-  [ -f "${HOME}/.profile-rvm" ] || sudo cp /usr/local/rvm/scripts/rvm ${HOME}/.profile-rvm;
-  [[ "$(grep -n '.rvm/scripts/rvm' ${HOME}/.bash_profile | cut -d':' -f1)" > 0 ]] || echo '. $HOME/.rvm/scripts/rvm' >> ${HOME}/.bash_profile;
+  [[ "$(grep -n 'rvm/scripts/rvm' ${HOME}/.bash_profile |cut -d':' -f1)" > 0 ]] || echo '. /usr/local/rvm/scripts/rvm' >> ${HOME}/.bash_profile;
   rvm requirements;
   #Installing required packages: gawk, libyaml-dev, libsqlite3-dev, sqlite3, autoconf, libgdbm-dev, libncurses5-dev, automake, libtool, bison, libffi-dev...
-
 
   echo "#  If old RVM installed yet";
   echo "#  Please do one of the following:";
