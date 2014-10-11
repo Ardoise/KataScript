@@ -421,10 +421,12 @@ dist-upgrade)
     ;;
   esac
 
-  echo "#  Install RVM##1.25.33";
   #rvm-x.y.z - #install
   #rvm::ruby-x.y.z - #install
-  [ -f "/usr/local/rvm/scripts/rvm" ] || curl -sSL https://get.rvm.io | bash -s stable;
+  [ -f "/usr/local/rvm/scripts/rvm" ] || (
+    echo "#  Install RVM##1.25.33";
+    curl -sSL https://get.rvm.io | bash -s stable;
+  )
   [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   [[ "$(grep -n 'rvm/scripts/rvm' ${HOME}/.bash_profile |cut -d':' -f1)" > 0 ]] || echo '. /usr/local/rvm/scripts/rvm' >> ${HOME}/.bash_profile;
   rvm requirements;
