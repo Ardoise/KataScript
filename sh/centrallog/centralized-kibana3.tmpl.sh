@@ -7,7 +7,7 @@
 #               deploy kibana3 v3.1.1
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
-# Update: last-update: 20140930
+# Update: last-update: 20141012
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
