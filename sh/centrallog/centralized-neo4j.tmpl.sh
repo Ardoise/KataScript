@@ -411,12 +411,12 @@ dist-upgrade)
     sudo apt-get dist-upgrade;
     sudo apt-get -y autoremove;
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core openjdk-7-jre-headless sysv-rc-conf gpgv ssh libcurl4-openssl-dev wget;
+      libreadline-dev make curl git-core openjdk-7-jre-headless sysv-rc-conf gpgv ssh libcurl4-openssl-dev wget realpath;
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update; #--fix-missing
     sudo yum -y install make curl git-core gpg openjdk-7-jre-headless gpgv ssh \
-      openssl-devel gcc curl wget git python-devel;
+      openssl-devel gcc curl wget git python-devel realpath;
     echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
   esac
@@ -623,7 +623,7 @@ dist-upgrade)
     echo "#    virtualenv=$(virtualenv --version) must be necessary >1.10"
     case ${project} in
       p3)
-        eval VIRTUALENV_PYTHON=$(which python3);
+        eval VIRTUALENV_PYTHON=$(realpath $(which python3));
         export VIRTUALENV_PYTHON;
         echo "#    create env Python3 with VIRTUALENV_PYTHON=${VIRTUALENV_PYTHON}"
         #PACKAGE SYSTEM DISTRIB
@@ -642,7 +642,7 @@ dist-upgrade)
     esac
     
     python${PYTHON_VERSION} -m pip --version
-    python${PYTHON_VERSION} -m pip --list
+    python${PYTHON_VERSION} -m pip list
     python${PYTHON_VERSION} -m pip install --upgrade libxml2;
     python${PYTHON_VERSION} -m pip install --upgrade libxslt;
     python${PYTHON_VERSION} -m pip install --upgrade lxml; #BUG
