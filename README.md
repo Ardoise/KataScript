@@ -25,6 +25,7 @@
     $ sudo bash $clone_dir/sh/centrallog/centralized-logstash.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-redis.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-elasticsearch.tmpl.sh install;
+    $ sudo bash $clone_dir/sh/centrallog/centralized-kibana4.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-kibana3.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-mongodb.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-hadoop.tmpl.sh install;
@@ -64,8 +65,8 @@ Softwares :
   - Flume [http://flume.apache.org] [v1.5.0][working]
   - Hadoop [http://hadoop.apache.org] [v2.4.1][working]
   - ...
-  - Couchbase [http://www.couchbase.com/] [v2.2.0][as soon]
-  - CouchDB [http://couchdb.apache.org/] [v1.5.1][as soon]
+  - Couchbase [http://www.couchbase.com/] [v3.0.1][as soon]
+  - CouchDB [http://couchdb.apache.org/] [v1.6.1][as soon]
   - Kafka [http://couchdb.apache.org/] [v0.8.1-1][as soon]
 
 Objectifs : + vs - : Practice 
