@@ -4,10 +4,10 @@
 # Provides: centrallog: kibana3
 # Short-Description: DEPLOY SERVER: [KIBANA3]
 # Description:  SERVICE CENTRALLOG: kibana3 (...)
-#               deploy kibana3 v3.1.1
+#               deploy kibana3 v3.1.2
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
-# Update: last-update: 20141012
+# Update: last-update: 20141215
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -166,7 +166,7 @@ install)
 
   # OWNER => DOWNLOADS[]
   downloads=(
-https://download.elasticsearch.org/kibana/kibana/kibana-3.1.1.tar.gz
+https://download.elasticsearch.org/kibana/kibana/kibana-3.1.2.tar.gz
   );
 
   for d in "${downloads[@]}"; do

@@ -4,10 +4,10 @@
 # Provides: centrallog: centrallog
 # Short-Description: DEPLOY SERVER: [CENTRALLOG]
 # Description:  SERVICE CENTRALLOG: centrallog (...)
-#               deploy centrallog v1.4.10
+#               deploy centrallog v1.4.12
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2014 "eTopaze"
-# Update: last-update: 20141012
+# Update: last-update: 20141215
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
