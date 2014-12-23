@@ -51,10 +51,10 @@
 
 Softwares :
 ==========================
-  - ElasticSearch [http://elasticsearch.org] [v1.4.1]
+  - ElasticSearch [http://elasticsearch.org] [v1.4.2]
   - JBossAS [http://download.jboss.org] [v7.1.1]
   - Kibana3 [http://kibana.org] [v3.1.2]
-  - Kibana4 [http://kibana.org] [v4.b.2]
+  - Kibana4 [http://kibana.org] [v4.b.3]
   - Logstash [http://logstash.net] [v1.4.2-1]
   - MongoDB [http://www.mongodb.org/] [v2.6.3]
   - Neo4J [http://www.neo4j.org] [v2.1.2]
