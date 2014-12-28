@@ -124,62 +124,62 @@
     },
     "centrallog": {
       "id": "centrallog",
-      "platform": "centralized",
+      "layer": "centralized",
       "software": "centrallog"
     },
     "split": {
       "id": "split",
-      "platform": "centralized",
+      "layer": "centralized",
       "software": "logstash"
     },
     "event": {
       "id": "event",
-      "platform": "centralized",
+      "layer": "centralized",
       "software": "redis"
     },
     "search": {
       "id": "search",
-      "platform": "centralized",
+      "layer": "centralized",
       "software": "elasticsearch"
     },
     "shipper": {
       "id": "shipper",
-      "platform": "distributed",
+      "layer": "distributed",
       "software": "logstash"
     },
     "shipper2": {
       "id": "shipper2",
-      "platform": "distributed",
+      "layer": "distributed",
       "software": "flume"
     },
     "stockage": {
       "id": "stockage",
-      "platform": "centralized",
+      "layer": "centralized",
       "software": "mongodb"
     },
     "warehouse": {
       "id": "warehouse",
-      "platform": "centralized",
+      "layer": "centralized",
       "software": "hadoop"
     },
     "graphui": {
       "id": "graphui",
-      "platform": "centralized",
+      "layer": "centralized",
       "software": "neo4j"
     },
     "dashboard": {
       "id": "dashboard",
-      "platform": "centralized",
+      "layer": "centralized",
       "software": "kibana3"
     },
     "dashboard4": {
       "id": "dashboard4",
-      "platform": "centralized",
+      "layer": "centralized",
       "software": "kibana4"
     },
     "proxy": {
       "id": "proxy",
-      "platform": "centralized",
+      "layer": "centralized",
       "software": "nginx"
     }
   },
