@@ -120,7 +120,8 @@
       "Lib": "/var/lib/",
       "Bin": "/opt/",
       "Run": "/var/run/",
-      "Cache": "/var/cache/"
+      "Cache": "/var/cache/",
+      "Tmp": "/tmp"
     },
     "centrallog": {
       "id": "centrallog",
