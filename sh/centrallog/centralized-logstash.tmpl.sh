@@ -39,7 +39,6 @@
 # RUN:      [ "/var/run/logstash/" ]
 # INIT:     [ "/etc/init.d/logstash" ]
 # CACHE:    [ "/var/cache/logstash" ]
-# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="LOGSTASH Server";

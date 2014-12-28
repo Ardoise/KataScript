@@ -39,7 +39,6 @@
 # RUN:      [ "/var/run/hadoop/" ]
 # INIT:     [ "/etc/init.d/hadoop" ]
 # CACHE:    [ "/var/cache/hadoop" ]
-# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="HADOOP Server";

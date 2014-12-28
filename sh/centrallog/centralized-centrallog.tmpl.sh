@@ -39,7 +39,6 @@
 # RUN:      [ "/var/run/centrallog/" ]
 # INIT:     [ "/etc/init.d/centrallog" ]
 # CACHE:    [ "/var/cache/centrallog" ]
-# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="CENTRALLOG Server";

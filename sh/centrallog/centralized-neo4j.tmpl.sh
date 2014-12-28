@@ -39,7 +39,6 @@
 # RUN:      [ "/var/run/neo4j/" ]
 # INIT:     [ "/etc/init.d/neo4j" ]
 # CACHE:    [ "/var/cache/neo4j" ]
-# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="NEO4J Server";

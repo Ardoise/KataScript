@@ -39,7 +39,6 @@
 # RUN:      [ "/var/run/flume/" ]
 # INIT:     [ "/etc/init.d/flume" ]
 # CACHE:    [ "/var/cache/flume" ]
-# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="FLUME Server";

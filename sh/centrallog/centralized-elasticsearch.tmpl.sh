@@ -39,7 +39,6 @@
 # RUN:      [ "/var/run/elasticsearch/" ]
 # INIT:     [ "/etc/init.d/elasticsearch" ]
 # CACHE:    [ "/var/cache/elasticsearch" ]
-# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="ELASTICSEARCH Server";

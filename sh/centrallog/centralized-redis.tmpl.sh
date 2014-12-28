@@ -39,7 +39,6 @@
 # RUN:      [ "/var/run/redis/" ]
 # INIT:     [ "/etc/init.d/redis" ]
 # CACHE:    [ "/var/cache/redis" ]
-# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="REDIS Server";

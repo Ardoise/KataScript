@@ -39,7 +39,6 @@
 # RUN:      [ "/var/run/mongodb/" ]
 # INIT:     [ "/etc/init.d/mongodb" ]
 # CACHE:    [ "/var/cache/mongodb" ]
-# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="MONGODB Server";

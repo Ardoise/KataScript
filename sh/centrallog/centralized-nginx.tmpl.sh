@@ -39,7 +39,6 @@
 # RUN:      [ "/var/run/nginx/" ]
 # INIT:     [ "/etc/init.d/nginx" ]
 # CACHE:    [ "/var/cache/nginx" ]
-# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="NGINX Server";

@@ -39,7 +39,6 @@
 # RUN:      [ "/var/run/kibana3/" ]
 # INIT:     [ "/etc/init.d/kibana3" ]
 # CACHE:    [ "/var/cache/kibana3" ]
-# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="KIBANA3 Server";

@@ -39,7 +39,6 @@
 # RUN:      [ "/var/run/kibana4/" ]
 # INIT:     [ "/etc/init.d/kibana4" ]
 # CACHE:    [ "/var/cache/kibana4" ]
-# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="KIBANA4 Server";
