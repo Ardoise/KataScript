@@ -172,6 +172,11 @@
       "platform": "centralized",
       "software": "kibana3"
     },
+    "dashboard4": {
+      "id": "dashboard4",
+      "platform": "centralized",
+      "software": "kibana4"
+    },
     "proxy": {
       "id": "proxy",
       "platform": "centralized",
@@ -282,7 +287,7 @@
       "downloads": [
         "https://download.elasticsearch.org/kibana/kibana/kibana-3.1.2.tar.gz"
       ],
-      "title": "Kibana Server",
+      "title": "Kibana3 Server",
       "name": "kibana3",
       "version": "3.1.2"
     },
@@ -290,9 +295,9 @@
       "downloads": [
          "https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-beta3.tar.gz"
       ],
-      "title": "Kibana Server",
+      "title": "Kibana4 Server",
       "name": "kibana4",
-      "version": "4.b.3"
+      "version": "4.0.0-b3"
     },
     "neo4j": {
       "downloads": [
