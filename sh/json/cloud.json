@@ -351,5 +351,15 @@
         ]
       }
     }
+  },
+  "layers": {
+    "distributed":{
+      "id": "123456789",
+      "name": "distributed"
+    },
+    "centralized":{
+      "id": "987654321",
+      "name": "centralized"
+    }
   }
 }
