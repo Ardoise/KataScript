@@ -113,7 +113,7 @@
       "stop": "service hadoop stop"
     }
   },
-  "Profil": {
+  "profils": {
     "Dir": {
       "Etc": "/etc/",
       "Log": "/var/log/",
@@ -183,7 +183,7 @@
       "software": "nginx"
     }
   },
-  "software": {
+  "softwares": {
     "centrallog": {
       "title": "Centrallog Component",
       "name": "centrallog",
