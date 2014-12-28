@@ -6,8 +6,8 @@
 # Description:  SERVICE CENTRALLOG: hadoop (...)
 #               deploy hadoop v2.4.1
 # Author: created by: https://github.com/Ardoise
-# Copyright (c) 2013-2014 "eTopaze"
-# Update: last-update: 20141215
+# Copyright (c) 2013-2015 "eTopaze"
+# Update: last-update: 20141228
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -39,6 +39,7 @@
 # RUN:      [ "/var/run/hadoop/" ]
 # INIT:     [ "/etc/init.d/hadoop" ]
 # CACHE:    [ "/var/cache/hadoop" ]
+# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="HADOOP Server";

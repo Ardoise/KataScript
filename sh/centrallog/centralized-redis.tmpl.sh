@@ -6,8 +6,8 @@
 # Description:  SERVICE CENTRALLOG: redis (...)
 #               deploy redis v2.8.13
 # Author: created by: https://github.com/Ardoise
-# Copyright (c) 2013-2014 "eTopaze"
-# Update: last-update: 20141215
+# Copyright (c) 2013-2015 "eTopaze"
+# Update: last-update: 20141228
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -39,6 +39,7 @@
 # RUN:      [ "/var/run/redis/" ]
 # INIT:     [ "/etc/init.d/redis" ]
 # CACHE:    [ "/var/cache/redis" ]
+# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="REDIS Server";

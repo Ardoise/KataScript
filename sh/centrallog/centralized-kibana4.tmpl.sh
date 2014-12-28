@@ -6,8 +6,8 @@
 # Description:  SERVICE CENTRALLOG: kibana4 (...)
 #               deploy kibana4 v4.0.0-b3
 # Author: created by: https://github.com/Ardoise
-# Copyright (c) 2013-2014 "eTopaze"
-# Update: last-update: 20141215
+# Copyright (c) 2013-2015 "eTopaze"
+# Update: last-update: 20141228
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -39,6 +39,7 @@
 # RUN:      [ "/var/run/kibana4/" ]
 # INIT:     [ "/etc/init.d/kibana4" ]
 # CACHE:    [ "/var/cache/kibana4" ]
+# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="KIBANA4 Server";

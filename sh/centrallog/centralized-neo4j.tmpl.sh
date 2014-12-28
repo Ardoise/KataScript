@@ -6,8 +6,8 @@
 # Description:  SERVICE CENTRALLOG: neo4j (...)
 #               deploy neo4j v2.1.2
 # Author: created by: https://github.com/Ardoise
-# Copyright (c) 2013-2014 "eTopaze"
-# Update: last-update: 20141215
+# Copyright (c) 2013-2015 "eTopaze"
+# Update: last-update: 20141228
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -39,6 +39,7 @@
 # RUN:      [ "/var/run/neo4j/" ]
 # INIT:     [ "/etc/init.d/neo4j" ]
 # CACHE:    [ "/var/cache/neo4j" ]
+# TMP:      [ "/tmp" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="NEO4J Server";
