@@ -21,12 +21,12 @@
     $ git clone https://github.com/Ardoise/KataScript.git $clone_dir;
     $ sudo bash $clone_dir/sh/centrallog/centralized-centrallog.tmpl.sh dist-upgrade;
     ...
-    $ sudo bash $clone_dir/sh/centrallog/centralized-nginx.tmpl.sh install;
-    $ sudo bash $clone_dir/sh/centrallog/centralized-logstash.tmpl.sh install;
-    $ sudo bash $clone_dir/sh/centrallog/centralized-redis.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-elasticsearch.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-kibana4.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-kibana3.tmpl.sh install;
+    $ sudo bash $clone_dir/sh/centrallog/centralized-nginx.tmpl.sh install;
+    $ sudo bash $clone_dir/sh/centrallog/centralized-logstash.tmpl.sh install;
+    $ sudo bash $clone_dir/sh/centrallog/centralized-redis.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-mongodb.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-hadoop.tmpl.sh install;
     ...
@@ -54,7 +54,7 @@ Softwares :
   - ElasticSearch [http://elasticsearch.org] [v1.4.2]
   - JBossAS [http://download.jboss.org] [v7.1.1]
   - Kibana3 [http://kibana.org] [v3.1.2]
-  - Kibana4 [http://kibana.org] [v4.b.3]
+  - Kibana4 [http://kibana.org] [v4.0.0-b3]
   - Logstash [http://logstash.net] [v1.4.2-1]
   - MongoDB [http://www.mongodb.org/] [v2.6.3]
   - Neo4J [http://www.neo4j.org] [v2.1.2]
@@ -62,8 +62,8 @@ Softwares :
   - Redis [http://redis.io] [v2.8.13]
   - Vagrant [http://www.vagrantup.com/] [v1.6.3]
   - ...
-  - Flume [http://flume.apache.org] [v1.5.0][working]
-  - Hadoop [http://hadoop.apache.org] [v2.4.1][working]
+  - Flume [http://flume.apache.org] [v1.5.0][as soon]
+  - Hadoop [http://hadoop.apache.org] [v2.4.1][as soon]
   - ...
   - Couchbase [http://www.couchbase.com/] [v3.0.1][as soon]
   - CouchDB [http://couchdb.apache.org/] [v1.6.1][as soon]
