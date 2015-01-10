@@ -1,9 +1,6 @@
 ## KATASCRIPT REST/JSON Shell ReadyForUse
 
 ### PLATFORMS Portable
-     $ sudo apt-get update
-     $ sudo apt-get install docker.io
-     $ source /etc/bash_completion.d/docker.io
 ##### INSTALL :
      $ vagrant box add trusty64 https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
      $ vagrant init trusty64
@@ -11,6 +8,10 @@
      $ vagrant ssh
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get update
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get install -y curl git-core sudo
+
+     $ sudo apt-get update
+     $ sudo apt-get install docker.io
+     $ source /etc/bash_completion.d/docker.io
 
 ### SERVICE RFU Centr@lL0g-1.4.12
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png?t=1398001932606)
