@@ -1,6 +1,9 @@
 ## KATASCRIPT REST/JSON Shell ReadyForUse
 
-### PLATFORM Portable
+### PLATFORMS Portable
+     $ sudo apt-get update
+     $ sudo apt-get install docker.io
+     $ source /etc/bash_completion.d/docker.io
 ##### INSTALL :
      $ vagrant box add trusty64 https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
      $ vagrant init trusty64
