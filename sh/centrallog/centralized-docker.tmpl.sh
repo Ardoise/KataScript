@@ -4,7 +4,7 @@
 # Provides: centrallog: docker
 # Short-Description: DEPLOY SERVER: [DOCKER]
 # Description:  SERVICE CENTRALLOG: docker (...)
-#               deploy docker v1.5.3
+#               deploy docker v1.4.1
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2015 "eTopaze"
 # Update: last-update: 20150101

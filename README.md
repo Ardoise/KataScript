@@ -71,6 +71,7 @@ Softwares :
   - Nginx [http://nginx.org] [v1.7.3]
   - Redis [http://redis.io] [v2.8.19]
   - Vagrant [http://www.vagrantup.com/] [v1.6.3]
+  - Docker [http://www.docker.com/] [v1.4.1]
   - ...
   - Flume [http://flume.apache.org] [v1.5.0][as soon]
   - Hadoop [http://hadoop.apache.org] [v2.4.1][as soon]
