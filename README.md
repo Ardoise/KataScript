@@ -1,7 +1,7 @@
 ## KATASCRIPT REST/JSON Shell ReadyForUse
 
-### PLATFORM Portable
-##### INSTALL :
+### PLATFORMS Portable
+##### INSTALL VAGRANT either :
      $ vagrant box add trusty64 https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
      $ vagrant init trusty64
      $ vagrant up
@@ -9,7 +9,18 @@
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get update
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get install -y curl git-core sudo
 
+<<<<<<< HEAD
 ### SERVICE RFU Centr@lL0g-1.5.1
+=======
+##### INSTALL DOCKER either :
+     $ sudo apt-get update
+     $ sudo apt-get install docker.io
+     $ . /etc/bash_completion.d/docker.io
+     $ sudo docker pull ubuntu
+     $ sudo docker run -i -t ubuntu /bin/bash
+
+### SERVICE RFU Centr@lL0g-1.4.12
+>>>>>>> 4bbfaea3a601ee025c78af1859bd08f95e73aeed
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png?t=1398001932606)
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
