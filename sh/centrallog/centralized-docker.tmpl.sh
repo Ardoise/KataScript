@@ -1,10 +1,10 @@
 #!/bin/bash -e
 
 ### BEGIN INIT INFO
-# Provides: centrallog: mongodb
-# Short-Description: DEPLOY SERVER: [MONGODB]
-# Description:  SERVICE CENTRALLOG: mongodb (...)
-#               deploy mongodb v2.6.3
+# Provides: centrallog: docker
+# Short-Description: DEPLOY SERVER: [DOCKER]
+# Description:  SERVICE CENTRALLOG: docker (...)
+#               deploy docker v1.5.3
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2015 "eTopaze"
 # Update: last-update: 20150101
@@ -32,17 +32,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-# CONFIG:   [ "/etc/mongodb", "/etc/mongodb/test" ]
-# BINARIES: [ "/opt/mongodb/", "/usr/share/mongodb/" ]
-# LIB:      [ "/usr/lib/mongodb/", "/usr/share/lib/mongodb/" ]
-# LOG:      [ "/var/log/mongodb/" ]
-# RUN:      [ "/var/run/mongodb/" ]
-# INIT:     [ "/etc/init.d/mongodb" ]
-# CACHE:    [ "/var/cache/mongodb" ]
+# CONFIG:   [ "/etc/docker", "/etc/docker/test" ]
+# BINARIES: [ "/opt/docker/", "/usr/share/docker/" ]
+# LIB:      [ "/usr/lib/docker/", "/usr/share/lib/docker/" ]
+# LOG:      [ "/var/log/docker/" ]
+# RUN:      [ "/var/run/docker/" ]
+# INIT:     [ "/etc/init.d/docker" ]
+# CACHE:    [ "/var/cache/docker" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
-DESCRIPTION="MONGODB Server";
-NAME="mongodb";
+DESCRIPTION="DOCKER Server";
+NAME="docker";
 DAEMON=/var/lib/$NAME/bin/$NAME;
 DAEMON_ARGS="start";
 PIDFILE=/var/run/$NAME.pid;
@@ -80,8 +80,8 @@ check)
 ;;
 init|config)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-CONF_FILE=
-PATTERN_FILE=
+CONF_FILE=/etc/default/docker
+PATTERN_FILE=https://raw.github.com/Ardoise/KataScript/master/sh/etc/docker/docker
   [ ! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}" ] && (
     curl -L ${PATTERN_FILE} -o ${CONF_FILE};
     # CONTEXT VALUES LOCAL
@@ -162,11 +162,11 @@ install)
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
 
   # OWNER => PREINSTALLS[]
-
+sudo apt-get update; sudo apt-get install docker.io
 
   # OWNER => DOWNLOADS[]
   downloads=(
-https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.3.tgz
+
   );
 
   for d in "${downloads[@]}"; do
@@ -256,7 +256,7 @@ REOF
   [ -s /etc/default/$NAME ] && ( sed -i -e "/GROUP/s/GROUP=${NAME}$/GROUP=${gid}/1;/GROUP/s/^#//g" /etc/default/$NAME )
 
   # OWNER => POSTINSTALLS[]
-
+. /etc/bash_completion.d/docker.io
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
@@ -302,7 +302,7 @@ restart)
 ;;
 daemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  null;
+  docker -t;
   CMD="#i#daemon#i#";
   case $CMD in
   *i#daemon#i*)
@@ -317,7 +317,7 @@ daemon)
 ;;
 nodaemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  null;
+  docker stop;
   CMD="#i#nodaemon#i#";
   case $CMD in
   *i#nodaemon#i*)
@@ -333,7 +333,7 @@ nodaemon)
 start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
-null
+sudo docker start 
   case $CMD in
   *i#start#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -348,7 +348,7 @@ null
 stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -f "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
-null
+sudo docker stop
   case $CMD in
   *i#stop#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -363,7 +363,7 @@ null
 status)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -f "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
-null
+sudo docker info
   case $CMD in
   *i#status#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -697,17 +697,17 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check     - check centrallog::mongodb
-    daemon    - daemon on init.d centrallog::mongodb
-    nodaemon  - daemon off init.d centrallog::mongodb
-    install   - install centrallog::mongodb
-    reload    - reload config centrallog::mongodb
-    uninstall - uninstall centrallog::mongodb
-    start     - start centrallog::mongodb
-    status    - status centrallog::mongodb
-    stop      - stop centrallog::mongodb
-    update    - update centrallog::mongodb
-    upgrade   - upgrade git-centrallog::mongodb
+    check     - check centrallog::docker
+    daemon    - daemon on init.d centrallog::docker
+    nodaemon  - daemon off init.d centrallog::docker
+    install   - install centrallog::docker
+    reload    - reload config centrallog::docker
+    uninstall - uninstall centrallog::docker
+    start     - start centrallog::docker
+    status    - status centrallog::docker
+    stop      - stop centrallog::docker
+    update    - update centrallog::docker
+    upgrade   - upgrade git-centrallog::docker
     dist-upgrade - upgrade platform with jruby::gems python3::pip3
 _EOF_
 ;;

@@ -7,7 +7,7 @@
 #               deploy elasticsearch v1.4.2
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2015 "eTopaze"
-# Update: last-update: 20141228
+# Update: last-update: 20150101
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -257,25 +257,9 @@ REOF
 
   # OWNER => POSTINSTALLS[]
 /usr/share/$NAME/bin/plugin --remove mobz/elasticsearch-head
-/usr/share/$NAME/bin/plugin --remove lukas-vlcek/bigdesk
-/usr/share/$NAME/bin/plugin --remove andrewvc/elastic-hammer
-/usr/share/$NAME/bin/plugin --remove polyfractal/elasticsearch-inquisitor
-/usr/share/$NAME/bin/plugin --remove karmi/elasticsearch-paramedic
-/usr/share/$NAME/bin/plugin --remove royrusso/elasticsearch-HQ
-/usr/share/$NAME/bin/plugin --remove polyfractal/elasticsearch-segmentspy
-/usr/share/$NAME/bin/plugin --remove xyu/elasticsearch-whatson
 /usr/share/$NAME/bin/plugin --remove lmenezes/elasticsearch-kopf
-/usr/share/$NAME/bin/plugin --remove jettro/elasticsearch-gui
 /usr/share/$NAME/bin/plugin --install mobz/elasticsearch-head
-/usr/share/$NAME/bin/plugin --install lukas-vlcek/bigdesk
-/usr/share/$NAME/bin/plugin --install andrewvc/elastic-hammer
-/usr/share/$NAME/bin/plugin --install polyfractal/elasticsearch-inquisitor
-/usr/share/$NAME/bin/plugin --install karmi/elasticsearch-paramedic
-/usr/share/$NAME/bin/plugin --install royrusso/elasticsearch-HQ
-/usr/share/$NAME/bin/plugin --install polyfractal/elasticsearch-segmentspy
-/usr/share/$NAME/bin/plugin --install xyu/elasticsearch-whatson
 /usr/share/$NAME/bin/plugin --install lmenezes/elasticsearch-kopf
-/usr/share/$NAME/bin/plugin --install jettro/elasticsearch-gui
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
@@ -465,7 +449,7 @@ dist-upgrade)
   
   echo "#  Install JRUBY##1.7.16";
   #rvm::jruby-x.y.z - #install
-  #[ -f "/usr/local/rvm/rubies/jruby-1.7.15/bin/jruby" ] || 
+  #[ -f "/usr/local/rvm/rubies/jruby-1.7.16/bin/jruby" ] || 
   curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby
   #rvm reinstall jruby
   
@@ -660,7 +644,7 @@ dist-upgrade)
     
     python${PYTHON_VERSION} -m pip --version
     python${PYTHON_VERSION} -m pip list
-    python${PYTHON_VERSION} -m pip install --upgrade libxml2;
+    python${PYTHON_VERSION} -m pip install --upgrade libxml2; #BUG
     python${PYTHON_VERSION} -m pip install --upgrade libxslt;
     python${PYTHON_VERSION} -m pip install --upgrade lxml; #BUG
     python${PYTHON_VERSION} -m pip install --upgrade elasticsearch;

@@ -4,10 +4,10 @@
 # Provides: centrallog: centrallog
 # Short-Description: DEPLOY SERVER: [CENTRALLOG]
 # Description:  SERVICE CENTRALLOG: centrallog (...)
-#               deploy centrallog v1.4.12
+#               deploy centrallog v1.5.1
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2015 "eTopaze"
-# Update: last-update: 20141228
+# Update: last-update: 20150101
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -446,7 +446,7 @@ dist-upgrade)
   
   echo "#  Install JRUBY##1.7.16";
   #rvm::jruby-x.y.z - #install
-  #[ -f "/usr/local/rvm/rubies/jruby-1.7.15/bin/jruby" ] || 
+  #[ -f "/usr/local/rvm/rubies/jruby-1.7.16/bin/jruby" ] || 
   curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby
   #rvm reinstall jruby
   
@@ -641,7 +641,7 @@ dist-upgrade)
     
     python${PYTHON_VERSION} -m pip --version
     python${PYTHON_VERSION} -m pip list
-    python${PYTHON_VERSION} -m pip install --upgrade libxml2;
+    python${PYTHON_VERSION} -m pip install --upgrade libxml2; #BUG
     python${PYTHON_VERSION} -m pip install --upgrade libxslt;
     python${PYTHON_VERSION} -m pip install --upgrade lxml; #BUG
     python${PYTHON_VERSION} -m pip install --upgrade elasticsearch;
