@@ -37,6 +37,9 @@
     $ sudo bash $clone_dir/sh/centrallog/centralized-mongodb.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/centralized-hadoop.tmpl.sh install;
     ...
+    $ sudo bash $clone_dir/sh/centrallog/centralized-docker.tmpl.sh install;
+    $ sudo bash $clone_dir/sh/centrallog/centralized-broker.tmpl.sh install; #DOCKER::REDIS
+    ...
     $ sudo bash $clone_dir/sh/centrallog/distributed-logstash.tmpl.sh install;
     $ sudo bash $clone_dir/sh/centrallog/distributed-flume.tmpl.sh install;
     ...
