@@ -4,7 +4,7 @@
 # Provides: centrallog: redis
 # Short-Description: DEPLOY SERVER: [REDIS]
 # Description:  SERVICE CENTRALLOG: redis (...)
-#               deploy redis v2.8.13
+#               deploy redis v2.8.19
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2015 "eTopaze"
 # Update: last-update: 20150101
@@ -166,7 +166,7 @@ install)
 
   # OWNER => DOWNLOADS[]
   downloads=(
-http://download.redis.io/releases/redis-2.8.13.tar.gz
+http://download.redis.io/releases/redis-2.8.19.tar.gz
   );
 
   for d in "${downloads[@]}"; do

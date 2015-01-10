@@ -9,9 +9,6 @@
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get update
      vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get install -y curl git-core sudo
 
-<<<<<<< HEAD
-### SERVICE RFU Centr@lL0g-1.5.1
-=======
 ##### INSTALL DOCKER either :
      $ sudo apt-get update
      $ sudo apt-get install docker.io
@@ -19,8 +16,7 @@
      $ sudo docker pull ubuntu
      $ sudo docker run -i -t ubuntu /bin/bash
 
-### SERVICE RFU Centr@lL0g-1.4.12
->>>>>>> 4bbfaea3a601ee025c78af1859bd08f95e73aeed
+### SERVICE RFU Centr@lL0g-1.5.1
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png?t=1398001932606)
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
@@ -70,7 +66,7 @@ Softwares :
   - MongoDB [http://www.mongodb.org/] [v2.6.3]
   - Neo4J [http://www.neo4j.org] [v2.1.2]
   - Nginx [http://nginx.org] [v1.7.3]
-  - Redis [http://redis.io] [v2.8.13]
+  - Redis [http://redis.io] [v2.8.19]
   - Vagrant [http://www.vagrantup.com/] [v1.6.3]
   - ...
   - Flume [http://flume.apache.org] [v1.5.0][as soon]
