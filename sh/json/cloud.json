@@ -21,16 +21,16 @@
     },
     "paas": {
       "Daemon": {
-        "On": "docker -t",
-        "Off": "docker stop"
+        "On": "sudo chkconfig docker on",
+        "Off": "sudo chkconfig docker off"
       },
       "init": {
         "pattern": "https://raw.github.com/Ardoise/KataScript/master/sh/etc/docker/docker",
         "conf": "/etc/default/docker"
       },
-      "start": "sudo docker start ",
+      "start": "sudo service docker start",
       "status": "sudo docker info",
-      "stop": "sudo docker stop"
+      "stop": "sudo service docker stop"
     },
     "event": {
       "Daemon": {
@@ -151,6 +151,11 @@
       "layer": "centralized",
       "software": "logstash"
     },
+    "broker": {
+      "id": "broker",
+      "layer": "centralised",
+      "software": "broker"
+    },
     "event": {
       "id": "event",
       "layer": "centralized",
@@ -219,6 +224,19 @@
       ],
       "postinstalls": [
         ". /etc/bash_completion.d/docker.io"
+      ]
+    },
+    "broker": {
+      "title":"Broker Event Daemon Redis",
+      "name": "broker",
+      "downloads":[],
+      "version": "2.8.19",
+      "preinstalls": [
+        "sudo apt-get update; sudo apt-get install docker.io"
+      ],
+      "postinstalls": [
+        ". /etc/bash_completion.d/docker.io",
+        "sudo docker run --name redis -d -v 127.0.0.1:/opt redis:latest"
       ]
     },
     "logstash": {

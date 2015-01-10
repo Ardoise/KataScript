@@ -1,10 +1,10 @@
 #!/bin/bash -e
 
 ### BEGIN INIT INFO
-# Provides: centrallog: docker
-# Short-Description: DEPLOY SERVER: [DOCKER]
-# Description:  SERVICE CENTRALLOG: docker (...)
-#               deploy docker v1.5.3
+# Provides: centrallog: broker
+# Short-Description: DEPLOY SERVER: [BROKER]
+# Description:  SERVICE CENTRALLOG: broker (...)
+#               deploy broker v2.8.19
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2015 "eTopaze"
 # Update: last-update: 20150101
@@ -32,17 +32,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-# CONFIG:   [ "/etc/docker", "/etc/docker/test" ]
-# BINARIES: [ "/opt/docker/", "/usr/share/docker/" ]
-# LIB:      [ "/usr/lib/docker/", "/usr/share/lib/docker/" ]
-# LOG:      [ "/var/log/docker/" ]
-# RUN:      [ "/var/run/docker/" ]
-# INIT:     [ "/etc/init.d/docker" ]
-# CACHE:    [ "/var/cache/docker" ]
+# CONFIG:   [ "/etc/broker", "/etc/broker/test" ]
+# BINARIES: [ "/opt/broker/", "/usr/share/broker/" ]
+# LIB:      [ "/usr/lib/broker/", "/usr/share/lib/broker/" ]
+# LOG:      [ "/var/log/broker/" ]
+# RUN:      [ "/var/run/broker/" ]
+# INIT:     [ "/etc/init.d/broker" ]
+# CACHE:    [ "/var/cache/broker" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
-DESCRIPTION="DOCKER Server";
-NAME="docker";
+DESCRIPTION="BROKER Server";
+NAME="broker";
 DAEMON=/var/lib/$NAME/bin/$NAME;
 DAEMON_ARGS="start";
 PIDFILE=/var/run/$NAME.pid;
@@ -80,8 +80,8 @@ check)
 ;;
 init|config)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-CONF_FILE=/etc/default/docker
-PATTERN_FILE=https://raw.github.com/Ardoise/KataScript/master/sh/etc/docker/docker
+CONF_FILE=
+PATTERN_FILE=
   [ ! -z "${CONF_FILE}" -a ! -z "${PATTERN_FILE}" ] && (
     curl -L ${PATTERN_FILE} -o ${CONF_FILE};
     # CONTEXT VALUES LOCAL
@@ -257,6 +257,7 @@ REOF
 
   # OWNER => POSTINSTALLS[]
 . /etc/bash_completion.d/docker.io
+sudo docker run --name redis -d -v 127.0.0.1:/opt redis:latest
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
@@ -302,7 +303,7 @@ restart)
 ;;
 daemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  sudo chkconfig docker on;
+  null;
   CMD="#i#daemon#i#";
   case $CMD in
   *i#daemon#i*)
@@ -317,7 +318,7 @@ daemon)
 ;;
 nodaemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
-  sudo chkconfig docker off;
+  null;
   CMD="#i#nodaemon#i#";
   case $CMD in
   *i#nodaemon#i*)
@@ -333,7 +334,7 @@ nodaemon)
 start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
-sudo service docker start
+null
   case $CMD in
   *i#start#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -348,7 +349,7 @@ sudo service docker start
 stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -f "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
-sudo service docker stop
+null
   case $CMD in
   *i#stop#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -363,7 +364,7 @@ sudo service docker stop
 status)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -f "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
-sudo docker info
+null
   case $CMD in
   *i#status#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -697,17 +698,17 @@ dist-upgrade)
 *)
   cat <<- _EOF_
   Commandes :
-    check     - check centrallog::docker
-    daemon    - daemon on init.d centrallog::docker
-    nodaemon  - daemon off init.d centrallog::docker
-    install   - install centrallog::docker
-    reload    - reload config centrallog::docker
-    uninstall - uninstall centrallog::docker
-    start     - start centrallog::docker
-    status    - status centrallog::docker
-    stop      - stop centrallog::docker
-    update    - update centrallog::docker
-    upgrade   - upgrade git-centrallog::docker
+    check     - check centrallog::broker
+    daemon    - daemon on init.d centrallog::broker
+    nodaemon  - daemon off init.d centrallog::broker
+    install   - install centrallog::broker
+    reload    - reload config centrallog::broker
+    uninstall - uninstall centrallog::broker
+    start     - start centrallog::broker
+    status    - status centrallog::broker
+    stop      - stop centrallog::broker
+    update    - update centrallog::broker
+    upgrade   - upgrade git-centrallog::broker
     dist-upgrade - upgrade platform with jruby::gems python3::pip3
 _EOF_
 ;;
