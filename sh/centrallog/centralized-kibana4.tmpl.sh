@@ -4,10 +4,10 @@
 # Provides: centrallog: kibana4
 # Short-Description: DEPLOY SERVER: [KIBANA4]
 # Description:  SERVICE CENTRALLOG: kibana4 (...)
-#               deploy kibana4 v4.0.0-b3
+#               deploy kibana4 v4.0.0-rc1
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2015 "eTopaze"
-# Update: last-update: 20150101
+# Update: last-update: 20150215
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -166,7 +166,7 @@ install)
 
   # OWNER => DOWNLOADS[]
   downloads=(
-https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-beta3.tar.gz
+https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-rc1-linux-x64.tar.gz
   );
 
   for d in "${downloads[@]}"; do

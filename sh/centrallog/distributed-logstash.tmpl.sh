@@ -7,7 +7,7 @@
 #               deploy logstash v1.4.2
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2015 "eTopaze"
-# Update: last-update: 20150101
+# Update: last-update: 20150215
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
