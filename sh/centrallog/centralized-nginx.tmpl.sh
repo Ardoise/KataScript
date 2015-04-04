@@ -7,7 +7,7 @@
 #               deploy nginx v1.7.3
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2015 "eTopaze"
-# Update: last-update: 20150215
+# Update: last-update: 20150404
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !

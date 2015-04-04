@@ -4,10 +4,10 @@
 # Provides: centrallog: elasticsearch
 # Short-Description: DEPLOY SERVER: [ELASTICSEARCH]
 # Description:  SERVICE CENTRALLOG: elasticsearch (...)
-#               deploy elasticsearch v1.4.3
+#               deploy elasticsearch v1.5.0
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2015 "eTopaze"
-# Update: last-update: 20150215
+# Update: last-update: 20150404
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -166,7 +166,7 @@ install)
 
   # OWNER => DOWNLOADS[]
   downloads=(
-https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.3.deb
+https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.5.0.deb
   );
 
   for d in "${downloads[@]}"; do
