@@ -282,10 +282,10 @@
     "elasticsearch": {
       "title": "Elasticsearch Server",
       "downloads": [
-        "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.5.0.deb"
+        "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.5.1.deb"
       ],
       "name": "elasticsearch",
-      "version": "1.5.0",
+      "version": "1.5.1",
       "postinstalls": [
         "/usr/share/$NAME/bin/plugin --remove mobz/elasticsearch-head",
         "/usr/share/$NAME/bin/plugin --remove lmenezes/elasticsearch-kopf",
@@ -342,7 +342,7 @@
     },
     "kibana4": {
       "downloads": [
-	"https://download.elasticsearch.org/kibana/kibana/kibana-4.0.2-linux-x64.tar.gz"
+        "https://download.elasticsearch.org/kibana/kibana/kibana-4.0.2-linux-x64.tar.gz"
       ],
       "title": "Kibana4 Server",
       "name": "kibana4",

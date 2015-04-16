@@ -61,7 +61,7 @@
 
 Softwares :
 ==========================
-  - ElasticSearch [http://elasticsearch.org] [v1.5.0]
+  - ElasticSearch [http://elasticsearch.org] [v1.5.1]
   - JBossAS [http://download.jboss.org] [v7.1.1]
   - Kibana4 [http://kibana.org] [v4.0.2]
   - Kibana3 [http://kibana.org] [v3.1.2]
