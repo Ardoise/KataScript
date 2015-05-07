@@ -16,7 +16,7 @@
      $ sudo docker pull ubuntu
      $ sudo docker run -i -t ubuntu /bin/bash
 
-### SERVICE RFU Centr@lL0g-1.5.4
+### SERVICE RFU Centr@lL0g-1.5.5
   ![Screenshots](https://cacoo.com/diagrams/b8v677hxhjQriPld-BE94C.png?t=1398001932606)
   ![Screenshots](https://cacoo.com/diagrams/mTm79GTjCk8HGxsz-BE94C.png?t=1368912915182)
 
@@ -61,7 +61,7 @@
 
 Softwares :
 ==========================
-  - ElasticSearch [http://elasticsearch.org] [v1.5.1]
+  - ElasticSearch [http://elasticsearch.org] [v1.5.2]
   - JBossAS [http://download.jboss.org] [v7.1.1]
   - Kibana4 [http://kibana.org] [v4.0.2]
   - Kibana3 [http://kibana.org] [v3.1.2]
