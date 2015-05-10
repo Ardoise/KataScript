@@ -258,8 +258,10 @@ REOF
   # OWNER => POSTINSTALLS[]
 /usr/share/$NAME/bin/plugin --remove mobz/elasticsearch-head
 /usr/share/$NAME/bin/plugin --remove lmenezes/elasticsearch-kopf
+/usr/share/$NAME/bin/plugin --remove jprante/elasticsearch-knapsack
 /usr/share/$NAME/bin/plugin --install mobz/elasticsearch-head
 /usr/share/$NAME/bin/plugin --install lmenezes/elasticsearch-kopf
+/usr/share/$NAME/bin/plugin --install jprante/elasticsearch-knapsack
 
   chown -R $uidgid $Cache$NAME || true;
   chown -R $uidgid $Etc$NAME || true;
