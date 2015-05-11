@@ -407,7 +407,7 @@ dist-upgrade)
     sudo apt-get dist-upgrade;
     sudo apt-get -y autoremove;
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline5-dev make curl git-core openjdk-7-jre-headless chkconfig gpgv ssh wget;
+      libreadline5-dev make curl git-core openjdk-8-jre-headless chkconfig gpgv ssh wget;
     ;;
   Ubuntu)
     sudo apt-get update; #--fix-missing
@@ -415,11 +415,11 @@ dist-upgrade)
     sudo apt-get dist-upgrade;
     sudo apt-get -y autoremove;
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline-dev make curl git-core openjdk-7-jre-headless sysv-rc-conf gpgv ssh libcurl4-openssl-dev wget realpath;
+      libreadline-dev make curl git-core openjdk-8-jre-headless sysv-rc-conf gpgv ssh libcurl4-openssl-dev wget realpath;
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update; #--fix-missing
-    sudo yum -y install make curl git-core gpg openjdk-7-jre-headless gpgv ssh \
+    sudo yum -y install make curl git-core gpg openjdk-8-jre-headless gpgv ssh \
       openssl-devel gcc curl wget git python-devel realpath;
     echo "#  NOT YET TESTED : your contribution is welc0me";
     ;;
