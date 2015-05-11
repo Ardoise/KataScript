@@ -40,6 +40,7 @@
 # INIT:     [ "/etc/init.d/mongodb" ]
 # CACHE:    [ "/var/cache/mongodb" ]
 # PLUGINS:  [ "/usr/share/mongodb/plugins" ]
+# DATA:     [ "/usr/share/mongodb/data" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="MONGODB Server";
@@ -145,6 +146,7 @@ install)
   Log="/var/log/";echo "$Log";
   Run="/var/run/";echo "$Run";
   Plugin="/usr/share/";echo "$Plugin";
+  Data="#i#DirData#i#";echo "$Data";
   
   #OWNER
   [ -x "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
@@ -163,6 +165,7 @@ install)
   mkdir -p $Log$NAME || true; chown -R $uidgid $Log$NAME || true;
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
   mkdir -p $Plugin$NAME/plugins || true; chown -R $uidgid $Plugin$NAME/plugins || true;
+  mkdir -p $Data$NAME/data || true; chown -R $uidgid $Data$NAME/data || true;
 
   # OWNER => PREINSTALLS[]
 
@@ -251,7 +254,8 @@ REOF
     [ -d "$Lib$NAME" ] && rm -rf "$Lib$NAME";
     [ -d "$Run$NAME" ] && rm -rf "$Run$NAME";
     [ -d "$Plugin$NAME/plugins" ] && rm -rf "$Plugin$NAME/plugins";
-
+    [ -d "$Data$NAME/data" ] && echo "RUN rm -rf $Data$NAME/data";
+  
 REOF
 
   #i#install#i#
@@ -269,6 +273,7 @@ REOF
   chown -R $uidgid $Run$NAME || true;
   chown -R $uidgid $Bin$NAME || true;
   chown -R $uidgid $Plugin$NAME/plugins || true;
+  chown -R $uidgid $Data$NAME/data || true;
     
   chown -R $uidgid /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
@@ -284,6 +289,7 @@ uninstall)
   Log="/var/log/";echo "$Log";
   Run="/var/run/";echo "$Run";
   Plugin="/usr/share/";echo "$Plugin";
+  Data="#i#DirData#i#";echo "$Data";
 
   [ -f "$Bin$NAME/$NAME.uninstall" ] && cp $Bin$NAME/$NAME.uninstall /tmp/;
   [ -f "/tmp/$NAME.uninstall" ] && sudo sh /tmp/$NAME.uninstall;

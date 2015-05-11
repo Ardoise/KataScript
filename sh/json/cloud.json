@@ -135,7 +135,8 @@
       "Run": "/var/run/",
       "Cache": "/var/cache/",
       "Tmp": "/tmp",
-      "Plugin": "/usr/share/"
+      "Plugin": "/usr/share/",
+      "Data": "/usr/share/"
     },
     "centrallog": {
       "id": "centrallog",
