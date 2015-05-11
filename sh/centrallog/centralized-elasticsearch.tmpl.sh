@@ -7,7 +7,7 @@
 #               deploy elasticsearch v1.5.2
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2015 "eTopaze"
-# Update: last-update: 20150404
+# Update: last-update: 20150511
 ### END INIT INFO
 
 # Requires : you need root privileges tu run this script !
@@ -39,6 +39,7 @@
 # RUN:      [ "/var/run/elasticsearch/" ]
 # INIT:     [ "/etc/init.d/elasticsearch" ]
 # CACHE:    [ "/var/cache/elasticsearch" ]
+# PLUGINS:  [ "/usr/share/elasticsearch/plugins" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESCRIPTION="ELASTICSEARCH Server";
@@ -143,6 +144,7 @@ install)
   Lib="/var/lib/";echo "$Lib";
   Log="/var/log/";echo "$Log";
   Run="/var/run/";echo "$Run";
+  Plugin="#i#DirPlugin#i#";echo "$Plugin";
   
   #OWNER
   [ -x "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
@@ -160,6 +162,7 @@ install)
   mkdir -p $Lib$NAME || true; chown -R $uidgid $Lib$NAME || true;
   mkdir -p $Log$NAME || true; chown -R $uidgid $Log$NAME || true;
   mkdir -p $Run$NAME || true; chown -R $uidgid $Run$NAME || true;
+  mkdir -p $Plugin$NAME/plugins || true; chown -R $uidgid $Plugin$NAME/plugins || true;
 
   # OWNER => PREINSTALLS[]
 
@@ -269,6 +272,7 @@ REOF
   chown -R $uidgid $Log$NAME || true;
   chown -R $uidgid $Run$NAME || true;
   chown -R $uidgid $Bin$NAME || true;
+  chown -R $uidgid $Plugin$NAME/plugins || true;
     
   chown -R $uidgid /opt/$NAME;
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
@@ -283,6 +287,7 @@ uninstall)
   Lib="/var/lib/";echo "$Lib";
   Log="/var/log/";echo "$Log";
   Run="/var/run/";echo "$Run";
+  Plugin="#i#DirPlugin#i#";echo "$Plugin";
 
   [ -f "$Bin$NAME/$NAME.uninstall" ] && cp $Bin$NAME/$NAME.uninstall /tmp/;
   [ -f "/tmp/$NAME.uninstall" ] && sudo sh /tmp/$NAME.uninstall;

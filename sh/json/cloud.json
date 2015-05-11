@@ -134,7 +134,8 @@
       "Bin": "/opt/",
       "Run": "/var/run/",
       "Cache": "/var/cache/",
-      "Tmp": "/tmp"
+      "Tmp": "/tmp",
+      "Plugin": "/usr/share/"
     },
     "centrallog": {
       "id": "centrallog",
