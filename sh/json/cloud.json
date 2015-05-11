@@ -214,7 +214,10 @@
       "title": "Centrallog Component",
       "name": "centrallog",
       "downloads": [],
-      "version": "1.5.5"
+      "version": "1.5.5",
+      "preinstalls": [
+        "systemd-tty-ask-password-agent"
+      ]
     },
     "docker": {
       "title":"Docker Daemon",
@@ -288,6 +291,9 @@
       ],
       "name": "elasticsearch",
       "version": "1.5.2",
+      "preinstalls": [
+        "sudo apt-get install openjdk-8-jre-headless"
+      ],
       "postinstalls": [
         "/usr/share/$NAME/bin/plugin --remove mobz/elasticsearch-head",
         "/usr/share/$NAME/bin/plugin --remove lmenezes/elasticsearch-kopf",

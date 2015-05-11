@@ -168,7 +168,7 @@ install)
   mkdir -p $Data$NAME/data || true; chown -R $uidgid $Data$NAME/data || true;
 
   # OWNER => PREINSTALLS[]
-
+sudo apt-get install openjdk-8-jre-headless
 
   # OWNER => DOWNLOADS[]
   downloads=(

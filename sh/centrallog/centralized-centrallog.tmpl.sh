@@ -168,7 +168,7 @@ install)
   mkdir -p $Data$NAME/data || true; chown -R $uidgid $Data$NAME/data || true;
 
   # OWNER => PREINSTALLS[]
-
+systemd-tty-ask-password-agent
 
   # OWNER => DOWNLOADS[]
   downloads=(
