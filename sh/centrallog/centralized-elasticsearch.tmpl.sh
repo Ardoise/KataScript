@@ -144,7 +144,7 @@ install)
   Lib="/var/lib/";echo "$Lib";
   Log="/var/log/";echo "$Log";
   Run="/var/run/";echo "$Run";
-  Plugin="#i#DirPlugin#i#";echo "$Plugin";
+  Plugin="/usr/share/";echo "$Plugin";
   
   #OWNER
   [ -x "${SH_DIR}/lib/usergroup.sh" ] || exit 1;
@@ -287,7 +287,7 @@ uninstall)
   Lib="/var/lib/";echo "$Lib";
   Log="/var/log/";echo "$Log";
   Run="/var/run/";echo "$Run";
-  Plugin="#i#DirPlugin#i#";echo "$Plugin";
+  Plugin="/usr/share/";echo "$Plugin";
 
   [ -f "$Bin$NAME/$NAME.uninstall" ] && cp $Bin$NAME/$NAME.uninstall /tmp/;
   [ -f "/tmp/$NAME.uninstall" ] && sudo sh /tmp/$NAME.uninstall;
