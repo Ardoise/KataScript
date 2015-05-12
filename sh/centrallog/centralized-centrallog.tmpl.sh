@@ -412,7 +412,6 @@ dist-upgrade)
   Ubuntu|Debian)
     sudo apt-get update; #--fix-missing #--no-install-recommends
     sudo apt-get -y upgrade;
-    sudo apt-get -y autoremove;
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev sudo \
       libreadline-dev make curl git-core openjdk-8-jre-headless sysv-rc-conf gpgv ssh libcurl4-openssl-dev wget realpath;
     ;;
@@ -421,42 +420,53 @@ dist-upgrade)
     sudo yum -y upgrade;
     sudo yum -y install make curl git-core gpg openjdk-8-jre-headless gpgv ssh sudo \
       openssl-devel gcc curl wget git python-devel realpath;
-    echo "#  NOT YET TESTED : your contribution is welc0me";
+    echo "#  NOT REAL TESTED : your contribution is welc0me";
     ;;
   esac
 
   #==========
-  #echo "#  Install RVM##X.Y.Z";
+  echo "#   Checking RVM##X.Y.Z";
   #==========
   #rvm-x.y.z - #install
   #rvm::ruby-x.y.z - #install
-  [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm
+  [ -r "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   vrvm=$(rvm --version |awk '{print $2}'); #RULE
-  [[ "$vrvm" < "1.26.11" ]] && {
-    echo "#  Install RVM##1.26.11 stable";
+  if [[ "$vrvm" < "1.26.11" ]]; then
+    echo "#  Install RVM##X.Y.Z stable";
     curl -sSL https://rvm.io/mpapis.asc |sudo gpg --import -
     curl -sSL https://get.rvm.io |bash -s stable; #rvm 1.26.11
     [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
-  }
+    vrvm=$(rvm --version |awk '{print $2}'); #RULE
+  fi
+  echo "#   Requirements RVM##${vrvm} successful";
   [[ "$(grep -n 'rvm/scripts/rvm' ${HOME}/.bash_profile |cut -d':' -f1)" > 0 ]] || echo '. /usr/local/rvm/scripts/rvm' >> ${HOME}/.bash_profile;
   rvm requirements;
   #Installing required packages: gawk, libyaml-dev, libsqlite3-dev, sqlite3, autoconf, libgdbm-dev, libncurses5-dev, automake, libtool, bison, libffi-dev...
 
   #==========
-  echo "#  Install RUBY##2.2.1 stable"; #2.1.2p95
+  echo "#   Checking RUBY##X.Y.Z";
   #==========
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
   vruby=$(ruby --version |awk '{print $2}'); #RULE
-  [[ "$vruby" < "2.1.2p95" ]] && curl -sSL https://get.rvm.io |bash -s stable --ruby; #ruby 2.2.1
+  if [[ "$vruby" < "2.1.2p95" ]]; then
+    curl -sSL https://get.rvm.io |bash -s stable --ruby; #ruby 2.2.1
+    vruby=$(ruby --version |awk '{print $2}');
+  fi
+  echo "#   Requirements RVM##${vruby} successful";
   #rvm reinstall ruby
   
   #==========
-  echo "#  Install JRUBY##1.7.19 stable"; #1.5.6-9
+  echo "#   Checking JRUBY##X.Y.Z";
   #==========
   #rvm::jruby-x.y.z - #install
   jruby=$(jruby --version |awk '{print $2}'); #RULE
-  [[ "$jruby" < "1.5.6-9" ]] && curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby; #/usr/local/rvm/rubies/jruby-1.7.19/bin/jruby"
+  if [[ "$jruby" < "1.5.6-9" ]]; then
+    curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby; #/usr/local/rvm/rubies/jruby-1.7.19/bin/jruby"
+    [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
+    jruby=$(jruby --version |awk '{print $2}');
+  fi
+  echo "#  Requirements JRUBY##${vjruby} successful";
   #rvm reinstall jruby
   
   # --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,
@@ -473,10 +483,16 @@ dist-upgrade)
   [[ "$(grep -n 'progress-bar' ${HOME}/.curlrc |cut -d':' -f1)" > 0 ]] || echo progress-bar >> ${HOME}/.curlrc
 
   #==========
-  echo "#   Install GEM##RUBIES";
+  echo "#   Checking GEM##X.Y.Z";
   #==========
   vgem=$(gem --version |awk '{print $1}'); #RULE
-  [[ "$vgem" < "2.4.5" ]] && gem update ; #ruby 2.2.1
+  if [[ "$vgem" < "2.4.5" ]]; then
+    gem update ;
+    vgem=$(gem --version |awk '{print $1}');
+  fi
+  echo "#   Requirements GEM##${vgem} successful";
+
+  echo "#   update GEM##RUBIES";
   gem install bundler
   #gem install poi2csv
   
@@ -608,11 +624,13 @@ dist-upgrade)
      ;;
    esac
 
-  vpython=$(python3 --version |awk '{print $2}'); #RULE
-  if [[ "$vpython" < "3.4.2" ]]; then
+  #==========
+  echo "#   Checking PYTHON3##X.Y.Z";
+  #==========
+  vpython3=$(python3 --version |awk '{print $2}'); #RULE
+  if [[ "$vpython3" < "3.4.2" ]]; then
       #==========
-      echo "#  altinstall PYTHON3#3.4.3 from source"; #MULTIPLE PYTHON (eq. make altinstall))
-      echo "#  (DEACTIVATE)"; #MULTIPLE PYTHON (eq. make altinstall))
+      echo "#   altinstall PYTHON3#3.4.3 from source"; #MULTIPLE PYTHON (eq. make altinstall))
       #========== SOURCE
       PYTHON_VERSION=3.4;
       PYTHON_VERSION_SRC=${PYTHON_VERSION}.3;
@@ -667,11 +685,14 @@ dist-upgrade)
       # python${PYTHON_VERSION} get-pip.py
       # python${PYTHON_VERSION} -m pip --version
       # python${PYTHON_VERSION} -m pip install -U pip
+
+      vpython3=$(python3 --version |awk '{print $2}');
   fi
+  echo "#   Requirements PYTHON3##${vpython3} successful";
 
   # USE pyvenv instead-of virtualenv
   #==========
-  echo "#   install venv with pyvenv";
+  echo "#   Checking PYVENV##X.Y.Z";
   #========== SOURCE
   [ "$(which pyvenv 2>/dev/null)a" != "a" ] &&   for p in p34; do
 
@@ -769,26 +790,31 @@ dist-upgrade)
     #==========
     echo "#  for USE RUNTIME VENV..."
     #==========
-    echo "source /opt/venv/p34/bin/activate";
+    echo "source /opt/venv/${project}/bin/activate";
     echo "# ... operations ...#";
     echo "#  deactivate";
     # TESTED OK
+
+    echo "#   Requirements PYVENV##${projet} successful";
   done
 
+  echo "#   Checking UWSGI##X.Y.Z";
   vuwsgi=$(uwsgi --version |awk '{print $2}');  #RULE
   if [[ "$vuwsgi" < "2.0.7" ]]; then
     #==========
     echo "#  install UWSGI#2.0.10 from source [OPTION]"
     echo "#  (DEACTIVATE)";
     #========== SOURCE
-    # [ -d /opt ] || mkdir -p /opt
-    # cd /opt
-    # curl http://uwsgi.it/install |sudo bash -s default /opt/uwsgi
-    # /opt/uwsgi --version
-    # chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi
-    # rm -rf uwsgi_latest_from_installer*
-    # chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi; #HTTP SERVER USED
+    [ -d /opt ] || mkdir -p /opt
+    cd /opt
+    curl http://uwsgi.it/install |sudo bash -s default /opt/uwsgi
+    /opt/uwsgi --version
+    chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi
+    rm -rf uwsgi_latest_from_installer*
+    chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi; #HTTP SERVER USED
+    vuwsgi=$(uwsgi --version |awk '{print $2}');  #RULE
   fi
+  echo "#   Requirements UWSGI##${vuwsgi} successful";
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
