@@ -406,11 +406,11 @@ upgrade)
 dist-upgrade)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   
-  echo "#  TO USE HTTP-PROXY";
-  echo "#  export http_proxy='http://user@yourproxy.com:port/'";
-  echo "#  export https_proxy='https://user@yourproxy.com:port/'";
-  echo "#  export ftp_proxy='https://user@yourproxy.com:port/'";
-  echo "#  export USEPROXY=1";
+  echo "#   TO USE HTTP-PROXY";
+  echo "#   export http_proxy='http://user@yourproxy.com:port/'";
+  echo "#   export https_proxy='https://user@yourproxy.com:port/'";
+  echo "#   export ftp_proxy='https://user@yourproxy.com:port/'";
+  echo "#   export USEPROXY=1";
   
   # DEPENDS : PLATFORM
   case "$platform" in
@@ -425,12 +425,12 @@ dist-upgrade)
     sudo yum -y upgrade;
     sudo yum -y install make curl git-core gpg openjdk-8-jre-headless gpgv ssh sudo \
       openssl-devel gcc curl wget git python-devel realpath;
-    echo "#  NOT REAL TESTED : your contribution is welc0me";
+    echo "#   NOT REAL TESTED : your contribution is welc0me";
     ;;
   esac
 
   #==========
-  echo "#   Checking RVM##X.Y.Z";
+  echo && echo "#   Checking RVM##X.Y.Z";
   #==========
   #rvm-x.y.z - #install
   #rvm::ruby-x.y.z - #install
@@ -449,7 +449,7 @@ dist-upgrade)
   #Installing required packages: gawk, libyaml-dev, libsqlite3-dev, sqlite3, autoconf, libgdbm-dev, libncurses5-dev, automake, libtool, bison, libffi-dev...
 
   #==========
-  echo "#   Checking RUBY##X.Y.Z";
+  echo && echo "#   Checking RUBY##X.Y.Z";
   #==========
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
@@ -462,7 +462,7 @@ dist-upgrade)
   #rvm reinstall ruby
   
   #==========
-  echo "#   Checking JRUBY##X.Y.Z";
+  echo && echo "#   Checking JRUBY##X.Y.Z";
   #==========
   #rvm::jruby-x.y.z - #install
   vjruby=$(jruby --version |awk '{print $2}'); #RULE
@@ -488,7 +488,7 @@ dist-upgrade)
   [[ "$(grep -n 'progress-bar' ${HOME}/.curlrc |cut -d':' -f1)" > 0 ]] || echo progress-bar >> ${HOME}/.curlrc
 
   #==========
-  echo "#   Checking GEM##X.Y.Z";
+  echo && echo "#   Checking GEM##X.Y.Z";
   #==========
   vgem=$(gem --version |awk '{print $1}'); #RULE
   if [[ "$vgem" < "2.4.4" ]]; then
@@ -504,7 +504,7 @@ dist-upgrade)
   #gem install poi2csv
   
   #==========
-  echo "#   Install JSONQuery Parser";
+  echo && echo "#   Install JSONQuery Parser";
   #==========
   vjq=$(jq --version |awk -F'-' '{print $1}'); #RULE
   if [[ "$vjq" < "1.3" ]]; then
@@ -528,7 +528,7 @@ dist-upgrade)
   #cpan[1]> install FCGI
 
   #==========
-  echo "#  install Primary PYTHON3|PYTHON2 from binaries"; #PRIMARY PYTHON (eq. make install))
+  echo && echo "#   Install Primary PYTHON3|PYTHON2 from binaries"; #PRIMARY PYTHON (eq. make install))
   #==========
   case "$platform" in
    Ubuntu|Debian)
@@ -643,7 +643,7 @@ dist-upgrade)
    esac
 
   #==========
-  echo "#   Checking PYTHON3##X.Y.Z";
+  echo && echo "#   Checking PYTHON3##X.Y.Z";
   #==========
   vpython3=$(python3 --version |awk '{print $2}'); #RULE
   if [[ "$vpython3" < "3.4.1" ]]; then
@@ -697,6 +697,9 @@ dist-upgrade)
   fi
   echo "#   Requirements PYTHON3##${vpython3} successful";
 
+  #==========
+  echo && echo "#   Checking PIP3##X.Y.Z";
+  #==========
   vpip3=$(pip3 --version |awk '{print $2}');
   if [[ "$vpip3" < "1.5.5" ]]; then
       # #==========
@@ -714,7 +717,7 @@ dist-upgrade)
 
   # USE pyvenv instead-of virtualenv
   #==========
-  echo "#   Checking PYVENV##X.Y.Z";
+  echo && echo "#   Checking PYVENV##X.Y.Z";
   #========== SOURCE
   if [ "$(which pyvenv 2>/dev/null)a" != "a" ]; then
     
@@ -827,7 +830,9 @@ dist-upgrade)
     done
   fi
 
-  echo "#   Checking UWSGI##X.Y.Z";
+  #==========
+  echo && echo "#   Checking UWSGI##X.Y.Z";
+  #==========
   vuwsgi=$(uwsgi --version |awk '{print $1}');  #RULE
   if [[ "${vuwsgi}" < "2.0.7" ]]; then
     #==========
