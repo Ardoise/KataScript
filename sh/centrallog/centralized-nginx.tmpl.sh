@@ -728,6 +728,8 @@ dist-upgrade)
         # ===============
         echo "#     check permission ${HOME}/.cache/pip/log"
         
+        chmod -R 777 ${HOME}/.cache; #${HOME}/.cache/pip/log/debug.log
+
         #python${PYTHON_VERSION} -m pip install --upgrade SomePackage
         #python${PYTHON_VERSION} -m SomePackage --version
         python --version
@@ -753,7 +755,7 @@ dist-upgrade)
         #python -m pip install --upgrade PyICU; # (1.8)
         #python -m pip install --upgrade python-apt; # (0.9.3.11build1)
         #python -m pip install --upgrade python-debian; # (0.1.22)
-        python -m pip install --upgrade reportlab; # (3.1.44) .pillow .setuptools .
+        #python -m pip install --upgrade reportlab; # (3.1.44) .pillow .setuptools .
         python -m pip install --upgrade requests; # (2.4.3)
         #python -m pip install --upgrade screen-resolution-extra; # (1.7.3)
         python -m pip install --upgrade setuptools; # (15.2)
@@ -765,7 +767,7 @@ dist-upgrade)
         python -m pip install --upgrade urllib3; # (1.9.1)
         #python -m pip install --upgrade usb-creator; # (0.2.23)
         #python -m pip install --upgrade virtualenv; # (12.0.4)
-        python -m pip install --upgrade wheel; # (0.24.0)
+        #python -m pip install --upgrade wheel; # (0.24.0)
         #python -m pip install --upgrade xkit; # (1.7.3)
 
         python -m pip install --upgrade elasticsearch; #.urllib3 
@@ -784,7 +786,7 @@ dist-upgrade)
         
         python -m pip install --upgrade google-api-python-client; #.six .rsa .pyasn1 .simplejson .oauth2client .uritemplate .pyasn1-modules .httplib2
         python -m pip install --upgrade goslate; #.futures #BUG
-        python -m pip install --upgrade cython;
+        #python -m pip install --upgrade cython;
         
         #Option alternative list
         python -m pip install --upgrade freeze; #.six
