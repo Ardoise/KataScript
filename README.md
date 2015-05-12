@@ -86,4 +86,5 @@ Objectifs : + vs - : Practice
   - SCALE       (volume)
   - LEAN        (cpu,ram,io)
   - REST        (http+html+uri)
+  - RFU         (Ready For Use)
   
