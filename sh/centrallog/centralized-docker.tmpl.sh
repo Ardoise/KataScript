@@ -4,7 +4,7 @@
 # Provides: centrallog: docker
 # Short-Description: DEPLOY SERVER: [DOCKER]
 # Description:  SERVICE CENTRALLOG: docker (...)
-#               deploy docker v1.4.1
+#               deploy docker v1.5.0
 # Author: created by: https://github.com/Ardoise
 # Copyright (c) 2013-2015 "eTopaze"
 # Update: last-update: 20150511
@@ -401,22 +401,15 @@ dist-upgrade)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   
   echo "#  TO USE HTTP-PROXY";
-  echo "#  export http_proxy='http://user@yourproxy.com:port'";
-  echo "#  export https_proxy='https://user@yourproxy.com:port'";
+  echo "#  export http_proxy='http://user@yourproxy.com:port/'";
+  echo "#  export https_proxy='https://user@yourproxy.com:port/'";
+  echo "#  export ftp_proxy='https://user@yourproxy.com:port/'";
   echo "#  export USEPROXY=1";
   
   # DEPENDS : PLATFORM
   case "$platform" in
-  Debian)
+  Ubuntu|Debian)
     sudo apt-get update; #--fix-missing #--no-install-recommends
-    sudo apt-get -y upgrade;
-    sudo apt-get dist-upgrade;
-    sudo apt-get -y autoremove;
-    sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
-      libreadline5-dev make curl git-core openjdk-8-jre-headless chkconfig gpgv ssh wget;
-    ;;
-  Ubuntu)
-    sudo apt-get update; #--fix-missing
     sudo apt-get -y upgrade;
     sudo apt-get dist-upgrade;
     sudo apt-get -y autoremove;

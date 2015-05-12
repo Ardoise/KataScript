@@ -223,7 +223,7 @@
       "title":"Docker Daemon",
       "name": "docker",
       "downloads":[],
-      "version": "1.4.1",
+      "version": "1.5.0",
       "preinstalls": [
         "sudo apt-get update; sudo apt-get install docker.io"
       ],
@@ -391,17 +391,18 @@
     },
     "vagrant": {
       "downloads": [
-        "https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.3_x86_64.deb"
+        "https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.deb"
       ],
       "title": "Vagrant PIC",
       "name": "vagrant",
-      "version": "1.6.3",
+      "version": "1.7.2",
       "depends": {
         "VirtualBox": [
           {"boxname": "precise32", "boxurl": "http://files.vagrantup.com/precise32.box"},
           {"boxname": "precise64", "boxurl": "http://files.vagrantup.com/precise64.box"},
           {"boxname": "saucy64", "boxurl": "http://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box"},
-          {"boxname": "trusty64", "boxurl": "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"}
+          {"boxname": "trusty64", "boxurl": "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"},
+          {"boxname": "vivid64", "boxurl": "https://cloud-images.ubuntu.com/vagrant/vivid/current/vivid-server-cloudimg-amd64-vagrant-disk1.box"}
         ],
         "VMware": [
           {"boxname": "precise64_vmware", "url": "http://files.vagrantup.com/precise64_vmware.box"},

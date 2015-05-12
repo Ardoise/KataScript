@@ -2,12 +2,12 @@
 
 ### PLATFORMS Portable
 ##### INSTALL VAGRANT either :
-     $ vagrant box add trusty64 https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
-     $ vagrant init trusty64
+     $ vagrant box add vivid64 https://cloud-images.ubuntu.com/vagrant/vivid/current/vivid-server-cloudimg-amd64-vagrant-disk1.box
+     $ vagrant init vivid64
      $ vagrant up
      $ vagrant ssh
-     vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get update
-     vagrant@vagrant-ubuntu-trusty-64:~$ sudo apt-get install -y curl git-core sudo
+     vagrant@vagrant-ubuntu-vivid-64:~$ sudo apt-get update
+     vagrant@vagrant-ubuntu-vivid-64:~$ sudo apt-get install -y curl git-core sudo
 
 ##### INSTALL DOCKER either :
      $ sudo apt-get update
@@ -70,8 +70,8 @@ Softwares :
   - Neo4J [http://www.neo4j.org] [v2.1.2]
   - Nginx [http://nginx.org] [v1.7.3]
   - Redis [http://redis.io] [v2.8.19]
-  - Vagrant [http://www.vagrantup.com/] [v1.6.3]
-  - Docker [http://www.docker.com/] [v1.4.1]
+  - Vagrant [http://www.vagrantup.com/] [v1.7.2]
+  - Docker [http://www.docker.com/] [v1.5.0]
   - ...
   - Flume [http://flume.apache.org] [v1.5.0][as soon]
   - Hadoop [http://hadoop.apache.org] [v2.4.1][as soon]
