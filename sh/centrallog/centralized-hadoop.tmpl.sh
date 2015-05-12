@@ -413,13 +413,13 @@ dist-upgrade)
   Ubuntu|Debian)
     sudo apt-get update; #--fix-missing #--no-install-recommends
     sudo apt-get -y upgrade;
-    sudo apt-get dist-upgrade;
     sudo apt-get -y autoremove;
     sudo apt-get -y install build-essential zlib1g-dev libssl-dev sudo \
       libreadline-dev make curl git-core openjdk-8-jre-headless sysv-rc-conf gpgv ssh libcurl4-openssl-dev wget realpath;
     ;;
   Redhat|Fedora|CentOS)
     sudo yum update; #--fix-missing
+    sudo yum -y upgrade;
     sudo yum -y install make curl git-core gpg openjdk-8-jre-headless gpgv ssh sudo \
       openssl-devel gcc curl wget git python-devel realpath;
     echo "#  NOT YET TESTED : your contribution is welc0me";
@@ -431,12 +431,14 @@ dist-upgrade)
   #==========
   #rvm-x.y.z - #install
   #rvm::ruby-x.y.z - #install
-  [ -f "/usr/local/rvm/scripts/rvm" ] || (
+  [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm
+  vrvm=$(rvm --version |awk '{print $2}'); #RULE
+  [[ "$vrvm" < "1.26.11" ]] && {
     echo "#  Install RVM##1.26.11 stable";
     curl -sSL https://rvm.io/mpapis.asc |sudo gpg --import -
     curl -sSL https://get.rvm.io |bash -s stable; #rvm 1.26.11
-  )
-  [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
+    [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
+  }
   [[ "$(grep -n 'rvm/scripts/rvm' ${HOME}/.bash_profile |cut -d':' -f1)" > 0 ]] || echo '. /usr/local/rvm/scripts/rvm' >> ${HOME}/.bash_profile;
   rvm requirements;
   #Installing required packages: gawk, libyaml-dev, libsqlite3-dev, sqlite3, autoconf, libgdbm-dev, libncurses5-dev, automake, libtool, bison, libffi-dev...
@@ -446,7 +448,7 @@ dist-upgrade)
   #==========
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
-  vruby=$(ruby --version |awk '{print $2}');
+  vruby=$(ruby --version |awk '{print $2}'); #RULE
   [[ "$vruby" < "2.1.2p95" ]] && curl -sSL https://get.rvm.io |bash -s stable --ruby; #ruby 2.2.1
   #rvm reinstall ruby
   
@@ -454,7 +456,7 @@ dist-upgrade)
   echo "#  Install JRUBY##1.7.19 stable"; #1.5.6-9
   #==========
   #rvm::jruby-x.y.z - #install
-  jruby=$(jruby --version |awk '{print $2}');
+  jruby=$(jruby --version |awk '{print $2}'); #RULE
   [[ "$jruby" < "1.5.6-9" ]] && curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby; #/usr/local/rvm/rubies/jruby-1.7.19/bin/jruby"
   #rvm reinstall jruby
   
@@ -474,7 +476,8 @@ dist-upgrade)
   #==========
   echo "#   Install GEM##RUBIES";
   #==========
-  gem update
+  vgem=$(gem --version |awk '{print $1}'); #RULE
+  [[ "$vgem" < "2.4.5" ]] && gem update ; #ruby 2.2.1
   gem install bundler
   #gem install poi2csv
   
@@ -606,7 +609,7 @@ dist-upgrade)
      ;;
    esac
 
-  vpython=$(python3 --version |awk '{print $2}');
+  vpython=$(python3 --version |awk '{print $2}'); #RULE
   if [[ "$vpython" < "3.4.2" ]]; then
       #==========
       echo "#  altinstall PYTHON3#3.4.3 from source"; #MULTIPLE PYTHON (eq. make altinstall))
@@ -671,7 +674,7 @@ dist-upgrade)
   #==========
   echo "#   install venv with pyvenv";
   #========== SOURCE
-  [ "$(which pyvenv 2>/dev/null)a" != "a" ] && for p in p34; do
+  [ "$(which pyvenv 2>/dev/null)a" != "a" ] &&   for p in p34; do
 
     home=/opt/venv;
     project=${p};
@@ -773,17 +776,20 @@ dist-upgrade)
     # TESTED OK
   done
 
-  #==========
-  echo "#  install UWSGI#2.0.10 from source [OPTION]"
-  echo "#  (DEACTIVATE)";
-  #========== SOURCE
-  # [ -d /opt ] || mkdir -p /opt
-  # cd /opt
-  # curl http://uwsgi.it/install |sudo bash -s default /opt/uwsgi
-  # /opt/uwsgi --version
-  # chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi
-  # rm -rf uwsgi_latest_from_installer*
-  # chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi; #HTTP SERVER USED
+  vuwsgi=$(uwsgi --version |awk '{print $2}');  #RULE
+  if [[ "$vuwsgi" < "2.0.7" ]]; then
+    #==========
+    echo "#  install UWSGI#2.0.10 from source [OPTION]"
+    echo "#  (DEACTIVATE)";
+    #========== SOURCE
+    # [ -d /opt ] || mkdir -p /opt
+    # cd /opt
+    # curl http://uwsgi.it/install |sudo bash -s default /opt/uwsgi
+    # /opt/uwsgi --version
+    # chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi
+    # rm -rf uwsgi_latest_from_installer*
+    # chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi; #HTTP SERVER USED
+  fi
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
