@@ -60,6 +60,7 @@ platform="$(lsb_release -i -s)";
 platform_version="$(lsb_release -s -r)";
 yourIP=$(hostname -I | cut -d' ' -f1);
 JSON=json/cloud.json
+WWW_DATA="www-data";
 
 if [ `id -u` -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: You need root privileges to run this script !"
@@ -762,7 +763,7 @@ dist-upgrade)
 
     deactivate
 
-    chown -R www-data:www-data /opt/venv
+    chown -R ${WWW_DATA}:${WWW_DATA} /opt/venv
 
     #==========
     echo "#  for USE RUNTIME VENV..."
@@ -774,15 +775,16 @@ dist-upgrade)
   done
 
   #==========
-  echo "#  install UWSGI#2.0.7 from source [OPTION]"
+  echo "#  install UWSGI#2.0.10 from source [OPTION]"
+  echo "#  (DEACTIVATE)";
   #========== SOURCE
-  [ -d /opt ] || mkdir -p /opt
-  cd /opt
-  curl http://uwsgi.it/install |sudo bash -s default /opt/uwsgi
-  /opt/uwsgi --version
-  chown www-data:www-data /opt/uwsgi
-  rm -rf uwsgi_latest_from_installer*
-  chown www-data:www-data /opt/uwsgi; #HTTP SERVER USED
+  # [ -d /opt ] || mkdir -p /opt
+  # cd /opt
+  # curl http://uwsgi.it/install |sudo bash -s default /opt/uwsgi
+  # /opt/uwsgi --version
+  # chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi
+  # rm -rf uwsgi_latest_from_installer*
+  # chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi; #HTTP SERVER USED
 
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 [ OK ]";
 ;;
