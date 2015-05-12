@@ -465,11 +465,11 @@ dist-upgrade)
   echo "#   Checking JRUBY##X.Y.Z";
   #==========
   #rvm::jruby-x.y.z - #install
-  jruby=$(jruby --version |awk '{print $2}'); #RULE
+  vjruby=$(jruby --version |awk '{print $2}'); #RULE
   if [[ "$jruby" < "1.5.6-9" ]]; then
     curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby; #/usr/local/rvm/rubies/jruby-1.7.19/bin/jruby"
     [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
-    jruby=$(jruby --version |awk '{print $2}');
+    vjruby=$(jruby --version |awk '{print $2}');
   fi
   echo "#  Requirements JRUBY##${vjruby} successful";
   #rvm reinstall jruby
