@@ -547,7 +547,7 @@ dist-upgrade)
 
      echo "#  detect python  : $(python  --version 2>&1)";  
      echo "#  detect python2 : $(python2 --version 2>&1)";
-     echo "#  detect pip : $(pip --version 2>&1)";
+     echo "#  detect pip : $(python -m pip --version 2>&1)";
 
      #Install PYTHON3##3.4.3
      sudo apt-get -y install python3-pip;
@@ -571,7 +571,7 @@ dist-upgrade)
      #sudo apt-get -y install -y python3.4-dev;  #bibliothèques avec des extensions en C
 
      echo "#  detect python3 : $(python3 --version 2>&1)";
-     echo "#  detect pip3 : $(pip3 --version 2>&1)";  #pip 1.5.6 from /usr/lib/python3/dist-packages (python 3.4)
+     echo "#  detect pip3 : $(python3 -m pip3 --version 2>&1)";  #pip 1.5.6 from /usr/lib/python3/dist-packages (python 3.4)
      #python3 ${SH_DIR}/py/hello.py;
 
      #Package Distribution
@@ -744,11 +744,10 @@ dist-upgrade)
           echo "#    source /opt/venv/${project}/bin/activate";
           . /opt/venv/${project}/bin/activate
 
-              # ===============
+          # ===============
           echo "#     upgrade modules PIP"
           # ===============
-          echo "#     check permission ${HOME}/.cache/pip/log"
-          
+          # check permission ${HOME}/.cache/pip/log
           chmod -R 777 ${HOME}/.cache; #${HOME}/.cache/pip/log/debug.log
           chown -R root:root ${HOME}/.cache; #${HOME}/.cache/pip/log/debug.log
 
@@ -819,11 +818,11 @@ dist-upgrade)
           chown -R ${WWW_DATA}:${WWW_DATA} /opt/venv
 
           #==========
-          echo "#     # for USE RUNTIME VENV..."
+          echo "#     #for USE RUNTIME VENV..."
           #==========
-          echo "#     $ . /opt/venv/${project}/bin/activate";
-          echo "#     $ #... operations ...#";
-          echo "#     $ deactivate";
+          echo "#     . /opt/venv/${project}/bin/activate";
+          echo "#     #... operations ...#";
+          echo "#     deactivate";
           # TESTED OK
 
           echo "#   Requirements PYVENV##${projet} successful";
