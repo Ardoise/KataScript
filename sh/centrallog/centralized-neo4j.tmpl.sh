@@ -503,18 +503,23 @@ dist-upgrade)
   #==========
   echo "#   Install JSONQuery Parser";
   #==========
-  case $(uname -m) in
-    *64) #64 bits = x86_64
-      echo "#   Requirements JQ##64b successful";
-      curl -OL http://stedolan.github.io/jq/download/linux64/jq;
-    ;;
-    *) #32bits = i386, i686
-      echo "#   Requirements JQ##32b successful";
-      curl -OL http://stedolan.github.io/jq/download/linux32/jq;
-    ;;
-  esac
-  chmod a+x jq* ; mv jq* /usr/bin/;
-  
+  vjq=$(jq --version |awk -F'-' '{print $1}'); #RULE
+  if [[ "$vjq" < "1.3" ]]; then
+    case $(uname -m) in
+      *64) #64 bits = x86_64
+        echo "#   Requirements JQ##64b successful";
+        curl -OL http://stedolan.github.io/jq/download/linux64/jq;
+      ;;
+      *) #32bits = i386, i686
+        echo "#   Requirements JQ##32b successful";
+        curl -OL http://stedolan.github.io/jq/download/linux32/jq;
+      ;;
+    esac
+    chmod a+x jq* ; mv jq* /usr/bin/;
+    vjq=$(jq --version |awk -F'-' '{print $1}');
+  fi
+  echo "#   Requirements JQ##${vjq} successful";
+
   #Install Perl
   #perl -MCPAN -e shell
   #cpan[1]> install FCGI
