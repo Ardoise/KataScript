@@ -504,10 +504,16 @@ dist-upgrade)
   #==========
   echo "#   Install JSONQuery Parser";
   #==========
-  echo "#    jq64-x.x.x - #install"
-  curl -OL http://stedolan.github.io/jq/download/linux64/jq;
-  echo "#    jq32-x.x.x - #install"
-  curl -OL http://stedolan.github.io/jq/download/linux32/jq; mv jq jq32;
+  case $(uname -m) in
+    *64) #64 bits = x86_64
+      echo "#   Requirements JQ##64b successful";
+      curl -OL http://stedolan.github.io/jq/download/linux64/jq;
+    ;;
+    *) #32bits = i386, i686
+      echo "#   Requirements JQ##32b successful";
+      curl -OL http://stedolan.github.io/jq/download/linux32/jq;
+    ;;
+  esac
   chmod a+x jq* ; mv jq* /usr/bin/;
   
   #Install Perl
