@@ -431,7 +431,7 @@ dist-upgrade)
   #rvm::ruby-x.y.z - #install
   [ -r "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   vrvm=$(rvm --version |awk '{print $2}'); #RULE
-  if [[ "$vrvm" < "1.26.11" ]]; then
+  if [[ "$vrvm" < "1.26.10" ]]; then
     echo "#  Install RVM##X.Y.Z stable";
     curl -sSL https://rvm.io/mpapis.asc |sudo gpg --import -
     curl -sSL https://get.rvm.io |bash -s stable; #rvm 1.26.11
@@ -449,7 +449,7 @@ dist-upgrade)
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
   vruby=$(ruby --version |awk '{print $2}'); #RULE
-  if [[ "$vruby" < "2.1.2p95" ]]; then
+  if [[ "$vruby" < "2.1.2" ]]; then
     curl -sSL https://get.rvm.io |bash -s stable --ruby; #ruby 2.2.1
     vruby=$(ruby --version |awk '{print $2}');
   fi
@@ -486,14 +486,16 @@ dist-upgrade)
   echo "#   Checking GEM##X.Y.Z";
   #==========
   vgem=$(gem --version |awk '{print $1}'); #RULE
-  if [[ "$vgem" < "2.4.5" ]]; then
+  if [[ "$vgem" < "2.4.4" ]]; then
     gem update ;
+
+    echo "#   update GEM##RUBIES";
+    gem install bundler
+
     vgem=$(gem --version |awk '{print $1}');
   fi
   echo "#   Requirements GEM##${vgem} successful";
-
-  echo "#   update GEM##RUBIES";
-  gem install bundler
+  
   #gem install poi2csv
   
   #==========
@@ -552,11 +554,11 @@ dist-upgrade)
 
      echo "#  detect python3 : $(python3 --version 2>&1)";
      echo "#  detect pip3 : $(pip3 --version 2>&1)";  #pip 1.5.6 from /usr/lib/python3/dist-packages (python 3.4)
-     python3 ${SH_DIR}/py/hello.py;
+     #python3 ${SH_DIR}/py/hello.py;
 
      #Package Distribution
 
-     sudo apt-get install -y uwsgi-plugins-all; #OPTION
+     #sudo apt-get install -y uwsgi-plugins-all; #OPTION
      # fontconfig-config fonts-dejavu-core libfontconfig1 libgloox12 libjansson4 libjs-jquery 
      # liblua5.1-0 libmatheval1 libperl5.20 libpgm-5.1-0 libphp5-embed libpq5 libruby2.1 libsodium13
      # libv8-3.14.5 libyaml-0-2 libzmq3 openjdk-7-jre-headless php5-common python-greenlet ruby 
@@ -628,7 +630,7 @@ dist-upgrade)
   echo "#   Checking PYTHON3##X.Y.Z";
   #==========
   vpython3=$(python3 --version |awk '{print $2}'); #RULE
-  if [[ "$vpython3" < "3.4.2" ]]; then
+  if [[ "$vpython3" < "3.4.1" ]]; then
       #==========
       echo "#   altinstall PYTHON3#3.4.3 from source"; #MULTIPLE PYTHON (eq. make altinstall))
       #========== SOURCE
@@ -675,20 +677,24 @@ dist-upgrade)
       done
       echo "#    use python with python${PYTHON_VERSION}";
 
-      # #==========
-      echo "#   install PIP#1.5.6 from source [RECOMMENDED]"; #/usr/local/lib/python3.4/dist-packages
-      echo "#  (DEACTIVATE)";
-      # #==========
-      # cd /tmp;
-      # curl -OL https://bootstrap.pypa.io/get-pip.py
-      # echo '#    python get-pip.py --proxy="[user:passwd@]proxy.server:port"'
-      # python${PYTHON_VERSION} get-pip.py
-      # python${PYTHON_VERSION} -m pip --version
-      # python${PYTHON_VERSION} -m pip install -U pip
-
       vpython3=$(python3 --version |awk '{print $2}');
   fi
   echo "#   Requirements PYTHON3##${vpython3} successful";
+
+  vpip3=$(pip3 --version |awk '{print $2}');
+  if [[ "$vpip3" < "1.5.5" ]]; then
+      # #==========
+      echo "#   install PIP#1.5.6 from source [RECOMMENDED]"; #/usr/local/lib/python3.4/dist-packages
+      # #==========
+      cd /tmp;
+      curl -OL https://bootstrap.pypa.io/get-pip.py
+      echo '#    python get-pip.py --proxy="[user:passwd@]proxy.server:port"'
+      python${PYTHON_VERSION} get-pip.py
+      python${PYTHON_VERSION} -m pip --version
+      python${PYTHON_VERSION} -m pip install -U pip
+      vpip3=$(pip3 --version |awk '{print $2}');
+  fi
+  echo "#   Requirements PIP3##${vpip3} successful";
 
   # USE pyvenv instead-of virtualenv
   #==========
@@ -713,89 +719,90 @@ dist-upgrade)
         sudo pyvenv /opt/venv/${project}
         echo "#    source /opt/venv/${project}/bin/activate";
         . /opt/venv/${project}/bin/activate
+
+            # ===============
+        echo "#     upgrade modules PIP"
+        # ===============
+        echo "#     check permission ${HOME}/.cache/pip/log"
+        
+        #python${PYTHON_VERSION} -m pip install --upgrade SomePackage
+        #python${PYTHON_VERSION} -m SomePackage --version
+        python --version
+        python -m pip --version
+        python -m pip list
+
+        #python -m pip install --upgrade apturl; #  (0.5.2ubuntu6)
+        #python -m pip install --upgrade bsddb3; # (6.1.0)
+        #python -m pip install --upgrade chardet; # (2.3.0)
+        #python -m pip install --upgrade colorama; # (0.3.2)
+        #python -m pip install --upgrade command-not-found; # (0.3)
+        #python -m pip install --upgrade defer; # (1.0.6)
+        #python -m pip install --upgrade gramps; # (4.1.1)
+        python -m pip install --upgrade html5lib; # (0.999) .six
+        #python -m pip install --upgrade language-selector; # (0.1)
+        python -m pip install --upgrade pexpect; # (3.2)
+        #python -m pip install --upgrade Pillow; # (2.7.0)
+        python -m pip install --upgrade pip; # (6.1.1)
+        python -m pip install --upgrade pip-tools; # (6.0.3)
+        #python -m pip install --upgrade pycups; # (1.9.72)
+        #python -m pip install --upgrade pycurl; # (7.19.5)
+        #python -m pip install --upgrade pygobject; # (3.14.0)
+        #python -m pip install --upgrade PyICU; # (1.8)
+        #python -m pip install --upgrade python-apt; # (0.9.3.11build1)
+        #python -m pip install --upgrade python-debian; # (0.1.22)
+        python -m pip install --upgrade reportlab; # (3.1.44) .pillow .setuptools .
+        python -m pip install --upgrade requests; # (2.4.3)
+        #python -m pip install --upgrade screen-resolution-extra; # (2.8.19)
+        python -m pip install --upgrade setuptools; # (15.2)
+        python -m pip install --upgrade six; # (1.9.0)
+        python -m pip install --upgrade ssh-import-id; # (4.1)
+        #python -m pip install --upgrade ubuntu-drivers-common; # (2.8.19)
+        #python -m pip install --upgrade ufw; # (0.34-rc-0ubuntu5)
+        #python -m pip install --upgrade unattended-upgrades; # (0.1)
+        python -m pip install --upgrade urllib3; # (1.9.1)
+        #python -m pip install --upgrade usb-creator; # (0.2.23)
+        #python -m pip install --upgrade virtualenv; # (12.0.4)
+        python -m pip install --upgrade wheel; # (0.24.0)
+        #python -m pip install --upgrade xkit; # (2.8.19)
+
+        python -m pip install --upgrade elasticsearch; #.urllib3 
+        python -m pip install --upgrade jinja2; #.markupsafe
+        python -m pip install --upgrade flask;  #.markupsafe .itsdangerous .Jinja2 .Werkzeug
+        python -m pip install --upgrade flask-script; #.markupsafe .itsdangerous .Jinja2 .Werkzeug .flask
+        python -m pip install --upgrade uwsgi;
+        python -m pip install --upgrade pyparsing;
+
+        python -m pip install --upgrade markdown;
+        python -m pip install --upgrade basicauth;
+        python -m pip install --upgrade oauthlib;
+        python -m pip install --upgrade oauth2client; # .httplib2 .six .rsa .pyasn1 .pyasn1-modules 
+
+        python -m pip install --upgrade paramiko; #.ecdsa .pycrypto
+        
+        python -m pip install --upgrade google-api-python-client; #.six .rsa .pyasn1 .simplejson .oauth2client .uritemplate .pyasn1-modules .httplib2
+        python -m pip install --upgrade goslate; #.futures #BUG
+        python -m pip install --upgrade cython;
+        
+        #Option alternative list
+        python -m pip install --upgrade freeze; #.six
+        python -m pip freeze -l;
+
+        deactivate
+
+        chown -R ${WWW_DATA}:${WWW_DATA} /opt/venv
+
+        #==========
+        echo "#  for USE RUNTIME VENV..."
+        #==========
+        echo "source /opt/venv/${project}/bin/activate";
+        echo "# ... operations ...#";
+        echo "#  deactivate";
+        # TESTED OK
+
+        echo "#   Requirements PYVENV##${projet} successful";
       ;;
     esac
 
-    # ===============
-    echo "#     upgrade modules PIP"
-    # ===============
-    echo "#     check permission ${HOME}/.cache/pip/log"
-    
-    #python${PYTHON_VERSION} -m pip install --upgrade SomePackage
-    #python${PYTHON_VERSION} -m SomePackage --version
-    python --version
-    python -m pip --version
-    python -m pip list
-
-    #python -m pip install --upgrade apturl; #  (0.5.2ubuntu6)
-    #python -m pip install --upgrade bsddb3; # (6.1.0)
-    #python -m pip install --upgrade chardet; # (2.3.0)
-    #python -m pip install --upgrade colorama; # (0.3.2)
-    #python -m pip install --upgrade command-not-found; # (0.3)
-    #python -m pip install --upgrade defer; # (1.0.6)
-    #python -m pip install --upgrade gramps; # (4.1.1)
-    python -m pip install --upgrade html5lib; # (0.999) .six
-    #python -m pip install --upgrade language-selector; # (0.1)
-    python -m pip install --upgrade pexpect; # (3.2)
-    #python -m pip install --upgrade Pillow; # (2.7.0)
-    python -m pip install --upgrade pip; # (6.1.1)
-    python -m pip install --upgrade pip-tools; # (6.0.3)
-    #python -m pip install --upgrade pycups; # (1.9.72)
-    #python -m pip install --upgrade pycurl; # (7.19.5)
-    #python -m pip install --upgrade pygobject; # (3.14.0)
-    #python -m pip install --upgrade PyICU; # (1.8)
-    #python -m pip install --upgrade python-apt; # (0.9.3.11build1)
-    #python -m pip install --upgrade python-debian; # (0.1.22)
-    python -m pip install --upgrade reportlab; # (3.1.44) .pillow .setuptools .
-    python -m pip install --upgrade requests; # (2.4.3)
-    #python -m pip install --upgrade screen-resolution-extra; # (2.8.19)
-    python -m pip install --upgrade setuptools; # (15.2)
-    python -m pip install --upgrade six; # (1.9.0)
-    python -m pip install --upgrade ssh-import-id; # (4.1)
-    #python -m pip install --upgrade ubuntu-drivers-common; # (2.8.19)
-    #python -m pip install --upgrade ufw; # (0.34-rc-0ubuntu5)
-    #python -m pip install --upgrade unattended-upgrades; # (0.1)
-    python -m pip install --upgrade urllib3; # (1.9.1)
-    #python -m pip install --upgrade usb-creator; # (0.2.23)
-    #python -m pip install --upgrade virtualenv; # (12.0.4)
-    python -m pip install --upgrade wheel; # (0.24.0)
-    #python -m pip install --upgrade xkit; # (2.8.19)
-
-    python -m pip install --upgrade elasticsearch; #.urllib3 
-    python -m pip install --upgrade jinja2; #.markupsafe
-    python -m pip install --upgrade flask;  #.markupsafe .itsdangerous .Jinja2 .Werkzeug
-    python -m pip install --upgrade flask-script; #.markupsafe .itsdangerous .Jinja2 .Werkzeug .flask
-    python -m pip install --upgrade uwsgi;
-    python -m pip install --upgrade pyparsing;
-
-    python -m pip install --upgrade markdown;
-    python -m pip install --upgrade basicauth;
-    python -m pip install --upgrade oauthlib;
-    python -m pip install --upgrade oauth2client; # .httplib2 .six .rsa .pyasn1 .pyasn1-modules 
-
-    python -m pip install --upgrade paramiko; #.ecdsa .pycrypto
-    
-    python -m pip install --upgrade google-api-python-client; #.six .rsa .pyasn1 .simplejson .oauth2client .uritemplate .pyasn1-modules .httplib2
-    python -m pip install --upgrade goslate; #.futures #BUG
-    python -m pip install --upgrade cython;
-    
-    #Option alternative list
-    python -m pip install --upgrade freeze; #.six
-    python -m pip freeze -l;
-
-    deactivate
-
-    chown -R ${WWW_DATA}:${WWW_DATA} /opt/venv
-
-    #==========
-    echo "#  for USE RUNTIME VENV..."
-    #==========
-    echo "source /opt/venv/${project}/bin/activate";
-    echo "# ... operations ...#";
-    echo "#  deactivate";
-    # TESTED OK
-
-    echo "#   Requirements PYVENV##${projet} successful";
   done
 
   echo "#   Checking UWSGI##X.Y.Z";
