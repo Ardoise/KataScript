@@ -438,10 +438,12 @@ dist-upgrade)
     curl -sSL https://get.rvm.io |bash -s stable; #rvm 1.26.11
     [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
     vrvm=$(rvm --version |awk '{print $2}'); #RULE
+    [[ "$(grep -n 'rvm/scripts/rvm' ${HOME}/.bash_profile |cut -d':' -f1)" > 0 ]] || echo '. /usr/local/rvm/scripts/rvm' >> ${HOME}/.bash_profile;
+    [ -r "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
+    
+    rvm requirements;
   fi
   echo "#   Requirements RVM##${vrvm} successful";
-  [[ "$(grep -n 'rvm/scripts/rvm' ${HOME}/.bash_profile |cut -d':' -f1)" > 0 ]] || echo '. /usr/local/rvm/scripts/rvm' >> ${HOME}/.bash_profile;
-  rvm requirements;
   #Installing required packages: gawk, libyaml-dev, libsqlite3-dev, sqlite3, autoconf, libgdbm-dev, libncurses5-dev, automake, libtool, bison, libffi-dev...
 
   #==========
@@ -450,25 +452,25 @@ dist-upgrade)
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
   vruby=$(ruby --version |awk '{print $2}'); #RULE
-  if [[ "$vruby" < "2.1.2" ]]; then
+  if [[ "${vruby}" < "2.1.2" ]]; then
     curl -sSL https://get.rvm.io |bash -s stable --ruby; #ruby 2.2.1
     vruby=$(ruby --version |awk '{print $2}');
   fi
   echo "#   Requirements RUBY##${vruby} successful";
   #rvm reinstall ruby
   
-  #==========
-  echo && echo "#   Checking JRUBY##X.Y.Z";
-  #==========
-  #rvm::jruby-x.y.z - #install
-  vjruby=$(jruby --version |awk '{print $2}'); #RULE
-  if [[ "$jruby" < "1.5.6-9" ]]; then
-    curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby; #/usr/local/rvm/rubies/jruby-1.7.19/bin/jruby"
-    [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
-    vjruby=$(jruby --version |awk '{print $2}');
-  fi
-  echo "#   Requirements JRUBY##${vjruby} successful";
-  #rvm reinstall jruby
+  # #==========
+  # echo && echo "#   Checking JRUBY##X.Y.Z";
+  # #==========
+  # #rvm::jruby-x.y.z - #install
+  # vjruby=$(jruby --version |awk '{print $2}'); #RULE
+  # if [[ "$jruby" < "1.5.6-9" ]]; then
+  #   curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby; #/usr/local/rvm/rubies/jruby-1.7.19/bin/jruby"
+  #   [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
+  #   vjruby=$(jruby --version |awk '{print $2}');
+  # fi
+  # echo "#   Requirements JRUBY##${vjruby} successful";
+  # #rvm reinstall jruby
   
   # --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,
   # addressable,builder,launchy,liquid,syntax,maruku,rack,sass,rack-protection,
