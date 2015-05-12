@@ -508,7 +508,7 @@ dist-upgrade)
   #==========
   echo && echo "#   Install JSONQuery Parser";
   #==========
-  vjq=$(jq --version |awk -F'-' '{print $1}'); #RULE
+  vjq=$(jq --version |awk -F'-' '{print $2}'); #RULE
   if [[ "$vjq" < "1.3" ]]; then
     case $(uname -m) in
       *64) #64 bits = x86_64
@@ -521,7 +521,7 @@ dist-upgrade)
       ;;
     esac
     chmod a+x jq* ; mv jq* /usr/bin/;
-    vjq=$(jq --version |awk -F'-' '{print $1}');
+    vjq=$(jq --version |awk -F'-' '{print $2}');
   fi
   echo "#   Requirements JQ##${vjq} successful";
 
