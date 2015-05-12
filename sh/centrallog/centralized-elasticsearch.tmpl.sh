@@ -471,7 +471,7 @@ dist-upgrade)
     [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
     vjruby=$(jruby --version |awk '{print $2}');
   fi
-  echo "#  Requirements JRUBY##${vjruby} successful";
+  echo "#   Requirements JRUBY##${vjruby} successful";
   #rvm reinstall jruby
   
   # --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,
