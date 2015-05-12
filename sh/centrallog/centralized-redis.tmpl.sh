@@ -438,8 +438,9 @@ dist-upgrade)
     [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
     vrvm=$(rvm --version |awk '{print $2}'); #RULE
     [[ "$(grep -n 'rvm/scripts/rvm' ${HOME}/.bash_profile |cut -d':' -f1)" > 0 ]] || echo '. /usr/local/rvm/scripts/rvm' >> ${HOME}/.bash_profile;
+    [[ "$(grep -n 'progress-bar' ${HOME}/.curlrc |cut -d':' -f1)" > 0 ]] || echo progress-bar >> ${HOME}/.curlrc
     [ -r "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
-    
+
     rvm requirements;
   fi
   echo "#   Requirements RVM##${vrvm} successful";
@@ -482,7 +483,6 @@ dist-upgrade)
   # rvm notes
   # rvm list known
   # rvm list
-  [[ "$(grep -n 'progress-bar' ${HOME}/.curlrc |cut -d':' -f1)" > 0 ]] || echo progress-bar >> ${HOME}/.curlrc
 
   #==========
   echo && echo "#   Checking GEM##X.Y.Z";
@@ -695,22 +695,22 @@ dist-upgrade)
   echo "#   Requirements PYTHON3##${vpython3} successful";
 
   #==========
-  echo && echo "#   Checking PIP3##X.Y.Z";
+  echo && echo "#   Checking PIP##X.Y.Z";
   #==========
-  vpip3=$(pip3 --version |awk '{print $2}');
-  if [[ "$vpip3" < "1.5.5" ]]; then
+  vpip=$(pip --version |awk '{print $2}');
+  if [[ "$vpip" < "1.5.5" ]]; then
       # #==========
-      echo "#   install PIP#1.5.6 from source [RECOMMENDED]"; #/usr/local/lib/python3.4/dist-packages
+      echo "#   install PIP#1.5.6 from source"; #/usr/local/lib/python3.4/dist-packages
       # #==========
       cd /tmp;
       curl -OL https://bootstrap.pypa.io/get-pip.py
-      echo '#    python get-pip.py --proxy="[user:passwd@]proxy.server:port"'
-      python${PYTHON_VERSION} get-pip.py
-      python${PYTHON_VERSION} -m pip --version
-      python${PYTHON_VERSION} -m pip install -U pip
-      vpip3=$(pip3 --version |awk '{print $2}');
+      echo '#    python3 get-pip.py --proxy="[user:passwd@]proxy.server:port"'
+      python3 get-pip.py
+      python3 -m pip --version
+      python3 -m pip install -U pip
+      vpip=$(pip --version |awk '{print $2}');
   fi
-  echo "#   Requirements PIP3##${vpip3} successful";
+  echo "#   Requirements PIP3##${vpip} successful";
 
   # USE pyvenv instead-of virtualenv
   #==========
