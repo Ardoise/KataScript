@@ -491,7 +491,7 @@ dist-upgrade)
   echo && echo "#   Checking GEM##X.Y.Z";
   #==========
   vgem=$(gem --version |awk '{print $1}'); #RULE
-  if [[ "$vgem" < "2.4.4" ]]; then
+  if [[ "$vgem" < "2.2.1" ]]; then
     gem update ;
 
     echo "#   update GEM##RUBIES";
