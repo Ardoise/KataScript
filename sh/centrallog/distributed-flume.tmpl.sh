@@ -426,39 +426,36 @@ dist-upgrade)
     ;;
   esac
 
+  #==========
+  #echo "#  Install RVM##X.Y.Z";
+  #==========
   #rvm-x.y.z - #install
   #rvm::ruby-x.y.z - #install
   [ -f "/usr/local/rvm/scripts/rvm" ] || (
-    echo "#  Install RVM##1.25.33";
-    curl -sSL https://get.rvm.io | bash -s stable;
+    echo "#  Install RVM##1.26.11 stable";
+    curl -sSL https://rvm.io/mpapis.asc |sudo gpg --import -
+    curl -sSL https://get.rvm.io |bash -s stable; #rvm 1.26.11
   )
   [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
   [[ "$(grep -n 'rvm/scripts/rvm' ${HOME}/.bash_profile |cut -d':' -f1)" > 0 ]] || echo '. /usr/local/rvm/scripts/rvm' >> ${HOME}/.bash_profile;
   rvm requirements;
   #Installing required packages: gawk, libyaml-dev, libsqlite3-dev, sqlite3, autoconf, libgdbm-dev, libncurses5-dev, automake, libtool, bison, libffi-dev...
 
-  #DEPRECATED
-  # echo "#  If old RVM installed yet";
-  # echo "#  Please do one of the following:";
-  # echo "#    'rvm reload'";
-  # echo "#    'open a new shell'";
-  # echo "#    'echo rvm_auto_reload_flag=1 >> ${HOME}/.rvmrc' # for auto reload with msg.";
-  # echo "#    'echo rvm_auto_reload_flag=2 >> ${HOME}/.rvmrc' # for silent auto reload.";
-
   #==========
-  echo "#  Install RUBY##2.1.3";
+  echo "#  Install RUBY##2.2.1 stable"; #2.1.2p95
   #==========
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
-  curl -sSL https://get.rvm.io |bash -s stable --ruby
+  vruby=$(ruby --version |awk '{print $2}');
+  [[ "$vruby" < "2.1.2p95" ]] && curl -sSL https://get.rvm.io |bash -s stable --ruby; #ruby 2.2.1
   #rvm reinstall ruby
   
   #==========
-  echo "#  Install JRUBY##1.7.16";
+  echo "#  Install JRUBY##1.7.19 stable"; #1.5.6-9
   #==========
   #rvm::jruby-x.y.z - #install
-  #[ -f "/usr/local/rvm/rubies/jruby-1.7.16/bin/jruby" ] || 
-  curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby
+  jruby=$(jruby --version |awk '{print $2}');
+  [[ "$jruby" < "1.5.6-9" ]] && curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby; #/usr/local/rvm/rubies/jruby-1.7.19/bin/jruby"
   #rvm reinstall jruby
   
   # --gems=rails,puma,Platform,open4,POpen4,i18n,multi_json,activesupport,
@@ -475,7 +472,7 @@ dist-upgrade)
   [[ "$(grep -n 'progress-bar' ${HOME}/.curlrc |cut -d':' -f1)" > 0 ]] || echo progress-bar >> ${HOME}/.curlrc
 
   #==========
-  echo "#   Install GEM RUBIES";
+  echo "#   Install GEM##RUBIES";
   #==========
   gem update
   gem install bundler
@@ -609,71 +606,73 @@ dist-upgrade)
      ;;
    esac
 
-  #==========
-  echo "#  altinstall PYTHON3#3.4.3 from source"; #MULTIPLE PYTHON (eq. make altinstall))
-  echo "#  (DEACTIVATE)"; #MULTIPLE PYTHON (eq. make altinstall))
-  #========== SOURCE
-  PYTHON_VERSION=3.4;
-  PYTHON_VERSION_SRC=${PYTHON_VERSION}.3;
-  PYTHON_FILE_SRC="Python-${PYTHON_VERSION_SRC}.tar.xz";
-  PYTHON_URI_SRC=https://www.python.org/ftp/python/${PYTHON_VERSION_SRC}/${PYTHON_FILE_SRC};
-  prefix=/opt/python${PYTHON_VERSION};
+  vpython=$(python3 --version |awk '{print $2}');
+  if [[ "$vpython" < "3.4.2" ]]; then
+      #==========
+      echo "#  altinstall PYTHON3#3.4.3 from source"; #MULTIPLE PYTHON (eq. make altinstall))
+      echo "#  (DEACTIVATE)"; #MULTIPLE PYTHON (eq. make altinstall))
+      #========== SOURCE
+      PYTHON_VERSION=3.4;
+      PYTHON_VERSION_SRC=${PYTHON_VERSION}.3;
+      PYTHON_FILE_SRC="Python-${PYTHON_VERSION_SRC}.tar.xz";
+      PYTHON_URI_SRC=https://www.python.org/ftp/python/${PYTHON_VERSION_SRC}/${PYTHON_FILE_SRC};
+      prefix=/opt/python${PYTHON_VERSION};
 
-  cd /tmp;
-  # wget ${PYTHON_URI_SRC}
-  # tar xJf ./${PYTHON_FILE_SRC};
-  # cd ./${PYTHON_FILE_SRC%%.tar.xz};
-  # [ -d ${prefix}/lib/python${PYTHON_VERSION} ] || (
-  #   ./configure --prefix=${prefix};
+      cd /tmp;
+      wget ${PYTHON_URI_SRC}
+      tar xJf ./${PYTHON_FILE_SRC};
+      cd ./${PYTHON_FILE_SRC%%.tar.xz};
+      [ -d ${prefix}/lib/python${PYTHON_VERSION} ] || (
+        ./configure --prefix=${prefix};
 
-  #   #The necessary bits to build these optional modules were not found:
-  #   #_bz2                  _curses               _curses_panel      
-  #   #_dbm                  _gdbm                 _lzma              
-  #   #_sqlite3              _ssl                  _tkinter           
-  #   #readline              zlib
-  #   case "$platform" in 
-  #     Ubuntu|Debian)
-  #       sudo apt-get update;
-  #       #REQUIRES for Python3 src
-  #       sudo apt-get install -y zlib1g-dev libbz2-dev libcurses5-dev tcl8.6-dev tk8.6-dev liblzma-dev;
-  #       sudo apt-get install -y libreadline-dev libreadline6-dev libgdm-dev libgdm3-dev libssl-dev libsqlite3-dev python3-tk;
-  #     ;;
-  #     Redhat|Fedora|CentOS)
-  #       yum -y update;
-  #     ;;
-  #   esac
-  
-  #   echo "#    at first, wait a moment ... [390*5] test_ressource ";
-  #   make && make test && sudo make altinstall; #for others python
-  # )
-  # #
-  # PYTHON_ALIAS='alias py="'${prefix}'/bin/python3";';
-  # for a in ${HOME}/.bashrc ${HOME}/.bash_aliases; do
-  #   sed 's~alias py=.*~~' ${a} >${a}.kstmp; #previous if exist
-  #   echo ${PYTHON_ALIAS} >> ${a}.kstmp;
-  #   mv ${a}.kstmp ${a};
-  #   . ${a};
-  # done
-  # echo "#    use python with python${PYTHON_VERSION}";
+        #The necessary bits to build these optional modules were not found:
+        #_bz2                  _curses               _curses_panel      
+        #_dbm                  _gdbm                 _lzma              
+        #_sqlite3              _ssl                  _tkinter           
+        #readline              zlib
+        case "$platform" in 
+          Ubuntu|Debian)
+            sudo apt-get update;
+            #REQUIRES for Python3 src
+            sudo apt-get install -y zlib1g-dev libbz2-dev libcurses5-dev tcl8.6-dev tk8.6-dev liblzma-dev;
+            sudo apt-get install -y libreadline-dev libreadline6-dev libgdm-dev libgdm3-dev libssl-dev libsqlite3-dev python3-tk;
+          ;;
+          Redhat|Fedora|CentOS)
+            yum -y update;
+          ;;
+        esac
+      
+        echo "#    at first, wait a moment ... [390*5] test_ressource ";
+        make && make test && sudo make altinstall; #for others python
+      )
+      #
+      PYTHON_ALIAS='alias py="'${prefix}'/bin/python3";';
+      for a in ${HOME}/.bashrc ${HOME}/.bash_aliases; do
+        sed 's~alias py=.*~~' ${a} >${a}.kstmp; #previous if exist
+        echo ${PYTHON_ALIAS} >> ${a}.kstmp;
+        mv ${a}.kstmp ${a};
+        . ${a};
+      done
+      echo "#    use python with python${PYTHON_VERSION}";
 
-  # #==========
-  echo "#   install PIP#1.5.6 from source [RECOMMENDED]"; #/usr/local/lib/python3.4/dist-packages
-  echo "#  (DEACTIVATE)";
-  # #==========
-  # cd /tmp;
-  # curl -OL https://bootstrap.pypa.io/get-pip.py
-  # echo '#    python get-pip.py --proxy="[user:passwd@]proxy.server:port"'
-  # python${PYTHON_VERSION} get-pip.py
-  # python${PYTHON_VERSION} -m pip --version
-  # python${PYTHON_VERSION} -m pip install -U pip
+      # #==========
+      echo "#   install PIP#1.5.6 from source [RECOMMENDED]"; #/usr/local/lib/python3.4/dist-packages
+      echo "#  (DEACTIVATE)";
+      # #==========
+      # cd /tmp;
+      # curl -OL https://bootstrap.pypa.io/get-pip.py
+      # echo '#    python get-pip.py --proxy="[user:passwd@]proxy.server:port"'
+      # python${PYTHON_VERSION} get-pip.py
+      # python${PYTHON_VERSION} -m pip --version
+      # python${PYTHON_VERSION} -m pip install -U pip
+  fi
 
   # USE pyvenv instead-of virtualenv
   #==========
   echo "#   install venv with pyvenv";
   #========== SOURCE
-  [ -d /opt/venv ] || mkdir -p /opt/venv
-  
-  for p in p34; do
+  [ "$(which pyvenv 2>/dev/null)a" != "a" ] && for p in p34; do
+
     home=/opt/venv;
     project=${p};
 
