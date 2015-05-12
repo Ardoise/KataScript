@@ -723,10 +723,7 @@ dist-upgrade)
   #========== SOURCE
   if [ "$(which pyvenv 2>/dev/null)a" != "a" ]; then
 
-    echo "$(id -un)"
-    echo "$(id -un)"
-    echo "$(id -un)"
-    
+        
     for p in p34; do
 
       home=/opt/venv;
@@ -752,8 +749,8 @@ dist-upgrade)
           # ===============
           echo "#     check permission ${HOME}/.cache/pip/log"
           
-          sudo chmod -R 777 ${HOME}/.cache; #${HOME}/.cache/pip/log/debug.log
-          sudo chown -R ${HOME}:${HOME} ${HOME}/.cache; #${HOME}/.cache/pip/log/debug.log
+          chmod -R 777 ${HOME}/.cache; #${HOME}/.cache/pip/log/debug.log
+          chown -R root:root ${HOME}/.cache; #${HOME}/.cache/pip/log/debug.log
 
           #python${PYTHON_VERSION} -m pip install --upgrade SomePackage
           #python${PYTHON_VERSION} -m SomePackage --version
