@@ -815,7 +815,7 @@ dist-upgrade)
     chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi
     rm -rf uwsgi_latest_from_installer*
     chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi; #HTTP SERVER USED
-    vuwsgi=$(uwsgi --version |awk '{print $2}');  #RULE
+    vuwsgi=$(uwsgi --version |awk '{print $1}'); 
   fi
   echo "#   Requirements UWSGI##${vuwsgi} successful";
 
