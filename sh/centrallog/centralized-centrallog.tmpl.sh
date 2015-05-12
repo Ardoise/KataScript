@@ -799,8 +799,8 @@ dist-upgrade)
   done
 
   echo "#   Checking UWSGI##X.Y.Z";
-  vuwsgi=$(uwsgi --version |awk '{print $2}');  #RULE
-  if [[ "$vuwsgi" < "2.0.7" ]]; then
+  vuwsgi=$(uwsgi --version |awk '{print $1}');  #RULE
+  if [[ "${vuwsgi}" < "2.0.7" ]]; then
     #==========
     echo "#  install UWSGI#2.0.10 from source [OPTION]"
     echo "#  (DEACTIVATE)";
