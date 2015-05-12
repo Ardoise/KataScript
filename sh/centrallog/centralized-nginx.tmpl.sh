@@ -720,6 +720,10 @@ dist-upgrade)
   echo && echo "#   Checking PYVENV##X.Y.Z";
   #========== SOURCE
   if [ "$(which pyvenv 2>/dev/null)a" != "a" ]; then
+
+    echo "$(id -un)"
+    echo "$(id -un)"
+    echo "$(id -un)"
     
     for p in p34; do
 
