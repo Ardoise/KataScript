@@ -697,20 +697,20 @@ dist-upgrade)
   #==========
   echo && echo "#   Checking PIP##X.Y.Z";
   #==========
-  vpip=$(pip --version |awk '{print $2}');
+  vpip=$(python -m pip --version |awk '{print $2}');
   if [[ "$vpip" < "1.5.5" ]]; then
       # #==========
       echo "#   install PIP#1.5.6 from source"; #/usr/local/lib/python3.4/dist-packages
       # #==========
       cd /tmp;
       curl -OL https://bootstrap.pypa.io/get-pip.py
-      echo '#    python3 get-pip.py --proxy="[user:passwd@]proxy.server:port"'
-      python3 get-pip.py
-      python3 -m pip --version
-      python3 -m pip install -U pip
-      vpip=$(pip --version |awk '{print $2}');
+      echo '#    python get-pip.py --proxy="[user:passwd@]proxy.server:port"'
+      python get-pip.py
+      python -m pip --version
+      python -m pip install -U pip
+      vpip=$(python -m pip --version |awk '{print $2}');
   fi
-  echo "#   Requirements PIP3##${vpip} successful";
+  echo "#   Requirements PIP##${vpip} successful";
 
   # USE pyvenv instead-of virtualenv
   #==========
@@ -814,11 +814,11 @@ dist-upgrade)
           chown -R ${WWW_DATA}:${WWW_DATA} /opt/venv
 
           #==========
-          echo "#  for USE RUNTIME VENV..."
+          echo "#     # for USE RUNTIME VENV..."
           #==========
-          echo "source /opt/venv/${project}/bin/activate";
-          echo "# ... operations ...#";
-          echo "#  deactivate";
+          echo "#     $ . /opt/venv/${project}/bin/activate";
+          echo "#     $ #... operations ...#";
+          echo "#     $ deactivate";
           # TESTED OK
 
           echo "#   Requirements PYVENV##${projet} successful";
