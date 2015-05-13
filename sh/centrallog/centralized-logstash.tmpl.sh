@@ -43,52 +43,52 @@
 # DATA:     [ "/usr/share/logstash/data" ]
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin; 
-echo "PATH=${PATH}";
+echo "ENV PATH=${PATH}";
 DESCRIPTION="LOGSTASH Server"; 
-echo "DESCRIPTION=${DESCRIPTION}";
+echo "ENV DESCRIPTION=${DESCRIPTION}";
 NAME="logstash";
-echo "NAME=${NAME}";
+echo "ENV NAME=${NAME}";
 DAEMON=/var/lib/$NAME/bin/$NAME;
-echo "DAEMON=${DAEMON}";
+echo "ENV DAEMON=${DAEMON}";
 DAEMON_ARGS="start";
-echo "DAEMON_ARGS=${DAEMON_ARGS}";
+echo "ENV DAEMON_ARGS=${DAEMON_ARGS}";
 PIDFILE=/var/run/$NAME.pid;
-echo "PIDFILE=${PIDFILE}";
+echo "ENV PIDFILE=${PIDFILE}";
 SCRIPTNAME=/etc/init.d/$NAME;
-echo "SCRIPTNAME=${SCRIPTNAME}";
+echo "ENV SCRIPTNAME=${SCRIPTNAME}";
 
 SCRIPT_OK=0;
-echo "SCRIPT_OK=${SCRIPT_OK}";
+echo "ENV SCRIPT_OK=${SCRIPT_OK}";
 SCRIPT_ERROR=1;
-echo "SCRIPT_ERROR=${SCRIPT_ERROR}";
+echo "ENV SCRIPT_ERROR=${SCRIPT_ERROR}";
 SCRIPT_NAME=`basename $0`; # ${0##*/}
-echo "SCRIPT_NAME=${SCRIPT_NAME}";
+echo "ENV SCRIPT_NAME=${SCRIPT_NAME}";
 DEFAULT=/etc/default/$NAME;
-echo "DEFAULT=${DEFAULT}";
+echo "ENV DEFAULT=${DEFAULT}";
 cd $(dirname $0) && SCRIPT_DIR="$PWD" && cd - >/dev/null;
-echo "SCRIPT_DIR=${SCRIPT_DIR}";
+echo "ENV SCRIPT_DIR=${SCRIPT_DIR}";
 SH_DIR=$(dirname $SCRIPT_DIR);
-echo "SH_DIR=${SH_DIR}";
+echo "ENV SH_DIR=${SH_DIR}";
 platform="$(lsb_release -i -s)";
-echo "platform=${platform}";
+echo "ENV platform=${platform}";
 platform_version="$(lsb_release -s -r)";
-echo "platform_version=${platform_version}";
+echo "ENV platform_version=${platform_version}";
 yourIP=$(hostname -I | cut -d' ' -f1);
-echo "yourIP=${yourIP}";
+echo "ENV yourIP=${yourIP}";
 JSON=json/cloud.json
-echo "JSON=${JSON}";
+echo "ENV JSON=${JSON}";
 WWW_DATA="www-data";
-echo "WWW_DATA=${WWW_DATA}";
+echo "ENV WWW_DATA=${WWW_DATA}";
 
 idu=`id -u`;
-echo "idu=${idu}; #You need root privileges to run this script !";
+echo "ENV idu=${idu} #You need root privileges to run this script !";
 if [ $idu -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: WARN ${SCRIPT_ERROR}"
   exit $SCRIPT_ERROR
 fi
 
 using_shell=$(ps -p $$);
-echo "using_shell=${using_shell};";
+echo "ENV using_shell=${using_shell}";
 
 # Load the VERBOSE setting and other rcS variables
 [ -s /lib/init/vars.sh ] && . /lib/init/vars.sh;
@@ -110,7 +110,7 @@ PATTERN_FILE=https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/re
     # CONTEXT VALUES LOCAL
     sed -i 's/127.0.0.1/'${yourIP}'/g' ${CONF_FILE}
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
-    echo "uidgid=${uidgid}; #LOCAL";
+    echo "ENV uidgid=${uidgid} #LOCAL";
     chown -R $uidgid ${CONF_FILE};
   )
   
@@ -120,7 +120,7 @@ CONF_INPUT=https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/inpu
     # CONTEXT VALUES LOCAL
     sed -i -e 's/127.0.0.1/'${yourIP}'/g' ${CONF_FILE}.input
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
-    echo "uidgid=${uidgid}; #LOCAL";
+    echo "ENV uidgid=${uidgid} #LOCAL";
     chown -R $uidgid ${CONF_FILE}.input;
 	
   	echo "input {" > ${CONF_FILE}.rb
@@ -133,7 +133,7 @@ CONF_FILTER=
     curl -L ${CONF_FILTER} -o ${CONF_FILE}.filter;
     # CONTEXT VALUES LOCAL
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
-    echo "uidgid=${uidgid}; #LOCAL";
+    echo "ENV uidgid=${uidgid} #LOCAL";
     chown -R $uidgid ${CONF_FILE}.filter;
 	
   	echo "filter {" >> ${CONF_FILE}.rb
@@ -146,7 +146,7 @@ CONF_OUTPUT=https://raw.github.com/Ardoise/KataScript/master/sh/etc/logstash/out
     curl -L ${CONF_OUTPUT} -o ${CONF_FILE}.output;
     # CONTEXT VALUES LOCAL
     uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
-    echo "uidgid=${uidgid}; #LOCAL";
+    echo "ENV uidgid=${uidgid} #LOCAL";
     chown -R $uidgid ${CONF_FILE}.output;
 	
   	echo "output {" >> ${CONF_FILE}.rb
@@ -164,14 +164,14 @@ install)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
 
   #LocalENV
-  Bin="/opt/";echo "Bin=$Bin";
-  Cache="/var/cache/"; echo "Cache=$Cache";
-  Etc="/etc/";echo "Etc=$Etc";
-  Lib="/var/lib/";echo "Lib=$Lib";
-  Log="/var/log/";echo "Log=$Log";
-  Run="/var/run/";echo "Run=$Run";
-  Plugin="/usr/share/";echo "Plugin=$Plugin";
-  Data="/usr/share/";echo "Data=$Data";
+  Bin="/opt/";echo "ENV Bin=$Bin";
+  Cache="/var/cache/"; echo "ENV Cache=$Cache";
+  Etc="/etc/";echo "ENV Etc=$Etc";
+  Lib="/var/lib/";echo "ENV Lib=$Lib";
+  Log="/var/log/";echo "ENV Log=$Log";
+  Run="/var/run/";echo "ENV Run=$Run";
+  Plugin="/usr/share/";echo "ENV Plugin=$Plugin";
+  Data="/usr/share/";echo "ENV Data=$Data";
   
   #OWNER
   [ -x "${SH_DIR}/lib/usergroup.sh" ] || exit $SCRIPT_ERROR;
@@ -179,9 +179,9 @@ install)
   ${SH_DIR}/lib/usergroup.sh OPTION uid=$NAME;
   echo "PATH=\$PATH:/opt/$NAME" >/etc/profile.d/profile.add.$NAME.sh;
   uidgid=`${SH_DIR}/lib/usergroup.sh GET uid=$NAME form=ug`;
-  echo "uidgid=${uidgid};"
-    uid=`echo ${uidgid} | cut -d':' -f1`;echo "uid=${uid};"
-    gid=`echo ${uidgid} | cut -d':' -f2`;echo "gid=${gid};"
+  echo "ENV uidgid=${uidgid}"
+    uid=`echo ${uidgid} | cut -d':' -f1`;echo "ENV uid=${uid};"
+    gid=`echo ${uidgid} | cut -d':' -f2`;echo "ENV gid=${gid};"
   
   #LocalENV + OWNER => PROFIL
   mkdir -p $Bin$NAME || true; chown -R $uidgid $Bin$NAME || true;
@@ -204,7 +204,7 @@ https://download.elasticsearch.org/logstash/logstash/packages/debian/logstash-co
 
   for d in "${downloads[@]}"; do
     file=$(basename ${d});
-    echo "file=${file};"
+    echo "ENV file=${file}"
     echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: test $Cache$NAME/$file";
     cd $Bin$NAME;
     case "$file" in
@@ -310,14 +310,14 @@ uninstall)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
 
   # LocalENV
-  Bin="/opt/";echo "Bin=$Bin";
-  Cache="/var/cache/"; echo "Cache=$Cache";
-  Etc="/etc/";echo "Etc=$Etc";
-  Lib="/var/lib/";echo "Lib=$Lib";
-  Log="/var/log/";echo "Log=$Log";
-  Run="/var/run/";echo "Run=$Run";
-  Plugin="/usr/share/";echo "Plugin=$Plugin";
-  Data="/usr/share/";echo "Data=$Data";
+  Bin="/opt/";echo "ENV Bin=$Bin";
+  Cache="/var/cache/"; echo "ENV Cache=$Cache";
+  Etc="/etc/";echo "ENV Etc=$Etc";
+  Lib="/var/lib/";echo "ENV Lib=$Lib";
+  Log="/var/log/";echo "ENV Log=$Log";
+  Run="/var/run/";echo "ENV Run=$Run";
+  Plugin="/usr/share/";echo "ENV Plugin=$Plugin";
+  Data="/usr/share/";echo "ENV Data=$Data";
 
   [ -f "$Bin$NAME/$NAME.uninstall" ] && cp $Bin$NAME/$NAME.uninstall /tmp/;
   [ -f "/tmp/$NAME.uninstall" ] && sudo sh /tmp/$NAME.uninstall;
@@ -329,7 +329,7 @@ restart)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
   CMD="#i#restart#i#";
-  echo "CMD=${CMD};"
+  echo "ENV CMD=${CMD}";
   case $CMD in
   *i#restart#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -345,7 +345,7 @@ daemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   chkconfig ulogstash on;
   CMD="#i#daemon#i#";
-  echo "CMD=${CMD};"
+  echo "ENV CMD=${CMD}";
   case $CMD in
   *i#daemon#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -361,7 +361,7 @@ nodaemon)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   chkconfig ulogstash off;
   CMD="#i#nodaemon#i#";
-  echo "CMD=${CMD};"
+  echo "ENV CMD=${CMD}";
   case $CMD in
   *i#nodaemon#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -377,7 +377,7 @@ start)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -x "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME start && exit 0 || exit $?);
 /etc/init.d/ulogstash start
-  echo "CMD=${CMD};"
+  echo "ENV CMD=${CMD}";
   case $CMD in
   *i#start#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -393,7 +393,7 @@ stop)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -f "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME stop && exit 0 || exit $?);
 /etc/init.d/ulogstash stop
-  echo "CMD=${CMD};"
+  echo "ENV CMD=${CMD}";
   case $CMD in
   *i#stop#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -409,7 +409,7 @@ status)
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: template-$NAME : $1 ...";
   # [ -f "/etc/init.d/$NAME" ] && (/etc/init.d/$NAME status && exit 0 || exit $?);
 /etc/init.d/ulogstash status
-  echo "CMD=${CMD};"
+  echo "ENV CMD=${CMD}";
   case $CMD in
   *i#status#i*)
     exec $CMD && exit 0 || exit $?; 
@@ -439,10 +439,10 @@ dist-upgrade)
   echo "#   export https_proxy='https://user@yourproxy.com:port/'";
   echo "#   export ftp_proxy='https://user@yourproxy.com:port/'";
   echo "#   export USEPROXY=1";
-  echo "http_proxy=${http_proxy}";    #//DUMP_ENV
-  echo "https_proxy=${https_proxy}";  #//DUMP_ENV
-  echo "ftp_proxy=${ftp_proxy}";      #//DUMP_ENV
-  echo "USEPROXY=${USEPROXY}";        #//DUMP_ENV
+  echo "ENV http_proxy=${http_proxy}";
+  echo "ENV https_proxy=${https_proxy}";
+  echo "ENV ftp_proxy=${ftp_proxy}";
+  echo "ENV USEPROXY=${USEPROXY}";
 
   # DEPENDS : PLATFORM
   case "$platform" in
@@ -467,13 +467,13 @@ dist-upgrade)
   #rvm-x.y.z - #install
   #rvm::ruby-x.y.z - #install
   [ -r "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
-  vrvm=$(rvm --version |awk '{print $2}'); echo "vrvm=${vrvm};";
+  vrvm=$(rvm --version |awk '{print $2}'); echo "ENV vrvm=${vrvm}";
   if [[ "$vrvm" < "1.26.10" ]]; then
     echo "#  Install RVM##X.Y.Z stable";
     curl -sSL https://rvm.io/mpapis.asc |sudo gpg --import -
     curl -sSL https://get.rvm.io |bash -s stable; #rvm 1.26.11
     [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
-    vrvm=$(rvm --version |awk '{print $2}'); echo "vrvm=${vrvm};";
+    vrvm=$(rvm --version |awk '{print $2}'); echo "ENV vrvm=${vrvm}";
     [[ "$(grep -n 'rvm/scripts/rvm' ${HOME}/.bash_profile |cut -d':' -f1)" > 0 ]] || echo '. /usr/local/rvm/scripts/rvm' >> ${HOME}/.bash_profile;
     [[ "$(grep -n 'progress-bar' ${HOME}/.curlrc |cut -d':' -f1)" > 0 ]] || echo progress-bar >> ${HOME}/.curlrc
     [ -r "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
@@ -488,10 +488,10 @@ dist-upgrade)
   #==========
   #  rvm-x.y.z - #install
   #  rvm::ruby-x.y.z - #install
-  vruby=$(ruby --version |awk '{print $2}'); echo "vruby=${vruby};";
+  vruby=$(ruby --version |awk '{print $2}'); echo "ENV vruby=${vruby}";
   if [[ "${vruby}" < "2.1.2" ]]; then
     curl -sSL https://get.rvm.io |bash -s stable --ruby; #ruby 2.2.1
-    vruby=$(ruby --version |awk '{print $2}'); echo "vruby=${vruby};";
+    vruby=$(ruby --version |awk '{print $2}'); echo "ENV vruby=${vruby}";
   fi
   echo "#   Requirements RUBY##${vruby} successful";
   #rvm reinstall ruby
@@ -500,11 +500,11 @@ dist-upgrade)
   # echo && echo "#   Checking JRUBY##X.Y.Z";
   # #==========
   # #rvm::jruby-x.y.z - #install
-  # vjruby=$(jruby --version |awk '{print $2}'); echo "vjruby=${vjruby};";
+  # vjruby=$(jruby --version |awk '{print $2}'); echo "ENV vjruby=${vjruby}";
   # if [[ "$jruby" < "1.5.6-9" ]]; then
   #   curl -sSL https://get.rvm.io |bash -s stable --ruby=jruby; #/usr/local/rvm/rubies/jruby-1.7.19/bin/jruby"
   #   [ -f "/usr/local/rvm/scripts/rvm" ] && . /usr/local/rvm/scripts/rvm;
-  #   vjruby=$(jruby --version |awk '{print $2}'); echo "vjruby=${vjruby};";
+  #   vjruby=$(jruby --version |awk '{print $2}'); echo "ENV vjruby=${vjruby}";
   # fi
   # echo "#   Requirements JRUBY##${vjruby} successful";
   # #rvm reinstall jruby
@@ -524,14 +524,14 @@ dist-upgrade)
   #==========
   echo && echo "#   Checking GEM##X.Y.Z";
   #==========
-  vgem=$(gem --version |awk '{print $1}');  echo "vgem=${vgem};";
+  vgem=$(gem --version |awk '{print $1}');  echo "ENV vgem=${vgem}";
   if [[ "$vgem" < "2.2.1" ]]; then
     gem update ;
 
     echo "#   update GEM##RUBIES";
     gem install bundler
 
-    vgem=$(gem --version |awk '{print $1}'); echo "vgem=${vgem};";
+    vgem=$(gem --version |awk '{print $1}'); echo "ENV vgem=${vgem}";
   fi
   echo "#   Requirements GEM##${vgem} successful";
   
@@ -540,7 +540,7 @@ dist-upgrade)
   #==========
   echo && echo "#   Install JSONQuery Parser";
   #==========
-  vjq=$(jq --version |awk -F'-' '{print $2}'); echo "vjq=${vjq};";
+  vjq=$(jq --version |awk -F'-' '{print $2}'); echo "ENV vjq=${vjq}";
   if [[ "$vjq" < "1.3" ]]; then
     case $(uname -m) in
       *64) #64 bits = x86_64
@@ -553,7 +553,7 @@ dist-upgrade)
       ;;
     esac
     chmod a+x jq* ; mv jq* /usr/bin/;
-    vjq=$(jq --version |awk -F'-' '{print $2}'); echo "vjq=${vjq};";
+    vjq=$(jq --version |awk -F'-' '{print $2}'); echo "ENV vjq=${vjq}";
   fi
   echo "#   Requirements JQ##${vjq} successful";
 
@@ -679,16 +679,16 @@ dist-upgrade)
   #==========
   echo && echo "#   Checking PYTHON3##X.Y.Z";
   #==========
-  vpython3=$(python3 --version |awk '{print $2}');  echo "vpython3=${vpython3};";
+  vpython3=$(python3 --version |awk '{print $2}');  echo "ENV vpython3=${vpython3}";
   if [[ "$vpython3" < "3.4.1" ]]; then
       #==========
       echo "#   altinstall PYTHON3#3.4.3 from source"; #MULTIPLE PYTHON (eq. make altinstall))
       #========== SOURCE
-      PYTHON_VERSION=3.4; echo "PYTHON_VERSION=${PYTHON_VERSION};";
-      PYTHON_VERSION_SRC=${PYTHON_VERSION}.3; echo "PYTHON_VERSION_SRC=${PYTHON_VERSION_SRC};";
-      PYTHON_FILE_SRC="Python-${PYTHON_VERSION_SRC}.tar.xz"; echo "PYTHON_FILE_SRC=${PYTHON_FILE_SRC};";
-      PYTHON_URI_SRC=https://www.python.org/ftp/python/${PYTHON_VERSION_SRC}/${PYTHON_FILE_SRC}; echo "PYTHON_URI_SRC=${PYTHON_URI_SRC};";
-      prefix=/opt/python${PYTHON_VERSION};echo "prefix=${prefix};";
+      PYTHON_VERSION=3.4; echo "ENV PYTHON_VERSION=${PYTHON_VERSION}";
+      PYTHON_VERSION_SRC=${PYTHON_VERSION}.3; echo "ENV PYTHON_VERSION_SRC=${PYTHON_VERSION_SRC};";
+      PYTHON_FILE_SRC="Python-${PYTHON_VERSION_SRC}.tar.xz"; echo "ENV PYTHON_FILE_SRC=${PYTHON_FILE_SRC}";
+      PYTHON_URI_SRC=https://www.python.org/ftp/python/${PYTHON_VERSION_SRC}/${PYTHON_FILE_SRC}; echo "ENV PYTHON_URI_SRC=${PYTHON_URI_SRC}";
+      prefix=/opt/python${PYTHON_VERSION};echo "ENV prefix=${prefix}";
 
       cd /tmp;
       wget ${PYTHON_URI_SRC}
@@ -718,7 +718,7 @@ dist-upgrade)
         make && make test && sudo make altinstall; #for others python
       )
       #
-      PYTHON_ALIAS='alias py="'${prefix}'/bin/python3";'; echo "PYTHON_ALIAS=${PYTHON_ALIAS};";
+      PYTHON_ALIAS='alias py="'${prefix}'/bin/python3";'; echo "ENV PYTHON_ALIAS=${PYTHON_ALIAS}";
       for a in ${HOME}/.bashrc ${HOME}/.bash_aliases; do
         sed 's~alias py=.*~~' ${a} >${a}.kstmp; #previous if exist
         echo ${PYTHON_ALIAS} >> ${a}.kstmp;
@@ -727,14 +727,14 @@ dist-upgrade)
       done
       echo "#    use python with python${PYTHON_VERSION}";
 
-      vpython3=$(python3 --version |awk '{print $2}'); echo "vpython3=${vpython3};";
+      vpython3=$(python3 --version |awk '{print $2}'); echo "ENV vpython3=${vpython3}";
   fi
   echo "#   Requirements PYTHON3##${vpython3} successful";
 
   #==========
   echo && echo "#   Checking PIP##X.Y.Z";
   #==========
-  vpip=$(python -m pip --version |awk '{print $2}'); echo "vpip=${vpip};";
+  vpip=$(python -m pip --version |awk '{print $2}'); echo "ENV vpip=${vpip}";
   if [[ "$vpip" < "1.5.5" ]]; then
       # #==========
       echo "#   install PIP#1.5.6 from source"; #/usr/local/lib/python3.4/dist-packages
@@ -745,7 +745,7 @@ dist-upgrade)
       python get-pip.py
       python -m pip --version
       python -m pip install -U pip
-      vpip=$(python -m pip --version |awk '{print $2}'); echo "vpip=${vpip};";
+      vpip=$(python -m pip --version |awk '{print $2}'); echo "ENV vpip=${vpip}";
   fi
   echo "#   Requirements PIP##${vpip} successful";
 
@@ -757,8 +757,8 @@ dist-upgrade)
 
     for p in p34; do
 
-      home=/opt/venv; echo "home=${home};";
-      project=${p}; echo "project=${project};";
+      home=/opt/venv; echo "ENV home=${home}";
+      project=${p}; echo "ENV project=${project}";
 
       [ -d ${home} ] || mkdir -p ${home};
       [ -d ${home} ] && cd ${home};
@@ -768,7 +768,7 @@ dist-upgrade)
         p34)
           #PACKAGE VIRTUAL ENV
           #eval VENV_PYTHON=$(realpath $(which python3));
-          export VENV_PYTHON=${prefix}/bin/python${PYTHON_VERSION}; echo "VENV_PYTHON=${VENV_PYTHON}; #EXPORT";
+          export VENV_PYTHON=${prefix}/bin/python${PYTHON_VERSION}; echo "ENV VENV_PYTHON=${VENV_PYTHON} #EXPORT";
           echo "#    create env Python3 with VENV_PYTHON=${VENV_PYTHON}";
           #sudo venv -p /opt/python${PYTHON_VERSION}/bin/python${PYTHON_VERSION} /opt/venv/${project} (DEPRECATED)
           sudo pyvenv /opt/venv/${project};
@@ -866,7 +866,7 @@ dist-upgrade)
   #==========
   echo && echo "#   Checking UWSGI##X.Y.Z";
   #==========
-  vuwsgi=$(uwsgi --version |awk '{print $1}'); echo "vuwsgi=${vuwsgi};";
+  vuwsgi=$(uwsgi --version |awk '{print $1}'); echo "ENV vuwsgi=${vuwsgi}";
   if [[ "${vuwsgi}" < "2.0.7" ]]; then
     #==========
     echo "#  install UWSGI#2.0.10 from source [OPTION]"
@@ -879,7 +879,7 @@ dist-upgrade)
     chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi
     rm -rf uwsgi_latest_from_installer*
     chown ${WWW_DATA}:${WWW_DATA} /opt/uwsgi; #HTTP SERVER USED
-    vuwsgi=$(uwsgi --version |awk '{print $1}'); echo "vuwsgi=${vuwsgi};";
+    vuwsgi=$(uwsgi --version |awk '{print $1}'); echo "ENV vuwsgi=${vuwsgi}";
   fi
   echo "#   Requirements UWSGI##${vuwsgi} successful";
 
