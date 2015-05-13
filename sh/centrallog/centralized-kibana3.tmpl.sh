@@ -452,15 +452,12 @@ dist-upgrade)
   # DEPENDS : PLATFORM
   case "$platform" in
   Ubuntu|Debian)
-    cmd="apt-get update && apt-get -y upgrade && apt-get -y install build-essential \
-      zlib1g-dev libssl-dev sudo libreadline-dev make curl git-core openjdk-8-jre-headless \
-      sysv-rc-conf gpgv ssh libcurl4-openssl-dev wget realpath #--fix-missing #--no-install-recommends";
+    cmd="apt-get update && apt-get -y upgrade && apt-get -y install build-essential zlib1g-dev libssl-dev sudo libreadline-dev make curl git-core openjdk-8-jre-headless sysv-rc-conf gpgv ssh libcurl4-openssl-dev wget realpath #--fix-missing #--no-install-recommends";
     echo "RUN $cmd";
     eval $cmd;
     ;;
   Redhat|Fedora|CentOS)
-    cmd="yum update && yum -y upgrade && yum -y install make curl git-core gpg \
-      openjdk-8-jre-headless gpgv ssh sudo openssl-devel gcc wget git python-devel realpath #--fix-missing";
+    cmd="yum update && yum -y upgrade && yum -y install make curl git-core gpg openjdk-8-jre-headless gpgv ssh sudo openssl-devel gcc wget git python-devel realpath #--fix-missing";
     echo "RUN $cmd";
     eval $cmd;
     echo "#   NOT REAL TESTED : your contribution is welc0me";
@@ -719,8 +716,7 @@ dist-upgrade)
         case "$platform" in 
           Ubuntu|Debian)
             #REQUIRES for Python3 src
-            cmd="apt-get update && apt-get -y install zlib1g-dev libbz2-dev libcurses5-dev tcl8.6-dev tk8.6-dev \
-            liblzma-dev libreadline-dev libreadline6-dev libgdm-dev libgdm3-dev libssl-dev libsqlite3-dev python3-tk";
+            cmd="apt-get update && apt-get -y install zlib1g-dev libbz2-dev libcurses5-dev tcl8.6-dev tk8.6-dev liblzma-dev libreadline-dev libreadline6-dev libgdm-dev libgdm3-dev libssl-dev libsqlite3-dev python3-tk";
             echo "RUN $cmd";
             eval $cmd;
           ;;
