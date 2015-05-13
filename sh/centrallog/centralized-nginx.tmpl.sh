@@ -91,7 +91,7 @@ if [ $idu -ne 0 ]; then
   exit $SCRIPT_ERROR
 fi
 
-using_shell=$(ps -p $$);
+using_shell=$(ps -p $$ |xargs);
 echo "ENV using_shell=${using_shell}";
 
 # Load the VERBOSE setting and other rcS variables
