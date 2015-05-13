@@ -42,6 +42,9 @@
 # PLUGINS:  [ "/usr/share/kibana4/plugins" ]
 # DATA:     [ "/usr/share/kibana4/data" ]
 
+echo "FROM KataScript";
+echo "MAINTAINER 2013-2015 eTopaze <https://github.com/Ardoise>
+
 PATH=/sbin:/usr/sbin:/bin:/usr/bin; 
 echo "ENV PATH=${PATH}";
 DESCRIPTION="KIBANA4 Server"; 
@@ -82,6 +85,7 @@ echo "ENV WWW_DATA=${WWW_DATA}";
 
 idu=`id -u`;
 echo "ENV idu=${idu} #You need root privileges to run this script !";
+echo "USER $(id -un) #You need root privileges to run this script !";
 if [ $idu -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: WARN ${SCRIPT_ERROR}"
   exit $SCRIPT_ERROR
@@ -255,15 +259,17 @@ REOF
       *)
         case "$platform" in
         Debian|Ubuntu)
-          sudo apt-get update #--fix-missing
-          sudo apt-get -y install $NAME;
+          cmd="apt-get update && apt-get -y install $NAME";
+          echo "RUN $cmd";
+          eval $cmd;
           cat <<-REOF >$Bin$NAME/$NAME.uninstall
-          sudo apt-get uninstall $NAME;
+          sudo apt-get remove $NAME;
 REOF
           ;;
         Redhat|Fedora|CentOS)
-          sudo yum update #--fix-missing
-          sudo yum -y install $NAME;
+          cmd="RUN yum update && yum -y install $NAME";
+          echo "RUN $cmd";
+          eval $cmd;
           cat <<-REOF >$Bin$NAME/$NAME.uninstall
           sudo yum uninstall $NAME;
 REOF
@@ -446,16 +452,17 @@ dist-upgrade)
   # DEPENDS : PLATFORM
   case "$platform" in
   Ubuntu|Debian)
-    sudo apt-get update; #--fix-missing #--no-install-recommends
-    sudo apt-get -y upgrade;
-    sudo apt-get -y install build-essential zlib1g-dev libssl-dev sudo \
-      libreadline-dev make curl git-core openjdk-8-jre-headless sysv-rc-conf gpgv ssh libcurl4-openssl-dev wget realpath;
+    cmd="apt-get update && apt-get -y upgrade && apt-get -y install build-essential \
+      zlib1g-dev libssl-dev sudo libreadline-dev make curl git-core openjdk-8-jre-headless \
+      sysv-rc-conf gpgv ssh libcurl4-openssl-dev wget realpath #--fix-missing #--no-install-recommends";
+    echo "RUN $cmd";
+    eval $cmd;
     ;;
   Redhat|Fedora|CentOS)
-    sudo yum update; #--fix-missing
-    sudo yum -y upgrade;
-    sudo yum -y install make curl git-core gpg openjdk-8-jre-headless gpgv ssh sudo \
-      openssl-devel gcc curl wget git python-devel realpath;
+    cmd="yum update && yum -y upgrade && yum -y install make curl git-core gpg \
+      openjdk-8-jre-headless gpgv ssh sudo openssl-devel gcc wget git python-devel realpath #--fix-missing";
+    echo "RUN $cmd";
+    eval $cmd;
     echo "#   NOT REAL TESTED : your contribution is welc0me";
     ;;
   esac
@@ -566,7 +573,10 @@ dist-upgrade)
   case "$platform" in
    Ubuntu|Debian)
      #Install PYTHON2##2.7.9
-     sudo apt-get -y install python-pip;
+     cmd="apt-get -y install python-pip";
+     echo "RUN $cmd";
+     eval $cmd;
+
      # python-colorama python-distlib python-html5lib python-ndg-httpsclient python-requests 
      # python-setuptools python-urllib3 python-wheel
      
@@ -581,7 +591,9 @@ dist-upgrade)
      echo "#  detect pip : $(python -m pip --version 2>&1)";
 
      #Install PYTHON3##3.4.3
-     sudo apt-get -y install python3-pip;
+     cmd="apt-get -y install python3-pip";
+     echo "RUN $cmd";
+     eval $cmd;
      # binutils build-essential cpp cpp-4.9 dpkg-dev fakeroot g++ g++-4.9 gcc gcc-4.9 
      # libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl libasan1 
      # libatomic1 libc-dev-bin libc6-dev libcilkrts5 libcloog-isl4 libdpkg-perl libexpat1-dev 
@@ -627,7 +639,10 @@ dist-upgrade)
      #  bundler sqlite3-doc nginx-full cherokee libapache2-mod-proxy-uwsgi libapache2-mod-uwsgi 
      #  libapache2-mod-ruwsgi uwsgi-extra python-uwsgidecorators python3-uwsgidecorators
 
-     sudo apt-get install -y python3-venv; #OPTION #REPLACE the DEPRECATED VIRTUALENV
+     cmd="apt-get -y install python3-venv #REPLACE the DEPRECATED virtualenv";
+     echo "RUN $cmd";
+     eval $cmd;
+
      # python-chardet-whl python-colorama-whl python-distlib-whl python-html5lib-whl python-pip-whl 
      # python-requests-whl python-setuptools-whl python-six-whl python-urllib3-whl python3.4-venv
 
@@ -703,13 +718,16 @@ dist-upgrade)
         #readline              zlib
         case "$platform" in 
           Ubuntu|Debian)
-            sudo apt-get update;
             #REQUIRES for Python3 src
-            sudo apt-get install -y zlib1g-dev libbz2-dev libcurses5-dev tcl8.6-dev tk8.6-dev liblzma-dev;
-            sudo apt-get install -y libreadline-dev libreadline6-dev libgdm-dev libgdm3-dev libssl-dev libsqlite3-dev python3-tk;
+            cmd="apt-get update && apt-get -y install zlib1g-dev libbz2-dev libcurses5-dev tcl8.6-dev tk8.6-dev \
+            liblzma-dev libreadline-dev libreadline6-dev libgdm-dev libgdm3-dev libssl-dev libsqlite3-dev python3-tk";
+            echo "RUN $cmd";
+            eval $cmd;
           ;;
           Redhat|Fedora|CentOS)
-            yum -y update;
+            cmd="yum -y update";
+            echo "RUN $cmd";
+            eval $cmd;
           ;;
         esac
       
