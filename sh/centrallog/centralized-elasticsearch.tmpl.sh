@@ -43,7 +43,7 @@
 # DATA:     [ "/usr/share/elasticsearch/data" ]
 
 echo "FROM KataScript";
-echo "MAINTAINER 2013-2015 eTopaze <https://github.com/Ardoise>
+echo "MAINTAINER 2013-2015 eTopaze <https://github.com/Ardoise>"
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin; 
 echo "ENV PATH=${PATH}";
@@ -84,8 +84,8 @@ WWW_DATA="www-data";
 echo "ENV WWW_DATA=${WWW_DATA}";
 
 idu=`id -u`;
-echo "ENV idu=${idu} #You need root privileges to run this script !";
-echo "USER $(id -un) #You need root privileges to run this script !";
+echo "ENV idu=${idu} #You need root privileges to run this script";
+echo "USER $(id -un) #You need root privileges to run this script";
 if [ $idu -ne 0 ]; then
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: WARN ${SCRIPT_ERROR}"
   exit $SCRIPT_ERROR
