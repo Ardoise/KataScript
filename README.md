@@ -1,7 +1,8 @@
 ## KATASCRIPT REST/JSON Shell ReadyForUse
 
 ### PLATFORMS Portable
-##### INSTALL VAGRANT either :
+##### INSTALL VAGRANT either : 
+     # requires : [virtualbox](https://www.virtualbox.org/wiki/Downloads)[vagrant](https://docs.vagrantup.com/)
      $ vagrant box add vivid64 https://cloud-images.ubuntu.com/vagrant/vivid/current/vivid-server-cloudimg-amd64-vagrant-disk1.box
      $ vagrant init vivid64
      $ vagrant up
