@@ -2,7 +2,7 @@
 
 ### PLATFORMS Portable
 ##### INSTALL VAGRANT either :
-   # requires :
+   requires :
    [virtualbox](https://www.virtualbox.org/wiki/Downloads)
    [vagrant](http://www.vagrantup.com/downloads)
     
